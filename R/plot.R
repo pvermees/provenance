@@ -21,8 +21,8 @@ plot.KDE <- function(x,pch='|',xlab="age [Ma]",ylab="",...){
     } else {
         graphics::plot(x$x,x$y,type='l',xlab=xlab,ylab=ylab,...)
     }
-    graphics::points(x$ages,rep(graphics::par("usr")[3]/2,length(x$ages)),pch=pch,...)
-    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),paste0("n=",length(x$ages)),pos=2,...)
+    graphics::points(x$ages,rep(graphics::par("usr")[3]/2,length(x$ages)),pch=pch)
+    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),paste0("n=",length(x$ages)),pos=2)
 }
 
 # Plot multiple KDEs. Used by summaryplot function
@@ -79,17 +79,17 @@ plot.distributional <- function(x,snames=NULL,annotate=TRUE,CAD=FALSE,
             graphics::lines(stats::ecdf(x$x[[snames[i]]]),pch=pch,verticals=verticals,
                   col=col[i],xlab=x$xlab,main="",...)
         }
-        graphics::legend("bottomright",legend=snames,lwd=1,col=col,...)
+        graphics::legend("bottomright",legend=snames,lwd=1,col=col)
     } else {
         if (annotate){
             if (CAD) { graphics::plot(stats::ecdf(x$x[[snames]]),pch=pch,
                        verticals=verticals,col=col,main=snames,...) }
-            else { graphics::hist(x$x[[snames]],x$breaks,col=col,...) }
+            else { graphics::hist(x$x[[snames]],x$breaks,col=col) }
         } else {
-            if (CAD) { graphics::plot(stats::ecdf(x$x[[snames]],...),pch=pch,verticals=verticals,
+            if (CAD) { graphics::plot(stats::ecdf(x$x[[snames]]),pch=pch,verticals=verticals,
                        axes=FALSE,xlab="",ylab="",main="",col=col,...)
             } else { graphics::hist(x$x[[snames]],x$breaks, axes=FALSE,
-                                    xlab="",ylab="",main="",col=col,...) }
+                                    xlab="",ylab="",main="",col=col) }
         }
     }
 }
@@ -162,6 +162,8 @@ plot.PCA <- function(x,...){
 #' 
 #' @param x an object of class \code{MDS}
 #' @param nnlines if TRUE, draws nearest neighbour lines
+#' @param pch plot character (see ?plot for details)
+#' @param cex magnification of the plot character (see ?par for details)
 #' @param xlab a string with the label of the x axis
 #' @param ylab a string with the label of the y axis
 #' @param xaxt if = 's', adds ticks to the x axis
@@ -170,14 +172,24 @@ plot.PCA <- function(x,...){
 #' @seealso MDS
 #' @method plot MDS
 #' @export
-plot.MDS <- function(x,nnlines=FALSE,xlab="",ylab="",xaxt='n',yaxt='n',...){
+plot.MDS <- function(x,nnlines=FALSE,pch=NA,cex=NA,
+                     xlab="",ylab="",xaxt='n',yaxt='n',...){
     graphics::plot(x$points, type="n", asp=1, xlab=xlab,
                    ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
     # draw lines between closest neighbours
     pos <- NULL
-    if (nnlines) { plotlines(x$points,x$diss) }
-    graphics::points(x$points, ...)
-    graphics::text(x$points, labels = labels(x$diss), ... )
+    if (nnlines) {
+        if (is.na(pch)) pch=21
+        if (is.na(cex)) cex=2.5
+        plotlines(x$points,x$diss)
+    } else {
+        if (!is.na(pch) & is.na(cex)) {
+            cex <- 1
+            pos <- 3
+        }
+    }
+    graphics::points(x$points, pch=pch, cex=cex, col='red', bg='white')
+    graphics::text(x$points, labels = labels(x$diss), pos=pos)
     if (!x$classical){
         grDevices::dev.new()
         shep <- MASS::Shepard(x$diss, x$points)
@@ -242,7 +254,7 @@ summaryplot <- function(...,ncol=1){
             if (i==ncol){
                 ds <- grDevices::dev.size()[2]/(nppc+1)
                 annotation(d,height=ds)
-                graphics::title(d$name,line=-1)
+                if (nd>2) graphics::title(d$name,line=-1)
             } else {
                 emptyplot()
             }
