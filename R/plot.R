@@ -126,17 +126,27 @@ plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
 #' Plots the group configuration of a Generalised Procrustes Analysis
 #'
 #' @param x an object of class \code{GPA}
+#' @param pch plot symbol
+#' @param pos position of the sample labels relative to the plot symbols if pch != NA
+#' @param col plot colour (may be a vector)
+#' @param bg background colour (may be a vector)
+#' @param cex relative size of plot symbols
 #' @param ... optional arguments to the generic \code{plot} function
 #' @examples
 #' data(Namib)
 #' GPA <- procrustes(Namib$DZ,Namib$HM)
-#' plot(GPA)
+#' coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+#' snames <- names(Namib$DZ)
+#' bgcol <- rep('yellow',length(snames))
+#' bgcol[which(snames %in% coast)] <- 'red'
+#' plot(GPA,pch=21,bg=bgcol)
 #' @seealso procrustes
 #' @method plot GPA
 #' @export
-plot.GPA <- function(x,...){
-    graphics::plot(x$points[,1],x$points[,2],type="n",asp=1,...)
-    graphics::text(x$points[,1],x$points[,2],x$labels)
+plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
+    graphics::plot(x$points[,1],x$points[,2],asp=1,pch=pch,col=col,bg=bg,cex=cex,...)
+    if (!is.na(pch) & is.null(pos)) { pos <- 1 }
+    graphics::text(x$points[,1],x$points[,2],x$labels,pos=pos,col=col,bg=bg,cex=cex)
 }
 
 #' Compositional biplot
@@ -163,7 +173,10 @@ plot.PCA <- function(x,...){
 #' @param x an object of class \code{MDS}
 #' @param nnlines if TRUE, draws nearest neighbour lines
 #' @param pch plot character (see ?plot for details)
-#' @param cex magnification of the plot character (see ?par for details)
+#' @param pos position of the sample labels relative to the plot symbols if pch != NA
+#' @param cex relative size of plot symbols (see ?par for details)
+#' @param col plot colour (may be a vector)
+#' @param bg background colour (may be a vector)
 #' @param xlab a string with the label of the x axis
 #' @param ylab a string with the label of the y axis
 #' @param xaxt if = 's', adds ticks to the x axis
@@ -171,25 +184,27 @@ plot.PCA <- function(x,...){
 #' @param ... optional arguments to the generic \code{plot} function
 #' @seealso MDS
 #' @method plot MDS
+#' @examples
+#' data(Namib)
+#' mds <- MDS(Namib$DZ)
+#' coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+#' snames <- names(Namib$DZ)
+#' bgcol <- rep('yellow',length(snames))
+#' bgcol[which(snames %in% coast)] <- 'red'
+#' plot(mds,pch=21,bg=bgcol)
 #' @export
-plot.MDS <- function(x,nnlines=FALSE,pch=NA,cex=NA,
-                     xlab="",ylab="",xaxt='n',yaxt='n',...){
-    graphics::plot(x$points, type="n", asp=1, xlab=xlab,
-                   ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
+plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
+                     col='black',bg='white',xlab="",ylab="",xaxt='n',yaxt='n',...){
+    graphics::plot(x$points, type='n', asp=1, xlab=xlab, ylab=ylab, xaxt=xaxt, yaxt=yaxt,...)
     # draw lines between closest neighbours
-    pos <- NULL
+    if (!is.na(pch) & is.null(pos)) { pos <- 1 }
     if (nnlines) {
         if (is.na(pch)) pch=21
         if (is.na(cex)) cex=2.5
         plotlines(x$points,x$diss)
-    } else {
-        if (!is.na(pch) & is.na(cex)) {
-            cex <- 1
-            pos <- 3
-        }
     }
-    graphics::points(x$points, pch=pch, cex=cex, col='red', bg='white')
-    graphics::text(x$points, labels = labels(x$diss), pos=pos)
+    graphics::points(x$points, pch=pch, cex=cex, col=col, bg=bg)
+    graphics::text(x$points, labels = labels(x$diss), pos=pos, col=col, bg=bg, cex=cex)
     if (!x$classical){
         grDevices::dev.new()
         shep <- MASS::Shepard(x$diss, x$points)
