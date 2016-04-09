@@ -236,7 +236,7 @@ qfl <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 plot(qfl,type="QFL.dickinson")
 qfl.acomp <- as.acomp(qfl)
 ## uncomment the next two lines to plot an error
-## ellipse using the compositions package:
+## ellipse using the compositions package: 
 # library(compositions)
 # ellipses(mean(qfl.acomp),var(qfl.acomp),r=2)
 
@@ -261,7 +261,7 @@ data(Namib)
 PT.acomp <- as.acomp(Namib$PT)
 PT.compositional <- as.compositional(PT.acomp)
 print(Namib$PT$x - PT.compositional$x)
-## uncomment the following lines for an illustration of using this
+## uncomment the following lines for an illustration of using this 
 ## function to integrate the \code{provenance} package with \code{compositions}
 # library(compositions)
 # data(Glacial)
@@ -547,7 +547,11 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 data(Namib)
 GPA <- procrustes(Namib$DZ,Namib$HM)
-plot(GPA)
+coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+snames <- names(Namib$DZ)
+bgcol <- rep('yellow',length(snames))
+bgcol[which(snames %in% coast)] <- 'red'
+plot(GPA,pch=21,bg=bgcol)
 
 
 
@@ -567,7 +571,11 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 data(Namib)
-plot(indscal(Namib$DZ,Namib$HM))
+coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+snames <- names(Namib$DZ)
+pch <- rep(21,length(snames))
+pch[which(snames %in% coast)] <- 22
+plot(indscal(Namib$DZ,Namib$HM),pch=pch)
 
 
 
@@ -588,13 +596,38 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 data(Namib)
 samp <- Namib$DZ$x[['N1']]
-dens <- KDE(samp,0,3000)
+dens <- KDE(samp,from=0,to=3000)
 plot(dens)
 
 
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("plot.KDE", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("plot.MDS")
+### * plot.MDS
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: plot.MDS
+### Title: Plot an MDS configuration
+### Aliases: plot.MDS
+
+### ** Examples
+
+data(Namib)
+mds <- MDS(Namib$DZ)
+coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+snames <- names(Namib$DZ)
+bgcol <- rep('yellow',length(snames))
+bgcol[which(snames %in% coast)] <- 'red'
+plot(mds,pch=21,bg=bgcol)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("plot.MDS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("plot.PCA")
 ### * plot.PCA
@@ -693,7 +726,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 data(Namib)
 tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-plot(tern,type='QFL.descriptive')
+plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 
 
 

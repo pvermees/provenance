@@ -269,15 +269,11 @@ gui.mds <- function(){
                 "Looks like you\'re overfitting your data!")
     }
     if (!dat$method %in% c("bray","SH")){
-        message("Do you want to switch to classical scaling?")
         if (mymds$stress < 0.05){
+            message("Do you want to switch to classical scaling?")
             response <- readline("[Y or n]: ")
             if (response %in% c("n","N")) classical <- FALSE
             else classical <- TRUE
-        } else {
-            response <- readline("[y or N]: ")
-            if (response %in% c("y","Y")) classical <- TRUE
-            else classical <- FALSE
         }
         if (classical){
             mymds <- MDS(dat,classical,method=method)
@@ -285,7 +281,7 @@ gui.mds <- function(){
     }
     thennlines=FALSE
     thepch=NA
-    thecex=NA
+    thecex=1
     thexlab=""
     theylab=""
     thexaxt='n'

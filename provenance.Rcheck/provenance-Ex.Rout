@@ -1,6 +1,6 @@
 
-R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R Under development (unstable) (2016-01-21 r69971) -- "Unsuffered Consequences"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -259,7 +259,7 @@ dev.new(): using pdf(file="Rplots1.pdf")
 > plot(qfl,type="QFL.dickinson")
 > qfl.acomp <- as.acomp(qfl)
 > ## uncomment the next two lines to plot an error
-> ## ellipse using the compositions package:
+> ## ellipse using the compositions package: 
 > # library(compositions)
 > # ellipses(mean(qfl.acomp),var(qfl.acomp),r=2)
 > 
@@ -303,7 +303,7 @@ N13 0  0 0  0  0  0
 N14 0  0 0  0  0  0
 T8  0  0 0  0  0  0
 T13 0  0 0  0  0  0
-> ## uncomment the following lines for an illustration of using this
+> ## uncomment the following lines for an illustration of using this 
 > ## function to integrate the \code{provenance} package with \code{compositions}
 > # library(compositions)
 > # data(Glacial)
@@ -637,7 +637,11 @@ iter  30 value 1.626004
 iter  30 value 1.624989
 final  value 1.624989 
 converged
-> plot(GPA)
+> coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+> snames <- names(Namib$DZ)
+> bgcol <- rep('yellow',length(snames))
+> bgcol[which(snames %in% coast)] <- 'red'
+> plot(GPA,pch=21,bg=bgcol)
 > 
 > 
 > 
@@ -657,7 +661,11 @@ converged
 > ### ** Examples
 > 
 > data(Namib)
-> plot(indscal(Namib$DZ,Namib$HM))
+> coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+> snames <- names(Namib$DZ)
+> pch <- rep(21,length(snames))
+> pch[which(snames %in% coast)] <- 22
+> plot(indscal(Namib$DZ,Namib$HM),pch=pch)
 dev.new(): using pdf(file="Rplots3.pdf")
 > 
 > 
@@ -679,13 +687,50 @@ dev.new(): using pdf(file="Rplots3.pdf")
 > 
 > data(Namib)
 > samp <- Namib$DZ$x[['N1']]
-> dens <- KDE(samp,0,3000)
+> dens <- KDE(samp,from=0,to=3000)
 > plot(dens)
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("plot.KDE", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot.MDS")
+> ### * plot.MDS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.MDS
+> ### Title: Plot an MDS configuration
+> ### Aliases: plot.MDS
+> 
+> ### ** Examples
+> 
+> data(Namib)
+> mds <- MDS(Namib$DZ)
+initial  value 10.433734 
+iter   5 value 8.523890
+iter  10 value 8.154735
+iter  15 value 8.048099
+iter  20 value 7.871811
+iter  20 value 7.868858
+iter  25 value 7.642453
+iter  25 value 7.640889
+iter  25 value 7.640383
+final  value 7.640383 
+converged
+> coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+> snames <- names(Namib$DZ)
+> bgcol <- rep('yellow',length(snames))
+> bgcol[which(snames %in% coast)] <- 'red'
+> plot(mds,pch=21,bg=bgcol)
+dev.new(): using pdf(file="Rplots4.pdf")
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.MDS", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("plot.PCA")
 > ### * plot.PCA
@@ -784,7 +829,7 @@ dev.new(): using pdf(file="Rplots3.pdf")
 > 
 > data(Namib)
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-> plot(tern,type='QFL.descriptive')
+> plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 > 
 > 
 > 
@@ -990,7 +1035,7 @@ converged
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.327 0.015 9.348 0 0 
+Time elapsed:  20.98 9.396 19.808 0 0 
 > grDevices::dev.off()
 pdf 
   2 

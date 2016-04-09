@@ -2,15 +2,16 @@
 #'
 #' Plots an object of class \code{KDE}
 #' @param x an object of class \code{KDE}
-#' @param pch the symbol used to show the samples. Set \code{pch = NA}
-#' to turn them off
+#' @param pch the symbol used to show the samples. May be a vector.
+#'     Set \code{pch = NA} to turn them off.
 #' @param xlab the label of the x-axis
 #' @param ylab the label of the y-axis
-#' @param ... optional parameters to be passed on to the graphics object
+#' @param ... optional parameters to be passed on to the graphics
+#'     object
 #' @examples
 #' data(Namib)
 #' samp <- Namib$DZ$x[['N1']]
-#' dens <- KDE(samp,0,3000)
+#' dens <- KDE(samp,from=0,to=3000)
 #' plot(dens)
 #' @seealso KDE
 #' @method plot KDE
@@ -41,25 +42,26 @@ plot.KDEs <- function(x,sname,annotate=TRUE,...){
 
 #' Plot continuous data as histograms or cumulative age distributions
 #'
-#' Plot one or several samples from a \code{distributional} dataset as a
-#' histogram or Cumulative Age Distributions (CAD).
+#' Plot one or several samples from a \code{distributional} dataset as
+#' a histogram or Cumulative Age Distributions (CAD).
 #' @param x an object of class \code{distributional}
 #' @param snames a string or a vector of string with the names of the
-#' samples that need plotting if \code{snames} is a vector, then the
-#' function will default to a CAD.
+#'     samples that need plotting if \code{snames} is a vector, then
+#'     the function will default to a CAD.
 #' @param annotate boolean flag indicating whether the x- and y-axis
-#' should be labeled
+#'     should be labeled
 #' @param CAD boolean flag indicating whether the data should be
-#' plotted as a cumulative age distribution or a histogram. For
-#' multi-sample plots, the function will override this value with
-#' \code{TRUE}.
-#' @param pch an optional the symbol to mark the sample points along
-#' the CAD
+#'     plotted as a cumulative age distribution or a histogram. For
+#'     multi-sample plots, the function will override this value with
+#'     \code{TRUE}.
+#' @param pch an optional symbol to mark the sample points along the
+#'     CAD
 #' @param verticals boolean flag indicating if the horizontal lines of
-#' the CAD should be connected by vertical lines
+#'     the CAD should be connected by vertical lines
 #' @param colmap an optional string with the name of one of R's
-#' built-in colour palettes (e.g., heat.colors, terrain.colors,
-#' topo.colors, cm.colors), which are to be used for plotting the data.
+#'     built-in colour palettes (e.g., heat.colors, terrain.colors,
+#'     topo.colors, cm.colors), which are to be used for plotting the
+#'     data.
 #' @param ... optional arguments to the generic \code{plot} function
 #' @examples
 #' data(Namib)
@@ -100,11 +102,13 @@ plot.distributional <- function(x,snames=NULL,annotate=TRUE,CAD=FALSE,
 #' @param x an object of class \code{compositional}
 #' @param sname the sample name
 #' @param annotate a boolean flag controlling if the pies of the
-#' pie-chart should be labeled
+#'     pie-chart should be labeled
 #' @param colmap an optional string with the name of one of R's
-#' built-in colour palettes (e.g., heat.colors, terrain.colors,
-#' topo.colors, cm.colors), which are to be used for plotting the data.
-#' @param ... optional parameters to be passed on to the graphics object
+#'     built-in colour palettes (e.g., heat.colors, terrain.colors,
+#'     topo.colors, cm.colors), which are to be used for plotting the
+#'     data.
+#' @param ... optional parameters to be passed on to the graphics
+#'     object
 #' @examples
 #' data(Namib)
 #' plot(Namib$HM,'N1',colmap='heat.colors')
@@ -127,7 +131,8 @@ plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
 #'
 #' @param x an object of class \code{GPA}
 #' @param pch plot symbol
-#' @param pos position of the sample labels relative to the plot symbols if pch != NA
+#' @param pos position of the sample labels relative to the plot
+#'     symbols if pch != NA
 #' @param col plot colour (may be a vector)
 #' @param bg background colour (may be a vector)
 #' @param cex relative size of plot symbols
@@ -172,8 +177,9 @@ plot.PCA <- function(x,...){
 #' 
 #' @param x an object of class \code{MDS}
 #' @param nnlines if TRUE, draws nearest neighbour lines
-#' @param pch plot character (see ?plot for details)
-#' @param pos position of the sample labels relative to the plot symbols if pch != NA
+#' @param pch plot character (see ?plot for details). May be a vector.
+#' @param pos position of the sample labels relative to the plot
+#'     symbols if pch != NA
 #' @param cex relative size of plot symbols (see ?par for details)
 #' @param col plot colour (may be a vector)
 #' @param bg background colour (may be a vector)
@@ -197,7 +203,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',xlab="",ylab="",xaxt='n',yaxt='n',...){
     graphics::plot(x$points, type='n', asp=1, xlab=xlab, ylab=ylab, xaxt=xaxt, yaxt=yaxt,...)
     # draw lines between closest neighbours
-    if (!is.na(pch) & is.null(pos)) { pos <- 1 }
+    if (!is.na(pch) && is.null(pos)) { pos <- 1 }
     if (nnlines) {
         if (is.na(pch)) pch=21
         if (is.na(cex)) cex=2.5
@@ -285,23 +291,28 @@ summaryplot <- function(...,ncol=1){
 #' @param type adds annotations to the ternary diagram, one of either
 #'     \code{empty}, \code{QFL.descriptive}, \code{QFL.folk} or
 #'     \code{QFL.dickinson}
-#' @param pch plot character, see \code{?par} for details
+#' @param pch plot character, see \code{?par} for details (may be a
+#'     vector)
+#' @param pos position of the sample labels relative to the plot
+#'     symbols if pch != NA
 #' @param labels vector of strings to be added to the plot symbols
 #' @param showpath if \code{x} has class \code{SRDcorrected}, and
 #'     \code{showpath}==TRUE, the intermediate values of the SRD
 #'     correction will be plotted on the ternary diagram as well as
 #'     the final composition
-#' @param col colour to be used for the background lines (if applicable)
+#' @param col colour to be used for the background lines (if
+#'     applicable)
+#' @param bg background colour for the plot symbols (may be a vector)
 #' @param ... optional arguments to the generic \code{points} function
 #' @examples
 #' data(Namib)
 #' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-#' plot(tern,type='QFL.descriptive')
+#' plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 #' @seealso ternary
 #' @method plot ternary
 #' @export
-plot.ternary <- function(x,type='empty',pch=NA,labels=names(x),
-                         showpath=FALSE,col='cornflowerblue',...){
+plot.ternary <- function(x,type='empty',pch=NA,pos=NULL,labels=names(x),
+                         showpath=FALSE,bg=NA,col='cornflowerblue',...){
     graphics::plot(c(0,1),c(0,1),type='n',xaxt='n',yaxt='n',
                    xlab='',ylab='',asp=1,bty='n',...)
     if (type=='empty') {
@@ -313,23 +324,25 @@ plot.ternary <- function(x,type='empty',pch=NA,labels=names(x),
     graphics::lines(corners)
     graphics::text(corners[1:3,],labels=cornerlabels,pos=c(3,1,1))
     xy <- xyz2xy(x$x)
-    if (is.na(pch) & is.null(labels)){ pch <- 1 }
-    if (!is.na(pch)) graphics::points(xy,pch=pch,...)
-    if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=1) }
+    if (is.na(pch) && is.null(labels)){ pch <- 1 }
+    if (!is.na(pch) && is.null(pos)){ pos <- 1 }
+    if (!is.na(pch)) graphics::points(xy,pch=pch,bg=bg,...)
+    if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)
 }
 
 #' Plot inferred grain size distributions
 #'
-#' Plot the grain size distributions of the different
-#' minerals under consideration
+#' Plot the grain size distributions of the different minerals under
+#' consideration
 #' @param x an object of class \code{minsorting}
 #' @param cumulative boolean flag indicating whether the grain size
-#' distribution should be plotted as a density or cumulative
-#' probability curve.
+#'     distribution should be plotted as a density or cumulative
+#'     probability curve.
 #' @param components string or list of strings with the names of a
-#' subcomposition that needs plotting
-#' @param ... optional parameters (see ?par for details)
+#'     subcomposition that needs plotting
+#' @param ... optional parameters to be passed on to graphics::matplot
+#'     (see ?par for details)
 #' @examples
 #' data(endmembers,densities)
 #' OPH <- subset(endmembers,select="ophiolite")
@@ -361,6 +374,12 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' describe a 3-way MDS model.
 #' @param x an object of class \code{INDSCAL}
 #' @param asp the aspect ratio of the plot
+#' @param pch plot symbol (may be a vector)
+#' @param pos position of the sample labels relative to the plot
+#'     symbols if pch != NA
+#' @param col plot colour (may be a vector)
+#' @param bg background colour (may be a vector)
+#' @param cex relative size of plot symbols
 #' @param xlab a string with the label of the x axis
 #' @param ylab a string with the label of the y axis
 #' @param xaxt if = 'y', adds ticks to the x axis
@@ -368,21 +387,27 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @param ... optional arguments to the generic plot function
 #' @examples
 #' data(Namib)
-#' plot(indscal(Namib$DZ,Namib$HM))
+#' coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
+#' snames <- names(Namib$DZ)
+#' pch <- rep(21,length(snames))
+#' pch[which(snames %in% coast)] <- 22
+#' plot(indscal(Namib$DZ,Namib$HM),pch=pch)
 #' @seealso indscal
 #' @method plot INDSCAL
 #' @export
-plot.INDSCAL <- function(x,asp=1,xlab="X",ylab="Y",
+plot.INDSCAL <- function(x,asp=1,pch=NA,pos=NULL,col='black',
+                         bg='white',cex=1,xlab="X",ylab="Y",
                          xaxt='n',yaxt='n',...){
-    graphics::plot(x$gspace,type="n",asp=asp,xlab=xlab,
-         ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
-    graphics::text(x$gspace,labels=rownames(x$gspace))
+    if (!is.na(pch) && is.null(pos)) { pos <- 1 }
+    graphics::plot(x$gspace,asp=asp,pch=pch,col=col,bg=bg,cex=cex,
+                   xlab=xlab,ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
+    graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,col=col,bg=bg,cex=cex)
     graphics::title('Group Configuration')
     X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
     Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
     grDevices::dev.new()
-    graphics::plot(X,Y,type="n",asp=1,...)
-    graphics::text(X,Y,names(x$cweights))
+    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
+    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
     graphics::title('Source Weights')
 }
 

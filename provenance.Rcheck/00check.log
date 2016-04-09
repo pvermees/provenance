@@ -1,5 +1,5 @@
-* using log directory ‘/home/pvermees/Dropbox/Programming/provenance/provenance.Rcheck’
-* using R version 3.2.3 (2015-12-10)
+* using log directory ‘/home/pvermees/Dropbox/Programming/R/provenance/provenance.Rcheck’
+* using R Under development (unstable) (2016-01-21 r69971)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
@@ -8,12 +8,30 @@
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 * checking package namespace information ... OK
-* checking package dependencies ... NOTE
-  No repository set, so cyclic dependency check skipped
+* checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for executable files ... OK
-* checking for hidden files and directories ... OK
+* checking for executable files ... WARNING
+Found the following executable files:
+  .git/objects/1d/2a6ad6afae22a86f46418915381b3609a4f49a
+  .git/objects/21/451747671fe12b8db639bae987dfc28468c79b
+  .git/objects/27/113c4ce8b8c1b041b797fe3632d1c3a1cef344
+  .git/objects/3b/fab6a9cbc97b9c4a7acf7d635f0dd370eceaa9
+  .git/objects/62/bbf5510a826eaeb293ac7d37f4f72ce5cb8049
+  .git/objects/83/e42c3176a0b3f3cafb6f87314162860f4f956e
+  .git/objects/94/739bfa2dad1f6ad4a71092d7c6644de5c31077
+  .git/objects/a0/e3f0f6838d7f0916a010362f3b888e480b0cdb
+  .git/objects/e4/372f079666f6ced09ff1bb26604e6493ef9843
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .git
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+
+CRAN-pack does not know about
+  .git
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
 * checking whether package ‘provenance’ can be installed ... OK
@@ -29,6 +47,9 @@ Non-standard file/directory found at top level:
 Found the following directory with the name of a check directory:
   ./provenance.Rcheck
 Most likely, these were included erroneously.
+Found the following directory with the name of a version control directory:
+  ./.git
+These should not be in a package tarball.
 * checking R files for non-ASCII characters ... OK
 * checking R files for syntax errors ... OK
 * checking whether the package can be loaded ... OK
@@ -56,6 +77,10 @@ Most likely, these were included erroneously.
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
+Examples with CPU or elapsed time > 5s
+              user system elapsed
+plot.INDSCAL 3.496  3.588   3.007
+indscal      3.376  3.252   2.905
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 WARNING, 2 NOTEs
+Status: 2 WARNINGs, 2 NOTEs
