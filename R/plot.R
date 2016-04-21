@@ -203,14 +203,13 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',xlab="",ylab="",xaxt='n',yaxt='n',...){
     graphics::plot(x$points, type='n', asp=1, xlab=xlab, ylab=ylab, xaxt=xaxt, yaxt=yaxt,...)
     # draw lines between closest neighbours
-    if (!is.na(pch) && is.null(pos)) { pos <- 1 }
     if (nnlines) {
         if (is.na(pch)) pch=21
         if (is.na(cex)) cex=2.5
         plotlines(x$points,x$diss)
     }
     graphics::points(x$points, pch=pch, cex=cex, col=col, bg=bg)
-    graphics::text(x$points, labels = labels(x$diss), pos=pos, col=col, bg=bg, cex=cex)
+    graphics::text(x$points, labels = labels(x$diss), pos=pos, col=col, bg=bg)
     if (!x$classical){
         grDevices::dev.new()
         shep <- MASS::Shepard(x$diss, x$points)
