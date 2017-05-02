@@ -34,4 +34,3 @@ Vermeesch, Pieter. "How many grains are needed for a
 provenance study?." Earth and Planetary Science Letters 224.3
 (2004): 441-451.
 }
-

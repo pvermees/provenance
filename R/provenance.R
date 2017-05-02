@@ -340,6 +340,7 @@ bray.diss <- function(x,y){
 #' @param x an object of class \code{distributional}, \code{compositional} or \code{diss}
 #' @param classical boolean flag indicating whether classical (TRUE)
 #' or nonmetric (FALSE) MDS should be used
+#' @param k the desired dimension for the solution
 #' @param ... optional arguments to be passed onto \code{diss} (if
 #' \code{x} is of class \code{compositional} or \code{distributional})
 #' or onto \code{cmdscale} or \code{isoMDS} (if \code{x} is of class
@@ -368,28 +369,28 @@ MDS <- function(x,...){ UseMethod("MDS",x) }
 #'
 #' @rdname MDS
 #' @export
-MDS.compositional <- function(x,classical=FALSE,...){
+MDS.compositional <- function(x,classical=FALSE,k=2,...){
     d <- diss.compositional(x,...)
-    return(MDS.diss(d,classical=classical))
+    return(MDS.diss(d,classical=classical,k=k,))
 }
 #' Multidimensional Scaling of distributional data
 #'
 #' @rdname MDS
 #' @export
-MDS.distributional <- function(x,classical=FALSE,...){
+MDS.distributional <- function(x,classical=FALSE,k=2,...){
     d <- diss.distributional(x,...)
-    return(MDS.diss(d,classical=classical))
+    return(MDS.diss(d,classical=classical,k=k))
 }
 #' Multidimensional Scaling of a dissimilarity matrix
 #'
 #' @rdname MDS
 #' @export
-MDS.diss <- function(x,classical=FALSE,...){
+MDS.diss <- function(x,classical=FALSE,k=2,...){
     out <- list() 
     if (classical){
-        out$points <- stats::cmdscale(x)
+        out$points <- stats::cmdscale(x,k=k)
     } else {
-        out <- MASS::isoMDS(d=x,...)
+        out <- MASS::isoMDS(d=x,k=k,...)
     }
     out$classical <- classical
     out$diss <- x

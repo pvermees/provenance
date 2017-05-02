@@ -30,4 +30,3 @@ summaryplot(coast,ncol=2)
 \seealso{
 read.distributional
 }
-

@@ -21,12 +21,11 @@ fname <- system.file("DZ.csv",package="provenance")
 bw <- botev(read.distributional(fname)$x$N1)
 print(bw)
 }
-\author{
-Dzdravko Botev
-}
 \references{
 Botev, Z. I., J. F. Grotowski, and
 D. P. Kroese. "Kernel density estimation via diffusion." The Annals
 of Statistics 38.5 (2010): 2916-2957.
 }
-
+\author{
+Dzdravko Botev
+}

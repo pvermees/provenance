@@ -29,9 +29,6 @@ data(Namib)
 gpa <- procrustes(Namib$DZ,Namib$HM)
 plot(gpa)
 }
-\author{
-Pieter Vermeesch
-}
 \references{
 Gower, J.C. (1975). Generalized Procrustes analysis,
 Psychometrika, 40, 33-50.
@@ -39,4 +36,6 @@ Psychometrika, 40, 33-50.
 \seealso{
 GPA
 }
-
+\author{
+Pieter Vermeesch
+}

@@ -36,4 +36,3 @@ fname <- system.file("Major.csv",package="provenance")
 Major <- read.compositional(fname)
 plot(PCA(Major))
 }
-

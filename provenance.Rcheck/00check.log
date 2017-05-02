@@ -1,141 +1,48 @@
 * using log directory ‘/home/pvermees/Dropbox/Programming/R/provenance/provenance.Rcheck’
-* using R Under development (unstable) (2016-01-21 r69971)
+* using R Under development (unstable) (2016-08-17 r71112)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘1.5’
-* checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
+* this is package ‘provenance’ version ‘1.6’
+* checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
+
+Found the following (possibly) invalid URLs:
+  URL: http://provenance.london-geochron.com (moved to http://www.ucl.ac.uk/~ucfbpve/provenance/)
+    From: man/provenance.Rd
+    Status: 502
+    Message: Bad Gateway
+
+The build time stamp is missing.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for executable files ... WARNING
-Found the following executable files:
-  .git/objects/00/4e0256375af3734403ca107bbc825d4903f4b8
-  .git/objects/06/24a1fdff3b613d476f83b6b569ac5135b0ad35
-  .git/objects/06/e35957a1538ac7a4c218f1cdb2466d34f67e6a
-  .git/objects/09/c1110824e4823d8b415060a514ab0f39e4aea2
-  .git/objects/0b/b6a580e3e337a2d44a82515fd7a5b193eb4c61
-  .git/objects/0f/0c07b046a7441cb34cccd237792de0b7ef5692
-  .git/objects/12/e890f799810275fe5220427125ce5a40b55aea
-  .git/objects/13/8c016f693871aa48f0ab742a5b25f3351866c4
-  .git/objects/16/586147bd39d85873da419e6b96bb8543a3b643
-  .git/objects/16/b80202bd6b4137c700521355159d00041520d0
-  .git/objects/19/dfda78d15fcd89938e540a2fbc64455f790615
-  .git/objects/1b/38941e12411946170e22f6e527dbfccb368011
-  .git/objects/1d/2a6ad6afae22a86f46418915381b3609a4f49a
-  .git/objects/21/451747671fe12b8db639bae987dfc28468c79b
-  .git/objects/24/74b01178718eda7dccc919c59ce0024c64304a
-  .git/objects/26/87540514a5f623ba097493dd9ac5dddbfac736
-  .git/objects/27/113c4ce8b8c1b041b797fe3632d1c3a1cef344
-  .git/objects/2a/7912a441531abebd8ef272ee0cb496f8e93ba6
-  .git/objects/2b/6140f580a83769a203de5add92d1d8b7c75df9
-  .git/objects/2d/08e42099e1a947c972842dc1bf9ca069189f84
-  .git/objects/31/c75b658795d843dc4a706dabe67b88ce8b87a7
-  .git/objects/33/a3f1c3674e859e366a4719f44396f45a1ecf1a
-  .git/objects/34/588c09306a554a89b351d047579ff60a7f424e
-  .git/objects/34/e264ec79824ad8cfa0507c555d213289a835f6
-  .git/objects/3b/fab6a9cbc97b9c4a7acf7d635f0dd370eceaa9
-  .git/objects/3d/6cae49543f095f3182a6165ce5e9140bce6df4
-  .git/objects/3f/1eeaec180c2a8cbb5aa1546c965a14f887057f
-  .git/objects/44/da595e07f411c72c7ab8eb16bb663d3242d435
-  .git/objects/47/c26c2eeffdbab13e31c788102423813307d4ec
-  .git/objects/48/058fc12c80ceaa8eb83265c6487a2a089a2d26
-  .git/objects/49/678a7129957993a9043c7ce46359b15b3417ef
-  .git/objects/4d/3d6b8d1422789337dd03855280c7a20bf761cf
-  .git/objects/4e/ecb404724dd943ff46c064b8c4949a0ef7164b
-  .git/objects/50/65b1abf50e1c926fe58aefb35ea17c739646a8
-  .git/objects/55/cae3ed92b9b52c7e5eeaea193fad17d69be63e
-  .git/objects/57/51f507ef69d8854f31b634eaa7fdf6ae82ae73
-  .git/objects/61/58c94ae5166131adc35e17fd402c09da55d69e
-  .git/objects/62/980cf2524792f5dfd943231ce3d473ec29bdbf
-  .git/objects/62/bbf5510a826eaeb293ac7d37f4f72ce5cb8049
-  .git/objects/65/b44a0e124de00bc7dabc868f31ccf9ae7d78cd
-  .git/objects/66/720b86509109f59e1599f7ee28dd88af14cbc2
-  .git/objects/69/5a9e2039a1ea0a33237fb7e9fc5fa4744a8557
-  .git/objects/69/89b179746f18c2d3d964a0c9bc0dc8420be2da
-  .git/objects/6f/045f0098291278dbb1ece4c1741fefdf8af726
-  .git/objects/6f/740989069938ac42d02b6ba8e54438363afc69
-  .git/objects/74/cff3d751a46ad0b6f058877528c4cd2250ba75
-  .git/objects/76/71ef888af3a83988994f8e1cae50eb082ad41a
-  .git/objects/7b/1070f651d3b198ae169709bb9e97bac591d0f6
-  .git/objects/7b/15f31c0ac02e4007c1904c3e054815b046bc39
-  .git/objects/7b/876d43d34713483be99a339c5d8e8d7d80ec18
-  .git/objects/7c/78d753183e8d014aa8110c6ca23bdd699c76af
-  .git/objects/7e/7d6e3a198b5dc747ea3b93b47bfb8f60cb761c
-  .git/objects/7f/6f91862f8b424f191f7c303b87bf30eb6dc71a
-  .git/objects/83/e42c3176a0b3f3cafb6f87314162860f4f956e
-  .git/objects/85/1dfea6a465cfe75efe7dc45451bf9fa2806a45
-  .git/objects/85/4015ddbe559b94dce73f02dcbdf8beb4552f5a
-  .git/objects/8b/c228d4a8f0bdca0379569899bdd193b994cfe9
-  .git/objects/8d/eadf960dc2f02729303bd76c684ee57b7080b4
-  .git/objects/94/739bfa2dad1f6ad4a71092d7c6644de5c31077
-  .git/objects/95/12bc1ad811d656adbc0fae6b67505d4a8b3d42
-  .git/objects/97/d9ab4e48c0707b69a938c243dde51c69ef7a4d
-  .git/objects/99/acf9dcc786adb48dc527916c2bc8b77c8ccf1c
-  .git/objects/9b/e9f2bd2220e87118fc41f61d694aac3fff1926
-  .git/objects/a0/e3f0f6838d7f0916a010362f3b888e480b0cdb
-  .git/objects/a4/a4278080e41f0a2f8893cd5a994188fabe43d4
-  .git/objects/a8/b4621352efefff89f1d4d715a275a509c35d71
-  .git/objects/ac/12ef7743afbc9d772df4dcb54a6d8a83dd58e1
-  .git/objects/b3/d4f8f95a9be1a9e66d5baa394623bcde1c26df
-  .git/objects/b7/567591cd942e187d3b086fc149444f39ff0d5e
-  .git/objects/b9/d3b0799a3caee805410e20b2e26e8510f9b11a
-  .git/objects/bb/5cc6e4d0251eb837bd80fda8bbfb128a6363df
-  .git/objects/bc/ccb05d43a64a04f7e9a353b73f6ffe613ed463
-  .git/objects/c1/341e5e38c0f3954bb55b827219334b4b102c71
-  .git/objects/c1/ecce71bcaff0bff2a4146d8ba5d14cbf8a7e98
-  .git/objects/c6/8c6bf767f19d8d83de7e47d64d0bc608425f21
-  .git/objects/c7/7f4869d716f3e00917b13d4ccc4340c0f40abe
-  .git/objects/c9/33ec3672cf81ca87d4ccfe5b84c12541f80dc5
-  .git/objects/ca/47b776b73dae13fc7a591bd1da4234e9126317
-  .git/objects/cc/e7ce2fb64a6916bdead0f557adbd4319b19d1d
-  .git/objects/cf/9199739f3e1be51df9c808151063ab1209c672
-  .git/objects/d0/4d9c6f46966f9b5f189b1933fd5f518c6b9198
-  .git/objects/d0/79fe50d52ba3833d8e2ee705afa615888fa237
-  .git/objects/d9/0ee0c36ae90429351793aa568c529903352c91
-  .git/objects/e4/372f079666f6ced09ff1bb26604e6493ef9843
-  .git/objects/ea/9c1279d4590b4aed7f5759c748ef4312a06138
-  .git/objects/eb/a844893886a157196b2c5d06ffa8c3ff76ca77
-  .git/objects/ec/54912babd70a26506e06d84e5d6ec06cd6ce9f
-  .git/objects/ed/880823fc4759b9b9491204cde19cfcd1880573
-  .git/objects/f2/7eaa4fa062d72b284afeccec77230310ac1d3c
-  .git/objects/f5/4ba2b7af748a2fab26965ed0a0d37585d3df92
-  .git/objects/f6/8a0a73c8d8f4299ff193d6ec4c357585e72e62
-  .git/objects/f8/42e009daf13105c15ad503ddd68e878e9e2362
-  .git/objects/f8/a28cbf4085bb025d3a83c52b588e47ad974437
-  .git/objects/fe/2603d880a5354c36fa1c6d9735a8c8286f4b6e
-Source packages should not contain undeclared executable files.
-See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for executable files ... OK
 * checking for hidden files and directories ... NOTE
 Found the following hidden files and directories:
-  .Rd2pdf11276
   .git
 These were most likely included in error. See section ‘Package
 structure’ in the ‘Writing R Extensions’ manual.
 
 CRAN-pack does not know about
-  .Rd2pdf11276
   .git
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
 * checking whether package ‘provenance’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking DESCRIPTION meta-information ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by ‘R CMD build’.
 * checking top-level files ... NOTE
-Non-standard files/directories found at top level:
-  ‘provenance.Rcheck’ ‘provenance.pdf’
+Non-standard file/directory found at top level:
+  ‘provenance.Rcheck’
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... WARNING
 Found the following directory with the name of a check directory:
   ./provenance.Rcheck
-Most likely, these were included erroneously.
-Found the following directory with the name of a Rd2pdf directory:
-  ./.Rd2pdf11276
 Most likely, these were included erroneously.
 Found the following directory with the name of a version control directory:
   ./.git
@@ -167,10 +74,6 @@ These should not be in a package tarball.
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
-Examples with CPU or elapsed time > 5s
-              user system elapsed
-indscal      4.188  3.996   4.493
-plot.INDSCAL 3.996  4.136   3.881
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 2 NOTEs
+Status: 1 WARNING, 4 NOTEs

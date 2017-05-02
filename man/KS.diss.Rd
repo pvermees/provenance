@@ -22,4 +22,3 @@ Returns the Kolmogorov-Smirnov dissimilarity between two samples
 data(Namib)
 print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 }
-

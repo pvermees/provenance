@@ -31,9 +31,6 @@ HMcomp <- c("zr","tm","rt","sph","ap","ep","gt",
 amcomp <- amalgamate(rescomp,Plag="P",HM=HMcomp,Opq="opaques")
 plot(ternary(amcomp),showpath=TRUE)
 }
-\author{
-Alberto Resentini and Pieter Vermeesch
-}
 \references{
 Garzanti E, Ando, S and Vezzoli, G.  "Settling
 equivalence of detrital minerals and grain-size dependence of
@@ -43,4 +40,6 @@ sediment composition." Earth and Planetary Science Letters 273.1
 \seealso{
 minsorting
 }
-
+\author{
+Alberto Resentini and Pieter Vermeesch
+}

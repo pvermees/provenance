@@ -55,4 +55,3 @@ errfile <- system.file("DZerr.csv",package="provenance")
 DZ <- read.distributional(agefile,errfile)
 plot(KDE(DZ$x$N1))
 }
-

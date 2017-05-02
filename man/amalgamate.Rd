@@ -2,9 +2,9 @@
 % Please edit documentation in R/provenance.R
 \name{amalgamate}
 \alias{amalgamate}
-\alias{amalgamate.SRDcorrected}
-\alias{amalgamate.compositional}
 \alias{amalgamate.default}
+\alias{amalgamate.compositional}
+\alias{amalgamate.SRDcorrected}
 \title{Group components of a composition}
 \usage{
 amalgamate(X, ...)
@@ -35,4 +35,3 @@ am <- amalgamate(Namib$PTHM,feldspars=c("KF","P"),
                  lithics=c("Lm","Lv","Ls"),heavies=HMcomponents)
 plot(ternary(am))
 }
-

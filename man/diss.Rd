@@ -2,8 +2,8 @@
 % Please edit documentation in R/provenance.R
 \name{diss}
 \alias{diss}
-\alias{diss.compositional}
 \alias{diss.distributional}
+\alias{diss.compositional}
 \title{Calculate the dissimilarity matrix between two \code{distributional} or
 \code{compositional} datasets}
 \usage{
@@ -30,4 +30,3 @@ Sircombe-Hazelton, Aitchison or Bray Curtis distance
 data(Namib)
 print(round(100*diss(Namib$DZ)))
 }
-

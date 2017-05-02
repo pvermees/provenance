@@ -31,9 +31,6 @@ DZ <- read.distributional(datfile,errfile)
 d <- SH.diss(DZ,1,2)
 print(d)
 }
-\author{
-Keith Sircombe and Martin Hazelton
-}
 \references{
 Sircombe, K. N., and M. L. Hazelton. "Comparison of
 detrital zircon age distributions by kernel functional estimation."
@@ -42,4 +39,6 @@ Sedimentary Geology 171.1 (2004): 91-111.
 \seealso{
 KS.diss
 }
-
+\author{
+Keith Sircombe and Martin Hazelton
+}

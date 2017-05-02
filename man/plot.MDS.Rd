@@ -5,8 +5,7 @@
 \title{Plot an MDS configuration}
 \usage{
 \method{plot}{MDS}(x, nnlines = FALSE, pch = NA, pos = NULL, cex = 1,
-  col = "black", bg = "white", xlab = "", ylab = "", xaxt = "n",
-  yaxt = "n", ...)
+  col = "black", bg = "white", ...)
 }
 \arguments{
 \item{x}{an object of class \code{MDS}}
@@ -23,14 +22,6 @@ symbols if pch != NA}
 \item{col}{plot colour (may be a vector)}
 
 \item{bg}{background colour (may be a vector)}
-
-\item{xlab}{a string with the label of the x axis}
-
-\item{ylab}{a string with the label of the y axis}
-
-\item{xaxt}{if = 's', adds ticks to the x axis}
-
-\item{yaxt}{if = 's', adds ticks to the y axis}
 
 \item{...}{optional arguments to the generic \code{plot} function}
 }
@@ -51,4 +42,3 @@ plot(mds,pch=21,bg=bgcol)
 \seealso{
 MDS
 }
-

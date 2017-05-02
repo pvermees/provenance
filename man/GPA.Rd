@@ -25,4 +25,3 @@ sense.
 \seealso{
 procrustes
 }
-

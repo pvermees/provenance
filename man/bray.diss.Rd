@@ -21,4 +21,3 @@ Calculates the Bray-Curtis dissimilarity between two samples
 data(Namib)
 print(bray.diss(Namib$HM$x["N1",],Namib$HM$x["N2",]))
 }
-
