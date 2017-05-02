@@ -200,31 +200,39 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
     k <- ncol(x$points)
     graphics::par(mfrow=c(k-1,k-1), oma=rep(1,4), mar=rep(2,4), mgp=c(2,1,0), xpd=NA)
     for (i in 1:(k-1)){
-        for (j in (i+1):k){
-            xlab <- paste0('Dim ',i)
-            ylab <- paste0('Dim ',j)
-            graphics::plot(x$points[,c(i,j)], type='n', asp=1, xlab=xlab, ylab=ylab, ...)
-            if (nnlines) { # draw lines between closest neighbours
-                if (is.na(pch)) pch=21
-                if (is.na(cex)) cex=2.5
-                plotlines(x$points[,c(i,j)],x$diss)
+        for (j in 2:k){
+            if (i>=j){
+                plot.new() # empty plot
+            } else {
+                xlab <- paste0('Dim ',i)
+                ylab <- paste0('Dim ',j)
+                graphics::plot(x$points[,c(i,j)], type='n', asp=1, xlab=xlab, ylab=ylab, ...)
+                if (nnlines) { # draw lines between closest neighbours
+                    if (is.na(pch)) pch=21
+                    if (is.na(cex)) cex=2.5
+                    plotlines(x$points[,c(i,j)],x$diss)
+                }
+                graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
+                graphics::text(x$points[,c(i,j)], labels = labels(x$diss), pos=pos, col=col, bg=bg)
             }
-            graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
-            graphics::text(x$points[,c(i,j)], labels = labels(x$diss), pos=pos, col=col, bg=bg)
         }
     }
     if (!x$classical){
         grDevices::dev.new()
         graphics::par(mfrow=c(k-1,k-1), oma=rep(1,4), mar=rep(2,4), mgp=c(2,1,0), xpd=NA)
         for (i in 1:(k-1)){
-            for (j in (i+1):k){
-                ylab <- "Distance/Disparity"
-                if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
-                shep <- MASS::Shepard(x$diss, x$points[,c(i,j)])
-                graphics::plot(shep, pch=".", xlab="Dissimilarity", ylab=ylab)
-                graphics::lines(shep$x, shep$yf, type="S")
-                if (i==1 & j==2)
-                    graphics::title(paste0("Stress = ",x$stress))
+            for (j in 2:k){
+                if (i>=j){
+                    plot.new() # empty plot
+                } else {
+                    ylab <- "Distance/Disparity"
+                    if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
+                    shep <- MASS::Shepard(x$diss, x$points[,c(i,j)])
+                    graphics::plot(shep, pch=".", xlab="Dissimilarity", ylab=ylab)
+                    graphics::lines(shep$x, shep$yf, type="S")
+                    if (i==1 & j==2)
+                        graphics::title(paste0("Stress = ",x$stress))
+                }
             }
         }
     }
