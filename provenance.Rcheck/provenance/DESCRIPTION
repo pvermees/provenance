@@ -1,6 +1,7 @@
 Package: provenance
 Title: Statistical Toolbox for Sedimentary Provenance Analysis
 Version: 1.6
+Date: 2017-05-03
 Authors@R: person("Pieter", "Vermeesch", , "p.vermeesch@ucl.ac.uk", role = c("aut", "cre"))
 Description: Bundles a number of established statistical methods to facilitate
     the visual interpretation of large datasets in sedimentary geology. Includes
@@ -22,4 +23,4 @@ Imports: MASS, methods
 License: GPL-2
 LazyData: true
 RoxygenNote: 5.0.1
-Built: R 3.4.0; ; 2017-05-03 18:36:02 UTC; unix
+Built: R 3.4.0; ; 2017-05-03 19:09:31 UTC; unix

@@ -183,6 +183,16 @@ plot.PCA <- function(x,...){
 #' @param cex relative size of plot symbols (see ?par for details)
 #' @param col plot colour (may be a vector)
 #' @param bg background colour (may be a vector)
+#' @param oma A vector of the form \code{c(bottom, left, top, right)}
+#'     giving the size of the outer margins in lines of text.
+#' @param mar A numerical vector of the form \code{c(bottom, left,
+#'     top, right)} that gives the number of lines of margin to be
+#'     specified on the four sides of the plot.
+#' @param mgp The margin line (in \code{mex} units) for the axis
+#'     title, axis labels and axis line. See \code{?par} for further
+#'     details.
+#' @param xpd A logical value or \code{NA}.  See \code{?par} for
+#'     further details.
 #' @param ... optional arguments to the generic \code{plot} function
 #' @seealso MDS
 #' @method plot MDS
@@ -196,9 +206,10 @@ plot.PCA <- function(x,...){
 #' plot(mds,pch=21,bg=bgcol)
 #' @export
 plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
-                     col='black',bg='white',...){
+                     col='black',bg='white',oma=rep(1,4),
+                     mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
     k <- ncol(x$points)
-    graphics::par(mfrow=c(k-1,k-1), oma=rep(1,4), mar=rep(2,4), mgp=c(2,1,0), xpd=NA)
+    graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
     for (i in 1:(k-1)){
         for (j in 2:k){
             if (i>=j){
@@ -213,13 +224,13 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                     plotlines(x$points[,c(i,j)],x$diss)
                 }
                 graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
-                graphics::text(x$points[,c(i,j)], labels = labels(x$diss), pos=pos, col=col, bg=bg)
+                graphics::text(x$points[,c(i,j)], labels = labels(x$diss), pos=pos, col=col, bg=bg)    
             }
         }
     }
     if (!x$classical){
         grDevices::dev.new()
-        graphics::par(mfrow=c(k-1,k-1), oma=rep(1,4), mar=rep(2,4), mgp=c(2,1,0), xpd=NA)
+        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
         for (i in 1:(k-1)){
             for (j in 2:k){
                 if (i>=j){
@@ -231,7 +242,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                     graphics::plot(shep, pch=".", xlab="Dissimilarity", ylab=ylab)
                     graphics::lines(shep$x, shep$yf, type="S")
                     if (i==1 & j==2)
-                        graphics::title(paste0("Stress = ",x$stress))
+                        graphics::title(paste0("Stress = ",x$stress))    
                 }
             }
         }

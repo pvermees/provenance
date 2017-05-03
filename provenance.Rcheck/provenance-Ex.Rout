@@ -1035,7 +1035,7 @@ converged
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  13.068 0.24 13.164 0 0 
+Time elapsed:  14.72 0.288 14.828 0 0 
 > grDevices::dev.off()
 pdf 
   2 

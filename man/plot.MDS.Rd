@@ -5,7 +5,8 @@
 \title{Plot an MDS configuration}
 \usage{
 \method{plot}{MDS}(x, nnlines = FALSE, pch = NA, pos = NULL, cex = 1,
-  col = "black", bg = "white", ...)
+  col = "black", bg = "white", oma = rep(1, 4), mar = rep(2, 4),
+  mgp = c(2, 1, 0), xpd = NA, ...)
 }
 \arguments{
 \item{x}{an object of class \code{MDS}}
@@ -22,6 +23,20 @@ symbols if pch != NA}
 \item{col}{plot colour (may be a vector)}
 
 \item{bg}{background colour (may be a vector)}
+
+\item{oma}{A vector of the form \code{c(bottom, left, top, right)}
+giving the size of the outer margins in lines of text.}
+
+\item{mar}{A numerical vector of the form \code{c(bottom, left,
+top, right)} that gives the number of lines of margin to be
+specified on the four sides of the plot.}
+
+\item{mgp}{The margin line (in \code{mex} units) for the axis
+title, axis labels and axis line. See \code{?par} for further
+details.}
+
+\item{xpd}{A logical value or \code{NA}.  See \code{?par} for
+further details.}
 
 \item{...}{optional arguments to the generic \code{plot} function}
 }
