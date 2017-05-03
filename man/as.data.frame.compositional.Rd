@@ -29,3 +29,4 @@ qfl.frame <- as.data.frame(qfl)
 # pca <- pcaCoDa(qfl.frame)
 # plot(pca,xlabs=rownames(qfl.frame))
 }
+

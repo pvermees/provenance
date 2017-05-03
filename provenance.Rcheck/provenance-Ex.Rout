@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-17 r71112) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-08-12 r71089) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -134,7 +134,7 @@ Type 'q()' to quit R.
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: MDS
 > ### Title: Multidimensional Scaling
-> ### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
+> ### Aliases: MDS MDS.compositional MDS.diss MDS.distributional
 > 
 > ### ** Examples
 > 
@@ -225,8 +225,8 @@ dev.new(): using pdf(file="Rplots1.pdf")
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: amalgamate
 > ### Title: Group components of a composition
-> ### Aliases: amalgamate amalgamate.default amalgamate.compositional
-> ###   amalgamate.SRDcorrected
+> ### Aliases: amalgamate amalgamate.SRDcorrected amalgamate.compositional
+> ###   amalgamate.default
 > 
 > ### ** Examples
 > 
@@ -439,7 +439,7 @@ T13 0  0 0  0  0  0
 > ### Name: diss
 > ### Title: Calculate the dissimilarity matrix between two 'distributional'
 > ###   or 'compositional' datasets
-> ### Aliases: diss diss.distributional diss.compositional
+> ### Aliases: diss diss.compositional diss.distributional
 > 
 > ### ** Examples
 > 
@@ -1035,7 +1035,7 @@ converged
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.144 0.484 10.162 0 0 
+Time elapsed:  13.068 0.24 13.164 0 0 
 > grDevices::dev.off()
 pdf 
   2 

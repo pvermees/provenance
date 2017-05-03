@@ -28,3 +28,4 @@ Return a subset of provenance data according to some specified indices
 \seealso{
 read.compositional
 }
+

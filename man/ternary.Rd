@@ -39,3 +39,4 @@ plot(tern,type="QFL")
 \seealso{
 restore
 }
+

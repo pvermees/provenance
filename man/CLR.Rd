@@ -26,3 +26,4 @@ dev.new()
 clrdat <- CLR(Namib$Major)$x
 biplot(princomp(clrdat))
 }
+

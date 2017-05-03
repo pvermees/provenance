@@ -114,7 +114,7 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: MDS
 ### Title: Multidimensional Scaling
-### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
+### Aliases: MDS MDS.compositional MDS.diss MDS.distributional
 
 ### ** Examples
 
@@ -202,8 +202,8 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: amalgamate
 ### Title: Group components of a composition
-### Aliases: amalgamate amalgamate.default amalgamate.compositional
-###   amalgamate.SRDcorrected
+### Aliases: amalgamate amalgamate.SRDcorrected amalgamate.compositional
+###   amalgamate.default
 
 ### ** Examples
 
@@ -395,7 +395,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: diss
 ### Title: Calculate the dissimilarity matrix between two 'distributional'
 ###   or 'compositional' datasets
-### Aliases: diss diss.distributional diss.compositional
+### Aliases: diss diss.compositional diss.distributional
 
 ### ** Examples
 

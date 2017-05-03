@@ -202,7 +202,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
     for (i in 1:(k-1)){
         for (j in 2:k){
             if (i>=j){
-                plot.new() # empty plot
+                graphics::plot.new() # empty plot
             } else {
                 xlab <- paste0('Dim ',i)
                 ylab <- paste0('Dim ',j)
@@ -223,7 +223,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
         for (i in 1:(k-1)){
             for (j in 2:k){
                 if (i>=j){
-                    plot.new() # empty plot
+                    graphics::plot.new() # empty plot
                 } else {
                     ylab <- "Distance/Disparity"
                     if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')

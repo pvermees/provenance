@@ -67,3 +67,4 @@ summaryplot(KDEs,ncol=3)
 \seealso{
 KDE
 }
+

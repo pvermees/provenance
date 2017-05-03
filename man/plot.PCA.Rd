@@ -21,3 +21,4 @@ plot(PCA(Namib$Major))
 \seealso{
 PCA
 }
+

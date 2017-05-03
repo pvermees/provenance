@@ -3,8 +3,8 @@
 \name{MDS}
 \alias{MDS}
 \alias{MDS.compositional}
-\alias{MDS.distributional}
 \alias{MDS.diss}
+\alias{MDS.distributional}
 \title{Multidimensional Scaling}
 \usage{
 MDS(x, ...)
@@ -26,7 +26,7 @@ or onto \code{cmdscale} or \code{isoMDS} (if \code{x} is of class
 \item{classical}{boolean flag indicating whether classical (TRUE)
 or nonmetric (FALSE) MDS should be used}
 
-\item{k}{the desired dimension for the solution}
+\item{k}{the desired dimensionality of the solution}
 }
 \value{
 an object of class \code{MDS}, i.e. a list containing the
@@ -56,3 +56,4 @@ Multidimensional Scaling of a dissimilarity matrix
 data(Namib)
 plot(MDS(Namib$Major,classical=TRUE))
 }
+

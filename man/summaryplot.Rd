@@ -28,3 +28,4 @@ summaryplot(KDEs,Namib$HM,Namib$PT,ncol=2)
 \seealso{
 KDEs
 }
+

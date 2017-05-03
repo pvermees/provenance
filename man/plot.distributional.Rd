@@ -43,3 +43,4 @@ a histogram or Cumulative Age Distributions (CAD).
 data(Namib)
 plot(Namib$DZ,c('N1','N2'))
 }
+

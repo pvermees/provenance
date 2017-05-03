@@ -50,3 +50,4 @@ plot(indscal(Namib$DZ,Namib$HM),pch=pch)
 \seealso{
 indscal
 }
+

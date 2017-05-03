@@ -42,6 +42,9 @@ distribution <- minsorting(endmembers,densities,sname='ophiolite',phi=2,
                            sigmaphi=1,medium="seawater",by=0.05)
 plot(distribution,cumulative=FALSE)
 }
+\author{
+Alberto Resentini and Pieter Vermeesch
+}
 \references{
 Resentini, A, Malusa, M G and Garzanti, E. "MinSORTING:
 An Excel worksheet for modelling mineral grain-size distribution in
@@ -56,6 +59,4 @@ composition." Earth and Planetary Science Letters 273.1 (2008):
 \seealso{
 restore
 }
-\author{
-Alberto Resentini and Pieter Vermeesch
-}
+

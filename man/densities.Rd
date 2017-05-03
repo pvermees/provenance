@@ -29,6 +29,9 @@ N8 <- subset(Namib$HM,select="N8")
 distribution <- minsorting(N8,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
 plot(distribution)
 }
+\author{
+Alberto Resentini and Pieter Vermeesch
+}
 \references{
 Resentini, A, Malusa M G and Garzanti, E. "MinSORTING:
 An Excel worksheet for modelling mineral grain-size distribution in
@@ -43,6 +46,4 @@ sediment composition." Earth and Planetary Science Letters 273.1
 \seealso{
 restore, minsorting
 }
-\author{
-Alberto Resentini and Pieter Vermeesch
-}
+

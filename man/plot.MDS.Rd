@@ -42,3 +42,4 @@ plot(mds,pch=21,bg=bgcol)
 \seealso{
 MDS
 }
+

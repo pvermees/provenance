@@ -13,7 +13,7 @@ Description: Bundles a number of established statistical methods to facilitate
     compared with the Aitchison and Bray-Curtis distances. Also included are tools
     to plot compositional data on ternary diagrams, to calculate the sample size
     required for specified levels of statistical precision, and to assess the
-    effects of hydraulic sorting on detrital compositions. Includes an intuitive 
+    effects of hydraulic sorting on detrital compositions. Includes an intuitive
     query-based user interface for users who are not proficient in R.
 Author: Pieter Vermeesch [aut, cre]
 Maintainer: Pieter Vermeesch <p.vermeesch@ucl.ac.uk>
@@ -21,5 +21,5 @@ Depends: R (>= 3.0.0)
 Imports: MASS, methods
 License: GPL-2
 LazyData: true
-RoxygenNote: 6.0.1
-Built: R 3.4.0; ; 2017-05-02 16:24:15 UTC; unix
+RoxygenNote: 5.0.1
+Built: R 3.4.0; ; 2017-05-03 18:36:02 UTC; unix

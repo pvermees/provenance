@@ -38,3 +38,4 @@ plot(GPA,pch=21,bg=bgcol)
 \seealso{
 procrustes
 }
+

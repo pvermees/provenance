@@ -54,3 +54,4 @@ plot(dens)
 \seealso{
 KDEs
 }
+

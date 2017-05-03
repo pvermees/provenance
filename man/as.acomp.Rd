@@ -26,3 +26,4 @@ qfl.acomp <- as.acomp(qfl)
 # library(compositions)
 # ellipses(mean(qfl.acomp),var(qfl.acomp),r=2)
 }
+

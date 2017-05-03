@@ -35,3 +35,4 @@ print(Namib$PT$x - PT.compositional$x)
 # c.glac <- as.compositional(a.glac)
 # summaryplot(c.glac,ncol=8)
 }
+

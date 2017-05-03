@@ -32,3 +32,4 @@ plot(distribution,components=c('F','px','opaques'))
 \seealso{
 minsorting
 }
+

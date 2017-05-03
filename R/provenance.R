@@ -340,7 +340,7 @@ bray.diss <- function(x,y){
 #' @param x an object of class \code{distributional}, \code{compositional} or \code{diss}
 #' @param classical boolean flag indicating whether classical (TRUE)
 #' or nonmetric (FALSE) MDS should be used
-#' @param k the desired dimension for the solution
+#' @param k the desired dimensionality of the solution
 #' @param ... optional arguments to be passed onto \code{diss} (if
 #' \code{x} is of class \code{compositional} or \code{distributional})
 #' or onto \code{cmdscale} or \code{isoMDS} (if \code{x} is of class

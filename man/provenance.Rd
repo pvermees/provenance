@@ -13,6 +13,9 @@ a user-friendly way to access the most important functionality
 in the form of a menu-based query interface. Further details
 and examples are provided on \url{http://provenance.london-geochron.com}
 }
+\author{
+Pieter Vermeesch
+}
 \references{
 Vermeesch, P., Resentini, A. and Garzanti, E., an R
 package for statistical provenance analysis, Sedimentary Geology,
@@ -21,6 +24,4 @@ doi:10.1016/j.sedgeo.2016.01.009.
 \seealso{
 \url{http://provenance.london-geochron.com}
 }
-\author{
-Pieter Vermeesch
-}
+

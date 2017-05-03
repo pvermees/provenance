@@ -31,3 +31,4 @@ plot(dens)
 \seealso{
 KDE
 }
+

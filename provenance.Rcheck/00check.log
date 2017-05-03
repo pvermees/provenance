@@ -1,5 +1,5 @@
 * using log directory ‘/home/pvermees/Dropbox/Programming/R/provenance/provenance.Rcheck’
-* using R Under development (unstable) (2016-08-17 r71112)
+* using R Under development (unstable) (2016-08-12 r71089)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
@@ -8,18 +8,16 @@
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 
-Found the following (possibly) invalid URLs:
-  URL: http://provenance.london-geochron.com (moved to http://www.ucl.ac.uk/~ucfbpve/provenance/)
-    From: man/provenance.Rd
-    Status: 502
-    Message: Bad Gateway
-
 The build time stamp is missing.
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for executable files ... OK
+* checking for executable files ... WARNING
+Found the following executable file:
+  .git/objects/3f/98697f96a33f0b80fd9b7027530508f3380d50
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for hidden files and directories ... NOTE
 Found the following hidden files and directories:
   .git
@@ -47,6 +45,9 @@ Most likely, these were included erroneously.
 Found the following directory with the name of a version control directory:
   ./.git
 These should not be in a package tarball.
+Found the following CITATION file in a non-standard place:
+  provenance.Rcheck/provenance/CITATION
+Most likely ‘inst/CITATION’ should be used instead.
 * checking R files for non-ASCII characters ... OK
 * checking R files for syntax errors ... OK
 * checking whether the package can be loaded ... OK
@@ -76,4 +77,4 @@ These should not be in a package tarball.
 * checking examples ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 WARNING, 4 NOTEs
+Status: 2 WARNINGs, 4 NOTEs

@@ -47,11 +47,12 @@ samp <- Namib$DZ$x[['N1']]
 dens <- KDE(samp,0,3000)
 plot(dens)
 }
+\author{
+Pieter Vermeesch and Eduardo Garzanti
+}
 \references{
 Vermeesch, P. and Garzanti, E., Making geological sense
 of 'Big Data' in sedimentary provenance analysis, Chemical Geology
 409 (2015) 20-27
 }
-\author{
-Pieter Vermeesch and Eduardo Garzanti
-}
+

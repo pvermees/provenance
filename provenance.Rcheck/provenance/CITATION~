@@ -1,0 +1,18 @@
+citHeader("To cite provenance in publications use:")
+
+citEntry(entry = "Article",
+  title        = "An R package for statistical provenance analysis",
+  author       = personList(person("Pieter", "Vermeesch"),
+                   as.person("Alberto Ressentini"), as.person("Eduardo Garzanti")),
+  journal      = "Sedimentary Geology",
+  year         = "2016",
+  volume       = "336",
+  pages        = "14--25",
+  url          = "http://provenance.london-geochron.com",
+
+  textVersion  =
+  paste("Vermeesch, Pieter, Alberto Resentini, and Eduardo Garzanti (2016).",
+        "An R package for statistical provenance analysis.",
+        "Sedimentary Geology, 336, 14-25.",
+        "URL http://provenance.london-geochron.com")
+)
