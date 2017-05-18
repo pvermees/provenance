@@ -254,15 +254,25 @@ gui.mds <- function(){
             return()
         }
     }
-    if (methods::is(dat,"distributional") & length(dat$x$err)>0){
+    if (methods::is(dat,"distributional") & length(dat$err)>0){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance\n",
                 "2 - Kuiper distance\n",
                 "3 - Sircombe-Hazelton distance")
         response <- readline()
+        if (response == "1") method <- "KS"
+        else if (response == "2") method <- "Kuiper"
+        else method <- "SH"
+    }
+    if (methods::is(dat,"distributional") & length(dat$err)==0){
+        message("Choose:\n",
+                "1 - Kolmogorov-Smirnov distance\n",
+                "2 - Kuiper distance")
+        response <- readline()
         if (response == "2") method <- "Kuiper"
         else if (response == "3") method <- "SH"
-        else method <- "KS"
+        else method <- "KS"            
+
     }
     mymds <- MDS(dat,classical,method=method)
     if (mymds$stress < 0.05){
@@ -284,17 +294,12 @@ gui.mds <- function(){
     thepch=NA
     thecex=1
     thepos=NULL
-    thexlab=""
-    theylab=""
-    thexaxt='n'
-    theyaxt='n'
     while (TRUE){
         message("Options:\n",
                 "1 - Add nearest neighbour lines\n",
                 "2 - Change plot character\n",
                 "3 - Change size of plot character\n",
                 "4 - Change position of text label relative to plot character\n",
-                "5 - Add X and Y axis ticks\n",
                 "c - Continue")
         response1 <- readline()
         if (response1 == "1"){
@@ -309,17 +314,11 @@ gui.mds <- function(){
         } else if (response1 == "4"){
             thepos <- as.numeric(readline(
                 "Position of the text label [1 = below, 2 = left, 3 = above, 4 = right]"))
-        } else if (response1 == "5"){
-            thexlab <- "X"
-            theylab <- "Y"
-            thexaxt <- 's'
-            theyaxt <- 's'
         } else {
             break
         }
     }
-    graphics::plot(mymds,nnlines=thennlines,pch=thepch,pos=thepos,cex=thecex,
-                   xlab=thexlab,ylab=theylab,xaxt=thexaxt,yaxt=theyaxt)
+    graphics::plot(mymds,nnlines=thennlines,pch=thepch,pos=thepos,cex=thecex)
 }
 
 gui.3way <- function(doprocrustes=FALSE){
