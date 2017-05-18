@@ -1,10 +1,10 @@
 * using log directory ‘/home/pvermees/Dropbox/Programming/R/provenance/provenance.Rcheck’
-* using R Under development (unstable) (2016-08-12 r71089)
+* using R Under development (unstable) (2016-08-17 r71112)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘1.6’
+* this is package ‘provenance’ version ‘1.7’
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 

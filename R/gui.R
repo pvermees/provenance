@@ -257,11 +257,12 @@ gui.mds <- function(){
     if (methods::is(dat,"distributional") & length(dat$x$err)>0){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance\n",
-                "2 - Sircombe-Hazelton distance")
+                "2 - Kuiper distance\n",
+                "3 - Sircombe-Hazelton distance")
         response <- readline()
-        if (response == "1") method <- "KS"
-        else method <- "SH"
-        if (response %in% c("y","Y")) method <- "SH"
+        if (response == "2") method <- "Kuiper"
+        else if (response == "3") method <- "SH"
+        else method <- "KS"
     }
     mymds <- MDS(dat,classical,method=method)
     if (mymds$stress < 0.05){

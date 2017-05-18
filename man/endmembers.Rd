@@ -20,9 +20,6 @@ data(endmembers,densities)
 ophiolite <- subset(endmembers,select="ophiolite")
 plot(minsorting(ophiolite,densities,by=0.05))
 }
-\author{
-Alberto Resentini and Pieter Vermeesch
-}
 \references{
 Resentini, A, Malusa M G and Garzanti, E. "MinSORTING:
 An Excel worksheet for modelling mineral grain-size distribution in
@@ -37,4 +34,6 @@ sediment composition." Earth and Planetary Science Letters 273.1
 \seealso{
 minsorting
 }
-
+\author{
+Alberto Resentini and Pieter Vermeesch
+}

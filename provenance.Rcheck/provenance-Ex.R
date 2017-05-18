@@ -106,6 +106,26 @@ print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("KS.diss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("Kuiper.diss")
+### * Kuiper.diss
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: Kuiper.diss
+### Title: Kuiper dissimilarity
+### Aliases: Kuiper.diss
+
+### ** Examples
+
+data(Namib)
+print(Kuiper.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("Kuiper.diss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("MDS")
 ### * MDS
 
@@ -114,7 +134,7 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: MDS
 ### Title: Multidimensional Scaling
-### Aliases: MDS MDS.compositional MDS.diss MDS.distributional
+### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
 
 ### ** Examples
 
@@ -202,8 +222,8 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: amalgamate
 ### Title: Group components of a composition
-### Aliases: amalgamate amalgamate.SRDcorrected amalgamate.compositional
-###   amalgamate.default
+### Aliases: amalgamate amalgamate.default amalgamate.compositional
+###   amalgamate.SRDcorrected
 
 ### ** Examples
 
@@ -395,7 +415,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: diss
 ### Title: Calculate the dissimilarity matrix between two 'distributional'
 ###   or 'compositional' datasets
-### Aliases: diss diss.compositional diss.distributional
+### Aliases: diss diss.distributional diss.compositional
 
 ### ** Examples
 

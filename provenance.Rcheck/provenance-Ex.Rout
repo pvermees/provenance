@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2016-08-12 r71089) -- "Unsuffered Consequences"
+R Under development (unstable) (2016-08-17 r71112) -- "Unsuffered Consequences"
 Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -119,12 +119,33 @@ Type 'q()' to quit R.
 > 
 > data(Namib)
 > print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
-[1] 0.1571818
+[1] 0.1653535
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("KS.diss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("Kuiper.diss")
+> ### * Kuiper.diss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Kuiper.diss
+> ### Title: Kuiper dissimilarity
+> ### Aliases: Kuiper.diss
+> 
+> ### ** Examples
+> 
+> data(Namib)
+> print(Kuiper.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+[1] 0.2448485
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Kuiper.diss", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("MDS")
 > ### * MDS
@@ -134,7 +155,7 @@ Type 'q()' to quit R.
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: MDS
 > ### Title: Multidimensional Scaling
-> ### Aliases: MDS MDS.compositional MDS.diss MDS.distributional
+> ### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
 > 
 > ### ** Examples
 > 
@@ -225,8 +246,8 @@ dev.new(): using pdf(file="Rplots1.pdf")
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: amalgamate
 > ### Title: Group components of a composition
-> ### Aliases: amalgamate amalgamate.SRDcorrected amalgamate.compositional
-> ###   amalgamate.default
+> ### Aliases: amalgamate amalgamate.default amalgamate.compositional
+> ###   amalgamate.SRDcorrected
 > 
 > ### ** Examples
 > 
@@ -439,28 +460,28 @@ T13 0  0 0  0  0  0
 > ### Name: diss
 > ### Title: Calculate the dissimilarity matrix between two 'distributional'
 > ###   or 'compositional' datasets
-> ### Aliases: diss diss.compositional diss.distributional
+> ### Aliases: diss diss.distributional diss.compositional
 > 
 > ### ** Examples
 > 
 > data(Namib)
 > print(round(100*diss(Namib$DZ)))
     N1 N2 N3 N4 N5 N6 N7 N8 N9 N10 N11 N12 N13 N14 T8
-N2  17                                               
-N3  35 26                                            
-N4  43 35 15                                         
-N5  41 33 11 16                                      
-N6  39 29  6 11 11                                   
-N7  36 25 12 17 19 15                                
-N8  22 14 22 23 21 19 23                             
-N9  34 26 11 15 12 13 12 16                          
-N10 33 26  8 16  9  7 12 15 13                       
-N11 18 13 26 34 29 26 28 13 22  24                   
-N12 19 10 25 32 30 28 24 12 24  24   8               
-N13 34 24 20 29 27 23 17 18 19  20  23  16           
-N14 28 17 29 37 35 33 27 17 29  27  20  13  15       
-T8  16 21 37 46 42 42 37 25 37  35  19  15  24  22   
-T13 15 20 29 37 35 32 28 17 28  26  14  14  23  23 13
+N2  18                                               
+N3  36 27                                            
+N4  44 35 16                                         
+N5  42 34 12 17                                      
+N6  40 30  7 11 11                                   
+N7  37 26 12 18 19 16                                
+N8  23 15 23 24 22 19 24                             
+N9  35 27 11 16 13 13 12 17                          
+N10 34 27  9 17  9  7 12 16 14                       
+N11 18 14 27 34 30 26 29 14 23  25                   
+N12 20 11 25 33 31 28 25 12 25  24   9               
+N13 35 25 21 29 28 23 18 18 20  20  24  17           
+N14 29 18 30 38 35 33 28 18 29  28  21  14  16       
+T8  17 22 38 47 43 42 38 26 37  36  19  16  24  23   
+T13 15 20 30 37 36 33 29 18 29  27  14  15  24  24 14
 > 
 > 
 > 
@@ -614,16 +635,12 @@ dev.new(): using pdf(file="Rplots2.pdf")
 > 
 > data(Namib)
 > GPA <- procrustes(Namib$DZ,Namib$HM)
-initial  value 10.433734 
-iter   5 value 8.523890
-iter  10 value 8.154735
-iter  15 value 8.048099
-iter  20 value 7.871811
-iter  20 value 7.868858
-iter  25 value 7.642453
-iter  25 value 7.640889
-iter  25 value 7.640383
-final  value 7.640383 
+initial  value 10.608343 
+iter   5 value 8.868203
+iter   5 value 8.867183
+iter  10 value 7.883745
+iter  15 value 7.637849
+final  value 7.619237 
 converged
 initial  value 3.278327 
 iter   5 value 2.337477
@@ -709,16 +726,12 @@ dev.new(): using pdf(file="Rplots3.pdf")
 > 
 > data(Namib)
 > mds <- MDS(Namib$DZ)
-initial  value 10.433734 
-iter   5 value 8.523890
-iter  10 value 8.154735
-iter  15 value 8.048099
-iter  20 value 7.871811
-iter  20 value 7.868858
-iter  25 value 7.642453
-iter  25 value 7.640889
-iter  25 value 7.640383
-final  value 7.640383 
+initial  value 10.608343 
+iter   5 value 8.868203
+iter   5 value 8.867183
+iter  10 value 7.883745
+iter  15 value 7.637849
+final  value 7.619237 
 converged
 > coast <- c('N1','N2','N3','N10','N11','N12','T8','T13')
 > snames <- names(Namib$DZ)
@@ -850,16 +863,12 @@ dev.new(): using pdf(file="Rplots4.pdf")
 > 
 > data(Namib)
 > gpa <- procrustes(Namib$DZ,Namib$HM)
-initial  value 10.433734 
-iter   5 value 8.523890
-iter  10 value 8.154735
-iter  15 value 8.048099
-iter  20 value 7.871811
-iter  20 value 7.868858
-iter  25 value 7.642453
-iter  25 value 7.640889
-iter  25 value 7.640383
-final  value 7.640383 
+initial  value 10.608343 
+iter   5 value 8.868203
+iter   5 value 8.867183
+iter  10 value 7.883745
+iter  15 value 7.637849
+final  value 7.619237 
 converged
 initial  value 3.278327 
 iter   5 value 2.337477
@@ -1035,7 +1044,7 @@ converged
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  14.72 0.288 14.828 0 0 
+Time elapsed:  9.312 0.468 9.304 0 0 
 > grDevices::dev.off()
 pdf 
   2 

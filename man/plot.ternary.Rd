@@ -46,4 +46,3 @@ plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 \seealso{
 ternary
 }
-

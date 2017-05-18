@@ -4,6 +4,7 @@ GPA                     Generalised Procrustes Analysis of
 KDE                     Create a kernel density estimate
 KDEs                    Generate an object of class 'KDEs'
 KS.diss                 Kolmogorov-Smirnov dissimilarity
+Kuiper.diss             Kuiper dissimilarity
 MDS                     Multidimensional Scaling
 Namib                   An example dataset
 PCA                     Principal Component Analysis

@@ -29,4 +29,3 @@ Plots an object of class \code{compositional} as a pie chart
 data(Namib)
 plot(Namib$HM,'N1',colmap='heat.colors')
 }
-

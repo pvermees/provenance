@@ -1,3 +1,4 @@
+provenance-package	provenance
 amalgamate	amalgamate
 amalgamate.compositional	amalgamate
 amalgamate.default	amalgamate
@@ -22,6 +23,7 @@ indscal	indscal
 KDE	KDE
 KDEs	KDEs
 KS.diss	KS.diss
+Kuiper.diss	Kuiper.diss
 MDS	MDS
 MDS.compositional	MDS
 MDS.diss	MDS
@@ -49,3 +51,4 @@ subset.compositional	subset.compositional
 subset.distributional	subset.distributional
 summaryplot	summaryplot
 ternary	ternary
+_PACKAGE	provenance
