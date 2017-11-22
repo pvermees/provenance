@@ -618,7 +618,7 @@ gui.open.distributional <- function(){
                 "c - Continue")
         response <- readline()
         if (response == "1"){
-            dat <- gui.subset.samples(dat,TRUE)
+            dat <- gui.subset.samples(dat)
         } else if (response == "2"){
             dat <- gui.combine.samples(dat)
         } else if (response == "3"){
@@ -706,7 +706,7 @@ gui.amalgamate.components <- function(dat){
     eval(parse(text=command))
 }
 
-gui.subset.samples <- function(dat,returnsubsamp=FALSE){
+gui.subset.samples <- function(dat){
     samplist <- paste(names(dat),collapse=',')
     message("Select a subset group of samples from ",
             "the following list:\n", samplist ,"\n",
@@ -714,7 +714,6 @@ gui.subset.samples <- function(dat,returnsubsamp=FALSE){
     response <- readline()
     subsamp <- gsub(" ","",response) # get rid of spaces
     subsamp <- paste0("c('",gsub(",","','",subsamp),"')")  # add apostrophes
-    if (returnsubsamp) return(subsamp)
     eval(parse(text=paste0("subset(dat,select=",subsamp,")")))
 }
 

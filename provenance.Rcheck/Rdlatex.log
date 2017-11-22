@@ -9,7 +9,7 @@ Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
-(/usr/local/lib/R-devel/share/texmf/tex/latex/Rd.sty
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
@@ -139,7 +139,7 @@ T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
 No file Rd2.ind.
-[37] (/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+[37] (/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -155,7 +155,7 @@ consolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (37 pages, 149118 bytes).
+Output written on Rd2.pdf (37 pages, 149112 bytes).
 Transcript written on Rd2.log.
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -166,7 +166,7 @@ Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
-(/usr/local/lib/R-devel/share/texmf/tex/latex/Rd.sty
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
@@ -216,18 +216,18 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu))
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def))
 Writing index file Rd2.idx
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
@@ -298,7 +298,7 @@ T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
 No file Rd2.ind.
-[37] (/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux) )
+[37] (/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux) )
 (see the transcript file for additional information){/usr/share/texlive/texmf-d
 ist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/share/texlive/texmf-dist/fonts
 /enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsola
@@ -308,7 +308,7 @@ consolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (37 pages, 153460 bytes).
+Output written on Rd2.pdf (37 pages, 153461 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (47 entries accepted, 0 rejected).
@@ -325,7 +325,7 @@ Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
-(/usr/local/lib/R-devel/share/texmf/tex/latex/Rd.sty
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
@@ -375,18 +375,18 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu))
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def))
 Writing index file Rd2.idx
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
@@ -456,12 +456,12 @@ T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [35]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.ind [37]
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.ind [37]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 3.
 
-[38]) (/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+[38]) (/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -480,7 +480,7 @@ consolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (38 pages, 156254 bytes).
+Output written on Rd2.pdf (38 pages, 156250 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (47 entries accepted, 0 rejected).
@@ -497,7 +497,7 @@ Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
-(/usr/local/lib/R-devel/share/texmf/tex/latex/Rd.sty
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
@@ -547,18 +547,18 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu))
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def))
 Writing index file Rd2.idx
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
@@ -628,12 +628,12 @@ T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.ind [38]
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.ind [38]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 3.
 
-[39]) (/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+[39]) (/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -647,7 +647,7 @@ consolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (39 pages, 157467 bytes).
+Output written on Rd2.pdf (39 pages, 157464 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (47 entries accepted, 0 rejected).
@@ -664,7 +664,7 @@ Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
-(/usr/local/lib/R-devel/share/texmf/tex/latex/Rd.sty
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
@@ -714,18 +714,18 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu))
 (/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def))
 Writing index file Rd2.idx
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
@@ -795,12 +795,12 @@ T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
-(/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.ind [38]
+(/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.ind [38]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 3.
 
-[39]) (/tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d/Rd2.aux)
+[39]) (/tmp/RtmpotGDtO/Rd2pdf54655e5708af/Rd2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -814,8 +814,8 @@ consolata-zi4r.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (39 pages, 157301 bytes).
+Output written on Rd2.pdf (39 pages, 157296 bytes).
 Transcript written on Rd2.log.
-Saving output to 'provenance-manual.pdf' ...
+Saving output to ‘provenance-manual.pdf’ ...
 Done
-You may want to clean up by 'rm -rf /tmp/RtmpwT2FpK/Rd2pdf6b2f2413761d'
+You may want to clean up by 'rm -rf /tmp/RtmpotGDtO/Rd2pdf54655e5708af'
