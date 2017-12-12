@@ -6,10 +6,11 @@
 \usage{
 \method{plot}{ternary}(x, type = "empty", pch = NA, pos = NULL,
   labels = names(x), showpath = FALSE, bg = NA, col = "cornflowerblue",
-  ...)
+  ellipse = FALSE, alpha = 0.05, population = TRUE, ...)
 }
 \arguments{
-\item{x}{an object of class \code{ternary}}
+\item{x}{an object of class \code{ternary}, or a three-column data
+frame or matrix}
 
 \item{type}{adds annotations to the ternary diagram, one of either
 \code{empty}, \code{QFL.descriptive}, \code{QFL.folk} or
@@ -32,6 +33,16 @@ the final composition}
 
 \item{col}{colour to be used for the background lines (if
 applicable)}
+
+\item{ellipse}{plot a logistic \eqn{100(1-alpha)\%} confidence
+region around the data (\code{population=TRUE}) or around its
+mean (\code{population=FALSE})?}
+
+\item{alpha}{the confidence level (\eqn{0\leq\alpha\leq1}) for the
+confidence region.}
+
+\item{population}{draw the confidence region around the entire
+population, or around its mean?}
 
 \item{...}{optional arguments to the generic \code{points} function}
 }

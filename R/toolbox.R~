@@ -833,16 +833,15 @@ ndim <- function(X){
 }
 
 sumcols <- function(X,x){
-    if (ndim(X)==0)
-        out <- X[x]
-    else if (length(x)>1 & ndim(X[,x])>0) # >1 class, >1 sample
+    if (length(x)>1 & ndim(X[,x])>0) # >1 class, >1 sample
         out <- apply(X[,x],1,sum)
-    else if (length(x)>1 & ndim(X[,x])==0) # >1 class, 1 sample
+    if (length(x)>1 & ndim(X[,x])==0) # >1 class, 1 sample
         out <- sum(X[,x])
-    else if (length(x)==1 & ndim(X[,x])>0) # 1 class, >1 sample
+    if (length(x)==1 & ndim(X[,x])>0) # 1 class, >1 sample
         out <- sum(X[,x])
-    else if (length(x)==1 & ndim(X[,x])==0) # 1 class, 1 sample
+    if (length(x)==1 & ndim(X[,x])==0) # 1 class, 1 sample
         out <- X[,x]
+    names(out) <- rownames(X)
     return(out)
 }
 
@@ -938,7 +937,7 @@ combine <- function(X,...){
     return(out)    
 }
 
-ternaryclosure <- function(X,x=1,y=2,z=3){ 
+ternaryclosure <- function(X,x,y,z){ 
     xlab <- sumlabels(x)
     ylab <- sumlabels(y)
     zlab <- sumlabels(z)
@@ -978,11 +977,14 @@ ternaryclosure <- function(X,x=1,y=2,z=3){
 #' tern <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 #' plot(tern,type="QFL")
 #' @export
-ternary <- function(X,x=1,y=2,z=3){
+ternary <- function(X,x=NULL,y=NULL,z=NULL){
     if (methods::is(X,"compositional")) dat <- X$x
-    else dat <- X
+    else if (methods::is(X,"data.frame") | methods::is(X,"matrix")) dat <- X
     out <- list()
     class(out) <- append("ternary","compositional")
+    if (is.null(x)) x <- colnames(dat)[1]
+    if (is.null(y)) y <- colnames(dat)[2]
+    if (is.null(z)) z <- colnames(dat)[3]
     arg <- deparse(substitute(x))
     out$x <- ternaryclosure(dat,x,y,z)
     if (methods::is(X,"SRDcorrected")){

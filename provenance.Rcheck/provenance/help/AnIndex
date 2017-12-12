@@ -40,6 +40,7 @@ plot.MDS	plot.MDS
 plot.minsorting	plot.minsorting
 plot.PCA	plot.PCA
 plot.ternary	plot.ternary
+points.ternary	points.ternary
 procrustes	procrustes
 provenance	provenance
 read.compositional	read.compositional

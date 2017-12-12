@@ -42,6 +42,7 @@ plot.distributional     Plot continuous data as histograms or
                         cumulative age distributions
 plot.minsorting         Plot inferred grain size distributions
 plot.ternary            Plot a ternary diagram
+points.ternary          Add points on a ternary diagram
 procrustes              Generalised Procrustes Analysis of provenance
                         data
 provenance              Menu-based interface for 'provenance'

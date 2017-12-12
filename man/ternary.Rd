@@ -4,7 +4,7 @@
 \alias{ternary}
 \title{Define a ternary composition}
 \usage{
-ternary(X, x = NULL, y = NULL, z = NULL)
+ternary(X, x = 1, y = 2, z = 3)
 }
 \arguments{
 \item{X}{an object of class \code{compositional}}

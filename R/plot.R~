@@ -315,8 +315,7 @@ summaryplot <- function(...,ncol=1){
 #' Plot a ternary diagram
 #'
 #' Plots triplets of compositional data on a ternary diagram
-#' @param x an object of class \code{ternary}, or a three-column data
-#'     frame or matrix
+#' @param x an object of class \code{ternary}
 #' @param type adds annotations to the ternary diagram, one of either
 #'     \code{empty}, \code{QFL.descriptive}, \code{QFL.folk} or
 #'     \code{QFL.dickinson}
@@ -333,8 +332,8 @@ summaryplot <- function(...,ncol=1){
 #'     applicable)
 #' @param bg background colour for the plot symbols (may be a vector)
 #' @param ellipse plot a logistic \eqn{100(1-alpha)\%} confidence
-#'     region around the data (\code{population=TRUE}) or around its
-#'     mean (\code{population=FALSE})?
+#'     region around the data (\code{population=TRUE}) or around its mean
+#'     (\code{population=FALSE})?
 #' @param alpha the confidence level (\eqn{0\leq\alpha\leq1}) for the
 #'     confidence region.
 #' @param population draw the confidence region around the entire
@@ -368,17 +367,6 @@ plot.ternary <- function(x,type='empty',pch=NA,pos=NULL,
     if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)
     if (ellipse) ternary.ellipse(x,alpha=alpha,population=population)
-}
-#' Add points on a ternary diagram
-#' 
-#' @param x an object of class \code{ternary}, or a three-column data
-#'     frame or matrix
-#' @param ... optional arguments to the generic \code{points} function
-#' @method points ternary
-#' @export
-points.ternary <- function(x,...){
-    xy <- xyz2xy(x$x)
-    points(xy,...)
 }
 # add a 100(1-alpha)% confidence ellipse
 # to an existing ternary diagram
