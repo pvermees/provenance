@@ -36,6 +36,7 @@ plot.distributional	plot.distributional
 plot.GPA	plot.GPA
 plot.INDSCAL	plot.INDSCAL
 plot.KDE	plot.KDE
+plot.KDEs	plot.KDEs
 plot.MDS	plot.MDS
 plot.minsorting	plot.minsorting
 plot.PCA	plot.PCA

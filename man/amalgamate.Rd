@@ -18,14 +18,15 @@ amalgamate(X, ...)
 \arguments{
 \item{X}{a compositional dataset}
 
-\item{...}{a series of new labels assigned to strings or vectors of strings
-denoting the components that need amalgamating}
+\item{...}{a series of new labels assigned to strings or vectors of
+strings denoting the components that need amalgamating}
 }
 \value{
 an object of the same class as X with fewer components
 }
 \description{
-Adds several components of a composition together into a single component
+Adds several components of a composition together into a single
+component
 }
 \examples{
 data(Namib)

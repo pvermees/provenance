@@ -35,6 +35,7 @@ plot.GPA                Plot a Procrustes configuration
 plot.INDSCAL            Plot an INDSCAL group configuration and source
                         weights
 plot.KDE                Plot a kernel density estimate
+plot.KDEs               Plot one or more kernel density estimates
 plot.MDS                Plot an MDS configuration
 plot.PCA                Compositional biplot
 plot.compositional      Plot a pie chart

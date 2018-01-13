@@ -846,23 +846,32 @@ sumcols <- function(X,x){
     return(out)
 }
 
-# X is a vector of strings
-sumlabels <- function(X){
-    out <- X[1]
-    n <- length(X)
+# X is a matrix or vector
+# x is an index or a (vector of) string(s)
+sumlabels <- function(X,x){
+    if (is.numeric(X) & is.numeric(x) & !is.null(names(X))){
+        i <- names(X)[x]
+    } else if (is.numeric(x) & !is.null(colnames(X))){
+        i <- colnames(X)[x]
+    } else {
+        i <- x
+    }
+    out <- i[1]
+    n <- length(i)
     if (n==1) return(out)
-    for (i in 2:length(X)){
-        out <- paste(out,X[i],sep='+')
+    for (ii in 2:length(i)){
+        out <- paste(out,i[ii],sep='+')
     }
     return(out)
 }
 
 #' Group components of a composition
 #'
-#' Adds several components of a composition together into a single component
+#' Adds several components of a composition together into a single
+#' component
 #' @param X a compositional dataset
-#' @param ... a series of new labels assigned to strings or vectors of strings
-#' denoting the components that need amalgamating
+#' @param ... a series of new labels assigned to strings or vectors of
+#'     strings denoting the components that need amalgamating
 #' @return an object of the same class as X with fewer components
 #' @examples
 #' data(Namib)
@@ -938,10 +947,12 @@ combine <- function(X,...){
     return(out)    
 }
 
-ternaryclosure <- function(X,x=1,y=2,z=3){ 
-    xlab <- sumlabels(x)
-    ylab <- sumlabels(y)
-    zlab <- sumlabels(z)
+# X is a matrix or vector
+# x, y, z is an index or (vector) of string(s)
+ternaryclosure <- function(X,x=1,y=2,z=3){
+    xlab <- sumlabels(X,x)
+    ylab <- sumlabels(X,y)
+    zlab <- sumlabels(X,z)
     out <- cbind(sumcols(X,x),sumcols(X,y),sumcols(X,z))
     den <- rowSums(out)
     out <- apply(out,2,'/',den)
@@ -956,14 +967,14 @@ ternaryclosure <- function(X,x=1,y=2,z=3){
 #' Define a ternary composition
 #'
 #' Create an object of class \code{ternary}
-#' @param X an object of class \code{compositional}
-#' @param x string or a vector of strings indicating the variables making up
-#' the first subcomposition of the ternary system. If omitted, the first
-#' component of X is used instead.
+#' @param X an object of class \code{compositional} OR a matrix or
+#'     data frame with numerical data
+#' @param x string or a vector of strings indicating the variables
+#'     making up the first subcomposition of the ternary system. If
+#'     omitted, the first component of X is used instead.
 #' @param y second (set of) variables
 #' @param z third (set of) variables
-#' @return an object of class \code{ternary}, i.e. a
-#' list containing:
+#' @return an object of class \code{ternary}, i.e. a list containing:
 #'
 #' x: a three column matrix (or vector) of ternary compositions.
 #'

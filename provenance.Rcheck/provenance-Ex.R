@@ -624,6 +624,27 @@ plot(dens)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("plot.KDE", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("plot.KDEs")
+### * plot.KDEs
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: plot.KDEs
+### Title: Plot one or more kernel density estimates
+### Aliases: plot.KDEs
+
+### ** Examples
+
+data(Namib)
+kdes <- KDEs(Namib$DZ)
+plot(kdes,ncol=2)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("plot.KDEs", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("plot.MDS")
 ### * plot.MDS
 
@@ -752,6 +773,29 @@ plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("plot.ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("points.ternary")
+### * points.ternary
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: points.ternary
+### Title: Add points on a ternary diagram
+### Aliases: points.ternary
+
+### ** Examples
+
+tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+plot(tern,pch=21,bg='red',labels=NULL)
+# add the geometric mean composition as a yellow square:
+gmean <- ternary(exp(colMeans(log(tern$x))))
+points(gmean,pch=22,bg='yellow')
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("points.ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("procrustes")
 ### * procrustes

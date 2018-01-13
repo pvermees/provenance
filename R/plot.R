@@ -26,17 +26,36 @@ plot.KDE <- function(x,pch='|',xlab="age [Ma]",ylab="",...){
     graphics::text(utils::tail(x$x,n=1),.9*max(x$y),paste0("n=",length(x$ages)),pos=2)
 }
 
-# Plot multiple KDEs. Used by summaryplot function
-plot.KDEs <- function(x,sname,annotate=TRUE,...){
-    if (x$themax>0){ # normalise
-        M <- x$themax
+#' Plot one or more kernel density estimates
+#'
+#' Plots an object of class \code{KDEs}
+#' @param x an object of class \code{KDEs}
+#' @param sname optional sample name. If \code{sname=NA}, all samples
+#'     are shown on a summary plot
+#' @param annotate add a time axis?
+#' @param ... optional parameters to be passed on to the
+#'     \code{summaryplot} function
+#' @examples
+#' data(Namib)
+#' kdes <- KDEs(Namib$DZ)
+#' plot(kdes,ncol=2)
+#' @seealso KDEs summaryplot
+#' @method plot KDEs
+#' @export
+plot.KDEs <- function(x,sname=NA,annotate=TRUE,...){
+    if (is.na(sname)) {
+        summaryplot(x,...)
     } else {
-        M <- max(x$kdes[[sname]]$y)
-    }
-    if (annotate){
-        plot.KDE(x$kdes[[sname]],pch=NA,ylim=c(0,M),...)
-    } else {
-        plot.KDE(x$kdes[[sname]],pch=x$pch,axes=FALSE,xlab="",ylab="",ylim=c(0,M),...)
+        if (x$themax>0){ # normalise
+            M <- x$themax
+        } else {
+            M <- max(x$kdes[[sname]]$y)
+        }
+        if (annotate){
+            plot.KDE(x$kdes[[sname]],pch=NA,ylim=c(0,M),...)
+        } else {
+            plot.KDE(x$kdes[[sname]],pch=x$pch,axes=FALSE,xlab="",ylab="",ylim=c(0,M),...)
+        }
     }
 }
 
@@ -374,11 +393,17 @@ plot.ternary <- function(x,type='empty',pch=NA,pos=NULL,
 #' @param x an object of class \code{ternary}, or a three-column data
 #'     frame or matrix
 #' @param ... optional arguments to the generic \code{points} function
+#' @examples
+#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#' plot(tern,pch=21,bg='red',labels=NULL)
+#' # add the geometric mean composition as a yellow square:
+#' gmean <- ternary(exp(colMeans(log(tern$x))))
+#' points(gmean,pch=22,bg='yellow')
 #' @method points ternary
 #' @export
 points.ternary <- function(x,...){
     xy <- xyz2xy(x$x)
-    points(xy,...)
+    graphics::points(xy,...)
 }
 # add a 100(1-alpha)% confidence ellipse
 # to an existing ternary diagram
@@ -509,7 +534,9 @@ plotlines <- function(conf,diss) {
 
 # annotation of various plots used in summaryplot function
 annotation <- function(x,...){ UseMethod("annotation",x) }
-annotation.default <- function(x,...){stop('x not of class KDEs, compositional or distributional in annotation(x)')}
+annotation.default <- function(x,...){
+    stop('x not of class KDEs, compositional or distributional in annotation(x)')
+}
 annotation.KDEs <- function(x,height=NULL,...){
     oldpar <- graphics::par()
     if (is.null(height)){ graphics::par(mar=c(2,0,0,0)) }

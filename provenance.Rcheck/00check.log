@@ -4,7 +4,7 @@
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘1.9’
+* this is package ‘provenance’ version ‘1.10’
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 * checking package namespace information ... OK
@@ -33,8 +33,8 @@ CRAN-pack does not know about
 * checking package directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... NOTE
-Non-standard files/directories found at top level:
-  ‘provenance.Rcheck’ ‘provenance_1.9.tar.gz’
+Non-standard file/directory found at top level:
+  ‘provenance.Rcheck’
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... WARNING
