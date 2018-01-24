@@ -2,7 +2,9 @@
 % Please edit documentation in R/plot.R
 \name{points.ternary}
 \alias{points.ternary}
-\title{Add points on a ternary diagram}
+\alias{lines}
+\alias{text}
+\title{Ternary point plotting}
 \usage{
 \method{points}{ternary}(x, ...)
 }
@@ -13,7 +15,7 @@ frame or matrix}
 \item{...}{optional arguments to the generic \code{points} function}
 }
 \description{
-Add points on a ternary diagram
+Add points to an existing ternary diagram
 }
 \examples{
 tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))

@@ -351,13 +351,6 @@ summaryplot <- function(...,ncol=1){
 #' @param col colour to be used for the background lines (if
 #'     applicable)
 #' @param bg background colour for the plot symbols (may be a vector)
-#' @param ellipse plot a logistic \eqn{100(1-alpha)\%} confidence
-#'     region around the data (\code{population=TRUE}) or around its
-#'     mean (\code{population=FALSE})?
-#' @param alpha the confidence level (\eqn{0\leq\alpha\leq1}) for the
-#'     confidence region.
-#' @param population draw the confidence region around the entire
-#'     population, or around its mean?
 #' @param ... optional arguments to the generic \code{points} function
 #' @examples
 #' data(Namib)
@@ -366,16 +359,20 @@ summaryplot <- function(...,ncol=1){
 #' @seealso ternary
 #' @method plot ternary
 #' @export
-plot.ternary <- function(x,type='empty',pch=NA,pos=NULL,
+plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
                          labels=names(x),showpath=FALSE,bg=NA,
-                         col='cornflowerblue',ellipse=FALSE,
-                         alpha=0.05,population=TRUE,...){
+                         col='cornflowerblue',ticks=seq(0,1,0.25),
+                         ticklength=0.02,...){
     graphics::plot(c(0,1),c(0,1),type='n',xaxt='n',yaxt='n',
                    xlab='',ylab='',asp=1,bty='n',...)
-    if (type=='empty') {
+    ternary.ticks(ticks=ticks,ticklength=ticklength)
+    if (type=='empty'){
         cornerlabels <- colnames(x$x)
+    } else if (type=='grid'){
+        cornerlabels <- colnames(x$x)
+        ternary.grid(ticks=ticks,col=col)
     } else {
-        cornerlabels <- lines.ternary(type=type,col=col)
+        cornerlabels <- ternary.lines(type=type,col=col)
     }
     corners <- xyz2xy(matrix(c(1,0,0,1,0,1,0,0,0,0,1,0),ncol=3))
     graphics::lines(corners)
@@ -386,13 +383,14 @@ plot.ternary <- function(x,type='empty',pch=NA,pos=NULL,
     if (!is.na(pch)) graphics::points(xy,pch=pch,bg=bg,...)
     if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)
-    if (ellipse) ternary.ellipse(x,alpha=alpha,population=population)
 }
-#' Add points on a ternary diagram
-#' 
+#' Ternary point plotting
+#'
+#' Add points to an existing ternary diagram
 #' @param x an object of class \code{ternary}, or a three-column data
 #'     frame or matrix
 #' @param ... optional arguments to the generic \code{points} function
+#' @aliases lines text
 #' @examples
 #' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
 #' plot(tern,pch=21,bg='red',labels=NULL)
@@ -405,8 +403,52 @@ points.ternary <- function(x,...){
     xy <- xyz2xy(x$x)
     graphics::points(xy,...)
 }
-# add a 100(1-alpha)% confidence ellipse
-# to an existing ternary diagram
+#' Ternary line plotting
+#' 
+#' Add lines to an existing ternary diagram
+#' @param x an object of class \code{ternary}, or a three-column data
+#'     frame or matrix
+#' @param ... optional arguments to the generic \code{lines} function
+#' @examples
+#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#' plot(tern,pch=21,bg='red',labels=NULL)
+#' middle <- matrix(c(0.01,0.49,0.01,0.49,0.98,0.02),2,3)
+#' lines(ternary(middle))
+#' @method lines ternary
+#' @export
+lines.ternary <- function(x,...){
+    xy <- xyz2xy(x$x)
+    graphics::lines(xy,...)
+}
+#' Ternary text plotting
+#'
+#' Add text an existing ternary diagram
+#' @param x an object of class \code{ternary}, or a three-column data
+#'     frame or matrix
+#' @param labels a character vector or expression specifying the text
+#'     to be written
+#' @param ... optional arguments to the generic \code{text} function
+#'     tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#'     plot(tern,pch=21,bg='red',labels=NULL)
+#' # add the geometric mean composition as a text label:
+#' gmean <- ternary(exp(colMeans(log(tern$x))))
+#' text(gmean,labels='geometric mean')
+#' @method text ternary
+#' @export
+text.ternary <- function(x,labels=names(x),...){
+    xy <- xyz2xy(x$x)
+    graphics::text(xy,labels=labels,...)
+}
+#' Ternary confidence ellipse
+#' 
+#' plot a logistic \eqn{100(1-alpha)\%} confidence region around the
+#'     data or around its mean.
+#' @param x an object of class \code{ternary}
+#' @param alpha cutoff level for the confidence ellipse
+#' @param population show the standard deviation of the entire
+#'     population or the standard error of the mean?
+#' @param ... optional formatting arguments
+#' @export
 ternary.ellipse <- function(x,alpha=0.05,population=TRUE,...){
     uv <- ALR(x)
     u <- subset(uv$x,select=1)
@@ -577,7 +619,47 @@ annotation.distributional <- function(x,height=NULL,...){
     graphics::par(mar=oldpar$mar)
 }
 
-lines.ternary <- function(type='empty',col='cornflowerblue'){
+ternary.ticks <- function(ticks=seq(0,1,0.25),ticklength=0.02){
+    for (tick in ticks){
+        xtick <- xyz2xy(matrix(c(tick,1-tick-ticklength,ticklength,
+                                 tick,1-tick,0,
+                                 tick-ticklength,1-tick,ticklength),
+                               ncol=3,byrow=TRUE))
+        ytick <- xyz2xy(matrix(c(ticklength,tick,1-tick-ticklength,
+                                 0,tick,1-tick,
+                                 ticklength,tick-ticklength,1-tick),
+                               ncol=3,byrow=TRUE))
+        ztick <- xyz2xy(matrix(c(1-tick-ticklength,ticklength,tick,
+                                 1-tick,0,tick,
+                                 1-tick,ticklength,tick-ticklength),
+                               ncol=3,byrow=TRUE))
+        if (tick>0 & tick<1){
+            graphics::lines(xtick)
+            graphics::lines(ytick)
+            graphics::lines(ztick)
+        }
+    }
+}
+ternary.grid <- function(ticks=seq(0,1,0.25),col='cornflowerblue'){
+    for (tick in ticks){
+        xline <- xyz2xy(matrix(c(tick,1-tick,0,
+                                 tick,0,1-tick),
+                               ncol=3,byrow=TRUE))
+        yline <- xyz2xy(matrix(c(0,tick,1-tick,
+                                 1-tick,tick,0),
+                               ncol=3,byrow=TRUE))
+        zline <- xyz2xy(matrix(c(1-tick,0,tick,
+                                 0,1-tick,tick),
+                               ncol=3,byrow=TRUE))
+        if (tick>0 & tick<1){
+            graphics::lines(xline,col=col)
+            graphics::lines(yline,col=col)
+            graphics::lines(zline,col=col)
+        }
+    }
+}
+ternary.lines <- function(type='empty',col='cornflowerblue',
+                          ticks=seq(0,1,0.25)){
     oldcol <- graphics::par('col')
     graphics::par(col=col)
     thelabels <- c('x','y','z')

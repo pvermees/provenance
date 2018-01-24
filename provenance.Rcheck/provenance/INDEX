@@ -1,3 +1,4 @@
+ALR                     Additive logratio transformation
 CLR                     Centred logratio transformation
 GPA                     Generalised Procrustes Analysis of
                         configurations
@@ -29,6 +30,7 @@ get.p                   Calculate the probability of missing a given
                         population fraction
 indscal                 Individual Differences Scaling of provenance
                         data
+lines.ternary           Ternary line plotting
 minsorting              Assess settling equivalence of detrital
                         components
 plot.GPA                Plot a Procrustes configuration
@@ -43,7 +45,7 @@ plot.distributional     Plot continuous data as histograms or
                         cumulative age distributions
 plot.minsorting         Plot inferred grain size distributions
 plot.ternary            Plot a ternary diagram
-points.ternary          Add points on a ternary diagram
+points.ternary          Ternary point plotting
 procrustes              Generalised Procrustes Analysis of provenance
                         data
 provenance              Menu-based interface for 'provenance'
@@ -57,3 +59,5 @@ subset.compositional    Get a subset of compositional data
 subset.distributional   Get a subset of distributional data
 summaryplot             Joint plot of several provenance datasets
 ternary                 Define a ternary composition
+ternary.ellipse         Ternary confidence ellipse
+text.ternary            Ternary text plotting

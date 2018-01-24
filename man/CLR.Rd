@@ -2,19 +2,32 @@
 % Please edit documentation in R/toolbox.R
 \name{CLR}
 \alias{CLR}
+\alias{CLR.default}
+\alias{CLR.compositional}
 \title{Centred logratio transformation}
 \usage{
-CLR(x)
+CLR(x, ...)
+
+\method{CLR}{default}(x, inverse = FALSE, ...)
+
+\method{CLR}{compositional}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{compositional}}
+\item{x}{an object of class \code{compositional} OR a matrix of
+numerical values}
+
+\item{...}{optional arguments}
+
+\item{inverse}{perform the inverse inverse logratio transformation?}
 }
 \value{
-a matrix of CLR coordinates
+a matrix of CLR coordinates OR an object of class
+    \code{compositional} (if \code{inverse=TRUE})
 }
 \description{
 Calculates Aitchison's centered logratio transformation for a
-dataset of class \code{compositional}
+dataset of class \code{compositional} or a compositional data
+matrix.
 }
 \examples{
 # The following code shows that applying provenance's PCA function
@@ -23,6 +36,6 @@ dataset of class \code{compositional}
 data(Namib)
 plot(PCA(Namib$Major))
 dev.new()
-clrdat <- CLR(Namib$Major)$x
+clrdat <- CLR(Namib$Major)
 biplot(princomp(clrdat))
 }

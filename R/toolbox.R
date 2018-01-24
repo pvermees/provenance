@@ -323,7 +323,7 @@ diss.distributional <- function(x,method=NULL) {
 diss.compositional <- function(x,method=NULL){
     if (!is.null(method)) x$method <- method
     if (x$method=="aitchison"){
-        out <- stats::dist(CLR(x)$x)
+        out <- stats::dist(CLR(x))
     } else {
         snames <- names(x)
         ns <- length(snames)
@@ -419,9 +419,14 @@ MDS.diss <- function(x,classical=FALSE,k=2,...){
 #' Centred logratio transformation
 #'
 #' Calculates Aitchison's centered logratio transformation for a
-#' dataset of class \code{compositional}
-#' @param x an object of class \code{compositional}
-#' @return a matrix of CLR coordinates
+#' dataset of class \code{compositional} or a compositional data
+#' matrix.
+#' @param x an object of class \code{compositional} OR a matrix of
+#'     numerical values
+#' @param inverse perform the inverse inverse logratio transformation?
+#' @param ... optional arguments
+#' @return a matrix of CLR coordinates OR an object of class
+#'     \code{compositional} (if \code{inverse=TRUE})
 #' @examples
 #' # The following code shows that applying provenance's PCA function
 #' # to compositional data is equivalent to applying R's built-in
@@ -429,45 +434,88 @@ MDS.diss <- function(x,classical=FALSE,k=2,...){
 #' data(Namib)
 #' plot(PCA(Namib$Major))
 #' dev.new()
-#' clrdat <- CLR(Namib$Major)$x
+#' clrdat <- CLR(Namib$Major)
 #' biplot(princomp(clrdat))
+#' @rdname CLR
 #' @export
-CLR <- function(x){
-    if (!methods::is(x,'compositional')){stop('CLR(x): x is not of class compositional.')}
-    out <- x
-    g <- apply(log(x$x),1,mean)
-    nc <- ncol(x$x)
-    gg <- matrix(rep(g,nc),ncol=nc,byrow=FALSE)
-    out$x <- log(x$x) - gg
-    return(out)
-}
-
-ALR <- function(x,inverse=FALSE){
-    if (!methods::is(x,'compositional')){stop('CLR(x): x is not of class compositional.')}
-    out <- x
-    nr <- nrow(x$x)
-    nc <- ncol(x$x)
+CLR <- function(x,...){ UseMethod("CLR",x) }
+#' @rdname CLR
+#' @export
+CLR.default <- function(x,inverse=FALSE,...){
     if (inverse){
-        out$x <- matrix(0,nr,nc+1)
-        den <- 1+apply(exp(x$x),MARGIN=1,FUN='sum')
-        for (i in 1:nc)
-            out$x[,i] <- exp(x$x[,i])/den
-        out$x[,nc+1] <- 1/den
+        closure <-  rowSums(exp(x)) %*% matrix(1,nrow=1,ncol=length(x))
+        out <- list()
+        class(out) <- "compositional"
+        out$x <- exp(x) / closure
     } else {
-        out$x <- matrix(0,nr,nc-1)
-        for (i in 1:(nc-1))
-            out$x[,i] <- log(x$x[,i]) - log(x$x[,nc])
+        g <- apply(log(x),1,mean)
+        nc <- ncol(x)
+        gg <- matrix(rep(g,nc),ncol=nc,byrow=FALSE)
+        out <- log(x) - gg
     }
     return(out)
+}
+#' @rdname CLR
+#' @export
+CLR.compositional <- function(x,...){
+    return(CLR(x$x,...))
+}
+
+#' Additive logratio transformation
+#'
+#' Calculates Aitchison's additive logratio transformation for a
+#' dataset of class \code{compositional} or a compositional data
+#' matrix.
+#' @param x an object of class \code{compositional} OR a matrix of
+#'     numerical values
+#' @param inverse perform the inverse inverse logratio transformation?
+#' @param ... optional arguments
+#' @return a matrix of ALR coordinates OR an object of class
+#'     \code{compositional} (if \code{inverse=TRUE}).
+#' @examples
+#' # logratio plot of trace element concentrations:
+#' data(Namib)
+#' alr <- ALR(Namib$Trace)
+#' pairs(alr[,1:5])
+#' title('log(X/Pb)')
+#' @export
+#' @rdname ALR
+#' @export
+ALR <- function(x,...){ UseMethod("ALR",x) }
+#' @rdname ALR
+#' @export
+ALR.default <- function(x,inverse=FALSE,...){
+    dat <- as.matrix(x)
+    nr <- nrow(dat)
+    nc <- ncol(dat)
+    if (inverse){
+        num <- matrix(1,nr,nc+1)
+        num[,1:nc] <- exp(dat)
+        den <- rowSums(num) %*% matrix(1,1,nc+1)
+        out <- list()
+        class(out) <- "compositional"
+        out$x <- num / den
+    } else {
+        num <- log(dat[,1:(nc-1)])
+        den <- log(dat[,nc]) %*% matrix(1,1,nc-1)
+        out <- num - den
+    }
+    return(out)
+}
+#' @rdname ALR
+#' @export
+ALR.compositional <- function(x,...){
+    return(ALR(x$x,...))
 }
 
 #' Principal Component Analysis
 #'
-#' Performs PCA of compositional data using a centred logratio distance
+#' Performs PCA of compositional data using a centred logratio
+#' distance
 #' @param x an object of class \code{compositional}
 #' @param ... optional arguments to R's \code{princomp function}
-#' @return an object of classes \code{PCA}, which is synonymous to
-#' the stats packages' \code{princomp} class.
+#' @return an object of classes \code{PCA}, which is synonymous to the
+#'     stats packages' \code{princomp} class.
 #' @examples
 #' data(Namib)
 #' plot(MDS(Namib$Major,classical=TRUE))
@@ -476,9 +524,12 @@ ALR <- function(x,inverse=FALSE){
 #' print("This example demonstrates the equivalence of classical MDS and PCA")
 #' @export
 PCA <- function(x,...){
-    if (!methods::is(x,'compositional')){stop('x is not of class compositional in PCA(x)')}
-    clrdat <- CLR(x)
-    pc <- stats::princomp(clrdat$x,...)
+    if (methods::is(x,'compositional')){
+        dat <- CLR(x)
+    } else {
+        dat <- x
+    }
+    pc <- stats::princomp(dat,...)
     class(pc) <- append("PCA",class(pc))
     return(pc)
 }

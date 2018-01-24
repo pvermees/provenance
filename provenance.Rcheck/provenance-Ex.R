@@ -17,6 +17,29 @@ library('provenance')
 
 base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 cleanEx()
+nameEx("ALR")
+### * ALR
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: ALR
+### Title: Additive logratio transformation
+### Aliases: ALR ALR.default ALR.compositional
+
+### ** Examples
+
+# logratio plot of trace element concentrations:
+data(Namib)
+alr <- ALR(Namib$Trace)
+pairs(alr[,1:5])
+title('log(X/Pb)')
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("ALR", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("CLR")
 ### * CLR
 
@@ -25,7 +48,7 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: CLR
 ### Title: Centred logratio transformation
-### Aliases: CLR
+### Aliases: CLR CLR.default CLR.compositional
 
 ### ** Examples
 
@@ -35,7 +58,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 data(Namib)
 plot(PCA(Namib$Major))
 dev.new()
-clrdat <- CLR(Namib$Major)$x
+clrdat <- CLR(Namib$Major)
 biplot(princomp(clrdat))
 
 
@@ -531,6 +554,28 @@ plot(indscal(Namib$DZ,Namib$HM))
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("indscal", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("lines.ternary")
+### * lines.ternary
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: lines.ternary
+### Title: Ternary line plotting
+### Aliases: lines.ternary
+
+### ** Examples
+
+tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+plot(tern,pch=21,bg='red',labels=NULL)
+middle <- matrix(c(0.01,0.49,0.01,0.49,0.98,0.02),2,3)
+lines(ternary(middle))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("lines.ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("minsorting")
 ### * minsorting
 
@@ -781,8 +826,8 @@ flush(stderr()); flush(stdout())
 
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: points.ternary
-### Title: Add points on a ternary diagram
-### Aliases: points.ternary
+### Title: Ternary point plotting
+### Aliases: points.ternary lines text
 
 ### ** Examples
 

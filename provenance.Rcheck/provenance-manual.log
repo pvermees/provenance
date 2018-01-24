@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.25)  13 JAN 2018 10:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.23)  23 JAN 2018 17:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -709,7 +709,7 @@ File: latin1.def 2015/03/17 v1.2c Input encoding file
 
 
 Writing index file Rd2.idx
-(/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.aux)
+(/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.aux)
 \openout1 = `Rd2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -766,8 +766,8 @@ LaTeX Info: Redefining \ref on input line 8.
 LaTeX Info: Redefining \pageref on input line 8.
 LaTeX Info: Redefining \nameref on input line 8.
 
-(/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.out)
-(/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.out)
+(/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.out)
+(/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.out)
 \@outlinefile=\write4
 \openout4 = `Rd2.out'.
 
@@ -793,7 +793,7 @@ LaTeX Font Info:    Try loading font information for T1+phv on input line 29.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-(/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.toc [1
+(/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.toc [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
@@ -816,44 +816,44 @@ File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [4]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [5]
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
+) [5]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [6]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [7]
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
+) [7]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [8]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-Overfull \hbox (2.76727pt too wide) in paragraph at lines 399--402
+Overfull \hbox (2.76727pt too wide) in paragraph at lines 462--465
 []\T1/ptm/m/n/10 Calculate the dis-sim-i-lar-ity ma-trix be-tween two datasets 
 of class \T1/zi4/m/n/10 distributional \T1/ptm/m/n/10 or \T1/zi4/m/n/10 composi
 tional
  []
 
-[9] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+[10] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-Overfull \hbox (125.36096pt too wide) in paragraph at lines 440--449
+Overfull \hbox (125.36096pt too wide) in paragraph at lines 503--512
 \T1/zi4/m/n/10 undissected_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 dissecte
 d_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 ophiolite\T1/ptm/m/n/10 , \T1/zi4
 /m/n/10 recycled_clastic\T1/ptm/m/n/10 , \T1/zi4/m/n/10 undissected_continental
 _block\T1/ptm/m/n/10 ,
  []
 
-[10] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [11]
@@ -865,40 +865,40 @@ File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [13]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [14]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [15]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [16]
+) [16] [17]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [17]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [18]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [19]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [20] [21]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-Overfull \hbox (10.63676pt too wide) in paragraph at lines 1077--1081
+Overfull \hbox (10.63676pt too wide) in paragraph at lines 1171--1175
 []\T1/zi4/m/n/10 PTHM\T1/ptm/m/n/10 : a \T1/zi4/m/n/10 compositional \T1/ptm/m/
 n/10 dataset com-bin-ing the vari-ables con-tained in \T1/zi4/m/n/10 PT \T1/ptm
 /m/n/10 and \T1/zi4/m/n/10 HM \T1/ptm/m/n/10 plus 'mica', 'opaques',
  []
 
-[20] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [21]
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [22]
@@ -910,10 +910,10 @@ File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [24]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [25]
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
+) [25]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [26]
@@ -926,28 +926,22 @@ File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-Overfull \hbox (24.06343pt too wide) in paragraph at lines 1613--1616
-[]\T1/ptm/m/n/10 plot a lo-gis-tic $\OT1/cmr/m/n/10 100(1 \OMS/cmsy/m/n/10 ^^@ 
-\OML/cmm/m/it/10 alpha\OT1/cmr/m/n/10 )%$ \T1/ptm/m/n/10 con-fi-dence re-gion a
-round the data (\T1/zi4/m/n/10 population=TRUE\T1/ptm/m/n/10 )
- []
-
-[29] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
+) [29]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [30]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [31pdfTeX warning (ext4): destination with the same identifier (name{Rfn.prov
-enance.Rdash.package}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1758 \strong{Maintainer}
-                          : Pieter Vermeesch \email{p.vermeesch@ucl.ac.uk}]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 1778
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [31]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [32]
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 1865
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
@@ -955,25 +949,25 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [32]
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [33]
-Overfull \hbox (7.8083pt too wide) in paragraph at lines 1887--1894
-\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
-T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
- []
+) [33pdfTeX warning (ext4): destination with the same identifier (name{Rfn.prov
+enance.Rdash.package}) has been already used, duplicate ignored
 
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1877 \end{Description}
+                        ]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [34]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [35]
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+)
+Overfull \hbox (7.8083pt too wide) in paragraph at lines 1974--1981
+\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
+T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
+ []
+
+[35] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [36]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -981,40 +975,63 @@ File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [37]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 ) [38]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [40]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-(/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.ind [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
+Overfull \hbox (113.73715pt too wide) in paragraph at lines 2342--2348
+[]\T1/ptm/m/n/10 optional ar-gu-ments to the generic \T1/zi4/m/n/10 text \T1/pt
+m/m/n/10 func-tion tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+ []
+
+
+Overfull \hbox (65.26657pt too wide) in paragraph at lines 2342--2348
+\T1/ptm/m/n/10 tion as a text la-bel: gmean <- ternary(exp(colMeans(log(tern$x)
+))) text(gmean,labels='geometric
+ []
+
+(/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.ind [41] [42]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 3.
 
-[40
+[43
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2208.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2208.
- (/tmp/RtmpCgqOAf/Rd2pdffd45ddeab2e/Rd2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2208.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2208.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2351.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2351.
+ (/tmp/RtmpQygPhk/Rd2pdf547f63d4a4/Rd2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2351.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2351.
 
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
-(rerunfilecheck)             Checksum: 281B48EDDC9014AD0F6F10E63B095DD9;2456.
+(rerunfilecheck)             Checksum: 874F3A88A8496A4E1722B3980F424D2F;2674.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2208.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2351.
  ) 
 Here is how much of TeX's memory you used:
- 6967 strings out of 493029
- 101551 string characters out of 6136233
- 175195 words of memory out of 5000000
- 9912 multiletter control sequences out of 15000+600000
+ 7011 strings out of 493029
+ 102453 string characters out of 6136234
+ 175196 words of memory out of 5000000
+ 9916 multiletter control sequences out of 15000+600000
  41653 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,6n,34p,1029b,590s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,6n,34p,1029b,592s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/s
 hare/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-d
 ist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/share/texlive/texmf-dist/font
@@ -1026,10 +1043,10 @@ vetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (40 pages, 185078 bytes).
+Output written on Rd2.pdf (43 pages, 188996 bytes).
 PDF statistics:
- 908 PDF objects out of 1000 (max. 8388607)
- 848 compressed objects within 9 object streams
- 398 named destinations out of 1000 (max. 500000)
- 377 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 978 PDF objects out of 1000 (max. 8388607)
+ 914 compressed objects within 10 object streams
+ 430 named destinations out of 1000 (max. 500000)
+ 409 words of extra memory for PDF output out of 10000 (max. 10000000)
 

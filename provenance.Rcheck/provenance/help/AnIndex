@@ -1,4 +1,7 @@
 provenance-package	provenance
+ALR	ALR
+ALR.compositional	ALR
+ALR.default	ALR
 amalgamate	amalgamate
 amalgamate.compositional	amalgamate
 amalgamate.default	amalgamate
@@ -9,6 +12,8 @@ as.data.frame.compositional	as.data.frame.compositional
 botev	botev
 bray.diss	bray.diss
 CLR	CLR
+CLR.compositional	CLR
+CLR.default	CLR
 combine	combine
 densities	densities
 diss	diss
@@ -24,6 +29,8 @@ KDE	KDE
 KDEs	KDEs
 KS.diss	KS.diss
 Kuiper.diss	Kuiper.diss
+lines	points.ternary
+lines.ternary	lines.ternary
 MDS	MDS
 MDS.compositional	MDS
 MDS.diss	MDS
@@ -53,4 +60,7 @@ subset.compositional	subset.compositional
 subset.distributional	subset.distributional
 summaryplot	summaryplot
 ternary	ternary
+ternary.ellipse	ternary.ellipse
+text	points.ternary
+text.ternary	text.ternary
 _PACKAGE	provenance
