@@ -4,17 +4,17 @@
 \alias{plot.ternary}
 \title{Plot a ternary diagram}
 \usage{
-\method{plot}{ternary}(x, type = "empty", pch = NA, pos = NULL,
+\method{plot}{ternary}(x, type = "grid", pch = NA, pos = NULL,
   labels = names(x), showpath = FALSE, bg = NA, col = "cornflowerblue",
-  ...)
+  ticks = seq(0, 1, 0.25), ticklength = 0.02, lty = 2, lwd = 1, ...)
 }
 \arguments{
 \item{x}{an object of class \code{ternary}, or a three-column data
 frame or matrix}
 
 \item{type}{adds annotations to the ternary diagram, one of either
-\code{empty}, \code{QFL.descriptive}, \code{QFL.folk} or
-\code{QFL.dickinson}}
+\code{empty}, \code{grid}, \code{QFL.descriptive},
+\code{QFL.folk} or \code{QFL.dickinson}}
 
 \item{pch}{plot character, see \code{?par} for details (may be a
 vector)}
@@ -33,6 +33,15 @@ the final composition}
 
 \item{col}{colour to be used for the background lines (if
 applicable)}
+
+\item{ticks}{vector of tick values between 0 and 1}
+
+\item{ticklength}{number between 0 and 1 to mark the length of the
+ticks}
+
+\item{lty}{line type for the annotations (see \code{type})}
+
+\item{lwd}{line thickness for the annotations}
 
 \item{...}{optional arguments to the generic \code{points} function}
 }
