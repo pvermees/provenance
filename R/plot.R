@@ -337,8 +337,8 @@ summaryplot <- function(...,ncol=1){
 #' @param x an object of class \code{ternary}, or a three-column data
 #'     frame or matrix
 #' @param type adds annotations to the ternary diagram, one of either
-#'     \code{empty}, \code{QFL.descriptive}, \code{QFL.folk} or
-#'     \code{QFL.dickinson}
+#'     \code{empty}, \code{grid}, \code{QFL.descriptive},
+#'     \code{QFL.folk} or \code{QFL.dickinson}
 #' @param pch plot character, see \code{?par} for details (may be a
 #'     vector)
 #' @param pos position of the sample labels relative to the plot
@@ -350,6 +350,11 @@ summaryplot <- function(...,ncol=1){
 #'     the final composition
 #' @param col colour to be used for the background lines (if
 #'     applicable)
+#' @param ticks vector of tick values between 0 and 1
+#' @param ticklength number between 0 and 1 to mark the length of the
+#'     ticks
+#' @param lty line type for the annotations (see \code{type})
+#' @param lwd line thickness for the annotations
 #' @param bg background colour for the plot symbols (may be a vector)
 #' @param ... optional arguments to the generic \code{points} function
 #' @examples
@@ -362,7 +367,7 @@ summaryplot <- function(...,ncol=1){
 plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
                          labels=names(x),showpath=FALSE,bg=NA,
                          col='cornflowerblue',ticks=seq(0,1,0.25),
-                         ticklength=0.02,...){
+                         ticklength=0.02,lty=2,lwd=1,...){
     graphics::plot(c(0,1),c(0,1),type='n',xaxt='n',yaxt='n',
                    xlab='',ylab='',asp=1,bty='n',...)
     ternary.ticks(ticks=ticks,ticklength=ticklength)
@@ -370,14 +375,15 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
         cornerlabels <- colnames(x$x)
     } else if (type=='grid'){
         cornerlabels <- colnames(x$x)
-        ternary.grid(ticks=ticks,col=col)
+        ternary.grid(ticks=ticks,col=col,lty=lty,lwd=lwd)
     } else {
-        cornerlabels <- ternary.lines(type=type,col=col)
+        cornerlabels <- ternary.lines(type=type,col=col,lty=lty,lwd=lwd)
     }
     corners <- xyz2xy(matrix(c(1,0,0,1,0,1,0,0,0,0,1,0),ncol=3))
     graphics::lines(corners)
     graphics::text(corners[1:3,],labels=cornerlabels,pos=c(3,1,1))
     xy <- xyz2xy(x$x)
+    if (is.null(pch)) return()
     if (is.na(pch) && is.null(labels)){ pch <- 1 }
     if (!is.na(pch) && is.null(pos)){ pos <- 1 }
     if (!is.na(pch)) graphics::points(xy,pch=pch,bg=bg,...)
@@ -640,7 +646,10 @@ ternary.ticks <- function(ticks=seq(0,1,0.25),ticklength=0.02){
         }
     }
 }
-ternary.grid <- function(ticks=seq(0,1,0.25),col='cornflowerblue'){
+ternary.grid <- function(ticks=seq(0,1,0.25),
+                         col='cornflowerblue',lty=2,lwd=1){
+    oldpar <- graphics::par('col','lty','lwd')
+    graphics::par(col=col,lty=lty,lwd=lwd)
     for (tick in ticks){
         xline <- xyz2xy(matrix(c(tick,1-tick,0,
                                  tick,0,1-tick),
@@ -652,16 +661,17 @@ ternary.grid <- function(ticks=seq(0,1,0.25),col='cornflowerblue'){
                                  0,1-tick,tick),
                                ncol=3,byrow=TRUE))
         if (tick>0 & tick<1){
-            graphics::lines(xline,col=col)
-            graphics::lines(yline,col=col)
-            graphics::lines(zline,col=col)
+            graphics::lines(xline)
+            graphics::lines(yline)
+            graphics::lines(zline)
         }
     }
+    graphics::par(oldpar)
 }
 ternary.lines <- function(type='empty',col='cornflowerblue',
-                          ticks=seq(0,1,0.25)){
-    oldcol <- graphics::par('col')
-    graphics::par(col=col)
+                          ticks=seq(0,1,0.25),lty=2,lwd=1){
+    oldpar <- graphics::par('col','lty','lwd')
+    graphics::par(col=col,lty=lty,lwd=lwd)
     thelabels <- c('x','y','z')
     if (type=='QFL.descriptive'){
         xy1 <- xyz2xy(matrix(c(90,0,10,10,0,90),ncol=3))
@@ -711,7 +721,7 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
         graphics::text(xyz2xy(c(50,45,5)),labels='continental block',srt=65)
         thelabels <- c('Q','F','L')
     }
-    graphics::par(col=oldcol)
+    graphics::par(oldpar)
     return(thelabels)
 }
 
