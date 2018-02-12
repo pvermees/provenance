@@ -510,7 +510,6 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
 # pars = mu1, mu2, var1, var2, cov12
 # dat = [n x 3] matrix of counts
 LL.ternary.random.effects <- function(pars,dat){
-    print(pars)
     mu <- pars[1:2]
     E <- matrix(0,2,2)
     E[1,1] <- exp(pars[3])

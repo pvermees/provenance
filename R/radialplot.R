@@ -69,16 +69,31 @@
 #' @rdname radialplot
 #' @export
 radialplot.counts <- function(x,components=NA,from=NA,to=NA,t0=NA,
-                              sigdig=2, show.numbers=FALSE,pch=21,
-                              levels=NA, clabel="",
-                              bg=c("white","red"), title=TRUE,
+                              sigdig=2,show.numbers=FALSE,pch=21,
+                              levels=NA,clabel="",
+                              bg=c("white","red"),title=TRUE,
                               alpha=0.05,...){
     if (is.na(components)) components <- colnames(x$x)[1:2]
+    label <- paste0('central ',components[1],'/',components[2],'-ratio')
     dat <- x$x[,components]
     X <- x2zs(dat)
     X$transformation <- 'arctan'
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=bg,...)
+    fit <- central(x,components=components)
+    rounded.ratio <- IsoplotR:::roundit(fit$ratio,fit$err,sigdig=sigdig)
+    line1 <- substitute(a~'='~b%+-%c~'%',
+                        list(a=label,
+                             b=rounded.ratio[1],
+                             c=rounded.ratio[2]))
+    line2 <- substitute('MSWD ='~a~', p('~chi^2*')='~b,
+                        list(a=signif(fit$mswd,sigdig),
+                             b=signif(fit$p.value,sigdig)))
+    line3 <- substitute('dispersion ='~a~'%',
+                        list(a=signif(100*fit$sigma,sigdig)))
+    graphics::mtext(line1,line=2)
+    graphics::mtext(line2,line=1)
+    graphics::mtext(line3,line=0)
 }
 
 x2zs <- function(x){
@@ -92,5 +107,38 @@ x2zs <- function(x){
     out$from <- min(tan(out$z)^2)
     out$to <- max(tan(out$z)^2)
     out$xlab <- paste(colnames(x),collapse='+')
+    out
+}
+
+#' @rdname central
+#' @export
+central.counts <- function(x,components=NA,...){
+    if (all(is.na(components))) components <- colnames(x$x)[1:2]
+    out <- list()
+    sigma <- 0.15 # convenient starting value
+    valid <- which(rowSums(x$x[components])>0)
+    Nsj <- x$x[valid,components[1]]
+    Nij <- x$x[valid,components[2]]
+    Ns <- sum(Nsj)
+    Ni <- sum(Nij)
+    num <- (Nsj*Ni-Nij*Ns)^2
+    den <- Nsj+Nij
+    Chi2 <- sum(num/den)/(Ns*Ni)
+    mj <- Nsj+Nij
+    pj <- Nsj/mj
+    theta <- Ns/sum(mj)
+    for (i in 1:30){ # page 49 of Galbraith (2005)
+        wj <- mj/(theta*(1-theta)+(mj-1)*(theta*(1-theta)*sigma)^2)
+        sigma <- sigma * sqrt(sum((wj*(pj-theta))^2)/sum(wj))
+        theta <- sum(wj*pj)/sum(wj)
+    }
+    # remove two d.o.f. for mu and sigma
+    out$df <- length(Nsj)-2
+    # add back one d.o.f. for homogeneity test
+    out$mswd <- Chi2/(out$df+1)
+    out$p.value <- 1-stats::pchisq(Chi2,out$df+1)
+    out$ratio <- theta/(1-theta)
+    out$err <- sqrt(1/(sum(wj)*(theta*(1-theta))^2))
+    out$sigma <- sigma
     out
 }
