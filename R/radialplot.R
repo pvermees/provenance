@@ -31,6 +31,7 @@
 #' one glance.
 #'
 #' @param x an object of class \code{counts}
+#' @param components a vector specifying a subcomposition
 #' @param from minimum limit of the radial scale
 #' @param to maximum limit of the radial scale
 #' @param t0 central value
@@ -67,11 +68,14 @@
 #'
 #' @rdname radialplot
 #' @export
-radialplot.counts <- function(x,from=NA,to=NA,t0=NA,sigdig=2,
-                              show.numbers=FALSE,pch=21,levels=NA,
-                              clabel="",bg=c("white","red"),
-                              title=TRUE,alpha=0.05,...){
-    X <- x2zs(x)
+radialplot.counts <- function(x,components=NA,from=NA,to=NA,t0=NA,
+                              sigdig=2, show.numbers=FALSE,pch=21,
+                              levels=NA, clabel="",
+                              bg=c("white","red"), title=TRUE,
+                              alpha=0.05,...){
+    if (is.na(components)) components <- colnames(x$x)[1:2]
+    dat <- x$x[,components]
+    X <- x2zs(dat)
     X$transformation <- 'arctan'
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=bg,...)
@@ -79,14 +83,14 @@ radialplot.counts <- function(x,from=NA,to=NA,t0=NA,sigdig=2,
 
 x2zs <- function(x){
     out <- list()
-    n <- x$x[,1]
-    m <- x$x[,2]
+    n <- x[,1]
+    m <- x[,2]
     out$z <- atan(sqrt((n+3/8)/(m+3/8)))
     out$s <- sqrt(1/(n+m+1/2))/2
     out$z0 <- atan(sqrt(sum(n,na.rm=TRUE)/
                         sum(m,na.rm=TRUE)))
     out$from <- min(tan(out$z)^2)
     out$to <- max(tan(out$z)^2)
-    out$xlab <- 'n+m'
+    out$xlab <- paste(colnames(x),collapse='+')
     out
 }

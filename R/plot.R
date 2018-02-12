@@ -450,15 +450,17 @@ text.ternary <- function(x,labels=names(x),...){
 #' plot a logistic \eqn{100(1-alpha)\%} confidence region around the
 #'     data or around its mean.
 #' @param x an object of class \code{ternary}
+#' @rdname ternary.ellipse
+#' @export
+ternary.ellipse <- function(x,...){ UseMethod("ternary.ellipse",x) }
 #' @param alpha cutoff level for the confidence ellipse
 #' @param population show the standard deviation of the entire
 #'     population or the standard error of the mean?
 #' @param ... optional formatting arguments
-#' @export
-ternary.ellipse <- function(x,alpha=0.05,population=TRUE,...){
+ternary.ellipse.default <- function(x,alpha=0.05,population=TRUE,...){
     uv <- ALR(x)
-    u <- subset(uv$x,select=1)
-    v <- subset(uv$x,select=2)
+    u <- subset(uv,select=1)
+    v <- subset(uv,select=2)
     n <- length(u)
     m <- 2
     df1 <- m
@@ -466,7 +468,7 @@ ternary.ellipse <- function(x,alpha=0.05,population=TRUE,...){
     if (population) k <- n+1
     else k <- 1
     hk <- k*(n-1)*stats::qf(1-alpha,df1,df2)/(n*(n-m))
-    S <- stats::cov(uv$x)
+    S <- stats::cov(uv)
     VW2VT <- svd(S)
     V <- VW2VT$u
     W2 <- diag(VW2VT$d)
@@ -482,7 +484,64 @@ ternary.ellipse <- function(x,alpha=0.05,population=TRUE,...){
     ell$x <- t(V%*%G + rbind(rep(mean(u),res),rep(mean(v),res)))
     XYZ <- ALR(ell,inverse=TRUE)
     xy <- xyz2xy(XYZ$x)
+    graphics::lines(xy,...)    
+}
+#' @rdname ternary.ellipse
+#' @export
+ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
+    ternary.ellipse.default(x,alpha=alpha,population=population,...)
+}
+ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
+    pars <- c(0,0,0,0,0)
+    sol <- optim(pars,LL.ternary.random.effects,dat=x$raw)
+    b1 <- sol$par[1]
+    b2 <- sol$par[2]
+    E <- matrix(0,2,2)
+    E[1,1] <- exp(sol$par[3])
+    E[2,2] <- exp(sol$par[4])
+    E[1,2] <- sqrt(E[1,1])*sqrt(E[2,2])*(exp(sol$par[5])-1)/(1-sol$par[5])
+    E[2,1] <- E[1,2]
+    ell <- ellipse(b1,b2,E,alpha=alpha)
+    XYZ <- ALR(ell,inverse=TRUE)
+    xy <- xyz2xy(XYZ$x)
     graphics::lines(xy,...)
+}
+
+# pars = mu1, mu2, var1, var2, cov12
+# dat = [n x 3] matrix of counts
+LL.ternary.random.effects <- function(pars,dat){
+    print(pars)
+    mu <- pars[1:2]
+    E <- matrix(0,2,2)
+    E[1,1] <- exp(pars[3])
+    E[2,2] <- exp(pars[4])
+    E[1,2] <- sqrt(E[1,1])*sqrt(E[2,2])*(exp(pars[5])-1)/(1-pars[5])
+    E[2,1] <- E[1,2]
+    LL <- 0
+    for (i in 1:nrow(dat)){
+        LL <- LL + get.LL.sample(dat[i,],mu,E,nsteps=10)
+    }
+    LL
+}
+
+get.LL.sample <- function(nn,mu,E,nsteps){
+    brange <- sqrt(exp(diag(E)))
+    db <- 2*brange/nsteps
+    lnfact <- sum(1:sum(nn)) - sum(1:nn[1]) -sum(1:nn[2]) - sum(1:nn[3])
+    p.int <- 0
+    for (b1 in seq(mu[1]-brange[1],mu[1]+brange[1],length.out=nsteps)){
+        for (b2 in seq(mu[2]-brange[2],mu[2]+brange[2],length.out=nsteps)){
+            p.int <- p.int + get.p.sample(c(b1,b2),nn,mu,E)*db[1]*db[2]
+        }
+    }
+    - lnfact - log(p.int)
+}
+
+get.p.sample <- function(b,nn,mu,E){
+    bfact <- ( ( exp(b[1]*nn[1]) + exp(b[2]*nn[2]) + 1 ) /
+               ( exp(b[1]) + exp(b[2]) )^sum(nn) )
+    mfact <- dmvnorm(b,mean=mu,sigma=E)
+    bfact * mfact
 }
 
 #' Plot inferred grain size distributions
@@ -500,7 +559,8 @@ ternary.ellipse <- function(x,alpha=0.05,population=TRUE,...){
 #' @examples
 #' data(endmembers,densities)
 #' OPH <- subset(endmembers,select="ophiolite")
-#' distribution <- minsorting(OPH,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
+#' distribution <- minsorting(OPH,densities,phi=2,sigmaphi=1,
+#'                            medium="air",by=0.05)
 #' plot(distribution,components=c('F','px','opaques'))
 #' @seealso minsorting
 #' @method plot minsorting
@@ -689,12 +749,18 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
         graphics::text(xyz2xy(c(32,18,50)),labels=expression(paste('fQ',bold('L'))))
         graphics::text(xyz2xy(c(18,50,32)),labels=expression(paste('qL',bold('F'))))
         graphics::text(xyz2xy(c(18,32,50)),labels=expression(paste('qF',bold('L'))))
-        graphics::text(xyz2xy(c(65,30,5)),labels=expression(paste('feldspatho-',bold('quartzose'))),srt=60)
-        graphics::text(xyz2xy(c(30,65,5)),labels=expression(paste('quartzo-',bold('feldspathic'))),srt=60)
-        graphics::text(xyz2xy(c(65,5,30)),labels=expression(paste('litho-',bold('quartzose'))),srt=-60)
-        graphics::text(xyz2xy(c(30,5,65)),labels=expression(paste('quartzo-',bold('lithic'))),srt=-60)
-        graphics::text(xyz2xy(c(5,30,65)),labels=expression(paste('feldspatho-',bold('lithic'))))
-        graphics::text(xyz2xy(c(5,65,30)),labels=expression(paste('litho-',bold('feldspathic'))))
+        graphics::text(xyz2xy(c(65,30,5)),
+                       labels=expression(paste('feldspatho-',bold('quartzose'))),srt=60)
+        graphics::text(xyz2xy(c(30,65,5)),
+                       labels=expression(paste('quartzo-',bold('feldspathic'))),srt=60)
+        graphics::text(xyz2xy(c(65,5,30)),
+                       labels=expression(paste('litho-',bold('quartzose'))),srt=-60)
+        graphics::text(xyz2xy(c(30,5,65)),
+                       labels=expression(paste('quartzo-',bold('lithic'))),srt=-60)
+        graphics::text(xyz2xy(c(5,30,65)),
+                       labels=expression(paste('feldspatho-',bold('lithic'))))
+        graphics::text(xyz2xy(c(5,65,30)),
+                       labels=expression(paste('litho-',bold('feldspathic'))))
         thelabels <- c('Q','F','L')
     } else if (type=='QFL.folk'){
         xy1 <- xyz2xy(matrix(c(90,90,10,0,0,10),ncol=3))
