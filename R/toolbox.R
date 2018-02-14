@@ -734,15 +734,17 @@ amalgamate.SRDcorrected <- function(X,...){
 
 #' Combine samples of distributional data
 #'
-#' Lumps all single grain analyses of several samples together under a new name
+#' Lumps all single grain analyses of several samples together under a
+#' new name
 #' @param X a distributional dataset
-#' @param ... a series of new labels assigned to strings or vectors of strings
-#' denoting the samples that need amalgamating
+#' @param ... a series of new labels assigned to strings or vectors of
+#'     strings denoting the samples that need amalgamating
 #' @return a distributional data object with fewer samples than X
 #' @examples
 #' data(Namib)
-#' combined <- combine(Namib$DZ,east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
-#'                        west=c('N1','N2','N11','N12','T8','T13'))
+#' combined <- combine(Namib$DZ,
+#'                     east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
+#'                     west=c('N1','N2','N11','N12','T8','T13'))
 #' summaryplot(KDEs(combined))
 #' @export
 combine <- function(X,...){
@@ -757,73 +759,12 @@ combine <- function(X,...){
         out$x[[labels[i]]] <- NULL
         for (g in groups[[i]]){
             out$x[[labels[i]]] <- c(out$x[[labels[i]]],X$x[[g]])
-            if (loadErr) { out$err[[labels[i]]] <- c(out$err[[labels[i]]],X$err[[g]]) }
+            if (loadErr) {
+                out$err[[labels[i]]] <- c(out$err[[labels[i]]],X$err[[g]])
+            }
         }
     }
     return(out)    
-}
-
-# X is a matrix or vector
-# x, y, z is an index or (vector) of string(s)
-ternaryclosure <- function(X,x=1,y=2,z=3){
-    xlab <- sumlabels(X,x)
-    ylab <- sumlabels(X,y)
-    zlab <- sumlabels(X,z)
-    out <- cbind(sumcols(X,x),sumcols(X,y),sumcols(X,z))
-    den <- rowSums(out)
-    out <- apply(out,2,'/',den)
-    if (methods::is(out,"matrix")) {
-        colnames(out) <- c(xlab,ylab,zlab)
-    } else {
-        names(out) <- c(xlab,ylab,zlab)
-    }
-    return(out)
-}
-
-#' Define a ternary composition
-#'
-#' Create an object of class \code{ternary}
-#' @param X an object of class \code{compositional} OR a matrix or
-#'     data frame with numerical data
-#' @param x string or a vector of strings indicating the variables
-#'     making up the first subcomposition of the ternary system. If
-#'     omitted, the first component of X is used instead.
-#' @param y second (set of) variables
-#' @param z third (set of) variables
-#' @return an object of class \code{ternary}, i.e. a list containing:
-#'
-#' x: a three column matrix (or vector) of ternary compositions.
-#'
-#' and (if X is of class \code{SRDcorrected})
-#'
-#' restoration: a list of intermediate ternary compositions inherited
-#' from the SRD correction
-#'
-#' @seealso restore
-#' @examples
-#' data(Namib)
-#' tern <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
-#' plot(tern,type="QFL")
-#' @export
-ternary <- function(X,x=1,y=2,z=3){
-    out <- list()
-    if (class(X) %in% c("compositional","counts")) dat <- X$x
-    else dat <- X
-    out$raw <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
-    colnames(out$raw) <- c(x,y,z)
-    class(out) <- append("ternary",class(X))
-    arg <- deparse(substitute(x))
-    out$x <- ternaryclosure(out$raw,x,y,z)
-    if (methods::is(X,"SRDcorrected")){
-        out$restoration <- list()
-        snames <- names(X$restoration)
-        for (sname in snames){
-            out$restoration[[sname]] <-
-                ternaryclosure(X$restoration[[sname]],x,y,z)
-        }
-        class(out) <- append("SRDcorrected",class(out))
-    }
-    return(out)
 }
 
 # from package mvtnorm:

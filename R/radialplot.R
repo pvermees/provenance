@@ -73,7 +73,7 @@ radialplot.counts <- function(x,components=NA,from=NA,to=NA,t0=NA,
                               levels=NA,clabel="",
                               bg=c("white","red"),title=TRUE,
                               alpha=0.05,...){
-    if (is.na(components)) components <- colnames(x$x)[1:2]
+    if (any(is.na(components))) components <- colnames(x$x)[1:2]
     label <- paste0('central ',components[1],'/',components[2],'-ratio')
     dat <- x$x[,components]
     X <- x2zs(dat)
@@ -113,19 +113,26 @@ x2zs <- function(x){
 #' @rdname central
 #' @export
 central.counts <- function(x,components=NA,...){
-    if (all(is.na(components))) components <- colnames(x$x)[1:2]
+    if ("ternary" %in% class(x))
+        dat <- x$raw
+    else
+        dat <- x$x
+    if (all(is.na(components)))
+        X <- dat[,colnames(x$x)[1:2]]
+    else
+        X <- dat[,components[1:2]]
     out <- list()
+    ng <- nrow(X)
     sigma <- 0.15 # convenient starting value
-    valid <- which(rowSums(x$x[components])>0)
-    Nsj <- x$x[valid,components[1]]
-    Nij <- x$x[valid,components[2]]
+    Nsj <- X[,1]
+    Nij <- X[,2]
     Ns <- sum(Nsj)
     Ni <- sum(Nij)
-    num <- (Nsj*Ni-Nij*Ns)^2
-    den <- Nsj+Nij
-    Chi2 <- sum(num/den)/(Ns*Ni)
     mj <- Nsj+Nij
-    pj <- Nsj/mj
+    ispos <- (mj>0)
+    pj <- rep(0,ng)
+    pj[ispos] <- Nsj[ispos]/mj[ispos]
+    pj[!ispos] <- Ns/(Ns+Ni)
     theta <- Ns/sum(mj)
     for (i in 1:30){ # page 49 of Galbraith (2005)
         wj <- mj/(theta*(1-theta)+(mj-1)*(theta*(1-theta)*sigma)^2)
@@ -135,10 +142,12 @@ central.counts <- function(x,components=NA,...){
     # remove two d.o.f. for mu and sigma
     out$df <- length(Nsj)-2
     # add back one d.o.f. for homogeneity test
+    num <- (Nsj*Ni-Nij*Ns)^2
+    Chi2 <- sum(num[ispos]/mj[ispos])/(Ns*Ni)
     out$mswd <- Chi2/(out$df+1)
     out$p.value <- 1-stats::pchisq(Chi2,out$df+1)
     out$ratio <- theta/(1-theta)
     out$err <- sqrt(1/(sum(wj)*(theta*(1-theta))^2))
     out$sigma <- sigma
-    out
+    out    
 }
