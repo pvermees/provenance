@@ -4,6 +4,7 @@
 \alias{diss}
 \alias{diss.distributional}
 \alias{diss.compositional}
+\alias{diss.counts}
 \title{Calculate the dissimilarity matrix between two \code{distributional} or
 \code{compositional} datasets}
 \usage{
@@ -12,6 +13,8 @@ diss(x, method)
 \method{diss}{distributional}(x, method = NULL)
 
 \method{diss}{compositional}(x, method = NULL)
+
+\method{diss}{counts}(x, method = NULL)
 }
 \arguments{
 \item{x}{an object of class \code{distributional} or

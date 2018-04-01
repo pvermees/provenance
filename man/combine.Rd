@@ -9,18 +9,20 @@ combine(X, ...)
 \arguments{
 \item{X}{a distributional dataset}
 
-\item{...}{a series of new labels assigned to strings or vectors of strings
-denoting the samples that need amalgamating}
+\item{...}{a series of new labels assigned to strings or vectors of
+strings denoting the samples that need amalgamating}
 }
 \value{
 a distributional data object with fewer samples than X
 }
 \description{
-Lumps all single grain analyses of several samples together under a new name
+Lumps all single grain analyses of several samples together under a
+new name
 }
 \examples{
 data(Namib)
-combined <- combine(Namib$DZ,east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
-                       west=c('N1','N2','N11','N12','T8','T13'))
+combined <- combine(Namib$DZ,
+                    east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
+                    west=c('N1','N2','N11','N12','T8','T13'))
 summaryplot(KDEs(combined))
 }

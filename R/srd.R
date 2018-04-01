@@ -50,7 +50,8 @@ restore.composition <- function(X,dens,target){
 #' @seealso minsorting
 #' @export
 restore <- function(X,dens,target=2.71){
-    if (!methods::is(X,"compositional")) stop("Input is not of class compositional")
+    if (!(methods::is(X,"compositional") | methods::is(X,"counts")))
+        stop("Input is not of class compositional or counts")
     mydens <- get.densities(X,dens)
     out <- X
     out$restoration <- list()

@@ -40,6 +40,26 @@ title('log(X/Pb)')
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("ALR", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("CA")
+### * CA
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: CA
+### Title: Correspondence Analysis
+### Aliases: CA
+
+### ** Examples
+
+data(Namib)
+plot(CA(Namib$PT))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("CA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("CLR")
 ### * CLR
 
@@ -246,7 +266,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: amalgamate
 ### Title: Group components of a composition
 ### Aliases: amalgamate amalgamate.default amalgamate.compositional
-###   amalgamate.SRDcorrected
+###   amalgamate.counts amalgamate.SRDcorrected
 
 ### ** Examples
 
@@ -330,7 +350,31 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 data(Namib)
-qfl <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
+Major.frame <- as.data.frame(Namib$Major)
+## uncomment the next two lines to plot an error
+## ellipse using the robCompositions package:
+# library(robCompositions)
+# plot(pcaCoDa(Major.frame))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("as.data.frame.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("as.data.frame.counts")
+### * as.data.frame.counts
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: as.data.frame.counts
+### Title: create a 'data.frame' object
+### Aliases: as.data.frame.counts
+
+### ** Examples
+
+data(Namib)
+qfl <- ternary(Namib$PTHM,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 plot(qfl,type="QFL.dickinson")
 qfl.frame <- as.data.frame(qfl)
 ## uncomment the next two lines to plot an error
@@ -342,7 +386,7 @@ qfl.frame <- as.data.frame(qfl)
 
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("as.data.frame.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+base::cat("as.data.frame.counts", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("botev")
 ### * botev
@@ -398,8 +442,9 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 data(Namib)
-combined <- combine(Namib$DZ,east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
-                       west=c('N1','N2','N11','N12','T8','T13'))
+combined <- combine(Namib$DZ,
+                    east=c('N3','N4','N5','N6','N7','N8','N9','N10'),
+                    west=c('N1','N2','N11','N12','T8','T13'))
 summaryplot(KDEs(combined))
 
 
@@ -438,7 +483,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: diss
 ### Title: Calculate the dissimilarity matrix between two 'distributional'
 ###   or 'compositional' datasets
-### Aliases: diss diss.distributional diss.compositional
+### Aliases: diss diss.distributional diss.compositional diss.counts
 
 ### ** Examples
 
@@ -598,6 +643,26 @@ plot(distribution,cumulative=FALSE)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("minsorting", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("plot.CA")
+### * plot.CA
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: plot.CA
+### Title: Point-counting biplot
+### Aliases: plot.CA
+
+### ** Examples
+
+data(Namib)
+plot(CA(Namib$PT))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("plot.CA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("plot.GPA")
 ### * plot.GPA
 
@@ -735,26 +800,6 @@ plot(PCA(Namib$Major))
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("plot.PCA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
-nameEx("plot.compositional")
-### * plot.compositional
-
-flush(stderr()); flush(stdout())
-
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-### Name: plot.compositional
-### Title: Plot a pie chart
-### Aliases: plot.compositional
-
-### ** Examples
-
-data(Namib)
-plot(Namib$HM,'N1',colmap='heat.colors')
-
-
-
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("plot.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
-cleanEx()
 nameEx("plot.distributional")
 ### * plot.distributional
 
@@ -790,7 +835,8 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 data(endmembers,densities)
 OPH <- subset(endmembers,select="ophiolite")
-distribution <- minsorting(OPH,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
+distribution <- minsorting(OPH,densities,phi=2,sigmaphi=1,
+                           medium="air",by=0.05)
 plot(distribution,components=c('F','px','opaques'))
 
 
@@ -863,6 +909,26 @@ plot(gpa)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("procrustes", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("radialplot")
+### * radialplot
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: radialplot
+### Title: Visualise point-counting data on a radial plot
+### Aliases: radialplot
+
+### ** Examples
+
+data(Namib)
+radialplot(Namib$PT,components=c('Q','P'))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("radialplot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("read.compositional")
 ### * read.compositional
 
@@ -870,19 +936,40 @@ flush(stderr()); flush(stdout())
 
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: read.compositional
-### Title: Read a .csv file with categorical data
+### Title: Read a .csv file with compositional data
 ### Aliases: read.compositional
 
 ### ** Examples
 
-fname <- system.file("Major.csv",package="provenance")
-Major <- read.compositional(fname)
-plot(PCA(Major))
+    fname <- system.file("Major.csv",package="provenance")
+    Major <- read.compositional(fname)
+    plot(PCA(Major))
 
 
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("read.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("read.counts")
+### * read.counts
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: read.counts
+### Title: Read a .csv file with point-counting data
+### Aliases: read.counts
+
+### ** Examples
+
+    fname <- system.file("HM.csv",package="provenance")
+    Major <- read.counts(fname)
+    #plot(PCA(HM))
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("read.counts", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("read.densities")
 ### * read.densities
@@ -918,10 +1005,10 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 ### ** Examples
 
-agefile <- system.file("DZ.csv",package="provenance")
-errfile <- system.file("DZerr.csv",package="provenance")
-DZ <- read.distributional(agefile,errfile)
-plot(KDE(DZ$x$N1))
+    agefile <- system.file("DZ.csv",package="provenance")
+    errfile <- system.file("DZerr.csv",package="provenance")
+    DZ <- read.distributional(agefile,errfile)
+    plot(KDE(DZ$x$N1))
 
 
 
@@ -1014,6 +1101,29 @@ plot(tern,type="QFL")
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("text.ternary")
+### * text.ternary
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: text.ternary
+### Title: Ternary text plotting
+### Aliases: text.ternary
+
+### ** Examples
+
+tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+plot(tern,pch=21,bg='red',labels=NULL)
+# add the geometric mean composition as a text label:
+gmean <- ternary(exp(colMeans(log(tern$x))))
+text(gmean,labels='geometric mean')
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("text.ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 ### * <FOOTER>
 ###
 options(digits = 7L)

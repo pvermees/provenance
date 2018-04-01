@@ -65,10 +65,10 @@
 #' mixed fission track ages. Nuclear Tracks and Radiation
 #' Measurements, 21(4), pp.459-470.
 #' @examples
-#'
-#' @rdname radialplot
+#' data(Namib)
+#' radialplot(Namib$PT,components=c('Q','P'))
 #' @export
-radialplot.counts <- function(x,components=NA,from=NA,to=NA,t0=NA,
+radialplot <- function(x,components=NA,from=NA,to=NA,t0=NA,
                               sigdig=2,show.numbers=FALSE,pch=21,
                               levels=NA,clabel="",
                               bg=c("white","red"),title=TRUE,
@@ -110,9 +110,33 @@ x2zs <- function(x){
     out
 }
 
-#' @rdname central
+#' Calculate central compositions
+#'
+#' Computes the geometric mean composition of a continuous mixture of
+#' point-counting data.
+#'
+#' @details
+#' The central composition assumes that the observed point-counting
+#' distribution is the combination of two sources of scatter:
+#' counting uncertainty and true geological dispersion.
+#'
+#' @param x an object of class \code{counts}
+#' @param components a vector of column names defining a
+#'     subcomposition
+#' @param alpha cutoff value for confidence intervals
+#' @param ... optional arguments
+#' @return a list containing:
+#'
+#' \describe{
+#' \item{mswd}{ the reduced chi-square statistic for a simple fit. }
+#' \item{p.value}{ the p-value for age homogeneity. }
+#' \item{ratio}{ the central ratio. }
+#' \item{err}{ the standard error for the central ratio. }
+#' \item{sigma}{ the overdispersion parameter, i.e. the coefficient of variation of the
+#' underlying logistic normal distribution. }
+#' }
 #' @export
-central.counts <- function(x,components=NA,...){
+central <- function(x,components=NA,alpha=0.05,...){
     if ("ternary" %in% class(x))
         dat <- x$raw
     else

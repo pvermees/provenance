@@ -4,6 +4,7 @@
 \alias{amalgamate}
 \alias{amalgamate.default}
 \alias{amalgamate.compositional}
+\alias{amalgamate.counts}
 \alias{amalgamate.SRDcorrected}
 \title{Group components of a composition}
 \usage{
@@ -12,6 +13,8 @@ amalgamate(X, ...)
 \method{amalgamate}{default}(X, ...)
 
 \method{amalgamate}{compositional}(X, ...)
+
+\method{amalgamate}{counts}(X, ...)
 
 \method{amalgamate}{SRDcorrected}(X, ...)
 }
