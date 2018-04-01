@@ -4,13 +4,17 @@ ALR.compositional	ALR
 ALR.default	ALR
 amalgamate	amalgamate
 amalgamate.compositional	amalgamate
+amalgamate.counts	amalgamate
 amalgamate.default	amalgamate
 amalgamate.SRDcorrected	amalgamate
 as.acomp	as.acomp
 as.compositional	as.compositional
 as.data.frame.compositional	as.data.frame.compositional
+as.data.frame.counts	as.data.frame.counts
 botev	botev
 bray.diss	bray.diss
+CA	CA
+central	central
 CLR	CLR
 CLR.compositional	CLR
 CLR.default	CLR
@@ -18,6 +22,7 @@ combine	combine
 densities	densities
 diss	diss
 diss.compositional	diss
+diss.counts	diss
 diss.distributional	diss
 endmembers	endmembers
 get.f	get.f
@@ -38,7 +43,7 @@ MDS.distributional	MDS
 minsorting	minsorting
 Namib	Namib
 PCA	PCA
-plot.compositional	plot.compositional
+plot.CA	plot.CA
 plot.distributional	plot.distributional
 plot.GPA	plot.GPA
 plot.INDSCAL	plot.INDSCAL
@@ -51,7 +56,9 @@ plot.ternary	plot.ternary
 points.ternary	points.ternary
 procrustes	procrustes
 provenance	provenance
+radialplot	radialplot
 read.compositional	read.compositional
+read.counts	read.counts
 read.densities	read.densities
 read.distributional	read.distributional
 restore	restore
@@ -61,6 +68,8 @@ subset.distributional	subset.distributional
 summaryplot	summaryplot
 ternary	ternary
 ternary.ellipse	ternary.ellipse
+ternary.ellipse.compositional	ternary.ellipse
+ternary.ellipse.default	ternary.ellipse
 text	points.ternary
 text.ternary	text.ternary
 _PACKAGE	provenance

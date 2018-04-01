@@ -7,9 +7,9 @@ Description: Bundles a number of established statistical methods to facilitate t
 Author: Pieter Vermeesch [aut, cre]
 Maintainer: Pieter Vermeesch <p.vermeesch@ucl.ac.uk>
 Depends: R (>= 3.0.0)
-Imports: MASS, methods
+Imports: MASS, methods, IsoplotR
 URL: http://provenance.london-geochron.com
 License: GPL-2
 LazyData: true
 RoxygenNote: 6.0.1
-Built: R 3.2.3; ; 2018-01-24 18:27:25 UTC; unix
+Built: R 3.2.3; ; 2018-04-01 22:20:39 UTC; unix

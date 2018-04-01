@@ -63,8 +63,10 @@ getSS <- function(dens,medium,SRD,phi){
 #'                            sigmaphi=1,medium="seawater",by=0.05)
 #' plot(distribution,cumulative=FALSE)
 #' @export
-minsorting <- function(X,dens,sname=NULL,phi=2,sigmaphi=1,medium="freshwater",from=-2.25,to=5.5,by=0.25){
-    if (!methods::is(X,"compositional")) stop("Input does not have class compositional")
+minsorting <- function(X,dens,sname=NULL,phi=2,sigmaphi=1,
+                       medium="freshwater",from=-2.25,to=5.5,by=0.25){
+    if (!(methods::is(X,"compositional") | methods::is(X,"counts")))
+        stop("Input does not have class compositional")
     if (is.null(sname)) sname <- names(X)[1]
     Y <- subset(X,select=sname)
     mydens <- get.densities(Y,dens)

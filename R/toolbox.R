@@ -105,6 +105,28 @@ diss.compositional <- function(x,method=NULL){
     class(out) <- append("diss",class(out))
     return(out)
 }
+#' @rdname diss
+#' @export
+diss.counts <- function(x,method=NULL){
+    if (!is.null(method)) x$method <- method
+    snames <- names(x)
+    ns <- length(snames)
+    d <- mat.or.vec(ns,ns)
+    X <- x$x / rowSums(x$x) # normalise data
+    CC <- colSums(X)
+    for (i in 1:ns){
+        for (j in 1:ns){
+            if (x$method=='bray'){
+                d[i,j] <- bray.diss(x$x[i,],x$x[j,])
+            } else { # chisq
+                d[i,j] <- sqrt(sum( (1/CC)*(X[i,] - X[j,])^2 ))
+            }
+        }
+    }
+    out <- stats::as.dist(d)
+    class(out) <- append("diss",class(out))
+    return(out)
+}
 
 #' Bray-Curtis dissimilarity
 #'
@@ -278,7 +300,7 @@ ALR.compositional <- function(x,...){
 #' Performs PCA of compositional data using a centred logratio
 #' distance
 #' @param x an object of class \code{compositional}
-#' @param ... optional arguments to R's \code{princomp function}
+#' @param ... optional arguments to R's \code{princomp} function
 #' @return an object of classes \code{PCA}, which is synonymous to the
 #'     stats packages' \code{princomp} class.
 #' @examples
@@ -299,6 +321,31 @@ PCA <- function(x,...){
     return(pc)
 }
 
+#' Correspondence Analysis
+#'
+#' Performs Correspondence Analysis of point-counting data
+#' @param x an object of class \code{counts}
+#' @param nf number of correspondence factors (dimensions)
+#' @param ... optional arguments to the \code{corresp} function of the
+#'     \code{MASS} package
+#' @return an object of classes \code{CA}, which is synonymous to the
+#'     MASS packages' \code{correspondence} class.
+#' @examples
+#' data(Namib)
+#' plot(CA(Namib$PT))
+#' @export
+CA <- function(x,nf=2,...){
+    if (methods::is(x,'counts') |
+        methods::is(x,'compositional')){
+        X <- x$x
+    } else {
+        X <- x
+    }
+    out <- MASS::corresp(X,nf=nf,...)
+    class(out) <- append("CA",class(out))
+    return(out)
+}
+
 #' Get a subset of distributional data
 #'
 #' Return a subset of provenance data according to some specified indices
@@ -313,6 +360,7 @@ PCA <- function(x,...){
 #' data(Namib)
 #' coast <- subset(Namib$HM,select=c("N1","N2","T8","T13","N12","N13"))
 #' summaryplot(coast,ncol=2)
+#' @method subset distributional
 #' @export
 subset.distributional <- function(x,subset=NULL,select=NULL,...){
     out <- x
@@ -338,6 +386,7 @@ subset.distributional <- function(x,subset=NULL,select=NULL,...){
 #' @param ... optional arguments for the generic subset function
 #' @return an object of class \code{compositional}
 #' @seealso read.compositional
+#' @method subset compositional
 #' @export
 subset.compositional <- function(x,subset=NULL,select=NULL,components=NULL,...){
     out <- x
@@ -361,6 +410,11 @@ subset.compositional <- function(x,subset=NULL,select=NULL,components=NULL,...){
         }
     }
     return(out)
+}
+#' @method subset counts
+#' @export
+subset.counts <- function(x,subset=NULL,select=NULL,components=NULL,...){
+    subset.compositional(x,subset=subset,select=select,components=components,...)
 }
 
 # returns list of dissimilarities between common items
@@ -549,6 +603,10 @@ names.compositional <- function(x){
     return(rownames(x$x))
 }
 #' @export
+names.counts <- function(x){
+    return(rownames(x$x))
+}
+#' @export
 names.KDEs <- function(x){
     return(names(x$kdes))
 }
@@ -638,7 +696,8 @@ get.f <- function(n,p=0.05){
 }
 
 get.densities <- function(X,dtable){
-    if (!methods::is(X,"compositional")) stop("input is not of class compositional")
+    if (!(methods::is(X,"compositional") | methods::is(X,"counts")))
+        stop("input is not of class compositional or counts")
     minerals <- colnames(X$x)
     i <- which(colnames(dtable) %in% colnames(X$x), arr.ind=TRUE)
     return(dtable[i])
@@ -716,6 +775,13 @@ amalgamate.default <- function(X,...){
 #' @rdname amalgamate
 #' @export
 amalgamate.compositional <- function(X,...){
+    out <- X
+    out$x <- amalgamate(X$x,...)
+    return(out)
+}
+#' @rdname amalgamate
+#' @export
+amalgamate.counts <- function(X,...){
     out <- X
     out$x <- amalgamate(X$x,...)
     return(out)

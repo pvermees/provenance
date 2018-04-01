@@ -130,6 +130,8 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow') {
 #' palynological data)
 #'
 #' @param fname a string with the path to the .csv file
+#' @param method either "chisq" (for the chi-square distance) or
+#'     "bray" (for the Bray-Curtis distance)
 #' @param colmap an optional string with the name of one of R's
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
@@ -145,13 +147,14 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow') {
 #' @examples
 #'     fname <- system.file("HM.csv",package="provenance")
 #'     Major <- read.counts(fname)
-#'     plot(PCA(HM))
+#'     #plot(PCA(HM))
 #' @export
-read.counts <- function(fname,colmap='rainbow'){
+read.counts <- function(fname,method='chisq',colmap='rainbow'){
     out <- list()
-    out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "counts"
+    out$name <- basename(substr(fname,1,nchar(fname)-4))
     out$x <- utils::read.csv(fname,header=TRUE,row.names=1)
+    out$method <- method
     out$colmap <- colmap
     return(out)
 }
@@ -183,7 +186,31 @@ read.densities <- function(fname){
 #' @return a \code{data.frame}
 #' @examples
 #' data(Namib)
-#' qfl <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
+#' Major.frame <- as.data.frame(Namib$Major)
+#' ## uncomment the next two lines to plot an error
+#' ## ellipse using the robCompositions package:
+#' # library(robCompositions)
+#' # plot(pcaCoDa(Major.frame))
+#' @export
+as.data.frame.compositional <- function(x,...){
+    nc <- ncol(as.matrix(x$x))
+    if (nc==3) out <- data.frame(x$x[,c(2,3,1)],...)
+    if (nc>3) out <- data.frame(x$x[,c(2,3,1,4:nc)],...)
+    if (nc<3) out <- data.frame(x$x,...)
+    return(out)
+}
+
+#' create a \code{data.frame} object
+#'
+#' Convert an object of class \code{counts} to a \code{data.frame} for
+#' use in the \code{robCompositions} package
+#'
+#' @param x an object of class \code{counts}
+#' @param ... optional arguments to be passed on to the generic function
+#' @return a \code{data.frame}
+#' @examples
+#' data(Namib)
+#' qfl <- ternary(Namib$PTHM,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 #' plot(qfl,type="QFL.dickinson")
 #' qfl.frame <- as.data.frame(qfl)
 #' ## uncomment the next two lines to plot an error
@@ -192,7 +219,7 @@ read.densities <- function(fname){
 #' # pca <- pcaCoDa(qfl.frame)
 #' # plot(pca,xlabs=rownames(qfl.frame))
 #' @export
-as.data.frame.compositional <- function(x,...){
+as.data.frame.counts <- function(x,...){
     nc <- ncol(as.matrix(x$x))
     if (nc==3) out <- data.frame(x$x[,c(2,3,1)],...)
     if (nc>3) out <- data.frame(x$x[,c(2,3,1,4:nc)],...)
@@ -218,8 +245,8 @@ as.data.frame.compositional <- function(x,...){
 #' # ellipses(mean(qfl.acomp),var(qfl.acomp),r=2)
 #' @export
 as.acomp <- function(x){
-    if (!methods::is(x,"compositional")){
-        stop("not an object of class compositional or ternary")
+    if (!(methods::is(x,"compositional")| methods::is(x,"counts"))){
+        stop("not an object of class compositional or counts")
     }
     dat <- as.matrix(as.data.frame(x))
     out <- structure(dat)

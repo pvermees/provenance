@@ -23,10 +23,16 @@
 #' tern <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 #' plot(tern,type="QFL")
 #' @export
-ternary <- function(X,x=1,y=2,z=3){
+ternary <- function(X,x=NA,y=NA,z=NA){
     out <- list()
-    if (class(X) %in% c("compositional","counts")) dat <- X$x
+    if (any(class(X) %in% c("compositional","counts"))) dat <- X$x
     else dat <- X
+    if (ndim(dat)>1) cnames <- colnames(dat)
+    else cnames <- names(dat)
+    hasnames <-  (!is.null(cnames))
+    if (is.na(x) & hasnames) x <- cnames[1] else x <- 1
+    if (is.na(y) & hasnames) y <- cnames[2] else y <- 2
+    if (is.na(z) & hasnames) z <- cnames[3] else z <- 3
     out$raw <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
     colnames(out$raw) <- c(x,y,z)
     class(out) <- append("ternary",class(X))
@@ -164,20 +170,21 @@ lines.ternary <- function(x,...){
 #' @param labels a character vector or expression specifying the text
 #'     to be written
 #' @param ... optional arguments to the generic \code{text} function
-#'     tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-#'     plot(tern,pch=21,bg='red',labels=NULL)
+#' @examples
+#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#' plot(tern,pch=21,bg='red',labels=NULL)
 #' # add the geometric mean composition as a text label:
 #' gmean <- ternary(exp(colMeans(log(tern$x))))
 #' text(gmean,labels='geometric mean')
 #' @method text ternary
 #' @export
-text.ternary <- function(x,labels=names(x),...){
+text.ternary <- function(x,labels=1:nrow(x$x),...){
     xy <- xyz2xy(x$x)
     graphics::text(xy,labels=labels,...)
 }
 #' Ternary confidence ellipse
 #' 
-#' plot a logistic \eqn{100(1-alpha)\%} confidence region around the
+#' plot a logistic \eqn{100(1-\alpha)\%} confidence region around the
 #'     data or around its mean.
 #' @param x an object of class \code{ternary}
 #' @rdname ternary.ellipse
@@ -187,6 +194,8 @@ ternary.ellipse <- function(x,...){ UseMethod("ternary.ellipse",x) }
 #' @param population show the standard deviation of the entire
 #'     population or the standard error of the mean?
 #' @param ... optional formatting arguments
+#' @rdname ternary.ellipse
+#' @export
 ternary.ellipse.default <- function(x,alpha=0.05,population=TRUE,...){
     uv <- ALR(x)
     u <- subset(uv,select=1)
@@ -222,11 +231,11 @@ ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
     ternary.ellipse.default(x,alpha=alpha,population=population,...)
 }
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
-    fit13 <- central.counts(x,components=colnames(x$raw)[c(1,3)])
-    fit23 <- central.counts(x,components=colnames(x$raw)[c(2,3)])
+    fit13 <- central(x,components=colnames(x$raw)[c(1,3)])
+    fit23 <- central(x,components=colnames(x$raw)[c(2,3)])
+    pars <- c(log(fit13$ratio),log(fit23$ratio),
+              fit13$sigma^2,fit23$sigma^2,0)
     if (fit13$sigma>0.01 & fit23$sigma>0.01){
-        pars <- c(log(fit13$ratio),log(fit23$ratio),
-                  fit13$sigma^2,fit23$sigma^2)
         sol <- optimise(LL.ternary.random.effects,interval=c(-0.99,0.99),
                         dat=x$raw,pars=pars,tol=0.05)
         b1 <- pars[1]
@@ -236,11 +245,13 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         E[2,2] <- pars[4]
         E[1,2] <- sol$minimum*sqrt(E[1,1]*E[2,2])
         E[2,1] <- E[1,2]
-        ell <- ellipse(b1,b2,E,alpha=alpha)
+        ell <- IsoplotR::ellipse(b1,b2,E,alpha=alpha)
         XYZ <- ALR(ell,inverse=TRUE)
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
+        pars[5] <- E[1,2]
     } else if (fit13$sigma>0.01 & fit23$sigma<0.01){
+        pars[4] <- 0
         m13 <- qnorm(alpha/2,mean=log(fit13$ratio),sd=fit13$sigma)
         M13 <- qnorm(1-alpha/2,mean=log(fit13$ratio),sd=fit13$sigma)
         np <- 20 # number of points
@@ -251,6 +262,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
     } else if (fit13$sigma<0.01 & fit23$sigma>0.01){
+        pars[3] <- 0
         m23 <- qnorm(alpha/2,mean=log(fit23$ratio),sd=fit23$sigma)
         M23 <- qnorm(1-alpha/2,mean=log(fit23$ratio),sd=fit23$sigma)
         np <- 20 # number of points
@@ -261,10 +273,12 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
     } else {
+        pars[3:4] <- 0
         XYZ <- ALR(log(c(fit13$ratio,fit23$ratio)),inverse=TRUE)
         xy <- xyz2xy(XYZ$x)
         graphics::points(xy,...)
     }
+    pars
 }
 
 # pars = mu1, mu2, var1, var2, cov12

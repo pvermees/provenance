@@ -9,7 +9,7 @@ PCA(x, ...)
 \arguments{
 \item{x}{an object of class \code{compositional}}
 
-\item{...}{optional arguments to R's \code{princomp function}}
+\item{...}{optional arguments to R's \code{princomp} function}
 }
 \value{
 an object of classes \code{PCA}, which is synonymous to the

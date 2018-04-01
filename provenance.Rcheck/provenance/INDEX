@@ -1,4 +1,5 @@
 ALR                     Additive logratio transformation
+CA                      Correspondence Analysis
 CLR                     Centred logratio transformation
 GPA                     Generalised Procrustes Analysis of
                         configurations
@@ -15,8 +16,10 @@ as.acomp                create an 'acomp' object
 as.compositional        create a 'compositional' object
 as.data.frame.compositional
                         create a 'data.frame' object
+as.data.frame.counts    create a 'data.frame' object
 botev                   Compute the optimal kernel bandwidth
 bray.diss               Bray-Curtis dissimilarity
+central                 Calculate central compositions
 combine                 Combine samples of distributional data
 densities               A list of rock and mineral densities
 diss                    Calculate the dissimilarity matrix between two
@@ -33,6 +36,7 @@ indscal                 Individual Differences Scaling of provenance
 lines.ternary           Ternary line plotting
 minsorting              Assess settling equivalence of detrital
                         components
+plot.CA                 Point-counting biplot
 plot.GPA                Plot a Procrustes configuration
 plot.INDSCAL            Plot an INDSCAL group configuration and source
                         weights
@@ -40,7 +44,6 @@ plot.KDE                Plot a kernel density estimate
 plot.KDEs               Plot one or more kernel density estimates
 plot.MDS                Plot an MDS configuration
 plot.PCA                Compositional biplot
-plot.compositional      Plot a pie chart
 plot.distributional     Plot continuous data as histograms or
                         cumulative age distributions
 plot.minsorting         Plot inferred grain size distributions
@@ -49,7 +52,9 @@ points.ternary          Ternary point plotting
 procrustes              Generalised Procrustes Analysis of provenance
                         data
 provenance              Menu-based interface for 'provenance'
-read.compositional      Read a .csv file with categorical data
+radialplot              Visualise point-counting data on a radial plot
+read.compositional      Read a .csv file with compositional data
+read.counts             Read a .csv file with point-counting data
 read.densities          Read a .csv file with mineral and rock
                         densities
 read.distributional     Read a .csv file with continuous (detrital

@@ -130,8 +130,8 @@ plot.distributional <- function(x,snames=NULL,annotate=TRUE,CAD=FALSE,
 #'     object
 #' @examples
 #' data(Namib)
-#' plot(Namib$HM,'N1',colmap='heat.colors')
-#' @method plot compositional
+#' plot(Namib$Major,'N1',colmap='heat.colors')
+#' @rdname plot compositional
 #' @export
 plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
     i <- which(names(x) %in% sname)
@@ -142,6 +142,11 @@ plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
     } else {
         graphics::pie(unlist(x$x[i,]),labels=NA,col=col,...)
     }
+}
+#' @rdname plot compositional
+#' @export
+plot.counts <- function(x,sname,annotate=TRUE,colmap=NULL,...){
+    plot.compositional(x,sname,annotate=TRUE,colmap=NULL,...)
 }
 
 #' Plot a Procrustes configuration
@@ -186,6 +191,23 @@ plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
 #' @export
 plot.PCA <- function(x,...){
     stats::biplot(x,...)
+}
+
+#' Point-counting biplot
+#'
+#' Plot the results of a correspondence analysis as a biplot
+#' @param x an object of class \code{CA}
+#' @param ... optional arguments of the \code{biplot} function
+#' @examples
+#' data(Namib)
+#' plot(CA(Namib$PT))
+#' @seealso CA
+#' @method plot CA
+#' @export
+plot.CA <- function(x,...){
+    biplot(x$rscore,x$cscore,var.axes=TRUE,
+           xlab='Component 1',
+           ylab='Component 2',...)
 }
 
 #' Plot an MDS configuration
@@ -459,6 +481,9 @@ annotation.compositional <- function(x,height=NULL,...){
     comp <- rep(1,length(labels))
     col <- do.call(x$colmap,list(length(labels)))
     graphics::pie(comp,labels=labels,col=col,...)
+}
+annotation.counts <- function(x,height=NULL,...){
+    annotation.compositional(x,height=NULL,...)
 }
 annotation.distributional <- function(x,height=NULL,...){
     oldpar <- graphics::par()
