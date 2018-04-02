@@ -177,7 +177,7 @@ flush(stderr()); flush(stdout())
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### Name: MDS
 ### Title: Multidimensional Scaling
-### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
+### Aliases: MDS MDS.compositional MDS.counts MDS.distributional MDS.diss
 
 ### ** Examples
 
@@ -773,6 +773,26 @@ plot(PCA(Namib$Major))
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("plot.PCA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("plot.compositional")
+### * plot.compositional
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: plot.compositional
+### Title: Plot a pie chart
+### Aliases: plot.compositional
+
+### ** Examples
+
+data(Namib)
+plot(Namib$Major,'N1',colmap='heat.colors')
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("plot.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("plot.distributional")
 ### * plot.distributional
 
@@ -1027,9 +1047,9 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 data(Namib)
 coast <- c("N1","N2","T8","T13","N12","N13")
-ZTRcoast <- subset(Namib$HM,select=coast,components=c('zr','tm','rt'))
+ZTRcoast <- subset(Namib$HM,select=coast,components=c('gt','cpx','ep'))
 DZcoast <- subset(Namib$DZ,select=coast)
-summaryplot(ZTRcoast,DZcoast,ncol=2)
+summaryplot(ZTRcoast,KDEs(DZcoast),ncol=2)
 
 
 
@@ -1077,6 +1097,29 @@ plot(tern,type="QFL")
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("ternary.ellipse")
+### * ternary.ellipse
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: ternary.ellipse
+### Title: Ternary confidence ellipse
+### Aliases: ternary.ellipse ternary.ellipse.default
+###   ternary.ellipse.compositional ternary.ellipse.counts
+
+### ** Examples
+
+data(Namib)
+tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+plot(tern)
+ternary.ellipse(tern)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("ternary.ellipse", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("text.ternary")
 ### * text.ternary

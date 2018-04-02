@@ -48,7 +48,6 @@
 #'     \code{levels} is a vector of numbers, then \code{bg} is used to
 #'     construct a colour ramp.
 #' @param title add a title to the plot?
-#' @param alpha cutoff value for confidence intervals
 #' @param ... additional arguments to the generic \code{points}
 #'     function
 #' @references
@@ -69,28 +68,29 @@
 #' radialplot(Namib$PT,components=c('Q','P'))
 #' @export
 radialplot <- function(x,components=NA,from=NA,to=NA,t0=NA,
-                              sigdig=2,show.numbers=FALSE,pch=21,
-                              levels=NA,clabel="",
-                              bg=c("white","red"),title=TRUE,
-                              alpha=0.05,...){
+                       sigdig=2,show.numbers=FALSE,pch=21,
+                       levels=NA,clabel="",
+                       bg=c("white","red"),title=TRUE,...){
     if (any(is.na(components))) components <- colnames(x$x)[1:2]
     label <- paste0('central ',components[1],'/',components[2],'-ratio')
-    dat <- x$x[,components]
-    X <- x2zs(dat)
+    dat <- subset(x,components=components)
+    X <- x2zs(dat$x)
     X$transformation <- 'arctan'
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=bg,...)
-    fit <- central(x,components=components)
-    rounded.ratio <- IsoplotR:::roundit(fit$ratio,fit$err,sigdig=sigdig)
+    fit <- central(dat)
+    ratio <- fit['mu',1]/fit['mu',2]
+    err <- fit['err',1]*ratio
+    rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
     line1 <- substitute(a~'='~b%+-%c~'%',
                         list(a=label,
                              b=rounded.ratio[1],
                              c=rounded.ratio[2]))
     line2 <- substitute('MSWD ='~a~', p('~chi^2*')='~b,
-                        list(a=signif(fit$mswd,sigdig),
-                             b=signif(fit$p.value,sigdig)))
+                        list(a=signif(fit['mswd',1],sigdig),
+                             b=signif(fit['p.value',1],sigdig)))
     line3 <- substitute('dispersion ='~a~'%',
-                        list(a=signif(100*fit$sigma,sigdig)))
+                        list(a=signif(100*fit['sigma',1],sigdig)))
     graphics::mtext(line1,line=2)
     graphics::mtext(line2,line=1)
     graphics::mtext(line3,line=0)
@@ -121,41 +121,42 @@ x2zs <- function(x){
 #' counting uncertainty and true geological dispersion.
 #'
 #' @param x an object of class \code{counts}
-#' @param components a vector of column names defining a
-#'     subcomposition
-#' @param alpha cutoff value for confidence intervals
 #' @param ... optional arguments
-#' @return a list containing:
+#' @return an \code{[5 x n]} matrix with \code{n} being the number
+#' of categories and the rows containing:
 #'
 #' \describe{
-#' \item{mswd}{ the reduced chi-square statistic for a simple fit. }
-#' \item{p.value}{ the p-value for age homogeneity. }
-#' \item{ratio}{ the central ratio. }
-#' \item{err}{ the standard error for the central ratio. }
+#' \item{mu}{ the `central' composition. }
+#' \item{err}{ the standard error for the central composition. }
 #' \item{sigma}{ the overdispersion parameter, i.e. the coefficient
-#'               of variation of the
-#' underlying logistic normal distribution. }
+#'               of variation of the underlying logistic normal
+#'               distribution. }
+#' \item{p.value}{ the p-value for age homogeneity }
 #' }
 #' @export
-central <- function(x,components=NA,alpha=0.05,...){
-    if ("ternary" %in% class(x))
-        dat <- x$raw
-    else
-        dat <- x$x
-    if (any(is.na(components)))
-        X <- dat[,colnames(x$x)[1:2]]
-    else
-        X <- dat[,components[1:2]]
-    out <- list()
-    ng <- nrow(X)
+central <- function(x,...){
+    if ("ternary" %in% class(x)) dat <- x$raw
+    else dat <- x$x
+    ns <- nrow(dat)
+    nc <- ncol(dat)
+    out <- matrix(0,5,nc)
+    colnames(out) <- colnames(dat)
+    rownames(out) <- c('mu','err','sigma','mswd','p.value')
+    for (i in 1:nc){
+        Nsj <- subset(dat,select=i)
+        Nij <- rowSums(subset(dat,select=-i))
+        out[,i] <- central_helper(Nsj,Nij)
+    }
+    out
+}
+
+central_helper <- function(Nsj,Nij){
     sigma <- 0.15 # convenient starting value
-    Nsj <- X[,1]
-    Nij <- X[,2]
     Ns <- sum(Nsj)
     Ni <- sum(Nij)
     mj <- Nsj+Nij
     ispos <- (mj>0)
-    pj <- rep(0,ng)
+    pj <- 0*Nsj
     pj[ispos] <- Nsj[ispos]/mj[ispos]
     pj[!ispos] <- Ns/(Ns+Ni)
     theta <- Ns/sum(mj)
@@ -164,15 +165,12 @@ central <- function(x,components=NA,alpha=0.05,...){
         sigma <- sigma * sqrt(sum((wj*(pj-theta))^2)/sum(wj))
         theta <- sum(wj*pj)/sum(wj)
     }
-    # remove two d.o.f. for mu and sigma
-    out$df <- length(Nsj)-2
-    # add back one d.o.f. for homogeneity test
     num <- (Nsj*Ni-Nij*Ns)^2
     Chi2 <- sum(num[ispos]/mj[ispos])/(Ns*Ni)
-    out$mswd <- Chi2/(out$df+1)
-    out$p.value <- 1-stats::pchisq(Chi2,out$df+1)
-    out$ratio <- theta/(1-theta)
-    out$err <- sqrt(1/(sum(wj)*(theta*(1-theta))^2))
-    out$sigma <- sigma
-    out    
+    # remove one d.o.f. for theta (for homogeneity test)
+    df <- nrow(Nsj)-1
+    mswd <- Chi2/df    
+    p.value <- 1-stats::pchisq(Chi2,df)
+    err <- sqrt(1/sum(wj))
+    c(theta,err,sigma,mswd,p.value)
 }

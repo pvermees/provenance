@@ -4,28 +4,24 @@
 \alias{central}
 \title{Calculate central compositions}
 \usage{
-central(x, components = NA, alpha = 0.05, ...)
+central(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{counts}}
 
-\item{components}{a vector of column names defining a
-subcomposition}
-
-\item{alpha}{cutoff value for confidence intervals}
-
 \item{...}{optional arguments}
 }
 \value{
-a list containing:
+an \code{[5 x n]} matrix with \code{n} being the number
+of categories and the rows containing:
 
 \describe{
-\item{mswd}{ the reduced chi-square statistic for a simple fit. }
-\item{p.value}{ the p-value for age homogeneity. }
-\item{ratio}{ the central ratio. }
-\item{err}{ the standard error for the central ratio. }
-\item{sigma}{ the overdispersion parameter, i.e. the coefficient of variation of the
-underlying logistic normal distribution. }
+\item{mu}{ the `central' composition. }
+\item{err}{ the standard error for the central composition. }
+\item{sigma}{ the overdispersion parameter, i.e. the coefficient
+              of variation of the underlying logistic normal
+              distribution. }
+\item{p.value}{ the p-value for age homogeneity }
 }
 }
 \description{

@@ -198,7 +198,7 @@ Type 'q()' to quit R.
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: MDS
 > ### Title: Multidimensional Scaling
-> ### Aliases: MDS MDS.compositional MDS.distributional MDS.diss
+> ### Aliases: MDS MDS.compositional MDS.counts MDS.distributional MDS.diss
 > 
 > ### ** Examples
 > 
@@ -320,10 +320,6 @@ dev.new(): using pdf(file="Rplots1.pdf")
 > 
 > data(Namib)
 > qfl <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(qfl,type="QFL.dickinson")
 > qfl.acomp <- as.acomp(qfl)
 > ## uncomment the next two lines to plot an error
@@ -657,10 +653,6 @@ dev.new(): using pdf(file="Rplots2.pdf")
 > ### ** Examples
 > 
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(tern,pch=21,bg='red',labels=NULL)
 > middle <- matrix(c(0.01,0.49,0.01,0.49,0.98,0.02),2,3)
 > lines(ternary(middle))
@@ -872,6 +864,26 @@ dev.new(): using pdf(file="Rplots4.pdf")
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("plot.PCA", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
+> nameEx("plot.compositional")
+> ### * plot.compositional
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.compositional
+> ### Title: Plot a pie chart
+> ### Aliases: plot.compositional
+> 
+> ### ** Examples
+> 
+> data(Namib)
+> plot(Namib$Major,'N1',colmap='heat.colors')
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("plot.distributional")
 > ### * plot.distributional
 > 
@@ -930,10 +942,6 @@ dev.new(): using pdf(file="Rplots4.pdf")
 > 
 > data(Namib)
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(tern,type='QFL.descriptive',pch=21,bg='red',labels=NULL)
 > 
 > 
@@ -954,10 +962,6 @@ Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
 > ### ** Examples
 > 
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(tern,pch=21,bg='red',labels=NULL)
 > # add the geometric mean composition as a yellow square:
 > gmean <- ternary(exp(colMeans(log(tern$x))))
@@ -1148,9 +1152,9 @@ converged
 > 
 > data(Namib)
 > coast <- c("N1","N2","T8","T13","N12","N13")
-> ZTRcoast <- subset(Namib$HM,select=coast,components=c('zr','tm','rt'))
+> ZTRcoast <- subset(Namib$HM,select=coast,components=c('gt','cpx','ep'))
 > DZcoast <- subset(Namib$DZ,select=coast)
-> summaryplot(ZTRcoast,DZcoast,ncol=2)
+> summaryplot(ZTRcoast,KDEs(DZcoast),ncol=2)
 > 
 > 
 > 
@@ -1192,16 +1196,36 @@ converged
 > 
 > data(Namib)
 > tern <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(tern,type="QFL")
 > 
 > 
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("ternary", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("ternary.ellipse")
+> ### * ternary.ellipse
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ternary.ellipse
+> ### Title: Ternary confidence ellipse
+> ### Aliases: ternary.ellipse ternary.ellipse.default
+> ###   ternary.ellipse.compositional ternary.ellipse.counts
+> 
+> ### ** Examples
+> 
+> data(Namib)
+> tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+> plot(tern)
+> ternary.ellipse(tern)
+[1]  1.8531211 -0.1203267  0.1753515  0.1822328  0.1349611
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("ternary.ellipse", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("text.ternary")
 > ### * text.ternary
@@ -1216,10 +1240,6 @@ Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
 > ### ** Examples
 > 
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-Warning in if (is.na(y) & hasnames) y <- cnames[2] else y <- 2 :
-  the condition has length > 1 and only the first element will be used
-Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
-  the condition has length > 1 and only the first element will be used
 > plot(tern,pch=21,bg='red',labels=NULL)
 > # add the geometric mean composition as a text label:
 > gmean <- ternary(exp(colMeans(log(tern$x))))
@@ -1233,7 +1253,7 @@ Warning in if (is.na(z) & hasnames) z <- cnames[3] else z <- 3 :
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  14.939 5.282 13.522 0 0 
+Time elapsed:  23.347 5.725 22.77 0 0 
 > grDevices::dev.off()
 pdf 
   2 

@@ -6,7 +6,7 @@
 \usage{
 radialplot(x, components = NA, from = NA, to = NA, t0 = NA,
   sigdig = 2, show.numbers = FALSE, pch = 21, levels = NA,
-  clabel = "", bg = c("white", "red"), title = TRUE, alpha = 0.05, ...)
+  clabel = "", bg = c("white", "red"), title = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{counts}}
@@ -38,8 +38,6 @@ If \code{levels=NA}, then only the first colour is used. If
 construct a colour ramp.}
 
 \item{title}{add a title to the plot?}
-
-\item{alpha}{cutoff value for confidence intervals}
 
 \item{...}{additional arguments to the generic \code{points}
 function}

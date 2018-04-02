@@ -19,7 +19,7 @@ Aitchison's CLR-distance or 'bray' for the Bray-Curtis distance.}
 an object of class \code{compositional}
 }
 \description{
-Convert an object of class \code{matrix}, \code{data.fram} or
+Convert an object of class \code{matrix}, \code{data.frame} or
 \code{acomp} to an object of class \code{compositional}
 }
 \examples{

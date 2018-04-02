@@ -415,7 +415,13 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
 #' @rdname subset
 #' @export
 subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
-    subset.compositional(x,subset=subset,select=select,components=components,...)
+    out <- subset.compositional(x,subset=subset,select=select,components=components,...)
+    if (methods::is(x,"ternary")){
+        i <- which(rownames(x$raw) %in% rownames(out$x))
+        j <- which(colnames(x$raw) %in% colnames(out$x))
+        out$raw <- x$raw[i,j]
+    }
+    out
 }
 
 # returns list of dissimilarities between common items
