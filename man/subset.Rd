@@ -37,9 +37,9 @@ indices
 \examples{
 data(Namib)
 coast <- c("N1","N2","T8","T13","N12","N13")
-ZTRcoast <- subset(Namib$HM,select=coast,components=c('zr','tm','rt'))
+ZTRcoast <- subset(Namib$HM,select=coast,components=c('gt','cpx','ep'))
 DZcoast <- subset(Namib$DZ,select=coast)
-summaryplot(ZTRcoast,DZcoast,ncol=2)
+summaryplot(ZTRcoast,KDEs(DZcoast),ncol=2)
 }
 \seealso{
 read.distributional

@@ -4,7 +4,7 @@
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘1.10’
+* this is package ‘provenance’ version ‘2.0’
 * checking CRAN incoming feasibility ... Note_to_CRAN_maintainers
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 * checking package namespace information ... OK
@@ -16,6 +16,7 @@ Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 Found the following executable files:
   .git/objects/3f/98697f96a33f0b80fd9b7027530508f3380d50
   .git/objects/67/7f4a55ffc44bffeb26772383edc822b74292e7
+  .git/objects/fb/0419d995a060122aa74810dae91b7b714ad974
 Source packages should not contain undeclared executable files.
 See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for hidden files and directories ... NOTE
@@ -33,8 +34,8 @@ CRAN-pack does not know about
 * checking package directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... NOTE
-Non-standard files/directories found at top level:
-  ‘provenance.Rcheck’ ‘provenance.pdf’
+Non-standard file/directory found at top level:
+  ‘provenance.Rcheck’
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... WARNING
@@ -74,6 +75,9 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
+Examples with CPU or elapsed time > 5s
+                 user system elapsed
+ternary.ellipse 6.284  0.025   6.311
 * checking PDF version of manual ... OK
 * DONE
 Status: 2 WARNINGs, 3 NOTEs

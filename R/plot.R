@@ -131,7 +131,7 @@ plot.distributional <- function(x,snames=NULL,annotate=TRUE,CAD=FALSE,
 #' @examples
 #' data(Namib)
 #' plot(Namib$Major,'N1',colmap='heat.colors')
-#' @rdname plot compositional
+#' @method plot compositional
 #' @export
 plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
     i <- which(names(x) %in% sname)
@@ -143,7 +143,7 @@ plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
         graphics::pie(unlist(x$x[i,]),labels=NA,col=col,...)
     }
 }
-#' @rdname plot compositional
+#' @method plot counts
 #' @export
 plot.counts <- function(x,sname,annotate=TRUE,colmap=NULL,...){
     plot.compositional(x,sname,annotate=TRUE,colmap=NULL,...)

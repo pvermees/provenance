@@ -3,6 +3,7 @@
 \name{MDS}
 \alias{MDS}
 \alias{MDS.compositional}
+\alias{MDS.counts}
 \alias{MDS.distributional}
 \alias{MDS.diss}
 \title{Multidimensional Scaling}
@@ -10,6 +11,8 @@
 MDS(x, ...)
 
 \method{MDS}{compositional}(x, classical = FALSE, k = 2, ...)
+
+\method{MDS}{counts}(x, classical = FALSE, k = 2, ...)
 
 \method{MDS}{distributional}(x, classical = FALSE, k = 2, ...)
 

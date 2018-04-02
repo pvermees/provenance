@@ -35,8 +35,8 @@ ternary <- function(X,x=NA,y=NA,z=NA){
     if (all(is.na(z)) & hasnames) z <- cnames[3] else z <- 3
     out$raw <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
     colnames(out$raw) <- c(x,y,z)
+    if (nrow(out$raw)>1) rownames(out$raw) <- names(X)
     class(out) <- append("ternary",class(X))
-    arg <- deparse(substitute(x))
     out$x <- ternaryclosure(out$raw,x,y,z)
     if (methods::is(X,"SRDcorrected")){
         out$restoration <- list()
@@ -230,12 +230,26 @@ ternary.ellipse.default <- function(x,alpha=0.05,population=TRUE,...){
 ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
     ternary.ellipse.default(x,alpha=alpha,population=population,...)
 }
+#' @examples
+#' data(Namib)
+#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#' plot(tern)
+#' ternary.ellipse(tern)
+#' @rdname ternary.ellipse
+#' @export
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
-    fit13 <- central(x,components=colnames(x$raw)[c(1,3)])
-    fit23 <- central(x,components=colnames(x$raw)[c(2,3)])
-    pars <- c(log(fit13$ratio),log(fit23$ratio),
-              fit13$sigma^2,fit23$sigma^2,0)
-    if (fit13$sigma>0.01 & fit23$sigma>0.01){
+    components <- colnames(x$raw)
+    xy <- subset(x,components=components[c(1,3)])
+    yz <- subset(x,components=components[c(2,3)])
+    fit13 <- central(xy)
+    ratio13 <- fit13['mu',1]/fit13['mu',2]
+    sigma13 <- fit13['sigma',1]
+    fit23 <- central(yz)
+    ratio23 <- fit23['mu',1]/fit23['mu',2]
+    sigma23 <- fit23['sigma',1]
+    pars <- c(log(ratio13),log(ratio23),
+              sigma13^2,sigma23^2,0)
+    if (sigma13>0.01 & sigma23>0.01){
         sol <- optimise(LL.ternary.random.effects,interval=c(-0.99,0.99),
                         dat=x$raw,pars=pars,tol=0.05)
         b1 <- pars[1]
@@ -250,23 +264,23 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
         pars[5] <- E[1,2]
-    } else if (fit13$sigma>0.01 & fit23$sigma<0.01){
+    } else if (sigma13>0.01 & sigma23<0.01){
         pars[4] <- 0
-        m13 <- qnorm(alpha/2,mean=log(fit13$ratio),sd=fit13$sigma)
-        M13 <- qnorm(1-alpha/2,mean=log(fit13$ratio),sd=fit13$sigma)
+        m13 <- qnorm(alpha/2,mean=log(ratio13),sd=sigma13)
+        M13 <- qnorm(1-alpha/2,mean=log(ratio13),sd=sigma13)
         np <- 20 # number of points
         u <- seq(m13,M13,length.out=np)
-        v <- rep(log(fit23$ratio),np)
+        v <- rep(log(ratio23),np)
         uv <- cbind(u,v)
         XYZ <- ALR(uv,inverse=TRUE)
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
-    } else if (fit13$sigma<0.01 & fit23$sigma>0.01){
+    } else if (sigma13<0.01 & sigma23>0.01){
         pars[3] <- 0
-        m23 <- qnorm(alpha/2,mean=log(fit23$ratio),sd=fit23$sigma)
-        M23 <- qnorm(1-alpha/2,mean=log(fit23$ratio),sd=fit23$sigma)
+        m23 <- qnorm(alpha/2,mean=log(ratio23),sd=sigma23)
+        M23 <- qnorm(1-alpha/2,mean=log(ratio23),sd=sigma23)
         np <- 20 # number of points
-        u <- rep(log(fit13$ratio),np)
+        u <- rep(log(ratio13),np)
         v <- seq(m23,M23,length.out=np)
         uv <- cbind(u,v)
         XYZ <- ALR(uv,inverse=TRUE)
@@ -274,7 +288,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         graphics::lines(xy,...)
     } else {
         pars[3:4] <- 0
-        XYZ <- ALR(log(c(fit13$ratio,fit23$ratio)),inverse=TRUE)
+        XYZ <- ALR(log(c(ratio13,ratio23)),inverse=TRUE)
         xy <- xyz2xy(XYZ$x)
         graphics::points(xy,...)
     }

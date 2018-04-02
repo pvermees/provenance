@@ -4,6 +4,7 @@
 \alias{ternary.ellipse}
 \alias{ternary.ellipse.default}
 \alias{ternary.ellipse.compositional}
+\alias{ternary.ellipse.counts}
 \title{Ternary confidence ellipse}
 \usage{
 ternary.ellipse(x, ...)
@@ -12,6 +13,8 @@ ternary.ellipse(x, ...)
 
 \method{ternary.ellipse}{compositional}(x, alpha = 0.05, population = TRUE,
   ...)
+
+\method{ternary.ellipse}{counts}(x, alpha = 0.05, population = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{ternary}}
@@ -26,4 +29,10 @@ population or the standard error of the mean?}
 \description{
 plot a logistic \eqn{100(1-\alpha)\%} confidence region around the
     data or around its mean.
+}
+\examples{
+data(Namib)
+tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+plot(tern)
+ternary.ellipse(tern)
 }

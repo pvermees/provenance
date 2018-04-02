@@ -39,12 +39,14 @@ lines	points.ternary
 lines.ternary	lines.ternary
 MDS	MDS
 MDS.compositional	MDS
+MDS.counts	MDS
 MDS.diss	MDS
 MDS.distributional	MDS
 minsorting	minsorting
 Namib	Namib
 PCA	PCA
 plot.CA	plot.CA
+plot.compositional	plot.compositional
 plot.distributional	plot.distributional
 plot.GPA	plot.GPA
 plot.INDSCAL	plot.INDSCAL
@@ -72,6 +74,7 @@ summaryplot	summaryplot
 ternary	ternary
 ternary.ellipse	ternary.ellipse
 ternary.ellipse.compositional	ternary.ellipse
+ternary.ellipse.counts	ternary.ellipse
 ternary.ellipse.default	ternary.ellipse
 text	points.ternary
 text.ternary	text.ternary
