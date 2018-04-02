@@ -14,9 +14,7 @@ SH.diss                 Sircombe and Hazelton distance
 amalgamate              Group components of a composition
 as.acomp                create an 'acomp' object
 as.compositional        create a 'compositional' object
-as.data.frame.compositional
-                        create a 'data.frame' object
-as.data.frame.counts    create a 'data.frame' object
+as.data.frame           create a 'data.frame' object
 botev                   Compute the optimal kernel bandwidth
 bray.diss               Bray-Curtis dissimilarity
 central                 Calculate central compositions
@@ -60,8 +58,7 @@ read.densities          Read a .csv file with mineral and rock
 read.distributional     Read a .csv file with continuous (detrital
                         zircon) data
 restore                 Undo the effect of hydraulic sorting
-subset.compositional    Get a subset of compositional data
-subset.distributional   Get a subset of distributional data
+subset                  Get a subset of distributional data
 summaryplot             Joint plot of several provenance datasets
 ternary                 Define a ternary composition
 ternary.ellipse         Ternary confidence ellipse

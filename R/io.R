@@ -191,6 +191,8 @@ read.densities <- function(fname){
 #' ## ellipse using the robCompositions package:
 #' # library(robCompositions)
 #' # plot(pcaCoDa(Major.frame))
+#' @method as.data.frame compositional
+#' @name as.data.frame
 #' @export
 as.data.frame.compositional <- function(x,...){
     nc <- ncol(as.matrix(x$x))
@@ -199,32 +201,10 @@ as.data.frame.compositional <- function(x,...){
     if (nc<3) out <- data.frame(x$x,...)
     return(out)
 }
-
-#' create a \code{data.frame} object
-#'
-#' Convert an object of class \code{counts} to a \code{data.frame} for
-#' use in the \code{robCompositions} package
-#'
-#' @param x an object of class \code{counts}
-#' @param ... optional arguments to be passed on to the generic function
-#' @return a \code{data.frame}
-#' @examples
-#' data(Namib)
-#' qfl <- ternary(Namib$PTHM,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
-#' plot(qfl,type="QFL.dickinson")
-#' qfl.frame <- as.data.frame(qfl)
-#' ## uncomment the next two lines to plot an error
-#' ## ellipse using the robCompositions package:
-#' # library(robCompositions)
-#' # pca <- pcaCoDa(qfl.frame)
-#' # plot(pca,xlabs=rownames(qfl.frame))
+#' @rdname as.data.frame
 #' @export
 as.data.frame.counts <- function(x,...){
-    nc <- ncol(as.matrix(x$x))
-    if (nc==3) out <- data.frame(x$x[,c(2,3,1)],...)
-    if (nc>3) out <- data.frame(x$x[,c(2,3,1,4:nc)],...)
-    if (nc<3) out <- data.frame(x$x,...)
-    return(out)
+    as.data.frame.compositional(x,...)
 }
 
 #' create an \code{acomp} object
@@ -267,7 +247,7 @@ as.compositional.matrix <- function(x,method=NULL,colmap='rainbow'){
 
 #' create a \code{compositional} object
 #'
-#' Convert an object of class \code{matrix}, \code{data.fram} or
+#' Convert an object of class \code{matrix}, \code{data.frame} or
 #' \code{acomp} to an object of class \code{compositional}
 #'
 #' @param x an object of class \code{matrix}, \code{data.fram} or

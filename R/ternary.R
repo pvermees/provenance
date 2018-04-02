@@ -30,9 +30,9 @@ ternary <- function(X,x=NA,y=NA,z=NA){
     if (ndim(dat)>1) cnames <- colnames(dat)
     else cnames <- names(dat)
     hasnames <-  (!is.null(cnames))
-    if (is.na(x) & hasnames) x <- cnames[1] else x <- 1
-    if (is.na(y) & hasnames) y <- cnames[2] else y <- 2
-    if (is.na(z) & hasnames) z <- cnames[3] else z <- 3
+    if (all(is.na(x)) & hasnames) x <- cnames[1] else x <- 1
+    if (all(is.na(y)) & hasnames) y <- cnames[2] else y <- 2
+    if (all(is.na(z)) & hasnames) z <- cnames[3] else z <- 3
     out$raw <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
     colnames(out$raw) <- c(x,y,z)
     class(out) <- append("ternary",class(X))
