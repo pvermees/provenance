@@ -9,8 +9,9 @@ amalgamate.default	amalgamate
 amalgamate.SRDcorrected	amalgamate
 as.acomp	as.acomp
 as.compositional	as.compositional
-as.data.frame.compositional	as.data.frame.compositional
-as.data.frame.counts	as.data.frame.counts
+as.data.frame	as.data.frame
+as.data.frame.compositional	as.data.frame
+as.data.frame.counts	as.data.frame
 botev	botev
 bray.diss	bray.diss
 CA	CA
@@ -63,8 +64,10 @@ read.densities	read.densities
 read.distributional	read.distributional
 restore	restore
 SH.diss	SH.diss
-subset.compositional	subset.compositional
-subset.distributional	subset.distributional
+subset	subset
+subset.compositional	subset
+subset.counts	subset
+subset.distributional	subset
 summaryplot	summaryplot
 ternary	ternary
 ternary.ellipse	ternary.ellipse

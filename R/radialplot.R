@@ -132,7 +132,8 @@ x2zs <- function(x){
 #' \item{p.value}{ the p-value for age homogeneity. }
 #' \item{ratio}{ the central ratio. }
 #' \item{err}{ the standard error for the central ratio. }
-#' \item{sigma}{ the overdispersion parameter, i.e. the coefficient of variation of the
+#' \item{sigma}{ the overdispersion parameter, i.e. the coefficient
+#'               of variation of the
 #' underlying logistic normal distribution. }
 #' }
 #' @export
@@ -141,7 +142,7 @@ central <- function(x,components=NA,alpha=0.05,...){
         dat <- x$raw
     else
         dat <- x$x
-    if (all(is.na(components)))
+    if (any(is.na(components)))
         X <- dat[,colnames(x$x)[1:2]]
     else
         X <- dat[,components[1:2]]

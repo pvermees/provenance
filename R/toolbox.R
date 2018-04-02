@@ -123,6 +123,8 @@ diss.counts <- function(x,method=NULL){
             }
         }
     }
+    rownames(d) <- snames
+    colnames(d) <- snames
     out <- stats::as.dist(d)
     class(out) <- append("diss",class(out))
     return(out)
@@ -180,6 +182,12 @@ MDS <- function(x,...){ UseMethod("MDS",x) }
 #' @export
 MDS.compositional <- function(x,classical=FALSE,k=2,...){
     d <- diss.compositional(x,...)
+    return(MDS.diss(d,classical=classical,k=k))
+}
+#' @rdname MDS
+#' @export
+MDS.counts <- function(x,classical=FALSE,k=2,...){
+    d <- diss.counts(x,...)
     return(MDS.diss(d,classical=classical,k=k))
 }
 #' @rdname MDS
@@ -348,19 +356,22 @@ CA <- function(x,nf=2,...){
 
 #' Get a subset of distributional data
 #'
-#' Return a subset of provenance data according to some specified indices
+#' Return a subset of provenance data according to some specified
+#' indices
 #' @param x an object of class \code{distributional}
-#' @param subset logical expression indicating elements or rows to keep:
-#' missing values are taken as false.
+#' @param subset logical expression indicating elements or rows to
+#'     keep: missing values are taken as false.
 #' @param select a vector of sample names
 #' @param ... optional arguments for the generic subset function
 #' @return an object of class \code{distributional}
 #' @seealso read.distributional
 #' @examples
 #' data(Namib)
-#' coast <- subset(Namib$HM,select=c("N1","N2","T8","T13","N12","N13"))
-#' summaryplot(coast,ncol=2)
-#' @method subset distributional
+#' coast <- c("N1","N2","T8","T13","N12","N13")
+#' ZTRcoast <- subset(Namib$HM,select=coast,components=c('gt','cpx','ep'))
+#' DZcoast <- subset(Namib$DZ,select=coast)
+#' summaryplot(ZTRcoast,KDEs(DZcoast),ncol=2)
+#' @name subset
 #' @export
 subset.distributional <- function(x,subset=NULL,select=NULL,...){
     out <- x
@@ -371,24 +382,14 @@ subset.distributional <- function(x,subset=NULL,select=NULL,...){
     } else {
         return(out)
     }
-    if (length(x$err)==length(x$x)) out$err <- x$err[i]
+    if (length(x$err)==length(x$x)) out$err <- x$err[i]    
     out$x <- x$x[i]
     return(out)
 }
-#' Get a subset of compositional data
-#'
-#' Return a subset of provenance data according to some specified indices
-#' @param x an object of class \code{compositional}
-#' @param subset logical expression indicating elements or rows to keep:
-#' missing values are taken as false.
-#' @param select a vector of sample names.
-#' @param components a vector specifying a subcomposition
-#' @param ... optional arguments for the generic subset function
-#' @return an object of class \code{compositional}
-#' @seealso read.compositional
-#' @method subset compositional
+#' @param components categories to keep
+#' @rdname subset
 #' @export
-subset.compositional <- function(x,subset=NULL,select=NULL,components=NULL,...){
+subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
     out <- x
     if (!is.null(subset)){
         i <- which(subset,arr.ind=TRUE)
@@ -411,9 +412,9 @@ subset.compositional <- function(x,subset=NULL,select=NULL,components=NULL,...){
     }
     return(out)
 }
-#' @method subset counts
+#' @rdname subset
 #' @export
-subset.counts <- function(x,subset=NULL,select=NULL,components=NULL,...){
+subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
     subset.compositional(x,subset=subset,select=select,components=components,...)
 }
 

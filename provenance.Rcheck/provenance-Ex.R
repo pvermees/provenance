@@ -337,15 +337,15 @@ print(Namib$PT$x - PT.compositional$x)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("as.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
-nameEx("as.data.frame.compositional")
-### * as.data.frame.compositional
+nameEx("as.data.frame")
+### * as.data.frame
 
 flush(stderr()); flush(stdout())
 
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-### Name: as.data.frame.compositional
+### Name: as.data.frame
 ### Title: create a 'data.frame' object
-### Aliases: as.data.frame.compositional
+### Aliases: as.data.frame as.data.frame.compositional as.data.frame.counts
 
 ### ** Examples
 
@@ -359,34 +359,7 @@ Major.frame <- as.data.frame(Namib$Major)
 
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("as.data.frame.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
-cleanEx()
-nameEx("as.data.frame.counts")
-### * as.data.frame.counts
-
-flush(stderr()); flush(stdout())
-
-base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-### Name: as.data.frame.counts
-### Title: create a 'data.frame' object
-### Aliases: as.data.frame.counts
-
-### ** Examples
-
-data(Namib)
-qfl <- ternary(Namib$PTHM,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
-plot(qfl,type="QFL.dickinson")
-qfl.frame <- as.data.frame(qfl)
-## uncomment the next two lines to plot an error
-## ellipse using the robCompositions package:
-# library(robCompositions)
-# pca <- pcaCoDa(qfl.frame)
-# plot(pca,xlabs=rownames(qfl.frame))
-
-
-
-base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("as.data.frame.counts", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+base::cat("as.data.frame", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("botev")
 ### * botev
@@ -1039,26 +1012,29 @@ plot(ternary(amcomp),showpath=TRUE)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("restore", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
-nameEx("subset.distributional")
-### * subset.distributional
+nameEx("subset")
+### * subset
 
 flush(stderr()); flush(stdout())
 
 base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-### Name: subset.distributional
+### Name: subset
 ### Title: Get a subset of distributional data
-### Aliases: subset.distributional
+### Aliases: subset subset.distributional subset.compositional
+###   subset.counts
 
 ### ** Examples
 
 data(Namib)
-coast <- subset(Namib$HM,select=c("N1","N2","T8","T13","N12","N13"))
-summaryplot(coast,ncol=2)
+coast <- c("N1","N2","T8","T13","N12","N13")
+ZTRcoast <- subset(Namib$HM,select=coast,components=c('zr','tm','rt'))
+DZcoast <- subset(Namib$DZ,select=coast)
+summaryplot(ZTRcoast,DZcoast,ncol=2)
 
 
 
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
-base::cat("subset.distributional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+base::cat("subset", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
 nameEx("summaryplot")
 ### * summaryplot
