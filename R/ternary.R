@@ -3,9 +3,8 @@
 #' Create an object of class \code{ternary}
 #' @param X an object of class \code{compositional} OR a matrix or
 #'     data frame with numerical data
-#' @param x string or a vector of strings indicating the variables
-#'     making up the first subcomposition of the ternary system. If
-#'     omitted, the first component of X is used instead.
+#' @param x string/number or a vector of strings/numbers indicating the
+#'     variables/indices making up the first subcomposition of the ternary system.
 #' @param y second (set of) variables
 #' @param z third (set of) variables
 #' @return an object of class \code{ternary}, i.e. a list containing:
@@ -23,46 +22,50 @@
 #' tern <- ternary(Namib$PT,c('Q'),c('KF','P'),c('Lm','Lv','Ls'))
 #' plot(tern,type="QFL")
 #' @export
-ternary <- function(X,x=NA,y=NA,z=NA){
+ternary <- function(X,x=1,y=2,z=3){
     out <- list()
     if (any(class(X) %in% c("compositional","counts"))) dat <- X$x
     else dat <- X
     if (ndim(dat)>1) cnames <- colnames(dat)
     else cnames <- names(dat)
-    hasnames <-  (!is.null(cnames))
-    if (all(is.na(x)) & hasnames) x <- cnames[1] else x <- 1
-    if (all(is.na(y)) & hasnames) y <- cnames[2] else y <- 2
-    if (all(is.na(z)) & hasnames) z <- cnames[3] else z <- 3
-    out$raw <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
-    colnames(out$raw) <- c(x,y,z)
+    if (is.numeric(x)) x <- cnames[x]
+    if (is.numeric(y)) y <- cnames[y]
+    if (is.numeric(z)) z <- cnames[z]
+    out$raw <- ternary.amalgamate(dat,x,y,z)
     if (nrow(out$raw)>1) rownames(out$raw) <- names(X)
     class(out) <- append("ternary",class(X))
-    out$x <- ternaryclosure(out$raw,x,y,z)
+    out$x <- ternaryclosure(out$raw)
     if (methods::is(X,"SRDcorrected")){
         out$restoration <- list()
         snames <- names(X$restoration)
         for (sname in snames){
+            ternary_restoration <-
+                ternary.amalgamate(X$restoration[[sname]],x,y,z)
             out$restoration[[sname]] <-
-                ternaryclosure(X$restoration[[sname]],x,y,z)
+                ternaryclosure(ternary_restoration)
         }
         class(out) <- append("SRDcorrected",class(out))
     }
     return(out)
 }
 
-# X is a matrix or vector
-# x, y, z is an index or (vector) of string(s)
-ternaryclosure <- function(X,x=1,y=2,z=3){
-    xlab <- sumlabels(X,x)
-    ylab <- sumlabels(X,y)
-    zlab <- sumlabels(X,z)
-    out <- cbind(sumcols(X,x),sumcols(X,y),sumcols(X,z))
-    den <- rowSums(out)
-    out <- apply(out,2,'/',den)
+ternary.amalgamate <- function(dat,x,y,z){
+    out <- cbind(sumcols(dat,x),sumcols(dat,y),sumcols(dat,z))
+    xlab <- paste(x,collapse='+')
+    ylab <- paste(y,collapse='+')
+    zlab <- paste(z,collapse='+')
+    colnames(out) <- c(xlab,ylab,zlab)
+    out
+}
+
+# X is a 3-column matrix or vector
+ternaryclosure <- function(X){
+    den <- rowSums(X)
+    out <- apply(X,2,'/',den)
     if (methods::is(out,"matrix")) {
-        colnames(out) <- c(xlab,ylab,zlab)
+        colnames(out) <- colnames(X)
     } else {
-        names(out) <- c(xlab,ylab,zlab)
+        names(out) <- names(X)
     }
     return(out)
 }

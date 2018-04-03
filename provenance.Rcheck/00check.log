@@ -77,7 +77,7 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking examples ... OK
 Examples with CPU or elapsed time > 5s
                  user system elapsed
-ternary.ellipse 6.284  0.025   6.311
+ternary.ellipse 7.639  0.026   7.669
 * checking PDF version of manual ... OK
 * DONE
 Status: 2 WARNINGs, 3 NOTEs

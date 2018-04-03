@@ -4,14 +4,16 @@
 \alias{radialplot}
 \title{Visualise point-counting data on a radial plot}
 \usage{
-radialplot(x, components = NA, from = NA, to = NA, t0 = NA,
+radialplot(x, num = 1, den = 2, from = NA, to = NA, t0 = NA,
   sigdig = 2, show.numbers = FALSE, pch = 21, levels = NA,
   clabel = "", bg = c("white", "red"), title = TRUE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{counts}}
 
-\item{components}{a vector specifying a subcomposition}
+\item{num}{index or name of the numerator variable}
+
+\item{den}{index or name of the denominator variable}
 
 \item{from}{minimum limit of the radial scale}
 

@@ -4,15 +4,14 @@
 \alias{ternary}
 \title{Define a ternary composition}
 \usage{
-ternary(X, x = NA, y = NA, z = NA)
+ternary(X, x = 1, y = 2, z = 3)
 }
 \arguments{
 \item{X}{an object of class \code{compositional} OR a matrix or
 data frame with numerical data}
 
-\item{x}{string or a vector of strings indicating the variables
-making up the first subcomposition of the ternary system. If
-omitted, the first component of X is used instead.}
+\item{x}{string/number or a vector of strings/numbers indicating the
+variables/indices making up the first subcomposition of the ternary system.}
 
 \item{y}{second (set of) variables}
 
