@@ -20,7 +20,7 @@ provenance <- function(){
                 "2 - plot a single dataset\n",
                 "3 - plot multiple datasets\n",
                 "4 - Minsorting\n",
-                "5 - MDS/PCA\n",
+                "5 - MDS/PCA/CA\n",
                 "6 - Procrustes analysis\n",
                 "7 - 3-way MDS\n",
                 "8 - save plots (.pdf)\n",
@@ -96,7 +96,7 @@ gui.plot.single <- function(){
     response1 <- readline()
     if (response1 == '1'){
         showpath = FALSE
-        dat <- gui.open.compositional()
+        dat <- gui.get.dataset(includedistributional=FALSE)
         message("Plot background lines?\n",
                 "1 - descriptive QFL diagram\n",
                 "2 - Folk's classification\n",
@@ -119,7 +119,7 @@ gui.plot.single <- function(){
         }
         graphics::plot(ternary(dat),type=type,showpath=showpath)
     } else if (response1 == '2'){
-        dat <- gui.open.compositional()
+        dat <- gui.get.dataset(includedistributional=FALSE)
         numcol <- as.numeric(readline("Number of columns in the plot? "))
         if (is.na(numcol)) numcol <- 1
         summaryplot(dat,ncol=numcol)
@@ -174,8 +174,7 @@ gui.minsorting <- function(){
                 "c - continue")
         response1 <- readline()
         if (response1 == "1") {
-            message('Open a compositional dataset:')
-            endcomp <- read.compositional(file.choose())
+            endcomp <- gui.get.dataset(includedistributional=FALSE)
         } else if (response1 == "2"){
             mydens <- gui.load.densities()
         } else if (response1 == "3"){
@@ -251,6 +250,20 @@ gui.mds <- function(){
             method <- "bray"
         } else {
             graphics::plot(PCA(dat))
+            return()
+        }
+    }
+    if (method=="chisq"){
+        message("1 - Use Chi-square distance (CA, default)")
+        message("2 - Use Chi-square distance (MDS)")
+        message("3 - Use Bray-Curtis dissimilarity (MDS)")
+        response <- readline()
+        if (response == "2"){
+            # do nothing
+        } else if (response == "3"){
+            method <- "bray"
+        } else {
+            graphics::plot(CA(dat))
             return()
         }
     }
@@ -348,18 +361,42 @@ gui.help <- function(){
     while (TRUE){
     message("Choose a help topic:\n",
             "1 - compositional data\n",
-            "2 - distributional data\n",
-            "3 - mineral densities\n",
-            "4 - sample size calculation\n",
-            "5 - cumulative age distributions\n",
-            "6 - kernel density estimation\n",
-            "7 - Minsorting and SRD correction\n",
-            "8 - multidimensional scaling\n",
-            "9 - Procrustes analysis and 3-way MDS\n",
+            "2 - point-counting data\n",
+            "3 - distributional data\n",
+            "4 - mineral densities\n",
+            "5 - sample size calculation\n",
+            "6 - cumulative age distributions\n",
+            "7 - kernel density estimation\n",
+            "8 - Minsorting and SRD correction\n",
+            "9 - multidimensional scaling\n",
+            "10 - Procrustes analysis and 3-way MDS\n",
             "c - continue")
         response <- readline()
         if (response == "1"){
             message("Formatting requirements of compositional data files:\n",
+                    "---------------------------------------------------\n",
+                    "A compositional data file consists of a comma separated table\n",
+                    "in which the rows correspond to samples and the columns to categories.\n",
+                    "For example:\n",
+                    "sample,SiO2,Al2O3,Fe2O3,MgO,CaO,Na2O,K2O,TiO2,P2O5,MnO\n",
+                    "N1,82.54,6.14,3.18,1.65,2.24,1.16,1.35,0.44,0.11,0.06\n",
+                    "N2,83.60,6.42,2.55,1.25,1.83,1.21,1.48,0.36,0.08,0.04\n",
+                    "N3,79.07,7.26,4.39,1.95,2.54,1.23,1.42,0.63,0.09,0.08\n",
+                    "N4,89.02,5.27,1.09,0.33,0.48,0.90,1.61,0.17,0.04,0.02\n",
+                    "N5,88.46,5.36,1.39,0.29,0.52,0.84,1.64,0.27,0.03,0.02\n",
+                    "N6,83.61,6.83,2.19,0.87,1.45,1.15,1.87,0.32,0.05,0.03\n",
+                    "N7,85.37,6.10,2.10,0.86,1.29,1.05,1.63,0.29,0.06,0.03\n",
+                    "N8,65.16,6.74,15.67,2.22,3.08,0.78,1.11,3.46,0.04,0.24\n",
+                    "N9,78.19,7.19,6.90,0.72,1.35,1.11,1.90,1.47,0.02,0.11\n",
+                    "N10,80.65,7.86,3.16,1.09,1.64,1.39,2.42,0.54,0.04,0.06\n",
+                    "N11,82.27,6.55,3.53,1.48,2.02,1.15,1.61,0.52,0.06,0.07\n",
+                    "N12,74.30,7.72,3.42,2.35,5.46,1.48,1.76,0.49,0.11,0.06\n",
+                    "T8,85.70,5.89,1.82,0.81,1.44,1.12,1.67,0.23,0.07,0.03\n",
+                    "T13,82.54,6.02,2.30,1.42,3.07,1.19,1.46,0.34,0.11,0.04\n",
+                    "N13,79.96,6.41,3.19,1.31,2.10,1.09,1.62,0.51,0.06,0.05\n",
+                    "N14,73.62,9.96,4.07,2.01,3.45,1.86,2.29,0.44,0.10,0.07\n")
+        } else if (response == "2"){
+            message("Formatting requirements of point-counting data files:\n",
                     "---------------------------------------------------\n",
                     "A compositional data file consists of a comma separated table\n",
                     "in which the rows correspond to samples and the columns to categories.\n",
@@ -378,7 +415,7 @@ gui.help <- function(){
                     "If you want to use the Minsorting function and SRD correction,\n",
                     "it is important to make sure that the component labels are consistent with\n",
                     "the densities table.\n")
-        } else if (response == "2"){
+        } else if (response == "3"){
             message("Formatting requirements for distributional data files:\n",
                     "-----------------------------------------------------\n",
                     "A distributional data file consists of a comma separated table\n",
@@ -408,7 +445,7 @@ gui.help <- function(){
                     "It is also possible (though optional) to specify the analytical\n",
                     "uncertainties of these measurements. They are stored in a separate\n",
                     ".csv file with exactly the same format as the measurement as shown above.\n")
-        } else if (response == "3"){
+        } else if (response == "4"){
             message("Formatting requirements for mineral density files:\n",
                     "-------------------------------------------------\n",
                     "The Minsorting function and SRD correction require a table of\n",
@@ -421,7 +458,7 @@ gui.help <- function(){
                     "mon,oth,ep,gt,ctd,st,and,ky,sil,amp,px,ol\n",
                     "2.65,2.61,2.6,2.65,2.75,2.4,5,4.65,3.15,4.25,3.5,3.2,\n",
                     "5.15,3.5,3.45,4,3.6,3.75,3.15,3.6,3,3.2,3.3,3.35\n")
-        } else if (response == "4"){
+        } else if (response == "5"){
             message("Sample size calculations:\n",
                     "------------------------\n",
                     "On the most basic level, provenance analysis requires the geologist to\n",
@@ -444,7 +481,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "5"){
+        } else if (response == "6"){
             message("Cumulative Age Distributions (CADs):\n",
                     "-----------------------------------\n",
                     "The probability distribution of detrital zircon U-Pb ages or any other\n",
@@ -461,7 +498,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "6"){
+        } else if (response == "7"){
             message("Kernel Density Estimation (KDE):\n",
                     "-------------------------------\n",
                     "A large body of statistical literature has been written on the subject\n",
@@ -481,7 +518,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "7"){
+        } else if (response == "8"){
             message("Minsorting and SRD correction:\n",
                     "-----------------------------\n",
                     "To facilitate the comparison of detrital modes for provenance analysis\n",
@@ -515,7 +552,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "8"){
+        } else if (response == "9"){
             message("Multidimensional Scaling:\n",
                     "------------------------\n",
                     "An increasing number of provenance studies are based on not just a few\n",
@@ -545,7 +582,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "9"){
+        } else if (response == "10"){
             message("Procrustes analysis and 3-way MDS:\n",
                     "---------------------------------\n",
                     "Procrustes analysis and 3-way MDS are simple yet powerful tools\n",
@@ -579,10 +616,12 @@ gui.help <- function(){
     }
 }
 
-gui.open.compositional <- function(){
-    message('Open a compositional dataset:')
+gui.open.compositional <- function(counts=FALSE){
+    if (counts) message('Open a point-counting dataset:')
+    else message('Open a compositional dataset:')
     fname <- file.choose()
-    dat <- read.compositional(fname)
+    if (counts) dat <- read.counts(fname)
+    else dat <- read.compositional(fname)
     while (TRUE){
         message("1 - Apply SRD correction\n",
                 "2 - Subset components\n",
@@ -779,21 +818,28 @@ gui.load.densities <- function(){
     out
 }
 
-gui.get.datasets <- function(multiple=TRUE,kdes=FALSE){
+gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,includedistributional=TRUE){
     datasets <- list()
     while (TRUE){
         if (multiple){
-            message("1 - Add a compositional dataset\n",
-                    "2 - Add a distributional dataset\n",
-                    "c - Continue")
+            tekst <- c("1 - Add a compositional dataset\n",
+                       "2 - Add a point-counting dataset\n")
+            if (includedistributional)
+                tekst <- c(tekst,"3 - Add a distributional dataset\n")
+            tekst <- c(tekst,"c - Continue")
         } else {
-            message("1 - Load a compositional dataset\n",
-                    "2 - Load a distributional dataset")
+            tekst <- c("1 - Load a compositional dataset\n",
+                       "2 - Load a point-counting dataset\n")
+            if (includedistributional)
+                tekst <- c(tekst,"3 - Load a distributional dataset")
         }
+        message(tekst)
         response <- readline()
         if (response == '1'){
-            dat <- gui.open.compositional()
+            dat <- gui.open.compositional(counts=FALSE)
         } else if (response == '2'){
+            dat <- gui.open.compositional(counts=TRUE)
+        } else if (response == '3'){
             dat <- gui.open.distributional()
             if (kdes) dat <- gui.get.kdes(dat)
         } else {
@@ -805,6 +851,6 @@ gui.get.datasets <- function(multiple=TRUE,kdes=FALSE){
     datasets
 }
 
-gui.get.dataset <- function(){
-    gui.get.datasets(multiple=FALSE)
+gui.get.dataset <- function(includedistributional=TRUE){
+    gui.get.datasets(multiple=FALSE,includedistributional=includedistributional)
 }

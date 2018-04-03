@@ -31,7 +31,8 @@
 #' one glance.
 #'
 #' @param x an object of class \code{counts}
-#' @param components a vector specifying a subcomposition
+#' @param num index or name of the numerator variable
+#' @param den index or name of the denominator variable
 #' @param from minimum limit of the radial scale
 #' @param to maximum limit of the radial scale
 #' @param t0 central value
@@ -67,13 +68,15 @@
 #' data(Namib)
 #' radialplot(Namib$PT,components=c('Q','P'))
 #' @export
-radialplot <- function(x,components=NA,from=NA,to=NA,t0=NA,
+radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
                        sigdig=2,show.numbers=FALSE,pch=21,
                        levels=NA,clabel="",
                        bg=c("white","red"),title=TRUE,...){
-    if (any(is.na(components))) components <- colnames(x$x)[1:2]
-    label <- paste0('central ',components[1],'/',components[2],'-ratio')
-    dat <- subset(x,components=components)
+    ncol <- ncol(x$x)
+    if (all(is.numeric(num))) num <- colnames(x$x)[num]
+    if (all(is.numeric(den))) den <- colnames(x$x)[den]
+    label <- paste0('central ',num,'/',den,'-ratio')
+    dat <- subset(x,components=c(num,den))
     X <- x2zs(dat$x)
     X$transformation <- 'arctan'
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
@@ -82,7 +85,7 @@ radialplot <- function(x,components=NA,from=NA,to=NA,t0=NA,
     ratio <- fit['mu',1]/fit['mu',2]
     err <- fit['err',1]*ratio
     rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
-    line1 <- substitute(a~'='~b%+-%c~'%',
+    line1 <- substitute(a~'='~b%+-%c~(1~sigma),
                         list(a=label,
                              b=rounded.ratio[1],
                              c=rounded.ratio[2]))

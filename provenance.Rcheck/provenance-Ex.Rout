@@ -1021,6 +1021,8 @@ converged
 > 
 > data(Namib)
 > radialplot(Namib$PT,components=c('Q','P'))
+Warning in plot.xy(xy.coords(x, y), type = type, ...) :
+  "components" is not a graphical parameter
 > 
 > 
 > 
@@ -1220,7 +1222,7 @@ converged
 > tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
 > plot(tern)
 > ternary.ellipse(tern)
-[1]  1.8531211 -0.1203267  0.1753515  0.1822328  0.1349611
+[1] 1.9813792 0.7822127 0.2632939 0.1633247 0.1717295
 > 
 > 
 > 
@@ -1253,7 +1255,7 @@ converged
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  23.347 5.725 22.77 0 0 
+Time elapsed:  22.763 5.475 21.62 0 0 
 > grDevices::dev.off()
 pdf 
   2 

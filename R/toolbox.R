@@ -715,35 +715,12 @@ ndim <- function(X){
 }
 
 sumcols <- function(X,x){
-    if (ndim(X)==0)
+    if (ndim(X)==0){
         out <- X[x]
-    else if (length(x)>1 & ndim(X[,x])>0) # >1 class, >1 sample
-        out <- apply(X[,x],1,sum)
-    else if (length(x)>1 & ndim(X[,x])==0) # >1 class, 1 sample
-        out <- sum(X[,x])
-    else if (length(x)==1 & ndim(X[,x])>0) # 1 class, >1 sample
-        out <- sum(X[,x])
-    else if (length(x)==1 & ndim(X[,x])==0) # 1 class, 1 sample
-        out <- X[,x]
-    return(out)
-}
-
-# X is a matrix or vector
-# x is an index or a (vector of) string(s)
-sumlabels <- function(X,x){
-    if (is.numeric(X) & is.numeric(x) & !is.null(names(X))){
-        i <- names(X)[x]
-    } else if (is.numeric(x) & !is.null(colnames(X))){
-        i <- colnames(X)[x]
     } else {
-        i <- x
-    }
-    out <- i[1]
-    n <- length(i)
-    if (n==1) return(out)
-    for (ii in 2:length(i)){
-        out <- paste(out,i[ii],sep='+')
-    }
+        dat <- subset(X,select=x)
+        out <- rowSums(dat)
+    }    
     return(out)
 }
 
