@@ -1112,7 +1112,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 data(Namib)
-tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 plot(tern)
 ternary.ellipse(tern)
 
@@ -1133,7 +1133,8 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 
 ### ** Examples
 
-tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+data(Namib)
+tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 plot(tern,pch=21,bg='red',labels=NULL)
 # add the geometric mean composition as a text label:
 gmean <- ternary(exp(colMeans(log(tern$x))))

@@ -32,7 +32,7 @@ plot a logistic \eqn{100(1-\alpha)\%} confidence region around the
 }
 \examples{
 data(Namib)
-tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 plot(tern)
 ternary.ellipse(tern)
 }
