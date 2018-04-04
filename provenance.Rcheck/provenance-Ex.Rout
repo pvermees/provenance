@@ -1219,10 +1219,9 @@ Warning in plot.xy(xy.coords(x, y), type = type, ...) :
 > ### ** Examples
 > 
 > data(Namib)
-> tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+> tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 > plot(tern)
 > ternary.ellipse(tern)
-[1] 1.9813792 0.7822127 0.2632939 0.1633247 0.1717295
 > 
 > 
 > 
@@ -1241,7 +1240,8 @@ Warning in plot.xy(xy.coords(x, y), type = type, ...) :
 > 
 > ### ** Examples
 > 
-> tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+> data(Namib)
+> tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 > plot(tern,pch=21,bg='red',labels=NULL)
 > # add the geometric mean composition as a text label:
 > gmean <- ternary(exp(colMeans(log(tern$x))))
@@ -1255,7 +1255,7 @@ Warning in plot.xy(xy.coords(x, y), type = type, ...) :
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  22.763 5.475 21.62 0 0 
+Time elapsed:  15.883 5.712 15.573 0 0 
 > grDevices::dev.off()
 pdf 
   2 

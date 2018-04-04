@@ -75,9 +75,6 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
-Examples with CPU or elapsed time > 5s
-                 user system elapsed
-ternary.ellipse 7.639  0.026   7.669
 * checking PDF version of manual ... OK
 * DONE
 Status: 2 WARNINGs, 3 NOTEs

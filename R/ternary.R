@@ -174,7 +174,8 @@ lines.ternary <- function(x,...){
 #'     to be written
 #' @param ... optional arguments to the generic \code{text} function
 #' @examples
-#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
+#' data(Namib)
+#' tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
 #' plot(tern,pch=21,bg='red',labels=NULL)
 #' # add the geometric mean composition as a text label:
 #' gmean <- ternary(exp(colMeans(log(tern$x))))
@@ -228,16 +229,16 @@ ternary.ellipse.default <- function(x,alpha=0.05,population=TRUE,...){
     xy <- xyz2xy(XYZ$x)
     graphics::lines(xy,...)    
 }
+#' @examples
+#' data(Namib)
+#' tern <- ternary(Namib$Major,'CaO','Na2O','K2O')
+#' plot(tern)
+#' ternary.ellipse(tern)
 #' @rdname ternary.ellipse
 #' @export
 ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
     ternary.ellipse.default(x,alpha=alpha,population=population,...)
 }
-#' @examples
-#' data(Namib)
-#' tern <- ternary(Namib$PT,'Q',c('KF','P'),c('Lm','Lv','Ls'))
-#' plot(tern)
-#' ternary.ellipse(tern)
 #' @rdname ternary.ellipse
 #' @export
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
@@ -253,8 +254,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     pars <- c(log(ratio13),log(ratio23),
               sigma13^2,sigma23^2,0)
     if (sigma13>0.01 & sigma23>0.01){
-        sol <- optimise(LL.ternary.random.effects,interval=c(-0.99,0.99),
-                        dat=x$raw,pars=pars,tol=0.05)
+        sol <- optimise(LL.ternary.random.effects.cov,
+                        interval=c(-0.99,0.99),pars=pars,dat=x$raw)
         b1 <- pars[1]
         b2 <- pars[2]
         E <- matrix(0,2,2)
@@ -262,11 +263,18 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         E[2,2] <- pars[4]
         E[1,2] <- sol$minimum*sqrt(E[1,1]*E[2,2])
         E[2,1] <- E[1,2]
-        ell <- IsoplotR::ellipse(b1,b2,E,alpha=alpha)
+        pars[5] <- E[1,2]
+        if (population){
+            ell <- IsoplotR::ellipse(b1,b2,E,alpha=alpha)
+        } else {
+            message('Numerical optimisation in progress.\n',
+                    'This make take a minute or two...')
+            err <- optimHess(pars,LL.ternary.random.effects,dat=x$raw)
+            ell <- IsoplotR::ellipse(b1,b2,solve(err[1:2,1:2]),alpha=alpha)
+        }
         XYZ <- ALR(ell,inverse=TRUE)
         xy <- xyz2xy(XYZ$x)
         graphics::lines(xy,...)
-        pars[5] <- E[1,2]
     } else if (sigma13>0.01 & sigma23<0.01){
         pars[4] <- 0
         m13 <- qnorm(alpha/2,mean=log(ratio13),sd=sigma13)
@@ -300,12 +308,16 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
 
 # pars = mu1, mu2, var1, var2, cov12
 # dat = [n x 3] matrix of counts
-LL.ternary.random.effects <- function(rho,dat,pars){
+LL.ternary.random.effects.cov <- function(rho,pars,dat){
+    pars[5] <- rho*sqrt(pars[3]*pars[4])
+    LL.ternary.random.effects(pars,dat)
+}
+LL.ternary.random.effects <- function(pars,dat){
     mu <- pars[1:2]
     E <- matrix(0,2,2)
     E[1,1] <- pars[3]
     E[2,2] <- pars[4]
-    E[1,2] <- rho*sqrt(E[1,1]*E[2,2])
+    E[1,2] <- pars[5]
     E[2,1] <- E[1,2]
     LL <- 0
     for (i in 1:nrow(dat)){
