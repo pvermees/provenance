@@ -91,8 +91,9 @@ gui.plot.single <- function(){
     message("Plot a single dataset:\n",
             "1 - Ternary diagram\n",
             "2 - Pie charts\n",
-            "3 - Cumulative Age Distributions\n",
-            "4 - Kernel Density Estimates")
+            "3 - Radial plot\n",
+            "4 - Cumulative Age Distributions\n",
+            "5 - Kernel Density Estimates")
     response1 <- readline()
     if (response1 == '1'){
         showpath = FALSE
@@ -124,9 +125,20 @@ gui.plot.single <- function(){
         if (is.na(numcol)) numcol <- 1
         summaryplot(dat,ncol=numcol)
     } else if (response1 == '3'){
+        dat <- gui.open.compositional(counts=TRUE)
+        complist <- paste(colnames(dat$x),collapse=',')
+        message("Select two components from the following ",
+                "list to form the numerator and denominator of ",
+                "the ratios to be displayed:\n", complist ,"\n",
+                "Enter as a comma separated pair of labels:")
+        response <- readline()
+        numden <- strsplit(response,split=',')[[1]]
+        numden <- gsub(" ","",numden) # get rid of spaces        
+        radialplot(dat,num=numden[1],den=numden[2])
+    } else if (response1 == '4'){
         dat <- gui.open.distributional()
         graphics::plot(dat,CAD=TRUE)
-    } else if (response1 == '4'){
+    } else if (response1 == '5'){
         dat <- gui.open.distributional()
         kdes <- gui.get.kdes(dat)
         if (methods::is(kdes,"KDE")){
