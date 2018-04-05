@@ -319,8 +319,9 @@ ALR.compositional <- function(x,...){
 #' print("This example demonstrates the equivalence of classical MDS and PCA")
 #' @export
 PCA <- function(x,...){
-    if (methods::is(x,'compositional')){
-        dat <- CLR(x)
+    if (methods::is(x,'compositional') |
+        methods::is(x,'counts')){
+        dat <- CLR.compositional(x)
     } else {
         dat <- x
     }
@@ -396,12 +397,12 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
     } else if (!is.null(select)){
         i <- which(names(x) %in% select)
     } else {
-        i <- 1:length(names(x))
+        i <- 1:nrow(x$x)
     }
     if (!is.null(components)){
         j <- which(colnames(x$x) %in% components,arr.ind=TRUE)
     } else {
-        j <- 1:length(colnames(x$x))
+        j <- 1:ncol(x$x)
     }
     out$x <- x$x[i,j]
     if (methods::is(x,"SRDcorrected")){

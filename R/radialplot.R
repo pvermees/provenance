@@ -118,10 +118,10 @@ x2zs <- function(x){
 #' Computes the geometric mean composition of a continuous mixture of
 #' point-counting data.
 #'
-#' @details
-#' The central composition assumes that the observed point-counting
-#' distribution is the combination of two sources of scatter:
-#' counting uncertainty and true geological dispersion.
+#' @details The central composition assumes that the observed
+#'     point-counting distribution is the combination of two sources
+#'     of scatter: counting uncertainty and true geological
+#'     dispersion.
 #'
 #' @param x an object of class \code{counts}
 #' @param ... optional arguments
@@ -131,9 +131,11 @@ x2zs <- function(x){
 #' \describe{
 #' \item{mu}{ the `central' composition. }
 #' \item{err}{ the standard error for the central composition. }
-#' \item{sigma}{ the overdispersion parameter, i.e. the coefficient
-#'               of variation of the underlying logistic normal
-#'               distribution. }
+#' \item{sigma}{ the overdispersion parameter, i.e. the coefficient of
+#'               variation of the underlying logistic normal
+#'               distribution. \code{central} computes a continuous
+#'               mixture model for each component (column)
+#'               separately. Covariance terms are not reported.}
 #' \item{p.value}{ the p-value for age homogeneity }
 #' }
 #' @export
@@ -150,6 +152,22 @@ central <- function(x,...){
         Nij <- rowSums(subset(dat,select=-i))
         out[,i] <- central_helper(Nsj,Nij)
     }
+    out
+}
+# calculates proportions relative to first component
+central.multivariate <- function(x,...){
+    if ("ternary" %in% class(x)) dat <- x$raw
+    else dat <- x$x
+    ns <- nrow(dat)
+    nc <- ncol(dat)
+    out <- matrix(0,5,nc-1)
+    rownames(out) <- c('mu','err','sigma','mswd','p.value')
+    Nij <- subset(dat,select=nc) # use first column as denominator
+    for (i in 1:(nc-1)){ # loop over all but the first column
+        Nsj <- subset(dat,select=i)        
+        out[,i] <- central_helper(Nsj,Nij)
+    }
+    colnames(out) <- colnames(dat)[-nc]
     out
 }
 

@@ -188,8 +188,8 @@ text.ternary <- function(x,labels=1:nrow(x$x),...){
 }
 #' Ternary confidence ellipse
 #' 
-#' plot a logistic \eqn{100(1-\alpha)\%} confidence region around the
-#'     data or around its mean.
+#' plot a \eqn{100(1-\alpha)\%} confidence region around the data or
+#'     around its mean.
 #' @param x an object of class \code{ternary}
 #' @rdname ternary.ellipse
 #' @export
@@ -242,18 +242,13 @@ ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
 #' @rdname ternary.ellipse
 #' @export
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
-    components <- colnames(x$raw)
-    xy <- subset(x,components=components[c(1,3)])
-    yz <- subset(x,components=components[c(2,3)])
-    fit13 <- central(xy)
-    ratio13 <- fit13['mu',1]/fit13['mu',2]
-    sigma13 <- fit13['sigma',1]
-    fit23 <- central(yz)
-    ratio23 <- fit23['mu',1]/fit23['mu',2]
-    sigma23 <- fit23['sigma',1]
-    pars <- c(log(ratio13),log(ratio23),
-              sigma13^2,sigma23^2,0)
-    if (sigma13>0.01 & sigma23>0.01){
+    fit <- central.multivariate(x)
+    pars <- rep(0,5)
+    pars[1] <- log(fit['mu',1]) - log(1-fit['mu',1]) # mu[1]
+    pars[2] <- log(fit['mu',2]) - log(1-fit['mu',2]) # mu[2]
+    pars[3] <- fit['sigma',1]^2
+    pars[4] <- fit['sigma',2]^2
+    if (pars[3]>0.01 & pars[4]>0.01){ # draw ellipse
         sol <- optimise(LL.ternary.random.effects.cov,
                         interval=c(-0.99,0.99),pars=pars,dat=x$raw)
         b1 <- pars[1]
@@ -273,36 +268,33 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
             ell <- IsoplotR::ellipse(b1,b2,solve(err[1:2,1:2]),alpha=alpha)
         }
         XYZ <- ALR(ell,inverse=TRUE)
-        xy <- xyz2xy(XYZ$x)
-        graphics::lines(xy,...)
-    } else if (sigma13>0.01 & sigma23<0.01){
-        pars[4] <- 0
-        m13 <- qnorm(alpha/2,mean=log(ratio13),sd=sigma13)
-        M13 <- qnorm(1-alpha/2,mean=log(ratio13),sd=sigma13)
-        np <- 20 # number of points
-        u <- seq(m13,M13,length.out=np)
-        v <- rep(log(ratio23),np)
-        uv <- cbind(u,v)
-        XYZ <- ALR(uv,inverse=TRUE)
-        xy <- xyz2xy(XYZ$x)
-        graphics::lines(xy,...)
-    } else if (sigma13<0.01 & sigma23>0.01){
-        pars[3] <- 0
-        m23 <- qnorm(alpha/2,mean=log(ratio23),sd=sigma23)
-        M23 <- qnorm(1-alpha/2,mean=log(ratio23),sd=sigma23)
-        np <- 20 # number of points
-        u <- rep(log(ratio13),np)
-        v <- seq(m23,M23,length.out=np)
-        uv <- cbind(u,v)
-        XYZ <- ALR(uv,inverse=TRUE)
-        xy <- xyz2xy(XYZ$x)
-        graphics::lines(xy,...)
-    } else {
+    } else if (pars[3]<0.01 & pars[4]<0.01){ # draw point
         pars[3:4] <- 0
-        XYZ <- ALR(log(c(ratio13,ratio23)),inverse=TRUE)
-        xy <- xyz2xy(XYZ$x)
-        graphics::points(xy,...)
+        XYZ <- ALR(pars[1:2],inverse=TRUE)
+    } else { # draw line
+        if (pars[3]>0.01){
+            pars[4] <- 0
+            if (population) sigma <- pars[3]
+            else sigma <- sqrt((sol['err',1]/pars[1])^2 +
+                               (sol['err',1]/(1-pars[1]))^2)
+            m1 <- qnorm(alpha/2,mean=pars[1],sd=sigma)
+            M1 <- qnorm(1-alpha/2,mean=pars[1],sd=sigma)
+        } else if (pars[4]>0.01){
+            pars[3] <- 0
+            if (population) sigma <- pars[4]
+            else sigma <- sqrt((sol['err',2]/pars[2])^2 +
+                               (sol['err',2]/(1-pars[2]))^2)
+            m2 <- qnorm(alpha/2,mean=pars[2],sd=sigma)
+            M2 <- qnorm(1-alpha/2,mean=pars[2],sd=sigma)
+        }
+        np <- 20 # number of points
+        u <- seq(m1,M1,length.out=np)
+        v <- rep(pars[2],np)
+        uv <- cbind(u,v)
+        XYZ <- ALR(uv,inverse=TRUE)
     }
+    xy <- xyz2xy(XYZ$x)
+    graphics::lines(xy,...)
     pars
 }
 
