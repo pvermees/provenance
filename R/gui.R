@@ -99,19 +99,22 @@ gui.plot.single <- function(){
         showpath = FALSE
         dat <- gui.get.dataset(includedistributional=FALSE)
         message("Plot background lines?\n",
-                "1 - descriptive QFL diagram\n",
-                "2 - Folk's classification\n",
-                "3 - Dickinson's QFL diagram\n",
-                "4 - no lines")
+                "1 - basic grid [default]\n",
+                "2 - descriptive QFL diagram\n",
+                "3 - Folk's classification\n",
+                "4 - Dickinson's QFL diagram\n",
+                "5 - no lines")
         response2 <- readline()
-        if (response2 == '1'){
+        if (response2 == '2'){
             type <- "QFL.descriptive"
-        } else if (response2 == '2'){
-            type <- "QFL.folk"
         } else if (response2 == '3'){
+            type <- "QFL.folk"
+        } else if (response2 == '4'){
             type <- "QFL.dickinson"
-        } else {
+        } else if (response2 == '5'){
             type <- "empty"
+        } else {
+            type <- "grid"
         }
         if (methods::is(dat,"SRDcorrected")){
             response3 <- readline("Show SRD correction [Y or n]? ")

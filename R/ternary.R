@@ -109,7 +109,8 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
                          ticklength=0.02,lty=2,lwd=1,...){
     graphics::plot(c(0,1),c(0,1),type='n',xaxt='n',yaxt='n',
                    xlab='',ylab='',asp=1,bty='n',...)
-    ternary.ticks(ticks=ticks,ticklength=ticklength)
+    if (type!='empty')
+        ternary.ticks(ticks=ticks,ticklength=ticklength)
     if (type=='empty'){
         cornerlabels <- colnames(x$x)
     } else if (type=='grid'){

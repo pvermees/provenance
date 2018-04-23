@@ -146,7 +146,7 @@ plot.compositional <- function(x,sname,annotate=TRUE,colmap=NULL,...){
 #' @method plot counts
 #' @export
 plot.counts <- function(x,sname,annotate=TRUE,colmap=NULL,...){
-    plot.compositional(x,sname,annotate=TRUE,colmap=NULL,...)
+    plot.compositional(x,sname,annotate=annotate,colmap=colmap,...)
 }
 
 #' Plot a Procrustes configuration
