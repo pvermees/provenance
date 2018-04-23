@@ -27,8 +27,8 @@ ternary.ellipse(x, ...)
 population or the standard error of the mean?}
 }
 \description{
-plot a logistic \eqn{100(1-\alpha)\%} confidence region around the
-    data or around its mean.
+plot a \eqn{100(1-\alpha)\%} confidence region around the data or
+    around its mean.
 }
 \examples{
 data(Namib)
