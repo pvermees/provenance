@@ -126,6 +126,7 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
     if (is.null(pch)) return()
     if (is.na(pch) && is.null(labels)){ pch <- 1 }
     if (!is.na(pch) && is.null(pos)){ pos <- 1 }
+    if (is.na(pch) && is.null(pos) && showpath && methods::is(x,'SRDcorrected')){ pos <- 1 }
     if (!is.na(pch)) graphics::points(xy,pch=pch,bg=bg,...)
     if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)
