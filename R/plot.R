@@ -205,9 +205,9 @@ plot.PCA <- function(x,...){
 #' @method plot CA
 #' @export
 plot.CA <- function(x,...){
-    biplot(x$rscore,x$cscore,var.axes=TRUE,
-           xlab='Component 1',
-           ylab='Component 2',...)
+    stats::biplot(x$rscore,x$cscore,var.axes=TRUE,
+                  xlab='Component 1',
+                  ylab='Component 2',...)
 }
 
 #' Plot an MDS configuration

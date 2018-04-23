@@ -18,9 +18,11 @@ of categories and the rows containing:
 \describe{
 \item{mu}{ the `central' composition. }
 \item{err}{ the standard error for the central composition. }
-\item{sigma}{ the overdispersion parameter, i.e. the coefficient
-              of variation of the underlying logistic normal
-              distribution. }
+\item{sigma}{ the overdispersion parameter, i.e. the coefficient of
+              variation of the underlying logistic normal
+              distribution. \code{central} computes a continuous
+              mixture model for each component (column)
+              separately. Covariance terms are not reported.}
 \item{p.value}{ the p-value for age homogeneity }
 }
 }
@@ -29,7 +31,8 @@ Computes the geometric mean composition of a continuous mixture of
 point-counting data.
 }
 \details{
-The central composition assumes that the observed point-counting
-distribution is the combination of two sources of scatter:
-counting uncertainty and true geological dispersion.
+The central composition assumes that the observed
+    point-counting distribution is the combination of two sources
+    of scatter: counting uncertainty and true geological
+    dispersion.
 }

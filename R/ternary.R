@@ -249,8 +249,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     pars[3] <- fit['sigma',1]^2
     pars[4] <- fit['sigma',2]^2
     if (pars[3]>0.01 & pars[4]>0.01){ # draw ellipse
-        sol <- optimise(LL.ternary.random.effects.cov,
-                        interval=c(-0.99,0.99),pars=pars,dat=x$raw)
+        sol <- stats::optimise(LL.ternary.random.effects.cov,
+                               interval=c(-0.99,0.99),pars=pars,dat=x$raw)
         b1 <- pars[1]
         b2 <- pars[2]
         E <- matrix(0,2,2)
@@ -264,7 +264,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         } else {
             message('Numerical optimisation in progress.\n',
                     'This make take a minute or two...')
-            err <- optimHess(pars,LL.ternary.random.effects,dat=x$raw)
+            err <- stats::optimHess(pars,LL.ternary.random.effects,dat=x$raw)
             ell <- IsoplotR::ellipse(b1,b2,solve(err[1:2,1:2]),alpha=alpha)
         }
         XYZ <- ALR(ell,inverse=TRUE)
@@ -277,15 +277,15 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
             if (population) sigma <- pars[3]
             else sigma <- sqrt((sol['err',1]/pars[1])^2 +
                                (sol['err',1]/(1-pars[1]))^2)
-            m1 <- qnorm(alpha/2,mean=pars[1],sd=sigma)
-            M1 <- qnorm(1-alpha/2,mean=pars[1],sd=sigma)
+            m1 <- stats::qnorm(alpha/2,mean=pars[1],sd=sigma)
+            M1 <- stats::qnorm(1-alpha/2,mean=pars[1],sd=sigma)
         } else if (pars[4]>0.01){
             pars[3] <- 0
             if (population) sigma <- pars[4]
             else sigma <- sqrt((sol['err',2]/pars[2])^2 +
                                (sol['err',2]/(1-pars[2]))^2)
-            m2 <- qnorm(alpha/2,mean=pars[2],sd=sigma)
-            M2 <- qnorm(1-alpha/2,mean=pars[2],sd=sigma)
+            m2 <- stats::qnorm(alpha/2,mean=pars[2],sd=sigma)
+            M2 <- stats::qnorm(1-alpha/2,mean=pars[2],sd=sigma)
         }
         np <- 20 # number of points
         u <- seq(m1,M1,length.out=np)
@@ -321,10 +321,10 @@ LL.ternary.random.effects <- function(pars,dat){
 get.LL.sample <- function(nn,mu,E){
     lnfact <- sum(1:sum(nn)) - sum(1:nn[1]) - sum(1:nn[2]) - sum(1:nn[3])
     p.int <- 
-        integrate(function(b2) { 
+        stats::integrate(function(b2) { 
             sapply(b2, function(b2) {
-                integrate(function(b1) get.p.sample(b1,b2,nn,mu,E),
-                          -Inf, Inf)$value
+                stats::integrate(function(b1) get.p.sample(b1,b2,nn,mu,E),
+                                 -Inf, Inf)$value
             })
         }, -Inf, Inf)$value
     - lnfact - log(p.int)
