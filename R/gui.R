@@ -841,9 +841,9 @@ gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,includedistributional=TRUE
             tekst <- c(tekst,"c - Continue")
         } else {
             tekst <- c("1 - Load a compositional dataset\n",
-                       "2 - Load a point-counting dataset\n")
+                       "2 - Load a point-counting dataset")
             if (includedistributional)
-                tekst <- c(tekst,"3 - Load a distributional dataset")
+                tekst <- c(tekst,"\n 3 - Load a distributional dataset")
         }
         message(tekst)
         response <- readline()
