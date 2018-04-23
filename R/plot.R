@@ -261,7 +261,6 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                 graphics::plot(x$points[,c(i,j)], type='n', asp=1, xlab=xlab, ylab=ylab, ...)
                 if (nnlines) { # draw lines between closest neighbours
                     if (is.na(pch)) pch=21
-                    if (is.na(cex)) cex=2.5
                     plotlines(x$points[,c(i,j)],x$diss)
                 }
                 graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
@@ -280,7 +279,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                     ylab <- "Distance/Disparity"
                     if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
                     shep <- MASS::Shepard(x$diss, x$points[,c(i,j)])
-                    graphics::plot(shep, pch=".", xlab="Dissimilarity", ylab=ylab)
+                    graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
                     graphics::lines(shep$x, shep$yf, type="S")
                     if (i==1 & j==2)
                         graphics::title(paste0("Stress = ",x$stress))    

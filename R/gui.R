@@ -286,7 +286,7 @@ gui.mds <- function(){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance\n",
                 "2 - Kuiper distance\n",
-                "3 - Sircombe-Hazelton distance")
+                "3 - Sircombe-Hazelton distance [default]")
         response <- readline()
         if (response == "1") method <- "KS"
         else if (response == "2") method <- "Kuiper"
@@ -294,7 +294,7 @@ gui.mds <- function(){
     }
     if (methods::is(dat,"distributional") & length(dat$err)==0){
         message("Choose:\n",
-                "1 - Kolmogorov-Smirnov distance\n",
+                "1 - Kolmogorov-Smirnov distance [default]\n",
                 "2 - Kuiper distance")
         response <- readline()
         if (response == "2") method <- "Kuiper"
@@ -846,7 +846,7 @@ gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,includedistributional=TRUE
             tekst <- c("1 - Load a compositional dataset\n",
                        "2 - Load a point-counting dataset")
             if (includedistributional)
-                tekst <- c(tekst,"\n 3 - Load a distributional dataset")
+                tekst <- c(tekst,"\n","3 - Load a distributional dataset")
         }
         message(tekst)
         response <- readline()
