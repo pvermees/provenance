@@ -121,7 +121,20 @@ gui.plot.single <- function(){
             if (response3 %in% c('n','N')) showpath <- FALSE
             else showpath <- TRUE
         }
+        message("1 - Add an error ellipse the entire population\n",
+                "2 - Add an error ellipse for the average composition\n",
+                "3 - No ellipse [default]")
+        response3 <- readline()
+        if (response3 %in% c('1','2')){
+            alpha <- as.numeric(readline("Confidence level [default=0.05]? "))
+            if (is.na(alpha)) alpha <- 0.05
+        }
         graphics::plot(ternary(dat),type=type,showpath=showpath)
+        if (response3 == '1'){ 
+            ternary.ellipse(ternary(dat),alpha=alpha,population=TRUE)
+        } else if (response3 == '2'){
+            ternary.ellipse(ternary(dat),alpha=alpha,population=FALSE)
+        }
     } else if (response1 == '2'){
         dat <- gui.get.dataset(includedistributional=FALSE)
         numcol <- as.numeric(readline("Number of columns in the plot? "))
@@ -136,7 +149,7 @@ gui.plot.single <- function(){
                 "Enter as a comma separated pair of labels:")
         response <- readline()
         numden <- strsplit(response,split=',')[[1]]
-        numden <- gsub(" ","",numden) # get rid of spaces        
+        numden <- gsub(" ","",numden) # get rid of spaces
         radialplot(dat,num=numden[1],den=numden[2])
     } else if (response1 == '4'){
         dat <- gui.open.distributional()
