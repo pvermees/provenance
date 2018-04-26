@@ -192,6 +192,6 @@ central_helper <- function(Nsj,Nij){
     df <- nrow(Nsj)-1
     mswd <- Chi2/df    
     p.value <- 1-stats::pchisq(Chi2,df)
-    err <- sqrt(1/sum(wj))
+    err <- 1/(sqrt(sum(wj))*(1-theta)^2)
     c(theta,err,sigma,mswd,p.value)
 }
