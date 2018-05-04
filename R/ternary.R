@@ -24,16 +24,22 @@
 #' @export
 ternary <- function(X,x=1,y=2,z=3){
     out <- list()
-    if (any(class(X) %in% c("compositional","counts"))) dat <- X$x
-    else dat <- X
+    if (any(class(X) %in% c("compositional","counts"))){
+        dat <- X$x
+        nms <- names(X)
+        class(out) <- class(X)
+    } else {
+        dat <- X
+        nms <- rownames(X)
+    }
     if (ndim(dat)>1) cnames <- colnames(dat)
     else cnames <- names(dat)
     if (is.numeric(x)) x <- cnames[x]
     if (is.numeric(y)) y <- cnames[y]
     if (is.numeric(z)) z <- cnames[z]
     out$raw <- ternary.amalgamate(dat,x,y,z)
-    if (nrow(out$raw)>1) rownames(out$raw) <- names(X)
-    class(out) <- append("ternary",class(X))
+    if (nrow(out$raw)>1) rownames(out$raw) <- nms
+    class(out) <- append("ternary",class(out))
     out$x <- ternaryclosure(out$raw)
     if (methods::is(X,"SRDcorrected")){
         out$restoration <- list()
@@ -274,6 +280,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         pars[3:4] <- 0
         XYZ <- ALR(pars[1:2],inverse=TRUE)
     } else { # draw line
+        np <- 20 # number of points
         if (pars[3]>0.01){
             pars[4] <- 0
             if (population) sigma <- pars[3]
@@ -281,6 +288,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
                                (sol['err',1]/(1-pars[1]))^2)
             m1 <- stats::qnorm(alpha/2,mean=pars[1],sd=sigma)
             M1 <- stats::qnorm(1-alpha/2,mean=pars[1],sd=sigma)
+            u <- seq(m1,M1,length.out=np)
+            v <- rep(pars[2],np)
         } else if (pars[4]>0.01){
             pars[3] <- 0
             if (population) sigma <- pars[4]
@@ -288,10 +297,9 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
                                (sol['err',2]/(1-pars[2]))^2)
             m2 <- stats::qnorm(alpha/2,mean=pars[2],sd=sigma)
             M2 <- stats::qnorm(1-alpha/2,mean=pars[2],sd=sigma)
+            u <- rep(pars[1],np)
+            v <- seq(m2,M2,length.out=np)
         }
-        np <- 20 # number of points
-        u <- seq(m1,M1,length.out=np)
-        v <- rep(pars[2],np)
         uv <- cbind(u,v)
         XYZ <- ALR(uv,inverse=TRUE)
     }
