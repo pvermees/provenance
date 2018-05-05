@@ -115,7 +115,6 @@ KDE <- function(x,from=NA,to=NA,bw=NA,adaptive=TRUE,log=FALSE,n=512,...){
 #' all the samples.
 #' @param adaptive boolean flag switching on the adaptive bandwidth
 #' modifier of Abramson (1982)
-#' @param pch (optional) symbol to be used to mark the sample points along the x-axis
 #' @param normalise boolean flag indicating whether or not the KDEs
 #' should all integrate to the same value.
 #' @param log boolean flag indicating whether the data should by
@@ -143,7 +142,7 @@ KDE <- function(x,from=NA,to=NA,bw=NA,adaptive=TRUE,log=FALSE,n=512,...){
 #' @seealso KDE
 #' @export
 KDEs <- function(x,from=NA,to=NA,bw=NA,samebandwidth=TRUE,
-                 adaptive=TRUE,pch=NA,normalise=FALSE,log=FALSE,n=512,...){
+                 adaptive=TRUE,normalise=FALSE,log=FALSE,n=512,...){
     if (is.na(from) | is.na(to)) {
         mM <- setmM(unlist(x$x),from,to,log)
         from <- mM$m
@@ -167,7 +166,6 @@ KDEs <- function(x,from=NA,to=NA,bw=NA,samebandwidth=TRUE,
     out$from <- from
     out$to <- to
     out$themax <- themax
-    out$pch <- pch
     out$log <- log
     out$xlab <- x$xlab
     return(out)
