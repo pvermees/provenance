@@ -112,14 +112,15 @@ diss.counts <- function(x,method=NULL){
     snames <- names(x)
     ns <- length(snames)
     d <- mat.or.vec(ns,ns)
-    X <- x$x / rowSums(x$x) # normalise data
-    CC <- colSums(X)
+    NN <- sum(x$x)
+    RR <- rowSums(x$x)
+    CC <- colSums(x$x)
     for (i in 1:ns){
         for (j in 1:ns){
             if (x$method=='bray'){
                 d[i,j] <- bray.diss(x$x[i,],x$x[j,])
             } else { # chisq
-                d[i,j] <- sqrt(sum( (1/CC)*(X[i,] - X[j,])^2 ))
+                d[i,j] <- sqrt(sum( (NN/CC)*(x$x[i,]/RR[i] - x$x[j,]/RR[j])^2 ))
             }
         }
     }
@@ -604,23 +605,33 @@ setmM <- function(x,from=NA,to=NA,log=FALSE){
 
 #' @export
 names.distributional <- function(x){
-    return(names(x$x))
+    out <- names(x$x)
+    if (is.null(out)) out <- 1:length(x$x)
+    return(out)
 }
 #' @export
 names.compositional <- function(x){
-    return(rownames(x$x))
+    out <- rownames(x$x)
+    if (is.null(out)) out <- 1:nrow(x$x)
+    return(out)
 }
 #' @export
 names.counts <- function(x){
-    return(rownames(x$x))
+    out <- rownames(x$x)
+    if (is.null(out)) out <- 1:nrow(x$x)
+    return(out)
 }
 #' @export
 names.KDEs <- function(x){
-    return(names(x$kdes))
+    out <- names(x$kdes)
+    if (is.null(out)) out <- 1:length(x$kdes)
+    return(out)
 }
 #' @export
 names.ternary <- function(x){
-    return(rownames(x$x))
+    out <- rownames(x$x)
+    if (is.null(out)) out <- 1:nrow(x$x)
+    return(out)
 }
 
 #' Calculate the number of grains required to achieve a desired level of sampling resolution
@@ -680,14 +691,14 @@ get.p <- function(n,f=0.05){
 #' Calculate the largest fraction that is likely to be missed
 #'
 #' For a given sample size, returns the largest fraction which has
-#' been sampled with p x 100 % likelihood.
+#' been sampled with (1-p) x 100 \% likelihood.
 #' @param n the number of grains in the detrital sample
 #' @param p the required level of confidence
-#' @return the largest fraction that is sampled with at least 100 x p%
-#' certainty
-#' @references Vermeesch, Pieter. "How many grains are needed for a
-#' provenance study?." Earth and Planetary Science Letters 224.3
-#' (2004): 441-451.
+#' @return the largest fraction that is sampled with at least (1-p) x
+#'     100\% certainty
+#' @references Vermeesch,
+#'     Pieter. "How many grains are needed for a provenance study?."
+#'     Earth and Planetary Science Letters 224.3 (2004): 441-451.
 #' @examples
 #' print(get.f(60))
 #' print(get.f(117))

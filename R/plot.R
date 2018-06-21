@@ -33,7 +33,7 @@ plot.KDE <- function(x,pch='|',xlab="age [Ma]",ylab="",...){
 #' @param sname optional sample name. If \code{sname=NA}, all samples
 #'     are shown on a summary plot
 #' @param annotate add a time axis?
-#' @pch symbol to be used to mark the sample points along the
+#' @param pch symbol to be used to mark the sample points along the
 #'     x-axis. Change to \code{NA} to omit.
 #' @param ... optional parameters to be passed on to the
 #'     \code{summaryplot} function
@@ -207,9 +207,11 @@ plot.PCA <- function(x,...){
 #' @method plot CA
 #' @export
 plot.CA <- function(x,...){
-    stats::biplot(x$rscore,x$cscore,var.axes=TRUE,
-                  xlab='Component 1',
-                  ylab='Component 2',...)
+    X <- x$rscore[, 1L:2]
+    X <- X %*% diag(x$cor[1L:2])
+    Y <- x$cscore[, 1L:2]
+    Y <- Y %*% diag(x$cor[1L:2])
+    stats::biplot(X,Y,xlab='Component 1',ylab='Component 2',...)
 }
 
 #' Plot an MDS configuration

@@ -4,7 +4,7 @@
 \alias{plot.KDEs}
 \title{Plot one or more kernel density estimates}
 \usage{
-\method{plot}{KDEs}(x, sname = NA, annotate = TRUE, ...)
+\method{plot}{KDEs}(x, sname = NA, annotate = TRUE, pch = "|", ...)
 }
 \arguments{
 \item{x}{an object of class \code{KDEs}}
@@ -13,6 +13,9 @@
 are shown on a summary plot}
 
 \item{annotate}{add a time axis?}
+
+\item{pch}{symbol to be used to mark the sample points along the
+x-axis. Change to \code{NA} to omit.}
 
 \item{...}{optional parameters to be passed on to the
 \code{summaryplot} function}

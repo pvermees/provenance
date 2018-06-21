@@ -4,18 +4,22 @@
 \alias{summaryplot}
 \title{Joint plot of several provenance datasets}
 \usage{
-summaryplot(..., ncol = 1)
+summaryplot(..., ncol = 1, pch = NA)
 }
 \arguments{
 \item{...}{a sequence of datasets of class \code{compositional},
 \code{KDEs}, or \code{distributional}}
 
 \item{ncol}{the number of columns}
+
+\item{pch}{(optional) symbol to be used to mark the sample points
+along the x-axis of the KDEs (if appropriate).}
 }
 \value{
 a summary plot of all the data comprised of KDEs for the
-datasets of class \code{KDEs}, pie charts for those of class
-\code{compositional} and histograms for those of class \code{distributional}.
+    datasets of class \code{KDEs}, pie charts for those of class
+    \code{compositional} and histograms for those of class
+    \code{distributional}.
 }
 \description{
 Arranges kernel density estimates and pie charts in a grid format

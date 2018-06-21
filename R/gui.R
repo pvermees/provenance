@@ -63,24 +63,27 @@ gui.samplesize <- function(sigdig=3){
         f <- readline(paste0("enter a number between 0 and 100% indicating\n",
                              "the size of the smallest fraction of interest [e.g., 5]: "))
         p <- get.p(as.numeric(n),as.numeric(f)/100)
-        message("\nResult: the likelihood that all fractions greater than ", f , "%\n",
-                "of the population are missed in a sample with ", n ," grains is ",
+        message("\nResult: the likelihood that no fractions greater than ", f , "%\n",
+                "of the population were missed in a sample with ", n ," grains is ",
                 "p = ",signif(100*p,sigdig) , "%\n")
     } else if (response == '2'){
         n <- readline("enter the number of grains [e.g., 117]: ")
         p <- readline(paste0("enter a number between 0 and 100% indicating\n",
-                             "the desired level of confidence [e.g., 95]: "))
+                             "the desired level of confidence [e.g., 5]: "))
         f <- get.f(as.numeric(n),as.numeric(p)/100)
         message("\nResult: the largest fraction of which a ", n , "-grain sample\n",
-                "has not missed with ", p , "% confidence is f = ", signif(100*f,3),"%\n")
+                "has not been missed with ", 100-as.numeric(p) ,
+                "% confidence is f = ", signif(100*f,3),"%\n")
     } else if (response == '3'){
         f <- readline(paste0("enter a number between 0 and 100% indicating\n",
                              "the size of the smallest fraction of interest [e.g., 5]: "))
         p <- readline(paste0("enter a number between 0 and 100% indicating\n",
-                             "the desired level of confidence [e.g., 95]: "))
-        n <- get.n((100-as.numeric(p))/100,as.numeric(f)/100)
-        message("\nResult: the minimum sample size which guarantees with ",p,"% certainty not\n",
-                "to have missed any fraction greater than ",f,"% of the population is n = ",n,"\n")
+                             "the desired level of confidence [e.g., 5]: "))
+        n <- get.n(as.numeric(p)/100,as.numeric(f)/100)
+        message("\nResult: the minimum sample size that guarantees with ",
+                100-as.numeric(p),"% certainty not\n",
+                "to have missed any fraction greater than ",f,
+                "% of the population is n = ",n,"\n")
     } else {
         message('Incorrect input.')
     }

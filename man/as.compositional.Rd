@@ -7,7 +7,7 @@
 as.compositional(x, method = NULL, colmap = "rainbow")
 }
 \arguments{
-\item{x}{an object of class \code{matrix}, \code{data.fram} or
+\item{x}{an object of class \code{matrix}, \code{data.frame} or
 \code{acomp}}
 
 \item{method}{dissimilarity measure, either 'aitchison' for

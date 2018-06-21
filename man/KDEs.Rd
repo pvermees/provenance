@@ -5,8 +5,7 @@
 \title{Generate an object of class \code{KDEs}}
 \usage{
 KDEs(x, from = NA, to = NA, bw = NA, samebandwidth = TRUE,
-  adaptive = TRUE, pch = NA, normalise = FALSE, log = FALSE, n = 512,
-  ...)
+  adaptive = TRUE, normalise = FALSE, log = FALSE, n = 512, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional}}
@@ -25,8 +24,6 @@ all the samples.}
 
 \item{adaptive}{boolean flag switching on the adaptive bandwidth
 modifier of Abramson (1982)}
-
-\item{pch}{(optional) symbol to be used to mark the sample points along the x-axis}
 
 \item{normalise}{boolean flag indicating whether or not the KDEs
 should all integrate to the same value.}
