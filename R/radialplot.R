@@ -186,7 +186,7 @@ central_helper <- function(Nsj,Nij){
         sigma <- sigma * sqrt(sum((wj*(pj-theta))^2)/sum(wj))
         theta <- sum(wj*pj)/sum(wj)
     }
-    if (sigma>0.5){ # the point iteration method may be fast but it doesn't
+    if (sigma>2){ # the point iteration method may be fast but it doesn't
         ts <- central_helper_ML(Nsj,Nij) #  work well for very dispersed datasets
         theta <- ts[1]
         sigma <- ts[2]
@@ -198,14 +198,14 @@ central_helper <- function(Nsj,Nij){
     df <- length(Nsj)-1
     mswd <- Chi2/df    
     p.value <- 1-stats::pchisq(Chi2,df)
-    err <- 1/(sqrt(sum(wj))*(theta*(1-theta))^2)
+    err <- 1/(sqrt(sum(wj))*(1-theta)^2)
     c(theta,err,sigma,mswd,p.value)
 }
 
 # maximum likelihood alternative to central_helper(Nsj,Nij)
 central_helper_ML <- function(Nsj,Nij){
     init <- pilot(Nsj,Nij)
-    mulogsigma <- optim(init,LL.optim,Nsj=Nsj,Nij=Nij)$par
+    mulogsigma <- stats::optim(init,LL.random.effects,Nsj=Nsj,Nij=Nij)$par
     mu <- mulogsigma[1]
     sigma <- exp(mulogsigma[2])
     theta <- exp(mu)/(1+exp(mu))
@@ -214,10 +214,10 @@ central_helper_ML <- function(Nsj,Nij){
 pilot <- function(Nsj,Nij){
     logits <- log(Nsj+0.5)-log(Nij+0.5)
     mu <- mean(logits)
-    logsigma <- log(sd(logits))
+    logsigma <- log(stats::sd(logits))
     c(mu,logsigma)
 }
-LL.optim <- function(mls,Nsj,Nij){
+LL.random.effects <- function(mls,Nsj,Nij){
     mu <- mls[1]
     sigma <- exp(mls[2])
     LL <- 0
@@ -227,7 +227,7 @@ LL.optim <- function(mls,Nsj,Nij){
     -LL
 }
 pyumu <- function(Ns,Ni,mu,sigma){
-    integrate(function(b) integrand(b,Ns,Ni,mu,sigma),lower=-Inf,upper=Inf)$value
+    stats::integrate(function(b) integrand(b,Ns,Ni,mu,sigma),lower=-Inf,upper=Inf)$value
 }
 integrand <- function(b,Ns,Ni,mu,sigma){
     lognum <- b*Ns

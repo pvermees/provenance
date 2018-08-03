@@ -245,7 +245,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     pars[4] <- fit['sigma',2]
     if (abs(pars[3])>0.01 & abs(pars[4])>0.01){ # draw ellipse
         if (TRUE){ # approximate but fast
-            covariance <- cov(log(x$raw[,1:2]+0.5)-log(x$raw[,3]+0.5))[1,2]
+            covariance <- stats::cov(log(x$raw[,1:2]+0.5)-
+                                     log(x$raw[,3]+0.5))[1,2]
         } else { # accurate but slow and unstable
             init <- cor(log(x$raw[,1:2]+0.5)-log(x$raw[,3]+0.5))[1,2]
             message(paste0('Warning: calculating an error ellipse for \n',
@@ -275,8 +276,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         if (pars[3]>0.01){
             pars[4] <- 0
             if (population) sigma <- pars[3]
-            else sigma <- sqrt((sol['err',1]/pars[1])^2 +
-                               (sol['err',1]/(1-pars[1]))^2)
+            else sigma <- fit['err',1]/(pars[1]*(1-pars[1]))
             m1 <- stats::qnorm(alpha/2,mean=pars[1],sd=sigma)
             M1 <- stats::qnorm(1-alpha/2,mean=pars[1],sd=sigma)
             u <- seq(m1,M1,length.out=np)
@@ -284,8 +284,7 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
         } else if (pars[4]>0.01){
             pars[3] <- 0
             if (population) sigma <- pars[4]
-            else sigma <- sqrt((sol['err',2]/pars[2])^2 +
-                               (sol['err',2]/(1-pars[2]))^2)
+            else sigma <- fit['err',2]/(pars[2]*(1-pars[2]))
             m2 <- stats::qnorm(alpha/2,mean=pars[2],sd=sigma)
             M2 <- stats::qnorm(1-alpha/2,mean=pars[2],sd=sigma)
             u <- rep(pars[1],np)
@@ -340,7 +339,6 @@ LL.ternary.random.effects <- function(pars,dat){
     }
     LL
 }
-
 get.LL.sample <- function(nn,mu,E){
     lnfact <- sum(1:sum(nn)) - sum(1:nn[1]) - sum(1:nn[2]) - sum(1:nn[3])
     p.int <- 
@@ -354,7 +352,6 @@ get.LL.sample <- function(nn,mu,E){
     else log.p.int <- log(p.int)
     - lnfact - log.p.int
 }
-
 get.p.sample <- function(b1,b2,nn,mu,E){
     logbfact <- b1*nn[1] + b2*nn[2] - sum(nn) *
                 log( exp(b1) + exp(b2) + 1 )

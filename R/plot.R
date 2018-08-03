@@ -322,7 +322,8 @@ summaryplot <- function(...,ncol=1,pch=NA){
     snames <- unique(unlist(lapply(dlist,names)))
     ns <- length(snames)
     w <- rep(1,nd) # column widths
-    w[which( classes %in% c("KDEs","distributional") )] <- 2
+    idist <- which( classes %in% c("KDEs","distributional") )
+    w[idist] <- 2
     w <- rep(c(1,w),ncol)
     nppc <- ceiling(ns/ncol)
     np <- (nppc+1)*ncol*(nd+1) # number of subpanels
@@ -342,7 +343,8 @@ summaryplot <- function(...,ncol=1,pch=NA){
             for (j in (si[i]+1):si[i+1]){
                 sname <- snames[j]
                 if (sname %in% names(d)){
-                    graphics::plot(d,sname,annotate=FALSE,pch=pch)
+                    if (k %in% idist) graphics::plot(d,sname,annotate=FALSE,pch=pch)
+                    else graphics::plot(d,sname,annotate=FALSE)
                 } else {
                     emptyplot()
                 }
