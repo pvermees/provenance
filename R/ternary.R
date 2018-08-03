@@ -32,8 +32,13 @@ ternary <- function(X,x=1,y=2,z=3){
         dat <- X
         nms <- rownames(X)
     }
-    if (ndim(dat)>1) cnames <- colnames(dat)
-    else cnames <- names(dat)
+    if (ndim(dat)>1){
+        cnames <- colnames(dat)
+        if (is.null(cnames)) cnames <- 1:ncol(dat)
+    } else {
+        cnames <- names(dat)
+        if (is.null(cnames)) cnames <- 1:length(dat)
+    }
     if (is.numeric(x)) x <- cnames[x]
     if (is.numeric(y)) y <- cnames[y]
     if (is.numeric(z)) z <- cnames[z]
@@ -212,30 +217,12 @@ ternary.ellipse.default <- function(x,alpha=0.05,population=TRUE,...){
     uv <- ALR(x)
     u <- subset(uv,select=1)
     v <- subset(uv,select=2)
-    n <- length(u)
-    m <- 2
-    df1 <- m
-    df2 <- n-m
-    if (population) k <- n+1
-    else k <- 1
-    hk <- k*(n-1)*stats::qf(1-alpha,df1,df2)/(n*(n-m))
-    S <- stats::cov(uv)
-    VW2VT <- svd(S)
-    V <- VW2VT$u
-    W2 <- diag(VW2VT$d)
-    w1 <- sqrt(VW2VT$d[1])
-    w2 <- sqrt(VW2VT$d[2])
-    YbarY <- rbind(mean(u)-u,mean(v)-v)
-    res <- 100
-    g1 <- w1*sqrt(hk)*cos(seq(from=0,to=2*pi,length.out=res))
-    g2 <- w2*sqrt(hk)*sin(seq(from=0,to=2*pi,length.out=res))
-    G <- rbind(g1,g2)
-    ell <- list()
-    class(ell) <- 'compositional'
-    ell$x <- t(V%*%G + rbind(rep(mean(u),res),rep(mean(v),res)))
+    E <- stats::cov(uv)
+    ell <- errellipse(n=nrow(x$x),mu=c(mean(u),mean(v)),Sigma=E,
+                      alpha=alpha,population=population)
     XYZ <- ALR(ell,inverse=TRUE)
     xy <- xyz2xy(XYZ$x)
-    graphics::lines(xy,...)    
+    graphics::lines(xy,...)
 }
 #' @examples
 #' data(Namib)
@@ -250,31 +237,35 @@ ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
 #' @rdname ternary.ellipse
 #' @export
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
-    fit <- central.multivariate(x)
     pars <- rep(0,5)
-    pars[1] <- log(fit['mu',1]) - log(1-fit['mu',1]) # mu[1]
-    pars[2] <- log(fit['mu',2]) - log(1-fit['mu',2]) # mu[2]
-    pars[3] <- fit['sigma',1]^2
-    pars[4] <- fit['sigma',2]^2
-    if (pars[3]>0.01 & pars[4]>0.01){ # draw ellipse
-        sol <- stats::optimise(LL.ternary.random.effects.cov,
-                               interval=c(-0.99,0.99),pars=pars,dat=x$raw)
+    fit <- central.multivariate(x)
+    pars[1] <- log(fit['theta',1]) - log(1-fit['theta',1]) # mu[1]
+    pars[2] <- log(fit['theta',2]) - log(1-fit['theta',2]) # mu[2]
+    pars[3] <- fit['sigma',1]
+    pars[4] <- fit['sigma',2]
+    if (abs(pars[3])>0.01 & abs(pars[4])>0.01){ # draw ellipse
+        if (TRUE){ # approximate but fast
+            covariance <- cov(log(x$raw[,1:2]+0.5)-log(x$raw[,3]+0.5))[1,2]
+        } else { # accurate but slow and unstable
+            init <- cor(log(x$raw[,1:2]+0.5)-log(x$raw[,3]+0.5))[1,2]
+            message(paste0('Warning: calculating an error ellipse for \n',
+                           'point-counting data may take a minute ...'))
+            rho <- stats::optim(init,LL.ternary.random.effects.cor,
+                                method="L-BFGS-B",lower=-0.99,upper=0.99,
+                                pars=pars,dat=x$raw,
+                                control=list(factr=1e14))$par
+            covariance <- rho*pars[3]*pars[4]
+        }
         b1 <- pars[1]
         b2 <- pars[2]
         E <- matrix(0,2,2)
-        E[1,1] <- pars[3]
-        E[2,2] <- pars[4]
-        E[1,2] <- sol$minimum*sqrt(E[1,1]*E[2,2])
+        E[1,1] <- pars[3]^2
+        E[2,2] <- pars[4]^2
+        E[1,2] <- covariance
         E[2,1] <- E[1,2]
         pars[5] <- E[1,2]
-        if (population){
-            ell <- IsoplotR::ellipse(b1,b2,E,alpha=alpha)
-        } else {
-            message('Numerical optimisation in progress.\n',
-                    'This make take a minute or two...')
-            err <- stats::optimHess(pars,LL.ternary.random.effects,dat=x$raw)
-            ell <- IsoplotR::ellipse(b1,b2,solve(err[1:2,1:2]),alpha=alpha)
-        }
+        ell <- errellipse(n=nrow(x$x),mu=c(b1,b2),Sigma=E,
+                          alpha=alpha,population=population)
         XYZ <- ALR(ell,inverse=TRUE)
     } else if (pars[3]<0.01 & pars[4]<0.01){ # draw point
         pars[3:4] <- 0
@@ -305,20 +296,42 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     }
     xy <- xyz2xy(XYZ$x)
     graphics::lines(xy,...)
-    pars
+    invisible(pars)
+}
+
+errellipse <- function(n,mu,Sigma,alpha=0.05,population=TRUE){
+    m <- 2
+    df1 <- m
+    df2 <- n-m
+    if (population) k <- n+1
+    else k <- 1
+    hk <- k*m*(n-1)*stats::qf(1-alpha,df1,df2)/(n*(n-m))
+    VW2VT <- svd(Sigma)
+    V <- VW2VT$u
+    W2 <- diag(VW2VT$d)
+    w1 <- sqrt(VW2VT$d[1])
+    w2 <- sqrt(VW2VT$d[2])
+    res <- 100
+    g1 <- w1*sqrt(hk)*cos(seq(from=0,to=2*pi,length.out=res))
+    g2 <- w2*sqrt(hk)*sin(seq(from=0,to=2*pi,length.out=res))
+    G <- rbind(g1,g2)
+    ell <- list()
+    class(ell) <- 'compositional'
+    ell$x <- t(V%*%G + rbind(rep(mu[1],res),rep(mu[2],res)))
+    ell
 }
 
 # pars = mu1, mu2, var1, var2, cov12
 # dat = [n x 3] matrix of counts
-LL.ternary.random.effects.cov <- function(rho,pars,dat){
-    pars[5] <- rho*sqrt(pars[3]*pars[4])
+LL.ternary.random.effects.cor <- function(rho,pars,dat){
+    pars[5] <- rho*pars[3]*pars[4]
     LL.ternary.random.effects(pars,dat)
 }
 LL.ternary.random.effects <- function(pars,dat){
     mu <- pars[1:2]
     E <- matrix(0,2,2)
-    E[1,1] <- pars[3]
-    E[2,2] <- pars[4]
+    E[1,1] <- pars[3]^2
+    E[2,2] <- pars[4]^2
     E[1,2] <- pars[5]
     E[2,1] <- E[1,2]
     LL <- 0
@@ -337,12 +350,14 @@ get.LL.sample <- function(nn,mu,E){
                                  -Inf, Inf)$value
             })
         }, -Inf, Inf)$value
-    - lnfact - log(p.int)
+    if (p.int==0) log.p.int <- -1000
+    else log.p.int <- log(p.int)
+    - lnfact - log.p.int
 }
 
 get.p.sample <- function(b1,b2,nn,mu,E){
     logbfact <- b1*nn[1] + b2*nn[2] - sum(nn) *
                 log( exp(b1) + exp(b2) + 1 )
-    mfact <- dmvnorm(cbind(b1,b2),mean=mu,sigma=E)
-    exp(logbfact) * mfact
+    mfact <- dmvnorm(cbind(b1,b2),mean=mu,sigma=E,log=TRUE)
+    exp(logbfact + mfact)
 }

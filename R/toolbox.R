@@ -287,13 +287,13 @@ ALR.default <- function(x,inverse=FALSE,...){
     if (inverse){
         num <- matrix(1,nr,nc+1)
         num[,1:nc] <- exp(dat)
-        den <- rowSums(num) %*% matrix(1,1,nc+1)
+        den <- as.matrix(rowSums(num)) %*% matrix(1,1,nc+1)
         out <- list()
         class(out) <- "compositional"
         out$x <- num / den
     } else {
         num <- log(dat[,1:(nc-1)])
-        den <- log(dat[,nc]) %*% matrix(1,1,nc-1)
+        den <- log(subset(dat,select=nc)) %*% matrix(1,1,nc-1)
         out <- num - den
     }
     return(out)

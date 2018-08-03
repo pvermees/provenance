@@ -82,7 +82,7 @@ radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=bg,...)
     fit <- central(dat)
-    ratio <- fit['mu',1]/fit['mu',2]
+    ratio <- fit['theta',1]/fit['theta',2]
     err <- fit['err',1]*ratio
     rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
     line1 <- substitute(a~'='~b%+-%c~(1~sigma),
@@ -146,7 +146,7 @@ central <- function(x,...){
     nc <- ncol(dat)
     out <- matrix(0,5,nc)
     colnames(out) <- colnames(dat)
-    rownames(out) <- c('mu','err','sigma','mswd','p.value')
+    rownames(out) <- c('theta','err','sigma','mswd','p.value')
     for (i in 1:nc){
         Nsj <- subset(dat,select=i)
         Nij <- rowSums(subset(dat,select=-i))
@@ -154,17 +154,17 @@ central <- function(x,...){
     }
     out
 }
-# calculates proportions relative to first component
+# calculates proportions relative to the last component
 central.multivariate <- function(x,...){
     if ("ternary" %in% class(x)) dat <- x$raw
     else dat <- x$x
     ns <- nrow(dat)
     nc <- ncol(dat)
     out <- matrix(0,5,nc-1)
-    rownames(out) <- c('mu','err','sigma','mswd','p.value')
-    Nij <- subset(dat,select=nc) # use first column as denominator
-    for (i in 1:(nc-1)){ # loop over all but the first column
-        Nsj <- subset(dat,select=i)        
+    rownames(out) <- c('theta','err','sigma','mswd','p.value')
+    Nij <- subset(dat,select=nc) # use last column as denominator
+    for (i in 1:(nc-1)){ # loop over all but the last column
+        Nsj <- subset(dat,select=i)
         out[,i] <- central_helper(Nsj,Nij)
     }
     colnames(out) <- colnames(dat)[-nc]
@@ -186,12 +186,52 @@ central_helper <- function(Nsj,Nij){
         sigma <- sigma * sqrt(sum((wj*(pj-theta))^2)/sum(wj))
         theta <- sum(wj*pj)/sum(wj)
     }
+    if (sigma>0.5){ # the point iteration method may be fast but it doesn't
+        ts <- central_helper_ML(Nsj,Nij) #  work well for very dispersed datasets
+        theta <- ts[1]
+        sigma <- ts[2]
+        wj <- mj/(theta*(1-theta)+(mj-1)*(theta*(1-theta)*sigma)^2)
+    }
     num <- (Nsj*Ni-Nij*Ns)^2
     Chi2 <- sum(num[ispos]/mj[ispos])/(Ns*Ni)
     # remove one d.o.f. for theta (for homogeneity test)
-    df <- nrow(Nsj)-1
+    df <- length(Nsj)-1
     mswd <- Chi2/df    
     p.value <- 1-stats::pchisq(Chi2,df)
-    err <- 1/(sqrt(sum(wj))*(1-theta)^2)
+    err <- 1/(sqrt(sum(wj))*(theta*(1-theta))^2)
     c(theta,err,sigma,mswd,p.value)
+}
+
+# maximum likelihood alternative to central_helper(Nsj,Nij)
+central_helper_ML <- function(Nsj,Nij){
+    init <- pilot(Nsj,Nij)
+    mulogsigma <- optim(init,LL.optim,Nsj=Nsj,Nij=Nij)$par
+    mu <- mulogsigma[1]
+    sigma <- exp(mulogsigma[2])
+    theta <- exp(mu)/(1+exp(mu))
+    c(theta,sigma)
+}
+pilot <- function(Nsj,Nij){
+    logits <- log(Nsj+0.5)-log(Nij+0.5)
+    mu <- mean(logits)
+    logsigma <- log(sd(logits))
+    c(mu,logsigma)
+}
+LL.optim <- function(mls,Nsj,Nij){
+    mu <- mls[1]
+    sigma <- exp(mls[2])
+    LL <- 0
+    for (u in 1:length(Nsj)){
+        LL <- LL + log(pyumu(Nsj[u],Nij[u],mu,sigma))
+    }
+    -LL
+}
+pyumu <- function(Ns,Ni,mu,sigma){
+    integrate(function(b) integrand(b,Ns,Ni,mu,sigma),lower=-Inf,upper=Inf)$value
+}
+integrand <- function(b,Ns,Ni,mu,sigma){
+    lognum <- b*Ns
+    logden <- -(Ns+Ni)*log(1+exp(b))
+    logout <- lognum + logden - 0.5*((b-mu)/sigma)^2 - log(sigma) - pi
+    exp(logout)
 }

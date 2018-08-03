@@ -275,7 +275,6 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
         attributes(x) <- NULL
         x[!is.numeric(x)] <- NA
         y <- matrix(x,nrow=attr$dim[[1]],ncol=attr$dim[[2]],dimnames=attr$dimnames)
-        print(print(attr$dim[[1]]))
         return(as.compositional.matrix(y))
     } else if (methods::is(x,"data.frame") | methods::is(x,"matrix")){
         y <- as.matrix(x)
