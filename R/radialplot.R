@@ -181,14 +181,16 @@ central_helper <- function(Nsj,Nij){
     pj[ispos] <- Nsj[ispos]/mj[ispos]
     pj[!ispos] <- Ns/(Ns+Ni)
     theta <- Ns/sum(mj)
-    for (i in 1:30){ # page 49 of Galbraith (2005)
+    #nn <- length(Nsj)
+    for (i in 1:30){ # from page 49 of Galbraith (2005)
         wj <- mj/(theta*(1-theta)+(mj-1)*(theta*(1-theta)*sigma)^2)
         sigma <- sigma * sqrt(sum((wj*(pj-theta))^2)/sum(wj))
+        #sigma <- sigma * sqrt(sum(wj*(pj-theta)^2)/(nn-1))
         theta <- sum(wj*pj)/sum(wj)
     }
     if (sigma>2){ # the point iteration method may be fast but it doesn't
-        ts <- central_helper_ML(Nsj,Nij) #  work well for very dispersed datasets
-        theta <- ts[1]
+        ts <- central_helper_ML(Nsj,Nij) # work well for very dispersed 
+        theta <- ts[1]                   # datasets
         sigma <- ts[2]
         wj <- mj/(theta*(1-theta)+(mj-1)*(theta*(1-theta)*sigma)^2)
     }
