@@ -245,8 +245,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     pars[4] <- fit['sigma',2]
     if (abs(pars[3])>0.01 & abs(pars[4])>0.01){ # draw ellipse
         if (TRUE){ # approximate but fast
-            covariance <- stats::cov(log(x$raw[,1:2]+0.5)-
-                                     log(x$raw[,3]+0.5))[1,2]
+            rho <- stats::cor(log(x$raw[,1:2]+0.5)-
+                              log(x$raw[,3]+0.5))[1,2]
         } else { # accurate but slow and unstable
             init <- cor(log(x$raw[,1:2]+0.5)-log(x$raw[,3]+0.5))[1,2]
             message(paste0('Warning: calculating an error ellipse for \n',
@@ -255,8 +255,8 @@ ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
                                 method="L-BFGS-B",lower=-0.99,upper=0.99,
                                 pars=pars,dat=x$raw,
                                 control=list(factr=1e14))$par
-            covariance <- rho*pars[3]*pars[4]
         }
+        covariance <- rho*pars[3]*pars[4]
         b1 <- pars[1]
         b2 <- pars[2]
         E <- matrix(0,2,2)

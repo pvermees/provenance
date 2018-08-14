@@ -12,19 +12,19 @@ get.f(n, p = 0.05)
 \item{p}{the required level of confidence}
 }
 \value{
-the largest fraction that is sampled with at least 100 x p%
-certainty
+the largest fraction that is sampled with at least (1-p) x
+    100\% certainty
 }
 \description{
 For a given sample size, returns the largest fraction which has
-been sampled with p x 100 % likelihood.
+been sampled with (1-p) x 100 \% likelihood.
 }
 \examples{
 print(get.f(60))
 print(get.f(117))
 }
 \references{
-Vermeesch, Pieter. "How many grains are needed for a
-provenance study?." Earth and Planetary Science Letters 224.3
-(2004): 441-451.
+Vermeesch,
+    Pieter. "How many grains are needed for a provenance study?."
+    Earth and Planetary Science Letters 224.3 (2004): 441-451.
 }
