@@ -23,6 +23,8 @@
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
+#' @param ... optional arguments to the built-in \code{read.csv}
+#'     function
 #' @return an object of class \code{distributional}, i.e. a list with
 #'     the following items:
 #' 
@@ -49,7 +51,7 @@
 #'     plot(KDE(DZ$x$N1))
 #' @export
 read.distributional <- function(fname,errorfile=NA,method="KS",
-                                xlab="age [Ma]",colmap='rainbow') {
+                                xlab="age [Ma]",colmap='rainbow',...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     if (method=="SH" & is.na(errorfile)) method <- "KS"
@@ -58,13 +60,13 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
     out$x <- list()
     out$err <- list()
     out$colmap <- colmap
-    dat <- utils::read.csv(fname,header=TRUE)
+    dat <- utils::read.csv(fname,header=TRUE,...)
     ns = length(dat)
     for (i in 1:ns){
         out$x[[names(dat)[i]]] = dat[!is.na(dat[,i]),i]
     }
     if (!is.na(errorfile)){
-        err <- utils::read.csv(errorfile,header=TRUE)
+        err <- utils::read.csv(errorfile,header=TRUE,...)
         for (i in 1:ns) {
             out$err[[names(dat)[i]]] = dat[!is.na(err[,i]),i]
         }
@@ -91,6 +93,8 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
+#' @param ... optional arguments to the built-in \code{read.csv}
+#'     function
 #' @return an object of class \code{compositional}, i.e. a list with
 #'     the following items:
 #' 
@@ -105,11 +109,11 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     Major <- read.compositional(fname)
 #'     plot(PCA(Major))
 #' @export
-read.compositional <- function(fname,method=NULL,colmap='rainbow') {
+read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "compositional"
-    out$x <- utils::read.csv(fname,header=TRUE,row.names=1)
+    out$x <- utils::read.csv(fname,header=TRUE,row.names=1,...)
     if (is.null(method)){
         if (any(out$x==0)) { method <- "bray" }
         else { method <- "aitchison" }
@@ -136,6 +140,8 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow') {
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
+#' @param ... optional arguments to the built-in \code{read.csv}
+#'     function
 #' @return an object of class \code{counts}, i.e. a list with the
 #'     following items:
 #' 
@@ -149,11 +155,11 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow') {
 #'     Major <- read.counts(fname)
 #'     #plot(PCA(HM))
 #' @export
-read.counts <- function(fname,method='chisq',colmap='rainbow'){
+read.counts <- function(fname,method='chisq',colmap='rainbow',...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    out$x <- utils::read.csv(fname,header=TRUE,row.names=1)
+    out$x <- utils::read.csv(fname,header=TRUE,row.names=1,...)
     out$method <- method
     out$colmap <- colmap
     return(out)
@@ -165,6 +171,8 @@ read.counts <- function(fname,method='chisq',colmap='rainbow'){
 #' hydraulic sorting corrections (minsorting and srd functions)
 #'
 #' @param fname a string with the path to the .csv file
+#' @param ... optional arguments to the built-in \code{read.csv}
+#'     function
 #' @return a vector with mineral and rock densities
 #' @examples
 #' data(Namib,densities)
@@ -172,8 +180,8 @@ read.counts <- function(fname,method='chisq',colmap='rainbow'){
 #' distribution <- minsorting(N8,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
 #' plot(distribution)
 #' @export
-read.densities <- function(fname){
-    return(utils::read.csv(fname,header=TRUE))
+read.densities <- function(fname,...){
+    return(utils::read.csv(fname,header=TRUE,...))
 }
 
 #' create a \code{data.frame} object
