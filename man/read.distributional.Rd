@@ -5,7 +5,7 @@
 \title{Read a .csv file with continuous (detrital zircon) data}
 \usage{
 read.distributional(fname, errorfile = NA, method = "KS",
-  xlab = "age [Ma]", colmap = "rainbow")
+  xlab = "age [Ma]", colmap = "rainbow", ...)
 }
 \arguments{
 \item{fname}{the path of a .csv file with the input data, arranged
@@ -33,6 +33,9 @@ estimates.}
 built-in colour palettes (e.g., heat.colors, terrain.colors,
 topo.colors, cm.colors), which are to be used for plotting the
 data.}
+
+\item{...}{optional arguments to the built-in \code{read.csv}
+function}
 }
 \value{
 an object of class \code{distributional}, i.e. a list with

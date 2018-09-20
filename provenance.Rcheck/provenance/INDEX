@@ -14,6 +14,7 @@ SH.diss                 Sircombe and Hazelton distance
 amalgamate              Group components of a composition
 as.acomp                create an 'acomp' object
 as.compositional        create a 'compositional' object
+as.counts               create a 'counts' object
 as.data.frame           create a 'data.frame' object
 botev                   Compute the optimal kernel bandwidth
 bray.diss               Bray-Curtis dissimilarity

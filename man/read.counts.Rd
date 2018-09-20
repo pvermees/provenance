@@ -4,7 +4,7 @@
 \alias{read.counts}
 \title{Read a .csv file with point-counting data}
 \usage{
-read.counts(fname, method = "chisq", colmap = "rainbow")
+read.counts(fname, method = "chisq", colmap = "rainbow", ...)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}
@@ -16,6 +16,9 @@ read.counts(fname, method = "chisq", colmap = "rainbow")
 built-in colour palettes (e.g., heat.colors, terrain.colors,
 topo.colors, cm.colors), which are to be used for plotting the
 data.}
+
+\item{...}{optional arguments to the built-in \code{read.csv}
+function}
 }
 \value{
 an object of class \code{counts}, i.e. a list with the

@@ -4,9 +4,11 @@
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘2.0’
+* this is package ‘provenance’ version ‘2.2’
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
+
+The Date field is over a month old.
 
 The build time stamp is missing.
 * checking package namespace information ... OK
@@ -29,7 +31,11 @@ structure’ in the ‘Writing R Extensions’ manual.
 
 CRAN-pack does not know about
   .git
-* checking for portable file names ... OK
+* checking for portable file names ... WARNING
+Found the following file with a non-portable file name:
+  .git/index (pieter-laptop's conflicted copy 2018-08-15)
+These are not fully portable file names.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for sufficient/correct file permissions ... OK
 * checking whether package ‘provenance’ can be installed ... OK
 * checking installed package size ... OK
@@ -77,11 +83,7 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking contents of ‘data’ directory ... OK
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
-* checking examples ... NOTE
-Examples with CPU or elapsed time > 5s
-              user system elapsed
-indscal      2.400  3.752   1.214
-plot.INDSCAL 2.524  3.432   1.262
+* checking examples ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 5 NOTEs
+Status: 3 WARNINGs, 4 NOTEs

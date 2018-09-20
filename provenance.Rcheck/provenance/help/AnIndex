@@ -9,6 +9,7 @@ amalgamate.default	amalgamate
 amalgamate.SRDcorrected	amalgamate
 as.acomp	as.acomp
 as.compositional	as.compositional
+as.counts	as.counts
 as.data.frame	as.data.frame
 as.data.frame.compositional	as.data.frame
 as.data.frame.counts	as.data.frame

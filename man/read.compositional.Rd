@@ -4,7 +4,7 @@
 \alias{read.compositional}
 \title{Read a .csv file with compositional data}
 \usage{
-read.compositional(fname, method = NULL, colmap = "rainbow")
+read.compositional(fname, method = NULL, colmap = "rainbow", ...)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}
@@ -18,6 +18,9 @@ zeros present in the data.}
 built-in colour palettes (e.g., heat.colors, terrain.colors,
 topo.colors, cm.colors), which are to be used for plotting the
 data.}
+
+\item{...}{optional arguments to the built-in \code{read.csv}
+function}
 }
 \value{
 an object of class \code{compositional}, i.e. a list with

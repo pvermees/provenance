@@ -337,6 +337,29 @@ print(Namib$PT$x - PT.compositional$x)
 base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 base::cat("as.compositional", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 cleanEx()
+nameEx("as.counts")
+### * as.counts
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: as.counts
+### Title: create a 'counts' object
+### Aliases: as.counts
+
+### ** Examples
+
+X <- matrix(c(0,100,0,30,11,2,94,36,0),nrow=3,ncol=3)
+rownames(X) <- 1:3
+colnames(X) <- c('a','b','c')
+comp <- as.counts(X)
+d <- diss(comp)
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("as.counts", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("as.data.frame")
 ### * as.data.frame
 

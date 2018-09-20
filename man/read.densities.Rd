@@ -4,10 +4,13 @@
 \alias{read.densities}
 \title{Read a .csv file with mineral and rock densities}
 \usage{
-read.densities(fname)
+read.densities(fname, ...)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}
+
+\item{...}{optional arguments to the built-in \code{read.csv}
+function}
 }
 \value{
 a vector with mineral and rock densities
