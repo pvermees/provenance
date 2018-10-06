@@ -651,8 +651,8 @@ gui.open.compositional <- function(counts=FALSE){
     if (counts) message('Open a point-counting dataset:')
     else message('Open a compositional dataset:')
     fname <- file.choose()
-    if (counts) dat <- read.counts(fname)
-    else dat <- read.compositional(fname)
+    if (counts) dat <- read.counts(fname,check.names=FALSE)
+    else dat <- read.compositional(fname,check.names=FALSE)
     while (TRUE){
         message("1 - Apply SRD correction\n",
                 "2 - Subset components\n",
@@ -679,7 +679,7 @@ gui.open.distributional <- function(){
     message('Open a distributional dataset:')
     fname <- file.choose()
     errorfile <- NA
-    dat <- read.distributional(fname,errorfile)
+    dat <- read.distributional(fname,errorfile,check.names=FALSE)
     while (TRUE){
         message("Options:\n",
                 "1 - Subset samples\n",
@@ -693,7 +693,7 @@ gui.open.distributional <- function(){
             dat <- gui.combine.samples(dat)
         } else if (response == "3"){
             errorfile <- file.choose()
-            dat <- read.distributional(fname,errorfile)
+            dat <- read.distributional(fname,errorfile,check.names=FALSE)
         } else {
             return(dat)
         }
@@ -842,7 +842,7 @@ gui.load.densities <- function(){
     response <- readline("Open a density file [y] or use default values [N]? ")
     if (response %in% c('Y','y')){
         fname <- file.choose()
-        out <- read.densities(fname)
+        out <- read.densities(fname,check.names=FALSE)
     } else {
         out <- provenance::densities
     }
