@@ -17,11 +17,11 @@ diss(x, method)
 \method{diss}{counts}(x, method = NULL)
 }
 \arguments{
-\item{x}{an object of class \code{distributional} or
-\code{compositional}}
+\item{x}{an object of class \code{distributional},
+\code{compositional} or \code{counts}}
 
-\item{method}{(optional) either "KS", "Kuiper", "SH", "aitchison"
-or "bray"}
+\item{method}{(optional) either "KS", "Kuiper", "SH", "aitchison",
+"bray" or "chisq"}
 }
 \value{
 an object of class \code{diss}

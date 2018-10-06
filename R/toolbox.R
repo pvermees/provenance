@@ -48,10 +48,10 @@ Kuiper.diss <- function(x,y){
 #' \code{distributional} or \code{compositional} using the Kolmogorov-Smirnov,
 #' Sircombe-Hazelton, Aitchison or Bray Curtis distance
 #' 
-#' @param x an object of class \code{distributional} or
-#'     \code{compositional}
-#' @param method (optional) either "KS", "Kuiper", "SH", "aitchison"
-#'     or "bray"
+#' @param x an object of class \code{distributional},
+#'     \code{compositional} or \code{counts}
+#' @param method (optional) either "KS", "Kuiper", "SH", "aitchison",
+#'     "bray" or "chisq"
 #' @examples
 #' data(Namib)
 #' print(round(100*diss(Namib$DZ)))
