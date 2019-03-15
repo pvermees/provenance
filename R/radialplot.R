@@ -86,14 +86,14 @@ radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     ratio <- fit['theta',1]/fit['theta',2]
     err <- fit['err',1]*ratio
     rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
-    line1 <- substitute(a~'='~b%+-%c~(1~sigma),
+    line1 <- substitute(a~'='~b%+-%c~(1*sigma),
                         list(a=label,
                              b=rounded.ratio[1],
                              c=rounded.ratio[2]))
-    line2 <- substitute('MSWD ='~a~', p('~chi^2*')='~b,
+    line2 <- substitute('MSWD ='~a~', p('*chi^2*')='~b,
                         list(a=signif(fit['mswd',1],sigdig),
                              b=signif(fit['p.value',1],sigdig)))
-    line3 <- substitute('dispersion ='~a~'%',
+    line3 <- substitute('dispersion ='~a*'%',
                         list(a=signif(100*fit['sigma',1],sigdig)))
     graphics::mtext(line1,line=2)
     graphics::mtext(line2,line=1)
@@ -130,13 +130,15 @@ x2zs <- function(x){
 #' of categories and the rows containing:
 #'
 #' \describe{
-#' \item{mu}{ the `central' composition. }
+#' \item{theta}{ the `central' composition. }
 #' \item{err}{ the standard error for the central composition. }
 #' \item{sigma}{ the overdispersion parameter, i.e. the coefficient of
 #'               variation of the underlying logistic normal
 #'               distribution. \code{central} computes a continuous
 #'               mixture model for each component (column)
 #'               separately. Covariance terms are not reported.}
+#' \item{mswd}{ the mean square of the weighted deviates, a.k.a.
+#'              reduced chi-square statistic.}
 #' \item{p.value}{ the p-value for age homogeneity }
 #' }
 #' @export
