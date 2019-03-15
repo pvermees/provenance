@@ -4,7 +4,8 @@
 \alias{plot.minsorting}
 \title{Plot inferred grain size distributions}
 \usage{
-\method{plot}{minsorting}(x, cumulative = FALSE, components = NULL, ...)
+\method{plot}{minsorting}(x, cumulative = FALSE, components = NULL,
+  ...)
 }
 \arguments{
 \item{x}{an object of class \code{minsorting}}

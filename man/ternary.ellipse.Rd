@@ -9,12 +9,14 @@
 \usage{
 ternary.ellipse(x, ...)
 
-\method{ternary.ellipse}{default}(x, alpha = 0.05, population = TRUE, ...)
-
-\method{ternary.ellipse}{compositional}(x, alpha = 0.05, population = TRUE,
+\method{ternary.ellipse}{default}(x, alpha = 0.05, population = TRUE,
   ...)
 
-\method{ternary.ellipse}{counts}(x, alpha = 0.05, population = TRUE, ...)
+\method{ternary.ellipse}{compositional}(x, alpha = 0.05,
+  population = TRUE, ...)
+
+\method{ternary.ellipse}{counts}(x, alpha = 0.05, population = TRUE,
+  ...)
 }
 \arguments{
 \item{x}{an object of class \code{ternary}}

@@ -79,8 +79,9 @@ radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     dat <- subset(x,components=c(num,den))
     X <- x2zs(dat$x)
     X$transformation <- 'arctan'
+    pcol <- IsoplotR:::set.ellipse.colours(ns=nrow(x$x),levels=levels,col=bg)
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
-                           levels=levels,clabel=clabel,bg=bg,...)
+                           levels=levels,clabel=clabel,bg=pcol,...)
     fit <- central(dat)
     ratio <- fit['theta',1]/fit['theta',2]
     err <- fit['err',1]*ratio

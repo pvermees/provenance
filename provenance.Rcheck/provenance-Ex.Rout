@@ -5878,7 +5878,7 @@ Warning in plot.xy(xy.coords(x, y), type = type, ...) :
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  16.893 4.042 15.816 0 0 
+Time elapsed:  15.699 8.361 12.799 0 0 
 > grDevices::dev.off()
 pdf 
   2 

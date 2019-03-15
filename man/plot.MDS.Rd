@@ -4,9 +4,9 @@
 \alias{plot.MDS}
 \title{Plot an MDS configuration}
 \usage{
-\method{plot}{MDS}(x, nnlines = FALSE, pch = NA, pos = NULL, cex = 1,
-  col = "black", bg = "white", oma = rep(1, 4), mar = rep(2, 4),
-  mgp = c(2, 1, 0), xpd = NA, ...)
+\method{plot}{MDS}(x, nnlines = FALSE, pch = NA, pos = NULL,
+  cex = 1, col = "black", bg = "white", oma = rep(1, 4),
+  mar = rep(2, 4), mgp = c(2, 1, 0), xpd = NA, ...)
 }
 \arguments{
 \item{x}{an object of class \code{MDS}}

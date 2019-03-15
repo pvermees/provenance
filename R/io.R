@@ -113,7 +113,7 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "compositional"
-    out$x <- utils::read.csv(fname,header=TRUE,row.names=1,...)
+    out$x <- as.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
     if (is.null(method)){
         if (any(out$x==0)) { method <- "bray" }
         else { method <- "aitchison" }
@@ -159,7 +159,7 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    out$x <- utils::read.csv(fname,header=TRUE,row.names=1,...)
+    out$x <- as.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
     out$method <- method
     out$colmap <- colmap
     return(out)
@@ -181,7 +181,7 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
 #' plot(distribution)
 #' @export
 read.densities <- function(fname,...){
-    return(utils::read.csv(fname,header=TRUE,...))
+    return(as.matrix(utils::read.csv(fname,header=TRUE,...)))
 }
 
 #' create a \code{data.frame} object

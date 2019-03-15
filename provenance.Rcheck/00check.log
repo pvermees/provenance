@@ -4,7 +4,8 @@
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘provenance/DESCRIPTION’ ... OK
-* this is package ‘provenance’ version ‘2.2’
+* this is package ‘provenance’ version ‘2.3’
+* package encoding: UTF-8
 * checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Pieter Vermeesch <p.vermeesch@ucl.ac.uk>’
 
@@ -77,7 +78,11 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking contents of ‘data’ directory ... OK
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
-* checking examples ... OK
+* checking examples ... NOTE
+Examples with CPU or elapsed time > 5s
+              user system elapsed
+plot.INDSCAL 3.145  3.544   1.815
+indscal      2.899  3.218   1.684
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 4 NOTEs
+Status: 2 WARNINGs, 5 NOTEs
