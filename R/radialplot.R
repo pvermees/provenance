@@ -178,6 +178,8 @@ central_helper <- function(Nsj,Nij){
     sigma <- 0.15 # convenient starting value
     Ns <- sum(Nsj)
     Ni <- sum(Nij)
+    if (Ns==0) return(c(0,0,0,1,1))
+    if (Ni==0) return(c(1,0,0,1,1))
     mj <- Nsj+Nij
     ispos <- (mj>0)
     pj <- 0*Nsj
