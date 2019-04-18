@@ -7,12 +7,12 @@
 procrustes(...)
 }
 \arguments{
-\item{...}{a sequence of datasets of classes \code{distributional}
-and \code{compositional}}
+\item{...}{a sequence of datasets of classes \code{distributional},n
+\code{counts} and \code{compositional}}
 }
 \value{
 an object of class \code{GPA}, i.e. a list containing the
-following items:
+    following items:
 
 \code{points}: a two column vector with the coordinates of the
 group configuration

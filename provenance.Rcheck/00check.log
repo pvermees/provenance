@@ -78,11 +78,7 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking contents of ‘data’ directory ... OK
 * checking data for non-ASCII characters ... OK
 * checking data for ASCII and uncompressed saves ... OK
-* checking examples ... NOTE
-Examples with CPU or elapsed time > 5s
-              user system elapsed
-plot.INDSCAL 3.145  3.544   1.815
-indscal      2.899  3.218   1.684
+* checking examples ... OK
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 5 NOTEs
+Status: 2 WARNINGs, 4 NOTEs
