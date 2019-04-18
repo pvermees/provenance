@@ -447,10 +447,10 @@ getdisslist <- function(slist){
 #' analysis on each of these and the feeds the resulting
 #' configurations into the \code{GPA()} function.
 #'
-#' @param ... a sequence of datasets of classes \code{distributional}
-#' and \code{compositional}
+#' @param ... a sequence of datasets of classes \code{distributional},n
+#'     \code{counts} and \code{compositional}
 #' @return an object of class \code{GPA}, i.e. a list containing the
-#' following items:
+#'     following items:
 #' 
 #' \code{points}: a two column vector with the coordinates of the
 #' group configuration
@@ -577,8 +577,11 @@ tr <- function (m){
 
 get.data.names <- function(dlist){
     out <- c()
-    for (d in dlist){
-        out <- c(out,d$name)
+    nd <- length(dlist)
+    for (i in 1:nd){
+        if (is.null(dlist[[i]]$name)) dname <- i
+        else dname <- dlist[[i]]$name
+        out <- c(out,dname)
     }
     out
 }

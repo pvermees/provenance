@@ -16,13 +16,17 @@ an \code{[5 x n]} matrix with \code{n} being the number
 of categories and the rows containing:
 
 \describe{
-\item{mu}{ the `central' composition. }
+\item{theta}{ the `central' composition. }
 \item{err}{ the standard error for the central composition. }
 \item{sigma}{ the overdispersion parameter, i.e. the coefficient of
               variation of the underlying logistic normal
               distribution. \code{central} computes a continuous
               mixture model for each component (column)
               separately. Covariance terms are not reported.}
+\item{LL}{ the lower limit of a `1 sigma' region for  code{theta}. }
+\item{UL}{ the upper limit of a `1 sigma' region for  code{theta}. }
+\item{mswd}{ the mean square of the weighted deviates, a.k.a.
+             reduced chi-square statistic.}
 \item{p.value}{ the p-value for age homogeneity }
 }
 }

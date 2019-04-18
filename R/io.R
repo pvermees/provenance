@@ -113,7 +113,7 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "compositional"
-    out$x <- as.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    out$x <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
     if (is.null(method)){
         if (any(out$x==0)) { method <- "bray" }
         else { method <- "aitchison" }
@@ -159,7 +159,7 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    out$x <- as.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    out$x <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
     out$method <- method
     out$colmap <- colmap
     return(out)
@@ -181,7 +181,7 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
 #' plot(distribution)
 #' @export
 read.densities <- function(fname,...){
-    return(as.matrix(utils::read.csv(fname,header=TRUE,...)))
+    return(data.matrix(utils::read.csv(fname,header=TRUE,...)))
 }
 
 #' create a \code{data.frame} object
@@ -203,7 +203,7 @@ read.densities <- function(fname,...){
 #' @name as.data.frame
 #' @export
 as.data.frame.compositional <- function(x,...){
-    nc <- ncol(as.matrix(x$x))
+    nc <- ncol(data.matrix(x$x))
     if (nc==3) out <- data.frame(x$x[,c(2,3,1)],...)
     if (nc>3) out <- data.frame(x$x[,c(2,3,1,4:nc)],...)
     if (nc<3) out <- data.frame(x$x,...)
@@ -236,7 +236,7 @@ as.acomp <- function(x){
     if (!(methods::is(x,"compositional")| methods::is(x,"counts"))){
         stop("not an object of class compositional or counts")
     }
-    dat <- as.matrix(as.data.frame(x))
+    dat <- data.matrix(as.data.frame(x))
     out <- structure(dat)
     attributes(out) <- list(dim = dim(dat), dimnames=dimnames(dat), class="acomp")
     return(out)
@@ -245,7 +245,7 @@ as.acomp <- function(x){
 as.compositional.matrix <- function(x,method=NULL,colmap='rainbow'){
     out <- list(x=NULL,method=method,colmap=colmap)
     class(out) <- "compositional"
-    out$x <- as.matrix(x)
+    out$x <- data.matrix(x)
     nc <- ncol(out$x)
     if (nc==3) out$x <- out$x[,c(3,1,2)]
     if (nc>3) out$x <- out$x[,c(3,1,2,4:nc)]
@@ -285,7 +285,7 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
         y <- matrix(x,nrow=attr$dim[[1]],ncol=attr$dim[[2]],dimnames=attr$dimnames)
         return(as.compositional.matrix(y))
     } else if (methods::is(x,"data.frame") | methods::is(x,"matrix")){
-        y <- as.matrix(x)
+        y <- data.matrix(x)
         dimnames(y) <- dimnames(x)
         return(as.compositional.matrix(y,method,colmap))
     } else {
@@ -312,7 +312,7 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #' d <- diss(comp)
 #' @export
 as.counts <- function(x,method='chisq',colmap='rainbow'){
-    y <- as.matrix(x)
+    y <- data.matrix(x)
     dimnames(y) <- dimnames(x)
     out <- list(x=NULL,method=method,colmap=colmap)
     class(out) <- "counts"
