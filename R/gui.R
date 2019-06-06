@@ -398,9 +398,10 @@ gui.help <- function(){
             "5 - sample size calculation\n",
             "6 - cumulative age distributions\n",
             "7 - kernel density estimation\n",
-            "8 - Minsorting and SRD correction\n",
-            "9 - multidimensional scaling\n",
-            "10 - Procrustes analysis and 3-way MDS\n",
+            "8 - radial plots\n",
+            "9 - Minsorting and SRD correction\n",
+            "10 - multidimensional scaling\n",
+            "11 - Procrustes analysis and 3-way MDS\n",
             "c - continue")
         response <- readline()
         if (response == "1"){
@@ -550,6 +551,34 @@ gui.help <- function(){
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
         } else if (response == "8"){
+            message("Radial Plots:\n",
+                    "-------------------------------\n",
+                    "Galbraith (1988)'s radial plot is a graphical means of visualising\n",
+                    "'heteroscedastic' data. Originally developed for fission track data,\n",
+                    "radial plots can also be used to display point-counting ratios.\n",
+                    "They allow a visual assessment of the degree to which counting\n",
+                    "uncertainties can explain the observed scatter between multiple ratio\n",
+                    "estimates. Radial plots are bivariate scatter diagrams that set out the\n",
+                    "normalised and arcsin-transformed ratios against their precision.\n",
+                    "The measured ratio values can be read by projecting their respective\n",
+                    "data points onto a circular scale on the right hand side of the diagram.\n",
+                    "The analytical uncertainty of the individual ratio estimates is obtained\n",
+                    "by projecting the top and bottom of a 2-sigma error bar onto that same scale.\n",
+                    "Thus, high ratios plot at high (positive) angles to the origin; low ratios\n",
+                    "plot at low (negative) angles to the origin; and large (and therefore\n",
+                    "precise) samples plot to the right of small (and therefore imprecise)\n",
+                    "samples. If binomial counting uncertainty is the only source of scatter,\n",
+                    "then approximately 95% of the data should plot within a 2-sigma confidence\n",
+                    "band around the origin. If significantly more than 5% of the data plot\n",
+                    "outside this confidence band, then the data are said to be overdispersed\n",
+                    "with respect to the counting uncertainties. In this case, the package\n",
+                    "estimates the 'central' ratio and the overdispersion using a logistic normal assumption.\n",
+                    "\nCiteable references:\n",
+                    "Galbraith, R., 1988, Graphical display of estimates having differing standard\n",
+                    "errors. Technometrics, 30(3): 271-281.\n",
+                    "Vermeesch, P., 2018, Statistical models for point-counting data.\n",
+                    "Earth and Planetary Science Letters, 501: 1-7\n")
+        } else if (response == "9"){
             message("Minsorting and SRD correction:\n",
                     "-----------------------------\n",
                     "To facilitate the comparison of detrital modes for provenance analysis\n",
@@ -583,7 +612,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "9"){
+        } else if (response == "10"){
             message("Multidimensional Scaling:\n",
                     "------------------------\n",
                     "An increasing number of provenance studies are based on not just a few\n",
@@ -613,7 +642,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "10"){
+        } else if (response == "11"){
             message("Procrustes analysis and 3-way MDS:\n",
                     "---------------------------------\n",
                     "Procrustes analysis and 3-way MDS are simple yet powerful tools\n",
