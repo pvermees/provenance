@@ -867,3 +867,8 @@ dmvnorm <- function(x,mean=rep(0,p),sigma=diag(p),log=FALSE) {
         logretval
     else exp(logretval)
 }
+
+removeNAcols <- function(x){
+    bad <- apply(apply(x,2,is.na),2,all)
+    subset(x,select=!bad)
+}

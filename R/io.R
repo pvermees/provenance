@@ -61,17 +61,19 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
     out$err <- list()
     out$colmap <- colmap
     dat <- utils::read.csv(fname,header=TRUE,...)
-    ns = length(dat)
-    for (i in 1:ns){
-        out$x[[names(dat)[i]]] = dat[!is.na(dat[,i]),i]
+    for (i in 1:length(dat)){
+        good <- !is.na(dat[,i])
+        if (any(good)) out$x[[names(dat)[i]]] = dat[good,i]
     }
     if (!is.na(errorfile)){
         err <- utils::read.csv(errorfile,header=TRUE,...)
-        for (i in 1:ns) {
-            out$err[[names(dat)[i]]] = dat[!is.na(err[,i]),i]
+        for (i in 1:length(err)){
+            good <- !is.na(err[,i])
+            if (any(good)) out$err[[names(dat)[i]]] = err[good,i]
         }
     }
     d <- unlist(out$x)
+    ns <- length(out$x) # number of samples
     ng <- length(d) # number of grains
     nb <- log(ng/ns,base=2)+1
     out$breaks <- seq(min(d),max(d),length.out=nb+1)
@@ -113,7 +115,8 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "compositional"
-    out$x <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    dat <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    out$x <- removeNAcols(dat)
     if (is.null(method)){
         if (any(out$x==0)) { method <- "bray" }
         else { method <- "aitchison" }
@@ -159,7 +162,8 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    out$x <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    dat <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    out$x <- removeNAcols(dat)
     out$method <- method
     out$colmap <- colmap
     return(out)
