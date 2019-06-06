@@ -387,7 +387,7 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
     if (is.null(components)){
         plotval <- x$mfract
     } else {
-        plotval <- as.matrix(x$mfract[,components])
+        plotval <- x$mfract[,components,drop=FALSE]
         colnames(plotval) <- components
     }
     gsize <- as.numeric(rownames(plotval)) # grain size fraction

@@ -12,11 +12,12 @@
   proxies such as chemical compositions are compared with the
   Aitchison and Bray-Curtis distances, and point-counting data with
   the chi-square distance. Also included are tools to plot
-  compositional and point-counting data on ternary diagrams, to
-  calculate the sample size required for specified levels of
-  statistical precision, and to assess the effects of hydraulic
-  sorting on detrital compositions. Includes an intuitive query-based
-  user interface for users who are not proficient in R..
+  compositional and point-counting data on ternary diagrams and
+  point-counting data on radial plots, to calculate the sample size
+  required for specified levels of statistical precision, and to
+  assess the effects of hydraulic sorting on detrital
+  compositions. Includes an intuitive query-based user interface for
+  users who are not proficient in R..
 
 ## Prerequisites
 

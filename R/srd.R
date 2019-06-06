@@ -57,7 +57,7 @@ restore <- function(X,dens,target=2.71){
     out$restoration <- list()
     snames <- names(X)
     for (i in 1:length(snames)){
-        restoration <- restore.composition(X$x[i,],mydens,target)
+        restoration <- restore.composition(X$x[i,,drop=FALSE],mydens,target)
         out$restoration[[snames[i]]] <- restoration
         out$x[i,] <- restoration[nrow(restoration),]
     }

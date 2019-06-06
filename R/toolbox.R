@@ -292,7 +292,7 @@ ALR.default <- function(x,inverse=FALSE,...){
         class(out) <- "compositional"
         out$x <- num / den
     } else {
-        num <- log(dat[,1:(nc-1)])
+        num <- log(dat[,1:(nc-1),drop=FALSE])
         den <- log(subset(dat,select=nc)) %*% matrix(1,1,nc-1)
         out <- num - den
     }
@@ -405,7 +405,7 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
     } else {
         j <- 1:ncol(x$x)
     }
-    out$x <- x$x[i,j]
+    out$x <- x$x[i,j,drop=FALSE]
     if (methods::is(x,"SRDcorrected")){
         out$restoration <- x$restoration[i]
         for (sname in rownames(out$x)){
@@ -421,7 +421,7 @@ subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
     if (methods::is(x,"ternary")){
         i <- which(rownames(x$raw) %in% rownames(out$x))
         j <- which(colnames(x$raw) %in% colnames(out$x))
-        out$raw <- x$raw[i,j]
+        out$raw <- x$raw[i,j,drop=FALSE]
     }
     out
 }

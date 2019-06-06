@@ -162,12 +162,8 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-<<<<<<< HEAD
     dat <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
     out$x <- removeNAcols(dat)
-=======
-    out$x <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
->>>>>>> master
     out$method <- method
     out$colmap <- colmap
     return(out)
