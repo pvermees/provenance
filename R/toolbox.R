@@ -356,7 +356,7 @@ CA <- function(x,nf=2,...){
     return(out)
 }
 
-#' Get a subset of distributional data
+#' Get a subset of provenance data
 #'
 #' Return a subset of provenance data according to some specified
 #' indices

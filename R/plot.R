@@ -268,7 +268,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                     plotlines(x$points[,c(i,j)],x$diss)
                 }
                 graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
-                graphics::text(x$points[,c(i,j)], labels = labels(x$diss), pos=pos, col=col, bg=bg)    
+                graphics::text(x$points[,c(i,j)], labels=labels(x$diss), pos=pos, col=col, bg=bg)    
             }
         }
     }
