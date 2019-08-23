@@ -5,7 +5,7 @@
 \alias{subset.distributional}
 \alias{subset.compositional}
 \alias{subset.counts}
-\title{Get a subset of distributional data}
+\title{Get a subset of provenance data}
 \usage{
 \method{subset}{distributional}(x, subset = NULL, select = NULL, ...)
 
