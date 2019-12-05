@@ -311,7 +311,7 @@ ALR.compositional <- function(x,...){
 #' @param x an object of class \code{compositional}
 #' @param ... optional arguments to R's \code{princomp} function
 #' @return an object of classes \code{PCA}, which is synonymous to the
-#'     stats packages' \code{princomp} class.
+#'     stats packages' \code{prcomp} class.
 #' @examples
 #' data(Namib)
 #' plot(MDS(Namib$Major,classical=TRUE))
@@ -326,7 +326,7 @@ PCA <- function(x,...){
     } else {
         dat <- x
     }
-    pc <- stats::princomp(dat,...)
+    pc <- stats::prcomp(dat,...)
     class(pc) <- append("PCA",class(pc))
     return(pc)
 }
