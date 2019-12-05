@@ -324,7 +324,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                                  pch=pch, cex=cex, col=col, bg=bg)
                 graphics::text(x$points[1:ns,c(i,j)], labels=labels(x$diss)[1:ns],
                                pos=pos, col=col, bg=bg)
-                if (x$nb>1){ # bootstrap
+                if (x$nb>0){ # bootstrap
                     for (l in 1:ns){
                         if (length(col)==ns) bcol <- col[l]
                         else bcol <- col

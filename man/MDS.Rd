@@ -11,14 +11,11 @@
 \usage{
 MDS(x, ...)
 
-\method{MDS}{default}(x, fn, classical = FALSE, k = 2,
-  bootstrap = FALSE, nb = 10, ...)
+\method{MDS}{default}(x, fn, classical = FALSE, k = 2, ...)
 
-\method{MDS}{compositional}(x, classical = FALSE, k = 2,
-  bootstrap = FALSE, nb = 10, ...)
+\method{MDS}{compositional}(x, classical = FALSE, k = 2, ...)
 
-\method{MDS}{counts}(x, classical = FALSE, k = 2, bootstrap = FALSE,
-  nb = 10, ...)
+\method{MDS}{counts}(x, classical = FALSE, k = 2, ...)
 
 \method{MDS}{distributional}(x, classical = FALSE, k = 2,
   bootstrap = FALSE, nb = 10, ...)
@@ -29,17 +26,16 @@ MDS(x, ...)
 \item{x}{an object of class \code{distributional},
 \code{compositional}, \code{counts} or \code{diss}}
 
-\item{...}{optional arguments to be passed onto \code{diss} (if
-\code{x} is of class \code{compositional} or
-\code{distributional}) or onto \code{cmdscale} or \code{isoMDS}
-(if \code{x} is of class \code{dist}).}
+\item{...}{optional arguments to be passed onto \code{cmdscale} (if
+\code{classical=TRUE}) or \code{isoMDS} (if
+\code{classical=FALSE}).}
 
 \item{fn}{a dissimilarity function. One of either
 \code{diss.compositional}, \code{diss.counts}, or
 \code{diss.distributional}}
 
-\item{classical}{boolean flag indicating whether classical (TRUE)
-or nonmetric (FALSE) MDS should be used}
+\item{classical}{boolean flag indicating whether classical
+(\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used}
 
 \item{k}{the desired dimensionality of the solution}
 

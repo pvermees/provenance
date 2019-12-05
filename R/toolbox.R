@@ -155,16 +155,12 @@ bray.diss <- function(x,y){
 #' @param fn a dissimilarity function. One of either
 #'     \code{diss.compositional}, \code{diss.counts}, or
 #'     \code{diss.distributional}
-#' @param classical boolean flag indicating whether classical (TRUE)
-#'     or nonmetric (FALSE) MDS should be used
+#' @param classical boolean flag indicating whether classical
+#'     (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used
 #' @param k the desired dimensionality of the solution
-#' @param bootstrap resample the data to calculate confidence polygons
-#'     for the MDS configuration
-#' @param nb number of bootstrap resamples
-#' @param ... optional arguments to be passed onto \code{diss} (if
-#'     \code{x} is of class \code{compositional} or
-#'     \code{distributional}) or onto \code{cmdscale} or \code{isoMDS}
-#'     (if \code{x} is of class \code{dist}).
+#' @param ... optional arguments to be passed onto \code{cmdscale} (if
+#'     \code{classical=TRUE}) or \code{isoMDS} (if
+#'     \code{classical=FALSE}).
 #' @return an object of class \code{MDS}, i.e. a list containing the
 #'     following items:
 #'
@@ -187,46 +183,46 @@ bray.diss <- function(x,y){
 MDS <- function(x,...){ UseMethod("MDS",x) }
 #' @rdname MDS
 #' @export
-MDS.default <- function(x,fn,classical=FALSE,k=2,
-                        bootstrap=FALSE,nb=10,...){
-    if (bootstrap){
-        X <- resample(x,nb=nb)
-    } else {
-        X <- x
-        nb <- 1
-    }
-    d <- eval(call(name=fn,x=X))
+MDS.default <- function(x,fn,classical=FALSE,k=2,...){
+    d <- eval(call(name=fn,x=x))
     out <- MDS.diss(d,classical=classical,k=k,...)
-    out$nb <- nb
-    return(out)    
+    out$nb <- 0
+    return(out)
 }
 #' @rdname MDS
 #' @export
-MDS.compositional <- function(x,classical=FALSE,k=2,
-                              bootstrap=FALSE,nb=10,...){
-    MDS.default(x,fn='diss.compositional',classical=classical,
-                k=k,bootstrap=bootstrap,nb=nb,...)
+MDS.compositional <- function(x,classical=FALSE,k=2,...){
+    MDS.default(x,fn='diss.compositional',classical=classical,k=k,...)
 }
 #' @rdname MDS
 #' @export
-MDS.counts <- function(x,classical=FALSE,k=2,
-                       bootstrap=FALSE,nb=10,...){
-    MDS.default(x,fn='diss.counts',classical=classical,
-                k=k,bootstrap=bootstrap,nb=nb,...)
+MDS.counts <- function(x,classical=FALSE,k=2,...){
+    MDS.default(x,fn='diss.counts',classical=classical,k=k,...)
 }
+#' @param bootstrap resample the data to calculate confidence polygons
+#'     for the MDS configuration
+#' @param nb number of bootstrap resamples
 #' @rdname MDS
 #' @export
 MDS.distributional <- function(x,classical=FALSE,k=2,
                                bootstrap=FALSE,nb=10,...){
-    MDS.default(x,fn='diss.distributional',classical=classical,
-                k=k,bootstrap=bootstrap,nb=nb,...)
+    if (bootstrap){
+        X <- resample(x,nb=nb)
+    } else {
+        X <- x
+        nb <- 0
+    }
+    out <- MDS.default(X,fn='diss.distributional',
+                       classical=classical,k=k,...)
+    out$nb <- nb
+    out
 }
 #' @rdname MDS
 #' @export
 MDS.diss <- function(x,classical=FALSE,k=2,...){
     out <- list() 
     if (classical){
-        out$points <- stats::cmdscale(x,k=k)
+        out$points <- stats::cmdscale(x,k=k,...)
     } else {
         out <- MASS::isoMDS(d=x,k=k,...)
     }
@@ -897,7 +893,6 @@ removeNAcols <- function(x){
     subset(x,select=!bad)
 }
 
-# nb = number of bootstrap replicates
 resample <- function(x,nb=10){
     snames <- names(x$x)
     ns <- length(snames) # number of samples
