@@ -1,0 +1,746 @@
+Hmm ... looks like a package
+
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(./Rd2.tex
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+No file Rd2.aux.
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [1{/var/lib/texmf/fonts
+/map/pdftex/updmap/pdftex.map}]
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [2]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [6]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.76727pt too wide) in paragraph at lines 597--600
+[]\T1/ptm/m/n/10 Calculate the dis-sim-i-lar-ity ma-trix be-tween two datasets 
+of class \T1/zi4/m/n/10 distributional \T1/ptm/m/n/10 or \T1/zi4/m/n/10 composi
+tional
+[11] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (125.36096pt too wide) in paragraph at lines 641--650
+\T1/zi4/m/n/10 undissected_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 dissecte
+d_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 ophiolite\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 recycled_clastic\T1/ptm/m/n/10 , \T1/zi4/m/n/10 undissected_continental
+_block\T1/ptm/m/n/10 ,
+[12] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [13]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [14]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [15]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [18]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20] [21]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [22]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (10.63676pt too wide) in paragraph at lines 1327--1331
+[]\T1/zi4/m/n/10 PTHM\T1/ptm/m/n/10 : a \T1/zi4/m/n/10 compositional \T1/ptm/m/
+n/10 dataset com-bin-ing the vari-ables con-tained in \T1/zi4/m/n/10 PT \T1/ptm
+/m/n/10 and \T1/zi4/m/n/10 HM \T1/ptm/m/n/10 plus 'mica', 'opaques',
+[23] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [24]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [25]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [26]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [27]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [28]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [29]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [30]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [32]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (24.37897pt too wide) in paragraph at lines 1917--1920
+[]\T1/ptm/m/n/10 adds an-no-ta-tions to the ternary di-a-gram, one of ei-ther \
+T1/zi4/m/n/10 empty\T1/ptm/m/n/10 , \T1/zi4/m/n/10 grid\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 QFL.descriptive\T1/ptm/m/n/10 ,
+[33] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (3.26933pt too wide) in paragraph at lines 2014--2016
+[]\T1/ptm/m/n/10 a se-quence of datasets of classes \T1/zi4/m/n/10 distribution
+al\T1/ptm/m/n/10 ,n \T1/zi4/m/n/10 counts \T1/ptm/m/n/10 and \T1/zi4/m/n/10 com
+positional 
+[34] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [35]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [38]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (7.8083pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
+T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
+
+Overfull \hbox (9.19942pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 Smirnov) or \T1/zi4/m/n/10 "SH" \T1/ptm/m/n/10 (for Sir-combe an
+d Hazel-ton). If \T1/zi4/m/n/10 method = "SH"\T1/ptm/m/n/10 , then \T1/zi4/m/n/
+10 errorfile
+[40] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [41]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [44]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [45]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [46]
+No file Rd2.ind.
+[47] (/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.biplot} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/sha
+re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dis
+t/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on Rd2.pdf (47 pages, 217910 bytes).
+Transcript written on Rd2.log.
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(./Rd2.tex
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}] [2]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+) (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [6]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.76727pt too wide) in paragraph at lines 597--600
+[]\T1/ptm/m/n/10 Calculate the dis-sim-i-lar-ity ma-trix be-tween two datasets 
+of class \T1/zi4/m/n/10 distributional \T1/ptm/m/n/10 or \T1/zi4/m/n/10 composi
+tional
+[12] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (125.36096pt too wide) in paragraph at lines 641--650
+\T1/zi4/m/n/10 undissected_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 dissecte
+d_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 ophiolite\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 recycled_clastic\T1/ptm/m/n/10 , \T1/zi4/m/n/10 undissected_continental
+_block\T1/ptm/m/n/10 ,
+[13] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [14]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [15]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [18]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21] [22]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (10.63676pt too wide) in paragraph at lines 1327--1331
+[]\T1/zi4/m/n/10 PTHM\T1/ptm/m/n/10 : a \T1/zi4/m/n/10 compositional \T1/ptm/m/
+n/10 dataset com-bin-ing the vari-ables con-tained in \T1/zi4/m/n/10 PT \T1/ptm
+/m/n/10 and \T1/zi4/m/n/10 HM \T1/ptm/m/n/10 plus 'mica', 'opaques',
+[24] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [25]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [26]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [27]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [28]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [29]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [30]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [32]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [33]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (24.37897pt too wide) in paragraph at lines 1917--1920
+[]\T1/ptm/m/n/10 adds an-no-ta-tions to the ternary di-a-gram, one of ei-ther \
+T1/zi4/m/n/10 empty\T1/ptm/m/n/10 , \T1/zi4/m/n/10 grid\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 QFL.descriptive\T1/ptm/m/n/10 ,
+[34] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (3.26933pt too wide) in paragraph at lines 2014--2016
+[]\T1/ptm/m/n/10 a se-quence of datasets of classes \T1/zi4/m/n/10 distribution
+al\T1/ptm/m/n/10 ,n \T1/zi4/m/n/10 counts \T1/ptm/m/n/10 and \T1/zi4/m/n/10 com
+positional 
+[35] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [38]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [40]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (7.8083pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
+T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
+
+Overfull \hbox (9.19942pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 Smirnov) or \T1/zi4/m/n/10 "SH" \T1/ptm/m/n/10 (for Sir-combe an
+d Hazel-ton). If \T1/zi4/m/n/10 method = "SH"\T1/ptm/m/n/10 , then \T1/zi4/m/n/
+10 errorfile
+[41] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [44]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [45]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [46]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [47]
+No file Rd2.ind.
+[48] (/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux) )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.biplot} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/sha
+re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dis
+t/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on Rd2.pdf (48 pages, 223429 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2017] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (64 entries accepted, 0 rejected).
+Sorting entries....done (392 comparisons).
+Generating output file Rd2.ind....done (114 lines written, 0 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(./Rd2.tex
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}] [2]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+) (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [6]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.76727pt too wide) in paragraph at lines 597--600
+[]\T1/ptm/m/n/10 Calculate the dis-sim-i-lar-ity ma-trix be-tween two datasets 
+of class \T1/zi4/m/n/10 distributional \T1/ptm/m/n/10 or \T1/zi4/m/n/10 composi
+tional
+[12] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (125.36096pt too wide) in paragraph at lines 641--650
+\T1/zi4/m/n/10 undissected_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 dissecte
+d_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 ophiolite\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 recycled_clastic\T1/ptm/m/n/10 , \T1/zi4/m/n/10 undissected_continental
+_block\T1/ptm/m/n/10 ,
+[13] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [14]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [15]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [18]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21] [22]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (10.63676pt too wide) in paragraph at lines 1327--1331
+[]\T1/zi4/m/n/10 PTHM\T1/ptm/m/n/10 : a \T1/zi4/m/n/10 compositional \T1/ptm/m/
+n/10 dataset com-bin-ing the vari-ables con-tained in \T1/zi4/m/n/10 PT \T1/ptm
+/m/n/10 and \T1/zi4/m/n/10 HM \T1/ptm/m/n/10 plus 'mica', 'opaques',
+[24] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [25]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [26]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [27]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [28]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [29]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [30]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [32]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [33]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (24.37897pt too wide) in paragraph at lines 1917--1920
+[]\T1/ptm/m/n/10 adds an-no-ta-tions to the ternary di-a-gram, one of ei-ther \
+T1/zi4/m/n/10 empty\T1/ptm/m/n/10 , \T1/zi4/m/n/10 grid\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 QFL.descriptive\T1/ptm/m/n/10 ,
+[34] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (3.26933pt too wide) in paragraph at lines 2014--2016
+[]\T1/ptm/m/n/10 a se-quence of datasets of classes \T1/zi4/m/n/10 distribution
+al\T1/ptm/m/n/10 ,n \T1/zi4/m/n/10 counts \T1/ptm/m/n/10 and \T1/zi4/m/n/10 com
+positional 
+[35] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [38]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [40]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (7.8083pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
+T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
+
+Overfull \hbox (9.19942pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 Smirnov) or \T1/zi4/m/n/10 "SH" \T1/ptm/m/n/10 (for Sir-combe an
+d Hazel-ton). If \T1/zi4/m/n/10 method = "SH"\T1/ptm/m/n/10 , then \T1/zi4/m/n/
+10 errorfile
+[41] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [44]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [45]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [46]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [47]
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.ind [48]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 3.
+
+[49]) (/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+
+Package rerunfilecheck Warning: File `Rd2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.biplot} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/sha
+re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dis
+t/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on Rd2.pdf (49 pages, 227627 bytes).
+Transcript written on Rd2.log.
+This is makeindex, version 2.15 [TeX Live 2017] (kpathsea + Thai support).
+Scanning input file Rd2.idx....done (64 entries accepted, 0 rejected).
+Sorting entries....done (392 comparisons).
+Generating output file Rd2.ind....done (114 lines written, 0 warnings).
+Output written in Rd2.ind.
+Transcript written in Rd2.ilg.
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(./Rd2.tex
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/R/share/texmf/tex/latex/Rd.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+
+Package hyperref Warning: Option `hyperindex' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 377.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+Writing index file Rd2.idx
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.out)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}] [2]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+) (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [3]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [6]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [8]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [9]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (2.76727pt too wide) in paragraph at lines 597--600
+[]\T1/ptm/m/n/10 Calculate the dis-sim-i-lar-ity ma-trix be-tween two datasets 
+of class \T1/zi4/m/n/10 distributional \T1/ptm/m/n/10 or \T1/zi4/m/n/10 composi
+tional
+[12] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (125.36096pt too wide) in paragraph at lines 641--650
+\T1/zi4/m/n/10 undissected_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 dissecte
+d_magmatic_arc\T1/ptm/m/n/10 , \T1/zi4/m/n/10 ophiolite\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 recycled_clastic\T1/ptm/m/n/10 , \T1/zi4/m/n/10 undissected_continental
+_block\T1/ptm/m/n/10 ,
+[13] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [14]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [15]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [18]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [19]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21] [22]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (10.63676pt too wide) in paragraph at lines 1327--1331
+[]\T1/zi4/m/n/10 PTHM\T1/ptm/m/n/10 : a \T1/zi4/m/n/10 compositional \T1/ptm/m/
+n/10 dataset com-bin-ing the vari-ables con-tained in \T1/zi4/m/n/10 PT \T1/ptm
+/m/n/10 and \T1/zi4/m/n/10 HM \T1/ptm/m/n/10 plus 'mica', 'opaques',
+[24] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [25]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [26]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [27]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [28]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [29]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [30]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [31]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [32]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [33]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (24.37897pt too wide) in paragraph at lines 1917--1920
+[]\T1/ptm/m/n/10 adds an-no-ta-tions to the ternary di-a-gram, one of ei-ther \
+T1/zi4/m/n/10 empty\T1/ptm/m/n/10 , \T1/zi4/m/n/10 grid\T1/ptm/m/n/10 , \T1/zi4
+/m/n/10 QFL.descriptive\T1/ptm/m/n/10 ,
+[34] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (3.26933pt too wide) in paragraph at lines 2014--2016
+[]\T1/ptm/m/n/10 a se-quence of datasets of classes \T1/zi4/m/n/10 distribution
+al\T1/ptm/m/n/10 ,n \T1/zi4/m/n/10 counts \T1/ptm/m/n/10 and \T1/zi4/m/n/10 com
+positional 
+[35] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [36]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [37]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [38]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [39]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [40]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+Overfull \hbox (7.8083pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 com-par-ing this with other datasets. Should be one of ei-ther \
+T1/zi4/m/n/10 "KS" \T1/ptm/m/n/10 (for Kolmogorov-
+
+Overfull \hbox (9.19942pt too wide) in paragraph at lines 2374--2382
+\T1/ptm/m/n/10 Smirnov) or \T1/zi4/m/n/10 "SH" \T1/ptm/m/n/10 (for Sir-combe an
+d Hazel-ton). If \T1/zi4/m/n/10 method = "SH"\T1/ptm/m/n/10 , then \T1/zi4/m/n/
+10 errorfile
+[41] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [42]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [43]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [44]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [45]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [46]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [47]
+(/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.ind [48]
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 3.
+
+[49]) (/tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c/Rd2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Rfn.biplot} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}{/usr/sha
+re/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dis
+t/fonts/enc/dvips/inconsolata/i4-t1-0.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on Rd2.pdf (49 pages, 228488 bytes).
+Transcript written on Rd2.log.
+Saving output to ‘provenance-manual.pdf’ ...
+Done
+You may want to clean up by 'rm -Rf /tmp/RtmpJ1k4Cc/Rd2pdf29a239b82e0c'

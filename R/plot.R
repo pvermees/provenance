@@ -304,6 +304,7 @@ plot.CA <- function(x,levels=NULL,labelcol=c('black','blue'),vectorcol='red',...
 plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',oma=rep(1,4),
                      mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
+    ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
     graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
     for (i in 1:(k-1)){
@@ -313,13 +314,25 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
             } else {
                 xlab <- paste0('Dim ',i)
                 ylab <- paste0('Dim ',j)
-                graphics::plot(x$points[,c(i,j)], type='n', asp=1, xlab=xlab, ylab=ylab, ...)
+                graphics::plot(x$points[,c(i,j)], type='n',
+                               asp=1, xlab=xlab, ylab=ylab, ...)
                 if (nnlines) { # draw lines between closest neighbours
                     if (is.na(pch)) pch=21
-                    plotlines(x$points[,c(i,j)],x$diss)
+                    plotlines(x$points[1:ns,c(i,j)],x$diss)
                 }
-                graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
-                graphics::text(x$points[,c(i,j)], labels=labels(x$diss), pos=pos, col=col, bg=bg)    
+                graphics::points(x$points[1:ns,c(i,j)],
+                                 pch=pch, cex=cex, col=col, bg=bg)
+                graphics::text(x$points[1:ns,c(i,j)], labels=labels(x$diss)[1:ns],
+                               pos=pos, col=col, bg=bg)
+                if (x$nb>1){ # bootstrap
+                    for (l in 1:ns){
+                        if (length(col)==ns) bcol <- col[l]
+                        else bcol <- col
+                        m <- ns + l + seq(from=1,to=ns*x$nb,by=ns) - 1
+                        chi <- grDevices::chull(x$points[m,c(i,j)])
+                        graphics::polygon(x$points[m[chi],c(i,j)],border=bcol)
+                    }
+                }
             }
         }
     }
@@ -333,7 +346,8 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                 } else {
                     ylab <- "Distance/Disparity"
                     if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
-                    shep <- MASS::Shepard(x$diss, x$points[,c(i,j)])
+                    D <- as.matrix(x$diss)[1:ns,1:ns]
+                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
                     graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
                     graphics::lines(shep$x, shep$yf, type="S")
                     if (i==1 & j==2)
