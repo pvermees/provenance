@@ -34,10 +34,10 @@ ternary <- function(X,x=1,y=2,z=3){
     }
     if (ndim(dat)>1){
         cnames <- colnames(dat)
-        if (is.null(cnames)) cnames <- 1:ncol(dat)
+        if (all(is.null(cnames))) cnames <- 1:ncol(dat)
     } else {
         cnames <- names(dat)
-        if (is.null(cnames)) cnames <- 1:length(dat)
+        if (all(is.null(cnames))) cnames <- 1:length(dat)
     }
     if (is.numeric(x)) x <- cnames[x]
     if (is.numeric(y)) y <- cnames[y]
@@ -134,12 +134,12 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
     graphics::lines(corners)
     graphics::text(corners[1:3,],labels=cornerlabels,pos=c(3,1,1))
     xy <- xyz2xy(x$x)
-    if (is.null(pch)) return()
-    if (is.na(pch) && is.null(labels)){ pch <- 1 }
-    if (!is.na(pch) && is.null(pos)){ pos <- 1 }
-    if (is.na(pch) && is.null(pos) && showpath && methods::is(x,'SRDcorrected')){ pos <- 1 }
-    if (!is.na(pch)) graphics::points(xy,pch=pch,bg=bg,...)
-    if (!is.null(labels)){ graphics::text(xy,labels=labels,pos=pos) }
+    if (all(is.null(pch))) return()
+    if (all(is.na(pch)) && all(is.null(labels))){ pch <- 1 }
+    if (!all(is.na(pch)) && all(is.null(pos))){ pos <- 1 }
+    if (all(is.na(pch)) && all(is.null(pos)) && showpath && methods::is(x,'SRDcorrected')){ pos <- 1 }
+    if (!all(is.na(pch))) graphics::points(xy,pch=pch,bg=bg,...)
+    if (!all(is.null(labels))){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)
 }
 #' Ternary point plotting

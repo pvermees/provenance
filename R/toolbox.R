@@ -151,14 +151,16 @@ bray.diss <- function(x,y){
 #' of provenance data
 #'
 #' @param x an object of class \code{distributional},
-#'     \code{compositional} or \code{diss}
-#' @param classical boolean flag indicating whether classical (TRUE)
-#'     or nonmetric (FALSE) MDS should be used
+#'     \code{compositional}, \code{counts} or \code{diss}
+#' @param fn a dissimilarity function. One of either
+#'     \code{diss.compositional}, \code{diss.counts}, or
+#'     \code{diss.distributional}
+#' @param classical boolean flag indicating whether classical
+#'     (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used
 #' @param k the desired dimensionality of the solution
-#' @param ... optional arguments to be passed onto \code{diss} (if
-#'     \code{x} is of class \code{compositional} or
-#'     \code{distributional}) or onto \code{cmdscale} or \code{isoMDS}
-#'     (if \code{x} is of class \code{dist}).
+#' @param ... optional arguments to be passed onto \code{cmdscale} (if
+#'     \code{classical=TRUE}) or \code{isoMDS} (if
+#'     \code{classical=FALSE}).
 #' @return an object of class \code{MDS}, i.e. a list containing the
 #'     following items:
 #'
@@ -181,28 +183,46 @@ bray.diss <- function(x,y){
 MDS <- function(x,...){ UseMethod("MDS",x) }
 #' @rdname MDS
 #' @export
+MDS.default <- function(x,fn,classical=FALSE,k=2,...){
+    d <- eval(call(name=fn,x=x))
+    out <- MDS.diss(d,classical=classical,k=k,...)
+    out$nb <- 0
+    return(out)
+}
+#' @rdname MDS
+#' @export
 MDS.compositional <- function(x,classical=FALSE,k=2,...){
-    d <- diss.compositional(x,...)
-    return(MDS.diss(d,classical=classical,k=k))
+    MDS.default(x,fn='diss.compositional',classical=classical,k=k,...)
 }
 #' @rdname MDS
 #' @export
 MDS.counts <- function(x,classical=FALSE,k=2,...){
-    d <- diss.counts(x,...)
-    return(MDS.diss(d,classical=classical,k=k))
+    MDS.default(x,fn='diss.counts',classical=classical,k=k,...)
 }
+#' @param bootstrap resample the data to calculate confidence polygons
+#'     for the MDS configuration
+#' @param nb number of bootstrap resamples
 #' @rdname MDS
 #' @export
-MDS.distributional <- function(x,classical=FALSE,k=2,...){
-    d <- diss.distributional(x,...)
-    return(MDS.diss(d,classical=classical,k=k))
+MDS.distributional <- function(x,classical=FALSE,k=2,
+                               bootstrap=FALSE,nb=10,...){
+    if (bootstrap){
+        X <- resample(x,nb=nb)
+    } else {
+        X <- x
+        nb <- 0
+    }
+    out <- MDS.default(X,fn='diss.distributional',
+                       classical=classical,k=k,...)
+    out$nb <- nb
+    out
 }
 #' @rdname MDS
 #' @export
 MDS.diss <- function(x,classical=FALSE,k=2,...){
     out <- list() 
     if (classical){
-        out$points <- stats::cmdscale(x,k=k)
+        out$points <- stats::cmdscale(x,k=k,...)
     } else {
         out <- MASS::isoMDS(d=x,k=k,...)
     }
@@ -311,7 +331,7 @@ ALR.compositional <- function(x,...){
 #' @param x an object of class \code{compositional}
 #' @param ... optional arguments to R's \code{princomp} function
 #' @return an object of classes \code{PCA}, which is synonymous to the
-#'     stats packages' \code{princomp} class.
+#'     stats packages' \code{prcomp} class.
 #' @examples
 #' data(Namib)
 #' plot(MDS(Namib$Major,classical=TRUE))
@@ -326,7 +346,7 @@ PCA <- function(x,...){
     } else {
         dat <- x
     }
-    pc <- stats::princomp(dat,...)
+    pc <- stats::prcomp(dat,...)
     class(pc) <- append("PCA",class(pc))
     return(pc)
 }
@@ -871,4 +891,18 @@ dmvnorm <- function(x,mean=rep(0,p),sigma=diag(p),log=FALSE) {
 removeNAcols <- function(x){
     bad <- apply(apply(x,2,is.na),2,all)
     subset(x,select=!bad)
+}
+
+resample <- function(x,nb=10){
+    snames <- names(x$x)
+    ns <- length(snames) # number of samples
+    out <- x
+    for (i in 1:nb){
+        for (j in 1:ns){
+            sname <- paste0(snames[j],'[',i,']')
+            ng <- length(x$x[[j]]) # number of grains
+            out$x[[sname]] <- sample(x$x[[j]],size=ng,replace=TRUE)
+        }
+    }
+    out
 }

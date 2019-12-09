@@ -184,34 +184,85 @@ plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
 #'
 #' Plot the results of a principal components analysis as a biplot
 #' @param x an object of class \code{PCA}
-#' @param ... optional arguments of the \code{biplot} function
+#' @param levels a vector of length \code{nrow(dat$x)} with values
+#'     that are to be used for the colour scale
+#' @param labelcol two element vector with the colours that are to be
+#'     assigned to the labels of the samples corresponding to the
+#'     minimum and maximum value of \code{levels}. If
+#'     \code{levels==NULL}, then the first item of the vector is used
+#'     for all sample labels.
+#' @param vectorcol colour of the vector loadings for the variables
+#' @param choices see the help pages of the
+#'     \code{\link[stats]{biplot}} function.
+#' @param scale see the help pages of the \code{\link[stats]{biplot}}
+#'     function.
+#' @param pc.biplot see the help pages of the
+#'     \code{\link[stats]{biplot}} function.
+#' @param ... optional arguments of the generic
+#'     \code{\link[stats]{biplot}} function
 #' @examples
 #' data(Namib)
 #' plot(PCA(Namib$Major))
 #' @seealso PCA
 #' @method plot PCA
 #' @export
-plot.PCA <- function(x,...){
-    stats::biplot(x,...)
+plot.PCA <- function(x, levels=NULL, labelcol=c('black','blue'),
+                     vectorcol='red', choices = 1L:2L,
+                     scale = 1, pc.biplot = FALSE, ...){
+    if (length(choices) != 2L) 
+        stop("length of choices must be 2")
+    if (!length(scores <- x$x)) 
+        stop(gettextf("object '%s' has no scores", deparse(substitute(x))), 
+             domain = NA)
+    if (is.complex(scores)) 
+        stop("biplots are not defined for complex PCA")
+    lam <- x$sdev[choices]
+    n <- NROW(scores)
+    lam <- lam * sqrt(n)
+    if (scale < 0 || scale > 1) 
+        warning("'scale' is outside [0, 1]")
+    if (scale != 0) 
+        lam <- lam^scale
+    else lam <- 1
+    if (pc.biplot) 
+        lam <- lam/sqrt(n)
+    biplotHelper(t(t(scores[, choices])/lam),
+                 t(t(x$rotation[, choices]) * lam),
+                 levels=levels, labelcol=labelcol,
+                 vectorcol=vectorcol,...)
+    IsoplotR:::colourbar(z=levels,col=labelcol)
+    invisible()
 }
 
 #' Point-counting biplot
 #'
 #' Plot the results of a correspondence analysis as a biplot
 #' @param x an object of class \code{CA}
-#' @param ... optional arguments of the \code{biplot} function
+#' @param levels a vector of length \code{nrow(dat$x)} with values
+#'     that are to be used for the colour scale
+#' @param labelcol two element vector with the colours that are to be
+#'     assigned to the labels of the samples corresponding to the
+#'     minimum and maximum value of \code{levels}. If
+#'     \code{levels==NULL}, then the first item of the vector is used
+#'     for all sample labels.
+#' @param vectorcol colour of the vector loadings for the variables
+#' @param ... optional arguments of the generic
+#'     \code{\link[stats]{biplot}} function
 #' @examples
 #' data(Namib)
 #' plot(CA(Namib$PT))
 #' @seealso CA
 #' @method plot CA
 #' @export
-plot.CA <- function(x,...){
+plot.CA <- function(x,levels=NULL,labelcol=c('black','blue'),vectorcol='red',...){
     X <- x$rscore[, 1L:2]
     X <- X %*% diag(x$cor[1L:2])
     Y <- x$cscore[, 1L:2]
     Y <- Y %*% diag(x$cor[1L:2])
-    stats::biplot(X,Y,xlab='Component 1',ylab='Component 2',...)
+    biplotHelper(X, Y, levels=levels, labelcol=labelcol, vectorcol=vectorcol,
+                 xlab='Component 1',ylab='Component 2',...)
+    IsoplotR:::colourbar(z=levels,col=labelcol)
+    invisible()
 }
 
 #' Plot an MDS configuration
@@ -253,6 +304,7 @@ plot.CA <- function(x,...){
 plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',oma=rep(1,4),
                      mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
+    ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
     graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
     for (i in 1:(k-1)){
@@ -262,13 +314,25 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
             } else {
                 xlab <- paste0('Dim ',i)
                 ylab <- paste0('Dim ',j)
-                graphics::plot(x$points[,c(i,j)], type='n', asp=1, xlab=xlab, ylab=ylab, ...)
+                graphics::plot(x$points[,c(i,j)], type='n',
+                               asp=1, xlab=xlab, ylab=ylab, ...)
                 if (nnlines) { # draw lines between closest neighbours
                     if (is.na(pch)) pch=21
-                    plotlines(x$points[,c(i,j)],x$diss)
+                    plotlines(x$points[1:ns,c(i,j)],x$diss)
                 }
-                graphics::points(x$points[,c(i,j)], pch=pch, cex=cex, col=col, bg=bg)
-                graphics::text(x$points[,c(i,j)], labels=labels(x$diss), pos=pos, col=col, bg=bg)    
+                graphics::points(x$points[1:ns,c(i,j)],
+                                 pch=pch, cex=cex, col=col, bg=bg)
+                graphics::text(x$points[1:ns,c(i,j)], labels=labels(x$diss)[1:ns],
+                               pos=pos, col=col, bg=bg)
+                if (x$nb>0){ # bootstrap
+                    for (l in 1:ns){
+                        if (length(col)==ns) bcol <- col[l]
+                        else bcol <- col
+                        m <- ns + l + seq(from=1,to=ns*x$nb,by=ns) - 1
+                        chi <- grDevices::chull(x$points[m,c(i,j)])
+                        graphics::polygon(x$points[m[chi],c(i,j)],border=bcol)
+                    }
+                }
             }
         }
     }
@@ -282,7 +346,8 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                 } else {
                     ylab <- "Distance/Disparity"
                     if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
-                    shep <- MASS::Shepard(x$diss, x$points[,c(i,j)])
+                    D <- as.matrix(x$diss)[1:ns,1:ns]
+                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
                     graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
                     graphics::lines(shep$x, shep$yf, type="S")
                     if (i==1 & j==2)
@@ -591,7 +656,7 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
         xy5 <- xyz2xy(matrix(c(0,90,50,5,50,5),ncol=3))
         graphics::lines(xy1); graphics::lines(xy2);
         graphics::lines(xy3); graphics::lines(xy4); graphics::lines(xy5)
-        graphics::text(xyz2xy(c(20,-1,2)),labels='quartarenite',adj=0)
+        graphics::text(xyz2xy(c(20,-1,2)),labels='quartzarenite',adj=0)
         graphics::text(xyz2xy(c(40,-2,10)),labels='sublitharenite',adj=0)
         graphics::text(xyz2xy(c(40,10,-2)),labels='subarkose',adj=1)
         graphics::text(xyz2xy(c(30,70,10)),labels='arkose',srt=68)
@@ -648,4 +713,69 @@ emptyplot <- function(){
 saveplot <- function(f, d){
     grDevices::dev.set(d)
     grDevices::dev.copy2pdf(file=f)
+}
+
+# modified from stats::biplot.default
+biplotHelper <- function(x, y, var.axes = TRUE,
+                         levels=NULL, labelcol=c('black','blue'),
+                         vectorcol='red', cex = rep(graphics::par("cex"), 2), xlabs = NULL,
+                         ylabs = NULL, expand = 1, xlim = NULL, ylim = NULL,
+                         arrow.len = 0.1, main = NULL, sub = NULL,
+                         xlab = NULL, ylab = NULL, ...){
+    if (is.null(levels)){
+        lcol <- labelcol[1]
+    } else {
+        lcol <- IsoplotR:::levels2colours(levels=levels,col=labelcol)
+    }
+    n <- nrow(x)
+    p <- nrow(y)
+    if (missing(xlabs)) {
+        xlabs <- dimnames(x)[[1L]]
+        if (is.null(xlabs)) 
+            xlabs <- 1L:n
+    }
+    xlabs <- as.character(xlabs)
+    dimnames(x) <- list(xlabs, dimnames(x)[[2L]])
+    if (missing(ylabs)) {
+        ylabs <- dimnames(y)[[1L]]
+        if (is.null(ylabs)) 
+            ylabs <- paste("Var", 1L:p)
+    }
+    ylabs <- as.character(ylabs)
+    dimnames(y) <- list(ylabs, dimnames(y)[[2L]])
+    if (length(cex) == 1L) 
+        cex <- c(cex, cex)
+    unsigned.range <- function(x) c(-abs(min(x, na.rm = TRUE)), 
+        abs(max(x, na.rm = TRUE)))
+    rangx1 <- unsigned.range(x[, 1L])
+    rangx2 <- unsigned.range(x[, 2L])
+    rangy1 <- unsigned.range(y[, 1L])
+    rangy2 <- unsigned.range(y[, 2L])
+    if (missing(xlim) && missing(ylim)) 
+        xlim <- ylim <- rangx1 <- rangx2 <- range(rangx1, rangx2)
+    else if (missing(xlim)) 
+        xlim <- rangx1
+    else if (missing(ylim)) 
+        ylim <- rangx2
+    ratio <- max(rangy1/rangx1, rangy2/rangx2)/expand
+    on.exit(graphics::par(op))
+    op <- graphics::par(pty = "s")
+    if (!is.null(main)) 
+        op <- c(op, graphics::par(mar = graphics::par("mar") + c(0, 0, 1, 0)))
+    graphics::plot(y, axes = FALSE, type = "n", xlim = xlim * ratio,
+                   ylim = ylim * ratio, xlab = "", ylab = "", col = vectorcol, ...)
+    graphics::axis(3, col = vectorcol, ...)
+    if (is.null(levels)) graphics::axis(4, col = vectorcol, ...)
+    graphics::box(col = 'black')
+    graphics::text(y, labels = ylabs, cex = cex[2L], col = vectorcol, ...)
+    if (var.axes) 
+        graphics::arrows(0, 0, y[, 1L] * 0.8, y[, 2L] * 0.8,
+                         col = vectorcol, length = arrow.len)
+    graphics::par(new = TRUE)
+    grDevices::dev.hold()
+    on.exit(grDevices::dev.flush(), add = TRUE)
+    graphics::plot(x, type = "n", xlim = xlim, ylim = ylim, col = lcol, 
+                   xlab = xlab, ylab = ylab, sub = sub, main = main, ...)
+    graphics::text(x, xlabs, cex = cex[1L], col = lcol, ...)
+    invisible()
 }
