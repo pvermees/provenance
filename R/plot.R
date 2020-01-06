@@ -184,31 +184,23 @@ plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
 #'
 #' Plot the results of a principal components analysis as a biplot
 #' @param x an object of class \code{PCA}
-#' @param levels a vector of length \code{nrow(dat$x)} with values
-#'     that are to be used for the colour scale
-#' @param labelcol two element vector with the colours that are to be
-#'     assigned to the labels of the samples corresponding to the
-#'     minimum and maximum value of \code{levels}. If
-#'     \code{levels==NULL}, then the first item of the vector is used
-#'     for all sample labels.
+#' @param labelcol colour(s) of the sample labels (may be a vector).
 #' @param vectorcol colour of the vector loadings for the variables
-#' @param choices see the help pages of the
-#'     \code{\link[stats]{biplot}} function.
-#' @param scale see the help pages of the \code{\link[stats]{biplot}}
+#' @param choices see the help pages of the generic \code{biplot}
 #'     function.
-#' @param pc.biplot see the help pages of the
-#'     \code{\link[stats]{biplot}} function.
-#' @param ... optional arguments of the generic
-#'     \code{\link[stats]{biplot}} function
+#' @param scale see the help pages of the generic \code{biplot}
+#'     function.
+#' @param pc.biplot see the help pages of the generic \code{biplot}
+#'     function.
+#' @param ... optional arguments of the generic \code{biplot} function
 #' @examples
 #' data(Namib)
 #' plot(PCA(Namib$Major))
 #' @seealso PCA
 #' @method plot PCA
 #' @export
-plot.PCA <- function(x, levels=NULL, labelcol=c('black','blue'),
-                     vectorcol='red', choices = 1L:2L,
-                     scale = 1, pc.biplot = FALSE, ...){
+plot.PCA <- function(x, labelcol='black', vectorcol='red',
+                     choices = 1L:2L, scale = 1, pc.biplot = FALSE, ...){
     if (length(choices) != 2L) 
         stop("length of choices must be 2")
     if (!length(scores <- x$x)) 
@@ -226,11 +218,9 @@ plot.PCA <- function(x, levels=NULL, labelcol=c('black','blue'),
     else lam <- 1
     if (pc.biplot) 
         lam <- lam/sqrt(n)
-    biplotHelper(t(t(scores[, choices])/lam),
-                 t(t(x$rotation[, choices]) * lam),
-                 levels=levels, labelcol=labelcol,
-                 vectorcol=vectorcol,...)
-    IsoplotR:::colourbar(z=levels,col=labelcol)
+    biplotHelper(t(t(scores[,choices])/lam),
+                 t(t(x$rotation[, choices])*lam),
+                 labelcol=labelcol, vectorcol=vectorcol,...)
     invisible()
 }
 
@@ -238,30 +228,22 @@ plot.PCA <- function(x, levels=NULL, labelcol=c('black','blue'),
 #'
 #' Plot the results of a correspondence analysis as a biplot
 #' @param x an object of class \code{CA}
-#' @param levels a vector of length \code{nrow(dat$x)} with values
-#'     that are to be used for the colour scale
-#' @param labelcol two element vector with the colours that are to be
-#'     assigned to the labels of the samples corresponding to the
-#'     minimum and maximum value of \code{levels}. If
-#'     \code{levels==NULL}, then the first item of the vector is used
-#'     for all sample labels.
+#' @param labelcol colour of the sample labels (may be a vector).
 #' @param vectorcol colour of the vector loadings for the variables
-#' @param ... optional arguments of the generic
-#'     \code{\link[stats]{biplot}} function
+#' @param ... optional arguments of the generic \code{biplot} function
 #' @examples
 #' data(Namib)
 #' plot(CA(Namib$PT))
 #' @seealso CA
 #' @method plot CA
 #' @export
-plot.CA <- function(x,levels=NULL,labelcol=c('black','blue'),vectorcol='red',...){
+plot.CA <- function(x,labelcol='black',vectorcol='red',...){
     X <- x$rscore[, 1L:2]
     X <- X %*% diag(x$cor[1L:2])
     Y <- x$cscore[, 1L:2]
     Y <- Y %*% diag(x$cor[1L:2])
-    biplotHelper(X, Y, levels=levels, labelcol=labelcol, vectorcol=vectorcol,
+    biplotHelper(X, Y, labelcol=labelcol, vectorcol=vectorcol,
                  xlab='Component 1',ylab='Component 2',...)
-    IsoplotR:::colourbar(z=levels,col=labelcol)
     invisible()
 }
 
@@ -716,17 +698,11 @@ saveplot <- function(f, d){
 }
 
 # modified from stats::biplot.default
-biplotHelper <- function(x, y, var.axes = TRUE,
-                         levels=NULL, labelcol=c('black','blue'),
-                         vectorcol='red', cex = rep(graphics::par("cex"), 2), xlabs = NULL,
+biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red',
+                         cex = rep(graphics::par("cex"), 2), xlabs = NULL,
                          ylabs = NULL, expand = 1, xlim = NULL, ylim = NULL,
                          arrow.len = 0.1, main = NULL, sub = NULL,
                          xlab = NULL, ylab = NULL, ...){
-    if (is.null(levels)){
-        lcol <- labelcol[1]
-    } else {
-        lcol <- IsoplotR:::levels2colours(levels=levels,col=labelcol)
-    }
     n <- nrow(x)
     p <- nrow(y)
     if (missing(xlabs)) {
@@ -765,7 +741,7 @@ biplotHelper <- function(x, y, var.axes = TRUE,
     graphics::plot(y, axes = FALSE, type = "n", xlim = xlim * ratio,
                    ylim = ylim * ratio, xlab = "", ylab = "", col = vectorcol, ...)
     graphics::axis(3, col = vectorcol, ...)
-    if (is.null(levels)) graphics::axis(4, col = vectorcol, ...)
+    graphics::axis(4, col = vectorcol, ...)
     graphics::box(col = 'black')
     graphics::text(y, labels = ylabs, cex = cex[2L], col = vectorcol, ...)
     if (var.axes) 
@@ -774,8 +750,8 @@ biplotHelper <- function(x, y, var.axes = TRUE,
     graphics::par(new = TRUE)
     grDevices::dev.hold()
     on.exit(grDevices::dev.flush(), add = TRUE)
-    graphics::plot(x, type = "n", xlim = xlim, ylim = ylim, col = lcol, 
+    graphics::plot(x, type = "n", xlim = xlim, ylim = ylim, col = labelcol, 
                    xlab = xlab, ylab = ylab, sub = sub, main = main, ...)
-    graphics::text(x, xlabs, cex = cex[1L], col = lcol, ...)
+    graphics::text(x, xlabs, cex = cex[1L], col = labelcol, ...)
     invisible()
 }

@@ -200,7 +200,7 @@ MDS.counts <- function(x,classical=FALSE,k=2,...){
     MDS.default(x,fn='diss.counts',classical=classical,k=k,...)
 }
 #' @param bootstrap resample the data to calculate confidence polygons
-#'     for the MDS configuration
+#'     for the MDS configuration?
 #' @param nb number of bootstrap resamples
 #' @rdname MDS
 #' @export

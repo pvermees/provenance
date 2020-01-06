@@ -40,7 +40,7 @@ MDS(x, ...)
 \item{k}{the desired dimensionality of the solution}
 
 \item{bootstrap}{resample the data to calculate confidence polygons
-for the MDS configuration}
+for the MDS configuration?}
 
 \item{nb}{number of bootstrap resamples}
 }

@@ -11,20 +11,20 @@
 #' (1-sigma) analytical uncertainties.
 #'
 #' \code{PT}: a \code{compositional} dataset with the bulk petrography
-#' of the samples, i.e. the quartz ('Q'), K-feldspar ('KF'),
-#' plagioclase ('P'), and lithic fragments of metamorphic ('Lm'),
-#' volcanic ('Lv') and sedimentary ('Ls') origin.
+#' of the samples, i.e. the quartz (`Q'), K-feldspar (`KF'),
+#' plagioclase (`P'), and lithic fragments of metamorphic (`Lm'),
+#' volcanic (`Lv') and sedimentary (`Ls') origin.
 #'
 #' \code{HM}: a \code{compositional} dataset containing the heavy
-#' mineral composition of the samples, comprised of zircon ('zr'),
-#' tourmaline ('tm'), rutile ('rt'), Ti-oxides ('TiOx'), titanite
-#' ('sph'), apatite ('ap'), epidote ('ep'), garnet ('gt'), staurolite
-#' ('st'), andalusite ('and'), kyanite ('ky'), sillimanite ('sil'),
-#' amphibole ('amp'), clinopyroxene ('cpx') and orthopyroxene ('opx').
+#' mineral composition of the samples, comprised of zircon (`zr'),
+#' tourmaline (`tm'), rutile (`rt'), Ti-oxides (`TiOx'), titanite
+#' (`sph'), apatite (`ap'), epidote (`ep'), garnet (`gt'), staurolite
+#' (`st'), andalusite (`and'), kyanite (`ky'), sillimanite (`sil'),
+#' amphibole (`amp'), clinopyroxene (`cpx') and orthopyroxene (`opx').
 #'
 #' \code{PTHM}: a \code{compositional} dataset combining the variables
-#' contained in \code{PT} and \code{HM} plus 'mica', 'opaques',
-#' 'turbids' and 'other' transparent heavy minerals ('LgM'),
+#' contained in \code{PT} and \code{HM} plus `mica', `opaques',
+#' 'turbids' and 'other' transparent heavy minerals (`LgM'),
 #' normalised to 100.
 #' 
 #' \code{Major}: a \code{compositional} dataset listing the
