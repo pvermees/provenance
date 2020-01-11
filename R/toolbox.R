@@ -183,21 +183,31 @@ bray.diss <- function(x,y){
 MDS <- function(x,...){ UseMethod("MDS",x) }
 #' @rdname MDS
 #' @export
-MDS.default <- function(x,fn,classical=FALSE,k=2,...){
-    d <- eval(call(name=fn,x=x))
-    out <- MDS.diss(d,classical=classical,k=k,...)
+MDS.default <- function(x,classical=FALSE,k=2,...){
+    if (classical){
+        out <- list()
+        out$points <- stats::cmdscale(x,k=k,...)
+    } else {
+        out <- MASS::isoMDS(d=x,k=k,...)
+    }
+    out$classical <- classical
+    out$diss <- x
     out$nb <- 0
+    class(out) <- "MDS"
     return(out)
+
 }
 #' @rdname MDS
 #' @export
 MDS.compositional <- function(x,classical=FALSE,k=2,...){
-    MDS.default(x,fn='diss.compositional',classical=classical,k=k,...)
+    d <- diss.compositional(x,...)
+    MDS.default(d,classical=classical,k=k)
 }
 #' @rdname MDS
 #' @export
 MDS.counts <- function(x,classical=FALSE,k=2,...){
-    MDS.default(x,fn='diss.counts',classical=classical,k=k,...)
+    d <- diss.counts(x,...)
+    MDS.default(d,classical=classical,k=k)
 }
 #' @param bootstrap resample the data to calculate confidence polygons
 #'     for the MDS configuration?
@@ -210,26 +220,15 @@ MDS.distributional <- function(x,classical=FALSE,k=2,
         X <- resample(x,nb=nb)
     } else {
         X <- x
-        nb <- 0
     }
-    out <- MDS.default(X,fn='diss.distributional',
-                       classical=classical,k=k,...)
+    d <- diss.distributional(X,...)
+    out <- MDS.default(d,classical=classical,k=k)
     out$nb <- nb
     out
 }
 #' @rdname MDS
 #' @export
 MDS.diss <- function(x,classical=FALSE,k=2,...){
-    out <- list() 
-    if (classical){
-        out$points <- stats::cmdscale(x,k=k,...)
-    } else {
-        out <- MASS::isoMDS(d=x,k=k,...)
-    }
-    out$classical <- classical
-    out$diss <- x
-    class(out) <- "MDS"
-    return(out)
 }
 
 #' Centred logratio transformation
