@@ -13,7 +13,8 @@ combine(X, ...)
 strings denoting the samples that need amalgamating}
 }
 \value{
-a distributional data object with fewer samples than X
+a distributional data object with fewer samples than
+    \code{X}
 }
 \description{
 Lumps all single grain analyses of several samples together under a

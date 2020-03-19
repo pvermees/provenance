@@ -250,7 +250,7 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #' Plot an MDS configuration
 #'
 #' Plots the coordinates of a multidimensional scaling analysis as an
-#' X-Y scatter plot or 'map' and, if x$classical = FALSE, a Shepard
+#' X-Y scatter plot or `map' and, if x$classical = FALSE, a Shepard
 #' plot.
 #' 
 #' @param x an object of class \code{MDS}
@@ -555,18 +555,15 @@ annotation.distributional <- function(x,height=NULL,...){
 
 ternary.ticks <- function(ticks=seq(0,1,0.25),ticklength=0.02){
     for (tick in ticks){
-        xtick <- xyz2xy(matrix(c(tick,1-tick-ticklength,ticklength,
-                                 tick,1-tick,0,
-                                 tick-ticklength,1-tick,ticklength),
-                               ncol=3,byrow=TRUE))
-        ytick <- xyz2xy(matrix(c(ticklength,tick,1-tick-ticklength,
-                                 0,tick,1-tick,
-                                 ticklength,tick-ticklength,1-tick),
-                               ncol=3,byrow=TRUE))
-        ztick <- xyz2xy(matrix(c(1-tick-ticklength,ticklength,tick,
-                                 1-tick,0,tick,
-                                 1-tick,ticklength,tick-ticklength),
-                               ncol=3,byrow=TRUE))
+        xtick <- xyz2xy(c(tick,1-tick-ticklength,ticklength),
+                        c(tick,1-tick,0),
+                        c(tick-ticklength,1-tick,ticklength))
+        ytick <- xyz2xy(c(ticklength,tick,1-tick-ticklength),
+                        c(0,tick,1-tick),
+                        c(ticklength,tick-ticklength,1-tick))
+        ztick <- xyz2xy(c(1-tick-ticklength,ticklength,tick),
+                        c(1-tick,0,tick),
+                        c(1-tick,ticklength,tick-ticklength))
         if (tick>0 & tick<1){
             graphics::lines(xtick)
             graphics::lines(ytick)
@@ -579,15 +576,9 @@ ternary.grid <- function(ticks=seq(0,1,0.25),
     oldpar <- graphics::par('col','lty','lwd')
     graphics::par(col=col,lty=lty,lwd=lwd)
     for (tick in ticks){
-        xline <- xyz2xy(matrix(c(tick,1-tick,0,
-                                 tick,0,1-tick),
-                               ncol=3,byrow=TRUE))
-        yline <- xyz2xy(matrix(c(0,tick,1-tick,
-                                 1-tick,tick,0),
-                               ncol=3,byrow=TRUE))
-        zline <- xyz2xy(matrix(c(1-tick,0,tick,
-                                 0,1-tick,tick),
-                               ncol=3,byrow=TRUE))
+        xline <- xyz2xy(c(tick,1-tick,0),c(tick,0,1-tick))
+        yline <- xyz2xy(c(0,tick,1-tick),c(1-tick,tick,0))
+        zline <- xyz2xy(c(1-tick,0,tick),c(0,1-tick,tick))
         if (tick>0 & tick<1){
             graphics::lines(xline)
             graphics::lines(yline)
@@ -732,8 +723,8 @@ biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red
     dimnames(y) <- list(ylabs, dimnames(y)[[2L]])
     if (length(cex) == 1L) 
         cex <- c(cex, cex)
-    unsigned.range <- function(x) c(-abs(min(x, na.rm = TRUE)), 
-        abs(max(x, na.rm = TRUE)))
+    unsigned.range <- function(x) c(-abs(min(x, na.rm = TRUE)),
+                                    abs(max(x, na.rm = TRUE)))
     rangx1 <- unsigned.range(x[, 1L])
     rangx2 <- unsigned.range(x[, 2L])
     rangy1 <- unsigned.range(y[, 1L])
@@ -749,7 +740,7 @@ biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red
     op <- graphics::par(pty = "s")
     if (!is.null(main)) 
         op <- c(op, graphics::par(mar = graphics::par("mar") + c(0, 0, 1, 0)))
-    graphics::plot(y, axes = FALSE, type = "n", xlim = xlim * ratio,
+    graphics::plot(y, axes = FALSE, type = "p", xlim = xlim * ratio,
                    ylim = ylim * ratio, xlab = "", ylab = "", col = vectorcol, ...)
     graphics::axis(3, col = vectorcol, ...)
     graphics::axis(4, col = vectorcol, ...)

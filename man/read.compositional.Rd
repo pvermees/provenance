@@ -4,7 +4,9 @@
 \alias{read.compositional}
 \title{Read a .csv file with compositional data}
 \usage{
-read.compositional(fname, method = NULL, colmap = "rainbow", ...)
+read.compositional(fname, method = NULL, colmap = "rainbow",
+  sep = ",", dec = ".", row.names = 1, header = TRUE,
+  check.names = FALSE, ...)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}
@@ -19,7 +21,24 @@ built-in colour palettes (e.g., heat.colors, terrain.colors,
 topo.colors, cm.colors), which are to be used for plotting the
 data.}
 
-\item{...}{optional arguments to the built-in \code{read.csv}
+\item{sep}{the field separator character.  Values on each line of
+the file are separated by this character.}
+
+\item{dec}{the character used in the file for decimal points.}
+
+\item{row.names}{a vector of row names.  This can be a vector
+giving the actual row names, or a single number giving the
+column of the which contains the row names, or character string
+the name of the table column containing the row names.}
+
+\item{header}{a logical value indicating whether the file contains
+the names of the variables as its first line.}
+
+\item{check.names}{logical.  If \code{TRUE} then the names of the
+variables in the frame are checked to ensure that they are
+syntactically variable names.}
+
+\item{...}{optional arguments to the built-in \code{read.table}
 function}
 }
 \value{

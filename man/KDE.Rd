@@ -10,35 +10,35 @@ KDE(x, from = NA, to = NA, bw = NA, adaptive = TRUE, log = FALSE,
 \arguments{
 \item{x}{a vector of numbers}
 
-\item{from}{minimum age of the time axis. If NULL, this is set
+\item{from}{minimum age of the time axis. If \code{NULL}, this is
+set automatically}
+
+\item{to}{maximum age of the time axis. If \code{NULL}, this is set
 automatically}
 
-\item{to}{maximum age of the time axis. If NULL, this is set
-automatically}
-
-\item{bw}{the bandwidth of the KDE. If NULL, bw will be calculated
-automatically using \code{botev()}}
+\item{bw}{the bandwidth of the KDE. If NULL, \code{bw} will be
+calculated automatically using \code{botev()}}
 
 \item{adaptive}{boolean flag controlling if the adaptive KDE
 modifier of Abramson (1982) is used}
 
-\item{log}{transform the ages to a log scale if TRUE}
+\item{log}{transform the ages to a log scale if \code{TRUE}}
 
 \item{n}{horizontal resolution of the density estimate}
 
 \item{...}{optional arguments to be passed on to \code{density}}
 }
 \value{
-an object of class \code{KDE}, i.e. a list
-containing the following items:
+an object of class \code{KDE}, i.e. a list containing the
+    following items:
 
-x: horizontal plot coordinates
+\code{x}: horizontal plot coordinates
 
-y: vertical plot coordinates
+\code{y}: vertical plot coordinates
 
-bw: the base bandwidth of the density estimate
+\code{bw}: the base bandwidth of the density estimate
 
-ages: the data values from the input to the \code{KDE} function
+\code{ages}: the data values from the input to the \code{KDE} function
 }
 \description{
 Turns a vector of numbers into an object of class \code{KDE} using

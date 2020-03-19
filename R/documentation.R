@@ -90,15 +90,15 @@ NULL
 
 #' Petrographic end-member compositions
 #'
-#' A compositional dataset comprising the mineralogical compositions
-#' of the following end-members: \code{undissected_magmatic_arc},
-#' \code{dissected_magmatic_arc}, \code{ophiolite},
-#' \code{recycled_clastic},
-#' \code{undissected_continental_block},
-#' \code{transitional_continental_block},
-#' \code{dissected_continental_block},
-#' \code{subcreted_axial_belt} and
-#' \code{subducted_axial_belt}
+#' A compositional dataset comprising the mineralogical compositions 
+#' of the following end-members: \code{undissected_magmatic_arc}, 
+#' \code{dissected_magmatic_arc}, \code{ophiolite}, 
+#' \code{recycled_clastic}, 
+#' \code{undissected_continental_block}, 
+#' \code{transitional_continental_block}, 
+#' \code{dissected_continental_block}, 
+#' \code{subcreted_axial_belt} and 
+#' \code{subducted_axial_belt} 
 #' @name endmembers
 #' @seealso minsorting
 #' @docType data

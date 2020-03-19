@@ -9,11 +9,12 @@ get.p(n, f = 0.05)
 \arguments{
 \item{n}{the number of grains in the detrital sample}
 
-\item{f}{the size of the smallest resolvable fraction (0<f<1)}
+\item{f}{the size of the smallest resolvable fraction
+(0<\code{f}<1)}
 }
 \value{
-the probability that all n grains in the sample have missed
-at least one fraction of size f
+the probability that all \code{n} grains in the sample have
+    missed at least one fraction of size \code{f}
 }
 \description{
 For a given sample size, returns the likelihood of missing any
@@ -24,7 +25,7 @@ print(get.p(60))
 print(get.p(117))
 }
 \references{
-Vermeesch, Pieter. "How many grains are needed for a
-provenance study?." Earth and Planetary Science Letters 224.3
-(2004): 441-451.
+Vermeesch,
+    Pieter. "How many grains are needed for a provenance study?."
+    Earth and Planetary Science Letters 224.3 (2004): 441-451.
 }

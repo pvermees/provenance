@@ -13,7 +13,7 @@ PCA(x, ...)
 }
 \value{
 an object of classes \code{PCA}, which is synonymous to the
-    stats packages' \code{prcomp} class.
+    stats package's \code{prcomp} class.
 }
 \description{
 Performs PCA of compositional data using a centred logratio

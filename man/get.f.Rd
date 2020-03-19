@@ -24,7 +24,6 @@ print(get.f(60))
 print(get.f(117))
 }
 \references{
-Vermeesch,
-    Pieter. "How many grains are needed for a provenance study?."
-    Earth and Planetary Science Letters 224.3 (2004): 441-451.
+Vermeesch, Pieter. "How many grains are needed for a provenance study?"
+Earth and Planetary Science Letters 224.3 (2004): 441-451.
 }

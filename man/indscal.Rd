@@ -16,31 +16,31 @@ indscal(..., type = "ordinal")
 an object of class \code{INDSCAL}, i.e. a list containing
 the following items:
 
-delta: Observed dissimilarities
+\code{delta}: Observed dissimilarities
 
-obsdiss: List of observed dissimilarities, normalized
+\code{obsdiss}: List of observed dissimilarities, normalized
 
-confdiss: List of configuration dissimilarities
+\code{confdiss}: List of configuration dissimilarities
 
-conf: List of matrices of final configurations
+\code{conf}: List of matrices of final configurations
 
-gspace: Joint configurations aka group stimulus space
+\code{gspace}: Joint configurations aka group stimulus space
 
-cweights: Configuration weights
+\code{cweights}: Configuration weights
 
-stress: Stress-1 value
+\code{stress}: Stress-1 value
 
-spp: Stress per point
+\code{spp}: Stress per point
 
-sps: Stress per subject (matrix)
+\code{sps}: Stress per subject (matrix)
 
-ndim: Number of dimensions
+\code{ndim}: Number of dimensions
 
-model: Type of smacof model
+\code{model}: Type of smacof model
 
-niter: Number of iterations
+\code{niter}: Number of iterations
 
-nobj: Number of objects
+\code{nobj}: Number of objects
 }
 \description{
 Performs 3-way Multidimensional Scaling analysis using Carroll and

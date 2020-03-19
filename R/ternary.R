@@ -118,7 +118,7 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
                          labels=names(x),showpath=FALSE,bg=NA,
                          col='cornflowerblue',ticks=seq(0,1,0.25),
                          ticklength=0.02,lty=2,lwd=1,...){
-    oldpar <- graphics::par(mar=rep(0,4))
+    oldpar <- graphics::par(mar=c(3,2,2,0),oma=rep(0,4))
     graphics::plot(c(0,1),c(0,1),type='n',xaxt='n',yaxt='n',
                    xlab='',ylab='',asp=1,bty='n',...)
     if (type!='empty')
@@ -138,7 +138,8 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
     if (all(is.null(pch))) return()
     if (all(is.na(pch)) && all(is.null(labels))){ pch <- 1 }
     if (!all(is.na(pch)) && all(is.null(pos))){ pos <- 1 }
-    if (all(is.na(pch)) && all(is.null(pos)) && showpath && methods::is(x,'SRDcorrected')){ pos <- 1 }
+    if (all(is.na(pch)) && all(is.null(pos)) &&
+        showpath && methods::is(x,'SRDcorrected')){ pos <- 1 }
     if (!all(is.na(pch))) graphics::points(xy,pch=pch,bg=bg,...)
     if (!all(is.null(labels))){ graphics::text(xy,labels=labels,pos=pos) }
     if (showpath & methods::is(x,'SRDcorrected')) plotpath(x)

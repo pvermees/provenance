@@ -9,7 +9,8 @@ bray.diss(x, y)
 \arguments{
 \item{x}{a vector containing the first compositional sample}
 
-\item{y}{a vector of length(x) containing the second compositional sample}
+\item{y}{a vector of \code{length(x)} containing the second
+compositional sample}
 }
 \value{
 a scalar value

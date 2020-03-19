@@ -42,7 +42,7 @@ further details.}
 }
 \description{
 Plots the coordinates of a multidimensional scaling analysis as an
-X-Y scatter plot or 'map' and, if x$classical = FALSE, a Shepard
+X-Y scatter plot or `map' and, if x$classical = FALSE, a Shepard
 plot.
 }
 \examples{

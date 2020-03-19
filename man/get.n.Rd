@@ -8,7 +8,7 @@ get.n(p = 0.05, f = 0.05)
 }
 \arguments{
 \item{p}{the probability that all n grains in the sample have missed
-at least one fraction of size f}
+at least one fraction of size \code{f}}
 
 \item{f}{the size of the smallest resolvable fraction (0<f<1)}
 
@@ -16,7 +16,7 @@ at least one fraction of size f}
 }
 \value{
 the number of grains needed to reduce the chance of missing
-at least one fraction f of the total population to less than p
+at least one fraction f of the total population to less than \code{p}
 }
 \description{
 Returns the number of grains that need to be analysed to decrease
