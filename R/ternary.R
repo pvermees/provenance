@@ -131,7 +131,7 @@ plot.ternary <- function(x,type='grid',pch=NA,pos=NULL,
     } else {
         cornerlabels <- ternary.lines(type=type,col=col,lty=lty,lwd=lwd)
     }
-    corners <- xyz2xy(matrix(c(1,0,0,1,0,1,0,0,0,0,1,0),ncol=3))
+    corners <- xyz2xy(c(1,0,0),c(0,1,0),c(0,0,1),c(1,0,0))
     graphics::lines(corners)
     graphics::text(corners[1:3,],labels=cornerlabels,pos=c(3,1,1))
     xy <- xyz2xy(x$x)

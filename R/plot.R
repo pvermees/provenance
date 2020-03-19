@@ -602,12 +602,12 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
     graphics::par(col=col,lty=lty,lwd=lwd)
     thelabels <- c('x','y','z')
     if (type=='QFL.descriptive'){
-        xy1 <- xyz2xy(matrix(c(90,0,10,10,0,90),ncol=3))
-        xy2 <- xyz2xy(matrix(c(90,0,0,90,10,10),ncol=3))
-        xy3 <- xyz2xy(matrix(c(10,10,90,0,0,90),ncol=3))
-        xy4 <- xyz2xy(matrix(c(50,10,50,10,0,80),ncol=3))
-        xy5 <- xyz2xy(matrix(c(80,0,10,50,10,50),ncol=3))
-        xy6 <- xyz2xy(matrix(c(10,50,80,0,10,50),ncol=3))
+        xy1 <- xyz2xy(c(90,10,0),c(0,10,90))
+        xy2 <- xyz2xy(c(90,0,10),c(0,90,10))
+        xy3 <- xyz2xy(c(10,90,0),c(10,0,90))
+        xy4 <- xyz2xy(c(50,50,0),c(10,10,80))
+        xy5 <- xyz2xy(c(80,10,10),c(0,50,50))
+        xy6 <- xyz2xy(c(10,80,10),c(50,0,50))
         graphics::lines(xy1); graphics::lines(xy2);
         graphics::lines(xy3); graphics::lines(xy4);
         graphics::lines(xy5); graphics::lines(xy6);
@@ -631,11 +631,11 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
                        labels=expression(paste('litho-',bold('feldspathic'))))
         thelabels <- c('Q','F','L')
     } else if (type=='QFL.folk'){
-        xy1 <- xyz2xy(matrix(c(90,90,10,0,0,10),ncol=3))
-        xy2 <- xyz2xy(matrix(c(75,75,25,0,0,25),ncol=3))
-        xy3 <- xyz2xy(matrix(c(0,75,25,25/4,75,25*3/4),ncol=3))
-        xy4 <- xyz2xy(matrix(c(0,75,75,25*3/4,25,25/4),ncol=3))
-        xy5 <- xyz2xy(matrix(c(0,90,50,5,50,5),ncol=3))
+        xy1 <- xyz2xy(c(90,10,0),c(90,0,10))
+        xy2 <- xyz2xy(c(75,25,0),c(75,0,25))
+        xy3 <- xyz2xy(c(0,25,75),c(75,25/4,25*3/4))
+        xy4 <- xyz2xy(c(0,75,25),c(75,25*3/4,25/4))
+        xy5 <- xyz2xy(c(0,50,50),c(90,5,5))
         graphics::lines(xy1); graphics::lines(xy2);
         graphics::lines(xy3); graphics::lines(xy4); graphics::lines(xy5)
         graphics::text(xyz2xy(c(20,-1,2)),labels='quartzarenite',adj=0)
@@ -647,13 +647,23 @@ ternary.lines <- function(type='empty',col='cornflowerblue',
         graphics::text(xyz2xy(c(30,10,70)),labels='litharenite',srt=-68)
         thelabels <- c('Q','F','L')
     } else if (type=='QFL.dickinson') {
-        xy1 <- xyz2xy(matrix(c(97,0,0,85,3,15),ncol=3))
-        xy2 <- xyz2xy(matrix(c(25,51.6,0,40,75,8.4),ncol=3))
+        xy1 <- xyz2xy(c(97,0,3),c(0,85,15))
+        xy2 <- xyz2xy(c(25,0,75),c(51.6,40,8.4))
         graphics::lines(xy1); graphics::lines(xy2)
         graphics::text(xyz2xy(c(20,40,40)),labels='magmatic arc')
         graphics::text(xyz2xy(c(55,15,30)),labels='recycled orogen')
         graphics::text(xyz2xy(c(50,45,5)),labels='continental block',srt=65)
         thelabels <- c('Q','F','L')
+    } else if (type=='QmFLt.dickinson') {
+        xy1 <- xyz2xy(c(89,0,11),c(0,77,23))
+        xyi1 <- ternary_intersection(c(89,0,11),c(0,77,23),
+                                     c(80,20,0),c(0,13,87))
+        xy2 <- rbind(xyi1,xyz2xy(c(0,13,87),test=TRUE))
+        graphics::lines(xy1); graphics::lines(xy2)
+        graphics::text(xyz2xy(c(20,40,40)),labels='magmatic arc')
+        graphics::text(xyz2xy(c(42,11,47)),labels='recycled orogen',srt=-58)
+        graphics::text(xyz2xy(c(45,47,8)),labels='continental block',srt=64)
+        thelabels <- c('Qm','F','Lt')
     }
     graphics::par(oldpar)
     return(thelabels)
@@ -669,22 +679,23 @@ plotpath <- function(X){
     }
 }
 
-xyz2xy <- function(xyz){
-    if (methods::is(xyz,"matrix")){
-        n <- nrow(xyz)
-        x <- xyz[,1]
-        y <- xyz[,2]
-        z <- xyz[,3]
-    } else {
-        n <- 1
-        x <- xyz[1]
-        y <- xyz[2]
-        z <- xyz[3]
-    }
-    xy <- matrix(0,nrow=n,ncol=2)
-    xy[,1] <- 0.5*(x+2*z)/(x+y+z)
-    xy[,2] <- sin(pi/3)*x/(x+y+z)
-    return(xy)
+xyz2xy <- function(...,test=FALSE){
+    xyz <- rbind(...)
+    x <- 0.5*(xyz[,1]+2*xyz[,3])/rowSums(xyz)
+    y <- sin(pi/3)*xyz[,1]/rowSums(xyz)
+    cbind(x,y)
+}
+
+ternary_intersection <- function(xyz11,xyz12,xyz21,xyz22){
+    xyz1 <- rbind(xyz11,xyz12)
+    xyz2 <- rbind(xyz21,xyz22)
+    xy1 <- xyz2xy(xyz1)
+    xy2 <- xyz2xy(xyz2)
+    b1 <- (xy1[2,'y']-xy1[1,'y'])/(xy1[2,'x']-xy1[1,'x'])
+    b2 <- (xy2[2,'y']-xy2[1,'y'])/(xy2[2,'x']-xy2[1,'x'])
+    xi <- (xy2[1,'y']-xy1[1,'y']+b1*xy1[1,'x']-b2*xy2[1,'x'])/(b1-b2)
+    yi <- xy1[1,'y']+b1*(xi-xy1[1,'x'])
+    c(xi,yi)
 }
 
 emptyplot <- function(){
