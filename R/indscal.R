@@ -98,8 +98,7 @@ smacofIndDiff <- function (delta, ndim = 2, type = c("ratio", "ordinal"),
     for (j in 1:m) {
         wr <- appendList(wr, vmat(wgths[[j]]))
         vr <- appendList(vr, myGenInv(wr[[j]]))
-        dh <- appendList(dh, normDissN(diss[[j]], wgths[[j]], 
-            1))
+        dh <- appendList(dh, normDissN(diss[[j]], wgths[[j]], 1))
     }
     xr <- list()
     sold <- sf1 <- sf2 <- 0

@@ -402,7 +402,7 @@ subset.distributional <- function(x,subset=NULL,select=NULL,...){
     if (!is.null(subset)){
         i <- which(subset,arr.ind=TRUE)
     } else if (!is.null(select)){
-        i <- which(names(x) %in% select)
+        i <- match(select,names(x))
     } else {
         return(out)
     }
@@ -418,12 +418,12 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
     if (!is.null(subset)){
         i <- which(subset,arr.ind=TRUE)
     } else if (!is.null(select)){
-        i <- which(names(x) %in% select)
+        i <- match(select,names(x))
     } else {
         i <- 1:nrow(x$x)
     }
     if (!is.null(components)){
-        j <- which(colnames(x$x) %in% components,arr.ind=TRUE)
+        j <- match(components,colnames(x$x))
     } else {
         j <- 1:ncol(x$x)
     }
@@ -441,14 +441,14 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
 subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
     out <- subset.compositional(x,subset=subset,select=select,components=components,...)
     if (methods::is(x,"ternary")){
-        i <- which(rownames(x$raw) %in% rownames(out$x))
-        j <- which(colnames(x$raw) %in% colnames(out$x))
+        i <- match(rownames(out$x),rownames(x$raw))
+        j <- match(colnames(out$x),colnames(x$raw))
         out$raw <- x$raw[i,j,drop=FALSE]
     }
     out
 }
 
-# returns list of dissimilarities between common items
+# returns list of normalised dissimilarities between common items
 getdisslist <- function(slist){
     dnames <- names(slist)
     lablist <- lapply(slist,function(x) names(x))
@@ -456,9 +456,12 @@ getdisslist <- function(slist){
     for (name in dnames){
         slist[[name]] <- subset(slist[[name]],select=commonlabels)
     }
+    ns <- length(commonlabels)
     disslist <- slist
     for (name in dnames){
-        disslist[[name]] <- diss(slist[[name]])
+        dl <- diss(slist[[name]])
+        # normalise according to pers. comm. by Jan de Leeuw
+        disslist[[name]] <- dl*sqrt(ns*(ns-1)*0.5/sum(dl^2))
     }
     return(disslist)
 }
@@ -469,7 +472,7 @@ getdisslist <- function(slist){
 #' analysis on each of these and the feeds the resulting
 #' configurations into the \code{GPA()} function.
 #'
-#' @param ... a sequence of datasets of classes \code{distributional},n
+#' @param ... a sequence of datasets of classes \code{distributional},
 #'     \code{counts} and \code{compositional}
 #' @return an object of class \code{GPA}, i.e. a list containing the
 #'     following items:
@@ -532,17 +535,19 @@ GPA <- function(X,scale=TRUE){
         return(procfit(X[,,1],X[,,2])$Yrot)
     } else {
         Y <- X # initialise fitted configurations
-        refconf <- X[,,1] # reference configuration
+        refconf <- X[,,1]
+        misfit <- Inf
         for (j in 1:100){
             for (i in 1:dim(X)[3]){
-                Y[,,i] <- procfit(refconf,X[,,i])$Yrot
+                Y[,,i] <- procfit(X=refconf,Y=X[,,i])$Yhat
             }
             meanconf <- apply(Y,c(1,2),'mean')
-            misfit <- sum((refconf-meanconf)^2)
-            if (misfit < 1e-10){
+            newmisfit <- sum((refconf-meanconf)^2)
+            if (abs(newmisfit-misfit) < 1e-10){
                 break
             } else {
-                refconf <- meanconf
+                misfit <- newmisfit
+                refconf <- procfit(X=refconf,Y=meanconf)$Yhat                
             }
         }
         return(refconf)
@@ -550,45 +555,36 @@ GPA <- function(X,scale=TRUE){
 }
 
 # Procrustes analysis of two configurations
-# based on the 'procrustes' function of the 'vegan' package
-procfit <- function (X, Y, scale=TRUE, symmetric=FALSE, ...) {
-    if (nrow(X) != nrow(Y)) 
-        stop("Matrices have different number of rows: ", nrow(X), 
-            " and ", nrow(Y))
-    if (ncol(X) < ncol(Y)) {
-        warning("X has fewer axes than Y: X adjusted to comform Y\n")
-        addcols <- ncol(Y) - ncol(X)
-        for (i in 1:addcols) X <- cbind(X, 0)
-    }
-    ctrace <- function(MAT) sum(MAT^2)
-    c <- 1
-    if (symmetric) {
-        X <- scale(X, scale = FALSE)
-        Y <- scale(Y, scale = FALSE)
-        X <- X/sqrt(ctrace(X))
-        Y <- Y/sqrt(ctrace(Y))
-    }
-    xmean <- apply(X, 2, mean)
-    ymean <- apply(Y, 2, mean)
-    if (!symmetric) {
-        X <- scale(X, scale = FALSE)
-        Y <- scale(Y, scale = FALSE)
-    }
-    XY <- crossprod(X, Y)
-    sol <- svd(XY)
-    A <- sol$v %*% t(sol$u)
-    if (scale) {
-        c <- sum(sol$d)/ctrace(Y)
-    }
-    Yrot <- c * Y %*% A
-    b <- xmean - c * ymean %*% A
-    R2 <- ctrace(X) + c * c * ctrace(Y) - 2 * c * sum(sol$d)
-    reslt <- list(Yrot = Yrot, X = X, ss = R2, rotation = A, 
-        translation = b, scale = c, xmean = xmean, symmetric = symmetric, 
-        call = match.call())
-    reslt$svd <- sol
-    class(reslt) <- "procrustes"
-    reslt
+# based on the 'Procrustes' function of the 'smacof' package
+procfit <- function (X, Y) {
+    n <- dim(X)[1]
+    E <- diag(1, nrow = n)
+    eins <- rep(1, n)
+    k <- 1/n
+    Z <- E - k * eins %*% t(eins)
+    C <- t(X) %*% Z %*% Y
+    s <- svd(C)
+    f <- diag(s$d)
+    P <- s$u
+    Q <- s$v
+    T <- Q %*% t(P)
+    streck <- sum(diag((t(X) %*% Z %*% Y %*% T)))/sum(diag((t(Y) %*% 
+        Z %*% Y)))
+    trans <- as.vector(k * t(X - streck * Y %*% T) %*% eins)
+    Yhut <- streck * Y %*% T + eins %*% t(trans)
+    colnames(Yhut) <- rownames(T) <- colnames(T) <- names(trans) <- colnames(Y)
+    dX <- dist(X)
+    dY <- dist(Y)
+    dYhat <- dist(Yhut)
+    cong <- sum(dX * dY)/(sqrt(sum(dX^2)) * sqrt(sum(dY^2)))
+    alien <- sqrt(1 - cong^2)
+    pairdist <- sort(sqrt(rowSums((X - Yhut)^2)))
+    res <- list(X = X, Y = Y, Yhat = Yhut, translation = trans, 
+        dilation = streck, rotation = T, confdistX = dX, confdistY = dY, 
+        confdistYhat = dYhat, congcoef = cong, aliencoef = alien, 
+        pairdist = pairdist, call = match.call())
+    class(res) <- "procrustes"
+    return(res)
 }
 
 # calculate the trace of a matrix
