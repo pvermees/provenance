@@ -4,9 +4,22 @@
 \alias{radialplot}
 \title{Visualise point-counting data on a radial plot}
 \usage{
-radialplot(x, num = 1, den = 2, from = NA, to = NA, t0 = NA,
-  sigdig = 2, show.numbers = FALSE, pch = 21, levels = NA,
-  clabel = "", bg = c("white", "red"), title = TRUE, ...)
+radialplot(
+  x,
+  num = 1,
+  den = 2,
+  from = NA,
+  to = NA,
+  t0 = NA,
+  sigdig = 2,
+  show.numbers = FALSE,
+  pch = 21,
+  levels = NA,
+  clabel = "",
+  bg = c("white", "red"),
+  title = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{counts}}

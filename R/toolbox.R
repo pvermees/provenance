@@ -532,7 +532,7 @@ GPA <- function(X,scale=TRUE){
     if (length(dim(X))<3) {
         return(X)
     } else if (dim(X)[3]<3){
-        return(procfit(X[,,1],X[,,2])$Yrot)
+        return(procfit(X[,,1],X[,,2])$Yhat)
     } else {
         Y <- X # initialise fitted configurations
         refconf <- X[,,1]
@@ -556,7 +556,7 @@ GPA <- function(X,scale=TRUE){
 
 # Procrustes analysis of two configurations
 # based on the 'Procrustes' function of the 'smacof' package
-procfit <- function (X, Y) {
+procfit <- function(X, Y) {
     n <- dim(X)[1]
     E <- diag(1, nrow = n)
     eins <- rep(1, n)
@@ -573,9 +573,9 @@ procfit <- function (X, Y) {
     trans <- as.vector(k * t(X - streck * Y %*% T) %*% eins)
     Yhut <- streck * Y %*% T + eins %*% t(trans)
     colnames(Yhut) <- rownames(T) <- colnames(T) <- names(trans) <- colnames(Y)
-    dX <- dist(X)
-    dY <- dist(Y)
-    dYhat <- dist(Yhut)
+    dX <- stats::dist(X)
+    dY <- stats::dist(Y)
+    dYhat <- stats::dist(Yhut)
     cong <- sum(dX * dY)/(sqrt(sum(dX^2)) * sqrt(sum(dY^2)))
     alien <- sqrt(1 - cong^2)
     pairdist <- sort(sqrt(rowSums((X - Yhut)^2)))

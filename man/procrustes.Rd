@@ -7,7 +7,7 @@
 procrustes(...)
 }
 \arguments{
-\item{...}{a sequence of datasets of classes \code{distributional},n
+\item{...}{a sequence of datasets of classes \code{distributional},
 \code{counts} and \code{compositional}}
 }
 \value{

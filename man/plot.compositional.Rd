@@ -4,8 +4,7 @@
 \alias{plot.compositional}
 \title{Plot a pie chart}
 \usage{
-\method{plot}{compositional}(x, sname, annotate = TRUE, colmap = NULL,
-  ...)
+\method{plot}{compositional}(x, sname, annotate = TRUE, colmap = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{compositional}}

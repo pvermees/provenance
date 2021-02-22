@@ -4,8 +4,15 @@
 \alias{plot.PCA}
 \title{Compositional biplot}
 \usage{
-\method{plot}{PCA}(x, labelcol = "black", vectorcol = "red",
-  choices = 1L:2L, scale = 1, pc.biplot = FALSE, ...)
+\method{plot}{PCA}(
+  x,
+  labelcol = "black",
+  vectorcol = "red",
+  choices = 1L:2L,
+  scale = 1,
+  pc.biplot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{PCA}}

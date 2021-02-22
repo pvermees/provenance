@@ -4,8 +4,18 @@
 \alias{KDEs}
 \title{Generate an object of class \code{KDEs}}
 \usage{
-KDEs(x, from = NA, to = NA, bw = NA, samebandwidth = TRUE,
-  adaptive = TRUE, normalise = FALSE, log = FALSE, n = 512, ...)
+KDEs(
+  x,
+  from = NA,
+  to = NA,
+  bw = NA,
+  samebandwidth = TRUE,
+  adaptive = TRUE,
+  normalise = FALSE,
+  log = FALSE,
+  n = 512,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{distributional}}

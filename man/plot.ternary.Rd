@@ -4,10 +4,21 @@
 \alias{plot.ternary}
 \title{Plot a ternary diagram}
 \usage{
-\method{plot}{ternary}(x, type = "grid", pch = NA, pos = NULL,
-  labels = names(x), showpath = FALSE, bg = NA,
-  col = "cornflowerblue", ticks = seq(0, 1, 0.25), ticklength = 0.02,
-  lty = 2, lwd = 1, ...)
+\method{plot}{ternary}(
+  x,
+  type = "grid",
+  pch = NA,
+  pos = NULL,
+  labels = names(x),
+  showpath = FALSE,
+  bg = NA,
+  col = "cornflowerblue",
+  ticks = seq(0, 1, 0.25),
+  ticklength = 0.02,
+  lty = 2,
+  lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{ternary}, or a three-column data

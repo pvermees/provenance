@@ -4,8 +4,7 @@
 \alias{plot.GPA}
 \title{Plot a Procrustes configuration}
 \usage{
-\method{plot}{GPA}(x, pch = NA, pos = NULL, col = "black",
-  bg = "white", cex = 1, ...)
+\method{plot}{GPA}(x, pch = NA, pos = NULL, col = "black", bg = "white", cex = 1, ...)
 }
 \arguments{
 \item{x}{an object of class \code{GPA}}

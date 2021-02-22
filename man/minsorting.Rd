@@ -4,8 +4,17 @@
 \alias{minsorting}
 \title{Assess settling equivalence of detrital components}
 \usage{
-minsorting(X, dens, sname = NULL, phi = 2, sigmaphi = 1,
-  medium = "freshwater", from = -2.25, to = 5.5, by = 0.25)
+minsorting(
+  X,
+  dens,
+  sname = NULL,
+  phi = 2,
+  sigmaphi = 1,
+  medium = "freshwater",
+  from = -2.25,
+  to = 5.5,
+  by = 0.25
+)
 }
 \arguments{
 \item{X}{an object of class \code{compositional}}

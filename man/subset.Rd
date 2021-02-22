@@ -9,11 +9,9 @@
 \usage{
 \method{subset}{distributional}(x, subset = NULL, select = NULL, ...)
 
-\method{subset}{compositional}(x, subset = NULL, components = NULL,
-  select = NULL, ...)
+\method{subset}{compositional}(x, subset = NULL, components = NULL, select = NULL, ...)
 
-\method{subset}{counts}(x, subset = NULL, components = NULL,
-  select = NULL, ...)
+\method{subset}{counts}(x, subset = NULL, components = NULL, select = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional}}

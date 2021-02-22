@@ -4,8 +4,14 @@
 \alias{read.densities}
 \title{Read a .csv file with mineral and rock densities}
 \usage{
-read.densities(fname, sep = ",", dec = ".", header = TRUE,
-  check.names = FALSE, ...)
+read.densities(
+  fname,
+  sep = ",",
+  dec = ".",
+  header = TRUE,
+  check.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}

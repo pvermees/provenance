@@ -4,9 +4,20 @@
 \alias{plot.INDSCAL}
 \title{Plot an INDSCAL group configuration and source weights}
 \usage{
-\method{plot}{INDSCAL}(x, asp = 1, pch = NA, pos = NULL,
-  col = "black", bg = "white", cex = 1, xlab = "X", ylab = "Y",
-  xaxt = "n", yaxt = "n", ...)
+\method{plot}{INDSCAL}(
+  x,
+  asp = 1,
+  pch = NA,
+  pos = NULL,
+  col = "black",
+  bg = "white",
+  cex = 1,
+  xlab = "X",
+  ylab = "Y",
+  xaxt = "n",
+  yaxt = "n",
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{INDSCAL}}
