@@ -5,7 +5,8 @@
 \title{Read a .csv file with continuous (detrital zircon) data}
 \usage{
 read.distributional(fname, errorfile = NA, method = "KS",
-  xlab = "age [Ma]", colmap = "rainbow", ...)
+  xlab = "age [Ma]", colmap = "rainbow", sep = ",", dec = ".",
+  header = TRUE, check.names = FALSE, ...)
 }
 \arguments{
 \item{fname}{the path of a .csv file with the input data, arranged
@@ -34,7 +35,19 @@ built-in colour palettes (e.g., heat.colors, terrain.colors,
 topo.colors, cm.colors), which are to be used for plotting the
 data.}
 
-\item{...}{optional arguments to the built-in \code{read.csv}
+\item{sep}{the field separator character.  Values on each line of
+the file are separated by this character.}
+
+\item{dec}{the character used in the file for decimal points.}
+
+\item{header}{a logical value indicating whether the file contains
+the names of the variables as its first line.}
+
+\item{check.names}{logical.  If \code{TRUE} then the names of the
+variables in the frame are checked to ensure that they are
+syntactically variable names.}
+
+\item{...}{optional arguments to the built-in \code{read.table}
 function}
 }
 \value{

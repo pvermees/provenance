@@ -37,29 +37,29 @@ Abramson <- function(dat,from,to,bw,n=512,...){
 #'
 #' Turns a vector of numbers into an object of class \code{KDE} using
 #' a combination of the Botev (2010) bandwidth selector and the
-#' Abramson (1982) adaptive kernel bandwidth modifier. 
+#' Abramson (1982) adaptive kernel bandwidth modifier.
 #' @param x a vector of numbers
-#' @param from minimum age of the time axis. If NULL, this is set
-#' automatically
-#' @param to maximum age of the time axis. If NULL, this is set
-#' automatically
-#' @param bw the bandwidth of the KDE. If NULL, bw will be calculated
-#' automatically using \code{botev()}
+#' @param from minimum age of the time axis. If \code{NULL}, this is
+#'     set automatically
+#' @param to maximum age of the time axis. If \code{NULL}, this is set
+#'     automatically
+#' @param bw the bandwidth of the KDE. If NULL, \code{bw} will be
+#'     calculated automatically using \code{botev()}
 #' @param adaptive boolean flag controlling if the adaptive KDE
-#' modifier of Abramson (1982) is used
-#' @param log transform the ages to a log scale if TRUE
+#'     modifier of Abramson (1982) is used
+#' @param log transform the ages to a log scale if \code{TRUE}
 #' @param n horizontal resolution of the density estimate
 #' @param ... optional arguments to be passed on to \code{density}
-#' @return an object of class \code{KDE}, i.e. a list
-#' containing the following items:
+#' @return an object of class \code{KDE}, i.e. a list containing the
+#'     following items:
 #'
-#' x: horizontal plot coordinates
+#' \code{x}: horizontal plot coordinates
 #'
-#' y: vertical plot coordinates
+#' \code{y}: vertical plot coordinates
 #'
-#' bw: the base bandwidth of the density estimate
+#' \code{bw}: the base bandwidth of the density estimate
 #'
-#' ages: the data values from the input to the \code{KDE} function
+#' \code{ages}: the data values from the input to the \code{KDE} function
 #' @examples
 #' data(Namib)
 #' samp <- Namib$DZ$x[['N1']]
@@ -102,39 +102,40 @@ KDE <- function(x,from=NA,to=NA,bw=NA,adaptive=TRUE,log=FALSE,n=512,...){
 #' Generate an object of class \code{KDEs}
 #'
 #' Convert a dataset of class \code{distributional} into an object of
-#' class \code{KDEs} for further processing by the
-#' \code{summaryplot} function.
+#' class \code{KDEs} for further processing by the \code{summaryplot}
+#' function.
 #' @param x an object of class \code{distributional}
 #' @param from minimum limit of the x-axis.
 #' @param to maximum limit of the x-axis.
-#' @param bw the bandwidth of the kernel density estimates. If bw =
-#' NA, the bandwidth will be set automatically using \code{botev()}
+#' @param bw the bandwidth of the kernel density estimates. If
+#'     \code{bw = NA}, the bandwidth will be set automatically using
+#'     \code{botev()}
 #' @param samebandwidth boolean flag indicating whether the same
-#' bandwidth should be used for all samples. If samebandwidth = TRUE
-#' and bw = NULL, then the function will use the median bandwidth of
-#' all the samples.
+#'     bandwidth should be used for all samples. If
+#'     \code{samebandwidth = TRUE} and \code{bw = NULL}, then the
+#'     function will use the median bandwidth of all the samples.
 #' @param adaptive boolean flag switching on the adaptive bandwidth
-#' modifier of Abramson (1982)
+#'     modifier of Abramson (1982)
 #' @param normalise boolean flag indicating whether or not the KDEs
-#' should all integrate to the same value.
+#'     should all integrate to the same value.
 #' @param log boolean flag indicating whether the data should by
-#' plotted on a logarithmic scale.
+#'     plotted on a logarithmic scale.
 #' @param n horizontal resolution of the density estimates
 #' @param ... optional parameters to be passed on to \code{density}
 #' @return an object of class \code{KDEs}, i.e. a list containing the
-#' following items:
+#'     following items:
 #'
-#' kdes: a named list with objects of class \code{KDE}
+#' \code{kdes}: a named list with objects of class \code{KDE}
 #'
-#' from: the beginning of the common time scale
+#' \code{from}: the beginning of the common time scale
 #'
-#' to: the end of the common time scale
+#' \code{to}: the end of the common time scale
 #' 
-#' themax: the maximum probability density of all the KDEs
+#' \code{themax}: the maximum probability density of all the KDEs
 #'
-#' pch: the plot symbol to be used by \code{plot.KDEs}
+#' \code{pch}: the plot symbol to be used by \code{plot.KDEs}
 #'
-#' xlabel: the x-axis label to be used by \code{plot.KDEs}
+#' \code{xlabel}: the x-axis label to be used by \code{plot.KDEs}
 #' @examples
 #' data(Namib)
 #' KDEs <- KDEs(Namib$DZ,0,3000,pch=NA)

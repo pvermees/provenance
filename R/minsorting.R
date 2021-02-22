@@ -31,17 +31,23 @@ getSS <- function(dens,medium,SRD,phi){
 
 #' Assess settling equivalence of detrital components
 #'
-#' Models grain size distribution of minerals and rock fragments of different densities
+#' Models grain size distribution of minerals and rock fragments of
+#' different densities
 #' @param X an object of class \code{compositional}
 #' @param dens a vector of mineral and rock densities
-#' @param sname sample name if unspecified, the first sample of the dataset will be used
-#' @param phi the mean grain size of the sample in Krumbein's phi units
-#' @param sigmaphi the standard deviation of the grain size distirbution, in phi units
-#' @param medium the transport medium, one of either "air", "freshwater" or "seawater"
+#' @param sname sample name if unspecified, the first sample of the
+#'     dataset will be used
+#' @param phi the mean grain size of the sample in Krumbein's phi
+#'     units
+#' @param sigmaphi the standard deviation of the grain size
+#'     distirbution, in phi units
+#' @param medium the transport medium, one of either "air",
+#'     "freshwater" or "seawater"
 #' @param from the minimum grain size to be evaluated, in phi units
 #' @param to the maximum grain size to be evaluated, in phi units
 #' @param by the grain size interval of the output table, in phi units
-#' @return an object of class \code{minsorting}, i.e. a list with two tables:
+#' @return an object of class \code{minsorting}, i.e. a list with two
+#'     tables:
 #'
 #' mfract: the grain size distribution of each mineral (sum of the columns = 1)
 #' 

@@ -137,8 +137,8 @@ x2zs <- function(x){
 #'               distribution. \code{central} computes a continuous
 #'               mixture model for each component (column)
 #'               separately. Covariance terms are not reported.}
-#' \item{LL}{ the lower limit of a `1 sigma' region for  code{theta}. }
-#' \item{UL}{ the upper limit of a `1 sigma' region for  code{theta}. }
+#' \item{LL}{ the lower limit of a `1 sigma' region for \code{theta}. }
+#' \item{UL}{ the upper limit of a `1 sigma' region for \code{theta}. }
 #' \item{mswd}{ the mean square of the weighted deviates, a.k.a.
 #'              reduced chi-square statistic.}
 #' \item{p.value}{ the p-value for age homogeneity }

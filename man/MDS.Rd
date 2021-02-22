@@ -6,21 +6,18 @@
 \alias{MDS.compositional}
 \alias{MDS.counts}
 \alias{MDS.distributional}
-\alias{MDS.diss}
 \title{Multidimensional Scaling}
 \usage{
 MDS(x, ...)
 
-\method{MDS}{default}(x, fn, classical = FALSE, k = 2, ...)
+\method{MDS}{default}(x, classical = FALSE, k = 2, ...)
 
 \method{MDS}{compositional}(x, classical = FALSE, k = 2, ...)
 
 \method{MDS}{counts}(x, classical = FALSE, k = 2, ...)
 
-\method{MDS}{distributional}(x, classical = FALSE, k = 2,
-  bootstrap = FALSE, nb = 10, ...)
-
-\method{MDS}{diss}(x, classical = FALSE, k = 2, ...)
+\method{MDS}{distributional}(x, classical = FALSE, k = 2, nb = 0,
+  ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},
@@ -30,19 +27,16 @@ MDS(x, ...)
 \code{classical=TRUE}) or \code{isoMDS} (if
 \code{classical=FALSE}).}
 
-\item{fn}{a dissimilarity function. One of either
-\code{diss.compositional}, \code{diss.counts}, or
-\code{diss.distributional}}
-
 \item{classical}{boolean flag indicating whether classical
 (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used}
 
 \item{k}{the desired dimensionality of the solution}
 
-\item{bootstrap}{resample the data to calculate confidence polygons
-for the MDS configuration}
-
-\item{nb}{number of bootstrap resamples}
+\item{nb}{number of bootstrap resamples. If \code{nb>0}, then
+\code{plot.MDS(...)} will visualise the sampling uncertainty as
+polygons (inspired by Nordsvan et al. 2020). The bigger
+\code{nb}, the slower the calculations. \code{nb=10} seems a
+good compromise.}
 }
 \value{
 an object of class \code{MDS}, i.e. a list containing the
@@ -66,4 +60,14 @@ of provenance data
 \examples{
 data(Namib)
 plot(MDS(Namib$Major,classical=TRUE))
+}
+\references{
+Nordsvan, A.R., Kirscher, U., Kirkland, C.L., Barham, M. and
+Brennan, D.T., 2020. Resampling (detrital) zircon age distributions
+for accurate multidimensional scaling solutions. Earth-Science
+Reviews, p.103149.
+
+Vermeesch, P., 2013, Multi-sample comparison of detrital age
+distributions. Chemical Geology v.341, 140-146,
+doi:10.1016/j.chemgeo.2013.01.010
 }

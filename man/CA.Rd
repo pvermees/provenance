@@ -16,7 +16,7 @@ CA(x, nf = 2, ...)
 }
 \value{
 an object of classes \code{CA}, which is synonymous to the
-    MASS packages' \code{correspondence} class.
+    MASS package's \code{correspondence} class.
 }
 \description{
 Performs Correspondence Analysis of point-counting data

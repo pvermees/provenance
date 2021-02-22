@@ -12,13 +12,17 @@ minsorting(X, dens, sname = NULL, phi = 2, sigmaphi = 1,
 
 \item{dens}{a vector of mineral and rock densities}
 
-\item{sname}{sample name if unspecified, the first sample of the dataset will be used}
+\item{sname}{sample name if unspecified, the first sample of the
+dataset will be used}
 
-\item{phi}{the mean grain size of the sample in Krumbein's phi units}
+\item{phi}{the mean grain size of the sample in Krumbein's phi
+units}
 
-\item{sigmaphi}{the standard deviation of the grain size distirbution, in phi units}
+\item{sigmaphi}{the standard deviation of the grain size
+distirbution, in phi units}
 
-\item{medium}{the transport medium, one of either "air", "freshwater" or "seawater"}
+\item{medium}{the transport medium, one of either "air",
+"freshwater" or "seawater"}
 
 \item{from}{the minimum grain size to be evaluated, in phi units}
 
@@ -27,14 +31,16 @@ minsorting(X, dens, sname = NULL, phi = 2, sigmaphi = 1,
 \item{by}{the grain size interval of the output table, in phi units}
 }
 \value{
-an object of class \code{minsorting}, i.e. a list with two tables:
+an object of class \code{minsorting}, i.e. a list with two
+    tables:
 
 mfract: the grain size distribution of each mineral (sum of the columns = 1)
 
 mcomp: the composition of each mineral (sum of the rows = 1)
 }
 \description{
-Models grain size distribution of minerals and rock fragments of different densities
+Models grain size distribution of minerals and rock fragments of
+different densities
 }
 \examples{
 data(endmembers,densities)

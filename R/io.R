@@ -23,7 +23,15 @@
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
-#' @param ... optional arguments to the built-in \code{read.csv}
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param header a logical value indicating whether the file contains
+#'     the names of the variables as its first line.
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param ... optional arguments to the built-in \code{read.table}
 #'     function
 #' @return an object of class \code{distributional}, i.e. a list with
 #'     the following items:
@@ -51,7 +59,9 @@
 #'     plot(KDE(DZ$x$N1))
 #' @export
 read.distributional <- function(fname,errorfile=NA,method="KS",
-                                xlab="age [Ma]",colmap='rainbow',...) {
+                                xlab="age [Ma]",colmap='rainbow',
+                                sep=',',dec='.',header=TRUE,
+                                check.names=FALSE,...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     if (method=="SH" & is.na(errorfile)) method <- "KS"
@@ -60,13 +70,15 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
     out$x <- list()
     out$err <- list()
     out$colmap <- colmap
-    dat <- utils::read.csv(fname,header=TRUE,...)
+    dat <- utils::read.csv(fname,sep=sep,dec=dec,header=header,
+                           check.names=check.names,...)
     for (i in 1:length(dat)){
         good <- !is.na(dat[,i])
         if (any(good)) out$x[[names(dat)[i]]] = dat[good,i]
     }
     if (!is.na(errorfile)){
-        err <- utils::read.csv(errorfile,header=TRUE,...)
+        err <- utils::read.csv(errorfile,sep=sep,dec=dec,
+                               header=header,check.names=check.names,...)
         for (i in 1:length(err)){
             good <- !is.na(err[,i])
             if (any(good)) out$err[[names(dat)[i]]] = err[good,i]
@@ -95,7 +107,19 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
-#' @param ... optional arguments to the built-in \code{read.csv}
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param row.names a vector of row names.  This can be a vector
+#'     giving the actual row names, or a single number giving the
+#'     column of the which contains the row names, or character string
+#'     the name of the table column containing the row names.
+#' @param header a logical value indicating whether the file contains
+#'     the names of the variables as its first line.
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param ... optional arguments to the built-in \code{read.table}
 #'     function
 #' @return an object of class \code{compositional}, i.e. a list with
 #'     the following items:
@@ -111,11 +135,15 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     Major <- read.compositional(fname)
 #'     plot(PCA(Major))
 #' @export
-read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
+read.compositional <- function(fname,method=NULL,colmap='rainbow',
+                               sep=',',dec='.',row.names=1,header=TRUE,
+                               check.names=FALSE,...) {
     out <- list()
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     class(out) <- "compositional"
-    dat <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    dat <- data.matrix(utils::read.table(fname,header=header,
+                                         row.names=row.names,sep=sep,
+                                         check.names=check.names,...))
     out$x <- removeNAcols(dat)
     if (is.null(method)){
         if (any(out$x==0)) { method <- "bray" }
@@ -143,7 +171,19 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
 #'     data.
-#' @param ... optional arguments to the built-in \code{read.csv}
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param row.names a vector of row names.  This can be a vector
+#'     giving the actual row names, or a single number giving the
+#'     column of the which contains the row names, or character string
+#'     the name of the table column containing the row names.
+#' @param header a logical value indicating whether the file contains
+#'     the names of the variables as its first line.
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param ... optional arguments to the built-in \code{read.table}
 #'     function
 #' @return an object of class \code{counts}, i.e. a list with the
 #'     following items:
@@ -158,11 +198,15 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',...) {
 #'     Major <- read.counts(fname)
 #'     #plot(PCA(HM))
 #' @export
-read.counts <- function(fname,method='chisq',colmap='rainbow',...){
+read.counts <- function(fname,method='chisq',colmap='rainbow',sep=',',
+                        dec='.',row.names=1,header=TRUE,
+                        check.names=FALSE,...){
     out <- list()
     class(out) <- "counts"
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    dat <- data.matrix(utils::read.csv(fname,header=TRUE,row.names=1,...))
+    dat <- data.matrix(utils::read.table(fname,header=header,
+                                         row.names=row.names,sep=sep,
+                                         check.names=check.names,...))
     out$x <- removeNAcols(dat)
     out$method <- method
     out$colmap <- colmap
@@ -175,7 +219,15 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
 #' hydraulic sorting corrections (minsorting and srd functions)
 #'
 #' @param fname a string with the path to the .csv file
-#' @param ... optional arguments to the built-in \code{read.csv}
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param header a logical value indicating whether the file contains
+#'     the names of the variables as its first line.
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param ... optional arguments to the built-in \code{read.table}
 #'     function
 #' @return a vector with mineral and rock densities
 #' @examples
@@ -184,8 +236,11 @@ read.counts <- function(fname,method='chisq',colmap='rainbow',...){
 #' distribution <- minsorting(N8,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
 #' plot(distribution)
 #' @export
-read.densities <- function(fname,...){
-    return(data.matrix(utils::read.csv(fname,header=TRUE,...)))
+read.densities <- function(fname,sep=',',dec='.',header=TRUE,
+                           check.names=FALSE,...){
+    dat <- utils::read.table(fname,header=header,sep=sep,
+                             dec=dec,check.names=check.names,...)
+    data.matrix(dat)
 }
 
 #' create a \code{data.frame} object
@@ -263,9 +318,10 @@ as.compositional.matrix <- function(x,method=NULL,colmap='rainbow'){
 #' \code{acomp} to an object of class \code{compositional}
 #'
 #' @param x an object of class \code{matrix}, \code{data.frame} or
-#' \code{acomp}
-#' @param method dissimilarity measure, either 'aitchison' for
-#' Aitchison's CLR-distance or 'bray' for the Bray-Curtis distance.
+#'     \code{acomp}
+#' @param method dissimilarity measure, either \code{"aitchison"} for
+#'     Aitchison's CLR-distance or \code{"bray"} for the Bray-Curtis
+#'     distance.
 #' @param colmap the colour map to be used in pie charts.
 #' @return an object of class \code{compositional}
 #' @examples
@@ -304,8 +360,8 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #' object of class \code{counts}
 #'
 #' @param x an object of class \code{matrix} or \code{data.frame}
-#' @param method either "chisq" (for the chi-square distance) or
-#'     "bray" (for the Bray-Curtis distance)
+#' @param method either \code{"chisq"} (for the chi-square distance)
+#'     or \code{"bray"} (for the Bray-Curtis distance)
 #' @param colmap the colour map to be used in pie charts.
 #' @return an object of class \code{counts}
 #' @examples

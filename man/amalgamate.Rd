@@ -25,7 +25,8 @@ amalgamate(X, ...)
 strings denoting the components that need amalgamating}
 }
 \value{
-an object of the same class as X with fewer components
+an object of the same class as \code{X} with fewer
+    components
 }
 \description{
 Adds several components of a composition together into a single

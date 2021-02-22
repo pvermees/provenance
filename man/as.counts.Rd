@@ -9,8 +9,8 @@ as.counts(x, method = "chisq", colmap = "rainbow")
 \arguments{
 \item{x}{an object of class \code{matrix} or \code{data.frame}}
 
-\item{method}{either "chisq" (for the chi-square distance) or
-"bray" (for the Bray-Curtis distance)}
+\item{method}{either \code{"chisq"} (for the chi-square distance)
+or \code{"bray"} (for the Bray-Curtis distance)}
 
 \item{colmap}{the colour map to be used in pie charts.}
 }

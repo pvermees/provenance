@@ -10,8 +10,9 @@ as.compositional(x, method = NULL, colmap = "rainbow")
 \item{x}{an object of class \code{matrix}, \code{data.frame} or
 \code{acomp}}
 
-\item{method}{dissimilarity measure, either 'aitchison' for
-Aitchison's CLR-distance or 'bray' for the Bray-Curtis distance.}
+\item{method}{dissimilarity measure, either \code{"aitchison"} for
+Aitchison's CLR-distance or \code{"bray"} for the Bray-Curtis
+distance.}
 
 \item{colmap}{the colour map to be used in pie charts.}
 }

@@ -14,13 +14,14 @@ KDEs(x, from = NA, to = NA, bw = NA, samebandwidth = TRUE,
 
 \item{to}{maximum limit of the x-axis.}
 
-\item{bw}{the bandwidth of the kernel density estimates. If bw =
-NA, the bandwidth will be set automatically using \code{botev()}}
+\item{bw}{the bandwidth of the kernel density estimates. If
+\code{bw = NA}, the bandwidth will be set automatically using
+\code{botev()}}
 
 \item{samebandwidth}{boolean flag indicating whether the same
-bandwidth should be used for all samples. If samebandwidth = TRUE
-and bw = NULL, then the function will use the median bandwidth of
-all the samples.}
+bandwidth should be used for all samples. If
+\code{samebandwidth = TRUE} and \code{bw = NULL}, then the
+function will use the median bandwidth of all the samples.}
 
 \item{adaptive}{boolean flag switching on the adaptive bandwidth
 modifier of Abramson (1982)}
@@ -37,24 +38,24 @@ plotted on a logarithmic scale.}
 }
 \value{
 an object of class \code{KDEs}, i.e. a list containing the
-following items:
+    following items:
 
-kdes: a named list with objects of class \code{KDE}
+\code{kdes}: a named list with objects of class \code{KDE}
 
-from: the beginning of the common time scale
+\code{from}: the beginning of the common time scale
 
-to: the end of the common time scale
+\code{to}: the end of the common time scale
 
-themax: the maximum probability density of all the KDEs
+\code{themax}: the maximum probability density of all the KDEs
 
-pch: the plot symbol to be used by \code{plot.KDEs}
+\code{pch}: the plot symbol to be used by \code{plot.KDEs}
 
-xlabel: the x-axis label to be used by \code{plot.KDEs}
+\code{xlabel}: the x-axis label to be used by \code{plot.KDEs}
 }
 \description{
 Convert a dataset of class \code{distributional} into an object of
-class \code{KDEs} for further processing by the
-\code{summaryplot} function.
+class \code{KDEs} for further processing by the \code{summaryplot}
+function.
 }
 \examples{
 data(Namib)
