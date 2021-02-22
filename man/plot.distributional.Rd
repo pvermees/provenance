@@ -4,8 +4,16 @@
 \alias{plot.distributional}
 \title{Plot continuous data as histograms or cumulative age distributions}
 \usage{
-\method{plot}{distributional}(x, snames = NULL, annotate = TRUE,
-  CAD = FALSE, pch = NA, verticals = TRUE, colmap = NULL, ...)
+\method{plot}{distributional}(
+  x,
+  snames = NULL,
+  annotate = TRUE,
+  CAD = FALSE,
+  pch = NA,
+  verticals = TRUE,
+  colmap = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{an object of class \code{distributional}}

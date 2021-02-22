@@ -4,8 +4,7 @@
 \alias{KDE}
 \title{Create a kernel density estimate}
 \usage{
-KDE(x, from = NA, to = NA, bw = NA, adaptive = TRUE, log = FALSE,
-  n = 512, ...)
+KDE(x, from = NA, to = NA, bw = NA, adaptive = TRUE, log = FALSE, n = 512, ...)
 }
 \arguments{
 \item{x}{a vector of numbers}

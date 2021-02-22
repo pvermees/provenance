@@ -4,9 +4,18 @@
 \alias{read.distributional}
 \title{Read a .csv file with continuous (detrital zircon) data}
 \usage{
-read.distributional(fname, errorfile = NA, method = "KS",
-  xlab = "age [Ma]", colmap = "rainbow", sep = ",", dec = ".",
-  header = TRUE, check.names = FALSE, ...)
+read.distributional(
+  fname,
+  errorfile = NA,
+  method = "KS",
+  xlab = "age [Ma]",
+  colmap = "rainbow",
+  sep = ",",
+  dec = ".",
+  header = TRUE,
+  check.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{fname}{the path of a .csv file with the input data, arranged

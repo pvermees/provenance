@@ -16,8 +16,7 @@ MDS(x, ...)
 
 \method{MDS}{counts}(x, classical = FALSE, k = 2, ...)
 
-\method{MDS}{distributional}(x, classical = FALSE, k = 2, nb = 0,
-  ...)
+\method{MDS}{distributional}(x, classical = FALSE, k = 2, nb = 0, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},

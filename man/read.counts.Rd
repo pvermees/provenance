@@ -4,9 +4,17 @@
 \alias{read.counts}
 \title{Read a .csv file with point-counting data}
 \usage{
-read.counts(fname, method = "chisq", colmap = "rainbow", sep = ",",
-  dec = ".", row.names = 1, header = TRUE, check.names = FALSE,
-  ...)
+read.counts(
+  fname,
+  method = "chisq",
+  colmap = "rainbow",
+  sep = ",",
+  dec = ".",
+  row.names = 1,
+  header = TRUE,
+  check.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}

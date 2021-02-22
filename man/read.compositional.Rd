@@ -4,9 +4,17 @@
 \alias{read.compositional}
 \title{Read a .csv file with compositional data}
 \usage{
-read.compositional(fname, method = NULL, colmap = "rainbow",
-  sep = ",", dec = ".", row.names = 1, header = TRUE,
-  check.names = FALSE, ...)
+read.compositional(
+  fname,
+  method = NULL,
+  colmap = "rainbow",
+  sep = ",",
+  dec = ".",
+  row.names = 1,
+  header = TRUE,
+  check.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{fname}{a string with the path to the .csv file}
