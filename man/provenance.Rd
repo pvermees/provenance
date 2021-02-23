@@ -42,7 +42,7 @@ Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An
 
 Useful links:
 \itemize{
-  \item \url{http://provenance.london-geochron.com}
+  \item \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
 }
 
 }

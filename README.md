@@ -22,7 +22,7 @@
 ## Prerequisites
 
 You must have **R** installed on your system (see
-[http://r-project.org](http://r-project.org)).  Additionally, to
+[https://r-project.org](https://r-project.org)).  Additionally, to
 install provenance from Github, you also need the **devtools**
 package.  This can be installed by typing the following code at the R
 command line prompt:
@@ -51,19 +51,20 @@ install_github('pvermees/provenance')
 
 ## Further information
 
-See [http://provenance.london-geochron.com](http://provenance.london-geochron.com)
+See
+[https://www.ucl.ac.uk/~ucfbpve/provenance/](https://www.ucl.ac.uk/~ucfbpve/provenance/)
 
 [Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An R package for
 statistical provenance analysis, Sedimentary Geology, 336,
-14-25](http://www.ucl.ac.uk/~ucfbpve/papers/VermeeschSedGeol2016/)
+14-25](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschSedGeol2016/)
 
 [Vermeesch, P., 2018, Statistical models for point-counting
 data. Earth and Planetary Science Letters (in
-press)](http://www.ucl.ac.uk/~ucfbpve/papers/VermeeschEPSL2018/)
+press)](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschEPSL2018/)
 
 ## Author
 
-[Pieter Vermeesch](http://pieter.london-geochron.com)
+[Pieter Vermeesch](https://www.ucl.ac.uk/~ucfbpve/)
 
 ## License
 
