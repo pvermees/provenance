@@ -7,8 +7,8 @@
 #'
 #' A list of documented functions may be viewed by typing
 #' \code{help(package='provenance')}.  Detailed instructions are
-#' provided at \url{http://provenance.london-geochron.com} and in the
-#' Sedimentary Geology paper by Vermeesch, Resentini and Garzanti
+#' provided at \url{https://www.ucl.ac.uk/~ucfbpve/provenance/} and in
+#' the Sedimentary Geology paper by Vermeesch, Resentini and Garzanti
 #' (2016).
 #' @references Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An
 #'     R package for statistical provenance analysis, Sedimentary
