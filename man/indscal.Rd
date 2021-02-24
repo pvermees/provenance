@@ -54,7 +54,7 @@ plot(indscal(Namib$DZ,Namib$HM))
 \references{
 de Leeuw, J., & Mair, P. (2009). Multidimensional scaling using
 majorization: The R package smacof. Journal of Statistical
-Software, 31(3), 1-30, < http://www.jstatsoft.org/v31/i03/>
+Software, 31(3), 1-30, < https://www.jstatsoft.org/v31/i03/>
 }
 \author{
 Jan de Leeuw and Patrick Mair

@@ -1,15 +1,15 @@
 #' Menu-based interface for \code{provenance}
 #'
-#' For those less familiar with the syntax of the \code{R}
-#' programming language, the \code{provenance()} function provides
-#' a user-friendly way to access the most important functionality
-#' in the form of a menu-based query interface. Further details
-#' and examples are provided on \url{http://provenance.london-geochron.com}
+#' For those less familiar with the syntax of the \code{R} programming
+#' language, the \code{provenance()} function provides a user-friendly
+#' way to access the most important functionality in the form of a
+#' menu-based query interface. Further details and examples are
+#' provided on \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
 #' @author Pieter Vermeesch
 #' @references Vermeesch, P., Resentini, A. and Garzanti, E., an R
-#' package for statistical provenance analysis, Sedimentary Geology,
-#' doi:10.1016/j.sedgeo.2016.01.009.
-#' @seealso \url{http://provenance.london-geochron.com}
+#'     package for statistical provenance analysis, Sedimentary
+#'     Geology, doi:10.1016/j.sedgeo.2016.01.009.
+#' @seealso \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
 #' @export
 provenance <- function(){
     version <- as.character(utils::packageVersion('provenance'))
@@ -663,7 +663,7 @@ gui.help <- function(){
                     "\nCiteable references:\n",
                     "de Leeuw, J., Mair, P., 2009. Multidimensional scaling using majorization:\n",
                     "The R package smacof. Journal of Statistical Software 31, 1-30.\n",
-                    "URL: http://www.jstatsoft.org/v31/i03\n",
+                    "URL: https://www.jstatsoft.org/v31/i03/\n",
                     "Vermeesch, P., Garzanti, E., 2015. Making geological sense of 'Big Data'\n",
                     "in sedimentary provenance analysis. Chemical Geology 409, 20-27.\n",
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",

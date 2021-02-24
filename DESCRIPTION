@@ -8,7 +8,7 @@ Author: Pieter Vermeesch [aut, cre]
 Maintainer: Pieter Vermeesch <p.vermeesch@ucl.ac.uk>
 Depends: R (>= 3.0.0)
 Imports: MASS, methods, IsoplotR
-URL: http://provenance.london-geochron.com
+URL: https://www.ucl.ac.uk/~ucfbpve/provenance/
 License: GPL-2
 LazyData: true
 RoxygenNote: 7.1.1
