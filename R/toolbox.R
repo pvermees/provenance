@@ -720,20 +720,6 @@ get.p <- function(n,f=0.05){
     }
     return(p)
 }
-get.p.old <- function(n,f=0.05){
-    p <- 0
-    M <- 1/f
-    if (M*f == 1) A <- 0
-    else A <- 1
-    if (M*f < 1) B <- 1
-    else B <- 0
-    for (i in 1:(M-A)){
-        p1 <- choose(M-A,i)*(1-i*f)^n
-        p2 <- B*choose(M-1,i-1)*((M-i)*f)^n
-        p <- p + (-1)^(i-1) * (p1 + p2)
-    }
-    return(p)
-}
 
 #' Calculate the largest fraction that is likely to be missed
 #'
@@ -751,14 +737,8 @@ get.p.old <- function(n,f=0.05){
 #' print(get.f(117))
 #' @export
 get.f <- function(n,p=0.05){
-    fmin <- 0
-    fmax <- 1
-    for (i in 1:100){
-        f <- (fmax+fmin)/2
-        if (get.p(n,f)<p) { fmax <- f }
-        else { fmin <- f }
-    }
-    return((fmin+fmax)/2)
+    misfit <- function(f,n,p){ get.p(n,f) - p }
+    uniroot(misfit,interval=c(0,1),n=n,p=p)$root
 }
 
 get.densities <- function(X,dtable){
