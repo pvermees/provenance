@@ -12,7 +12,7 @@
 \item{sname}{the sample name}
 
 \item{annotate}{a boolean flag controlling if the pies of the
-pie-chart should be labeled}
+pie-chart should be labelled}
 
 \item{colmap}{an optional string with the name of one of R's
 built-in colour palettes (e.g., heat.colors, terrain.colors,

@@ -23,7 +23,7 @@ samples that need plotting if \code{snames} is a vector, then
 the function will default to a CAD.}
 
 \item{annotate}{boolean flag indicating whether the x- and y-axis
-should be labeled}
+should be labelled}
 
 \item{CAD}{boolean flag indicating whether the data should be
 plotted as a cumulative age distribution or a histogram. For
