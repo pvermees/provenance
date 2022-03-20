@@ -738,7 +738,7 @@ get.p <- function(n,f=0.05){
 #' @export
 get.f <- function(n,p=0.05){
     misfit <- function(f,n,p){ get.p(n,f) - p }
-    uniroot(misfit,interval=c(0,1),n=n,p=p)$root
+    stats::uniroot(misfit,interval=c(0,1),n=n,p=p)$root
 }
 
 get.densities <- function(X,dtable){

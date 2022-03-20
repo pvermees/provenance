@@ -70,7 +70,7 @@ plot.KDEs <- function(x,sname=NA,annotate=TRUE,pch='|',...){
 #'     samples that need plotting if \code{snames} is a vector, then
 #'     the function will default to a CAD.
 #' @param annotate boolean flag indicating whether the x- and y-axis
-#'     should be labeled
+#'     should be labelled
 #' @param CAD boolean flag indicating whether the data should be
 #'     plotted as a cumulative age distribution or a histogram. For
 #'     multi-sample plots, the function will override this value with
@@ -123,7 +123,7 @@ plot.distributional <- function(x,snames=NULL,annotate=TRUE,CAD=FALSE,
 #' @param x an object of class \code{compositional}
 #' @param sname the sample name
 #' @param annotate a boolean flag controlling if the pies of the
-#'     pie-chart should be labeled
+#'     pie-chart should be labelled
 #' @param colmap an optional string with the name of one of R's
 #'     built-in colour palettes (e.g., heat.colors, terrain.colors,
 #'     topo.colors, cm.colors), which are to be used for plotting the
@@ -243,7 +243,7 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
     Y <- x$cscore[, 1L:2]
     Y <- Y %*% diag(x$cor[1L:2])
     biplotHelper(X, Y, labelcol=labelcol, vectorcol=vectorcol,
-                 xlab='Component 1',ylab='Component 2',...)
+                 xlab='Component 1', ylab='Component 2',...)
     invisible()
 }
 
@@ -740,8 +740,8 @@ biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red
     op <- graphics::par(pty = "s")
     if (!is.null(main)) 
         op <- c(op, graphics::par(mar = graphics::par("mar") + c(0, 0, 1, 0)))
-    graphics::plot(y, axes = FALSE, type = "p", xlim = xlim * ratio,
-                   ylim = ylim * ratio, xlab = "", ylab = "", col = vectorcol, ...)
+    graphics::plot(y, axes = FALSE, type = "n", xlim = xlim * ratio,
+                   ylim = ylim * ratio, xlab = "", ylab = "", ...)
     graphics::axis(3, col = vectorcol, ...)
     graphics::axis(4, col = vectorcol, ...)
     graphics::box(col = 'black')
