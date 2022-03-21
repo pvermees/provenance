@@ -422,7 +422,7 @@ resample <- function(x,nb=10){
 #' varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
 #' @export
 varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
-    template <- list(x=list(),colmap='rainbow',method='KS')
+    template <- list(x=list(),colmap='rainbow',method=x$method)
     class(template) <- 'distributional'
     if (bycol){
         out <- list()

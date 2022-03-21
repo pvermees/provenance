@@ -174,7 +174,7 @@ gui.plot.single <- function(){
 
 gui.plot.multiple <- function(){
     command <- "summaryplot("
-    datasets <- gui.get.datasets(kdes=TRUE)
+    datasets <- gui.get.datasets(kdes=TRUE,includevarietal=FALSE)
     dnames <- names(datasets)
     for (dname in dnames){
         command <- paste0(command,"datasets[[\'",dname,"\']],")
@@ -729,6 +729,28 @@ gui.open.distributional <- function(){
     }
 }
 
+gui.open.varietal <- function(){
+    message('Open a varietal dataset:')
+    fname <- file.choose()
+    message("Options:\n",
+            "1 - Manually enter the sample names\n",
+            "2 - First n characters of the row names\n",
+            "3 - Automatically guess the sample names")
+    response <- readline()
+    if (response == "1"){
+        snames <- gsub(" ","",response) # get rid of spaces
+        subcomp <- paste0("c('",gsub(",","','",snames),"')")  # add apostrophes
+        eval(parse(text=paste0("dat <- read.varietal(fname,snames=",snames,")")))
+    } else if (response == '2'){
+        message("How many characters long is the sample name prefix?")
+        response <- readline()
+        dat <- read.varietal(fname,snames=as.numeric(response))
+    } else {
+        dat <- read.varietal(fname)
+    }
+    return(dat)
+}
+
 gui.SRD <- function(dat){
     mydens <- gui.load.densities()
     response <- readline("Enter target density in g/cm3: ")
@@ -878,20 +900,30 @@ gui.load.densities <- function(){
     out
 }
 
-gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,includedistributional=TRUE){
+gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,
+                             includedistributional=TRUE,
+                             includevarietal=includedistributional){
     datasets <- list()
     while (TRUE){
         if (multiple){
             tekst <- c("1 - Add a compositional dataset\n",
-                       "2 - Add a point-counting dataset\n")
-            if (includedistributional)
-                tekst <- c(tekst,"3 - Add a distributional dataset\n")
-            tekst <- c(tekst,"c - Continue")
+                       "2 - Add a point-counting dataset")
+            if (includedistributional){
+                tekst <- c(tekst,"\n","3 - Add a distributional dataset")
+            }
+            if (includevarietal){
+                tekst <- c(tekst,"\n","4 - Add a varietal dataset")
+            }
+            tekst <- c(tekst,"\n","c - Continue")
         } else {
             tekst <- c("1 - Load a compositional dataset\n",
                        "2 - Load a point-counting dataset")
-            if (includedistributional)
-                tekst <- c(tekst,"\n","3 - Load a distributional dataset")
+            if (includedistributional){
+                tekst <- c(tekst,"\n","3 - Load a distributional dataset\n")
+            }
+            if (includevarietal){
+                tekst <- c(tekst,"\n","4 - Load a varietal dataset")
+            }
         }
         message(tekst)
         response <- readline()
@@ -902,6 +934,8 @@ gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,includedistributional=TRUE
         } else if (response == '3'){
             dat <- gui.open.distributional()
             if (kdes) dat <- gui.get.kdes(dat)
+        } else if (response == '4'){
+            dat <- gui.open.varietal()
         } else {
             break
         }

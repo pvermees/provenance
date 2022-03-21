@@ -48,8 +48,7 @@
 indscal <- function(...,type='ordinal'){
     slist <- list(...)
     names(slist) <- get.data.names(slist)
-    if (length(slist)==1 &
-        identical(class(slist[[1]]),'varietal')){
+    if (length(slist)==1 & methods::is(slist[[1]],'varietal')){
         slist <- varietal2distributional(slist[[1]],bycol=TRUE)
     }
     disslist <- getdisslist(slist)

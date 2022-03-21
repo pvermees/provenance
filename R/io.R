@@ -126,12 +126,13 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' plot(MDS(Ap))
 #'@export
 read.varietal <- function(fname,snames,colmap='rainbow',
-                          sep=',',dec='.',header=TRUE,
+                          method='KS',sep=',',dec='.',header=TRUE,
                           check.names=FALSE,row.names=1,...){
     out <- list()
     out$x <- utils::read.csv(fname,header=header,
                              check.names=check.names,
                              row.names=row.names)
+    out$method <- method
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     if (is.null(snames)){
         out$snames <- unique(gsub("[[:digit:]]","",rownames(out$x)))
