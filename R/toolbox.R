@@ -1,239 +1,3 @@
-#' Kolmogorov-Smirnov dissimilarity
-#'
-#' Returns the Kolmogorov-Smirnov dissimilarity between two samples
-#'
-#' @param x the first sample as a vector
-#' @param y the second sample as a vector
-#' @return a scalar value representing the maximum vertical distance
-#' between the two cumulative distributions
-#' @examples
-#' data(Namib)
-#' print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
-#' @export
-KS.diss <- function(x,y) {
-    xy <- c(x,y)
-    cad1 <- stats::ecdf(x)
-    cad2 <- stats::ecdf(y)
-    max(abs(cad2(xy)-cad1(xy)))
-}
-
-#' Kuiper dissimilarity
-#'
-#' Returns the Kuiper dissimilarity between two samples
-#'
-#' @param x the first sample as a vector
-#' @param y the second sample as a vector
-#' @return a scalar value representing the sum of the maximum vertical
-#' distances above and below the cumulative distributions of x and y
-#' @examples
-#' data(Namib)
-#' print(Kuiper.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
-#' @export
-Kuiper.diss <- function(x,y){
-    xy <- c(x,y)
-    cad1 <- stats::ecdf(x)
-    cad2 <- stats::ecdf(y)
-    d <- cad2(xy) - cad1(xy)
-    M <- max(d)
-    m <- min(d)
-    if (M<0) M <- 0
-    if (m>0) m <- 0
-    M-m
-}
-
-#' Calculate the dissimilarity matrix between two \code{distributional} or
-#' \code{compositional} datasets
-#'
-#' Calculate the dissimilarity matrix between two datasets of class
-#' \code{distributional} or \code{compositional} using the Kolmogorov-Smirnov,
-#' Sircombe-Hazelton, Aitchison or Bray Curtis distance
-#' 
-#' @param x an object of class \code{distributional},
-#'     \code{compositional} or \code{counts}
-#' @param method (optional) either "KS", "Kuiper", "SH", "aitchison",
-#'     "bray" or "chisq"
-#' @examples
-#' data(Namib)
-#' print(round(100*diss(Namib$DZ)))
-#' @return an object of class \code{diss}
-#' @rdname diss
-#' @export
-diss <- function(x,method){ UseMethod("diss",x) }
-#' @rdname diss
-#' @export
-diss.distributional <- function(x,method=NULL) {
-    if (!is.null(method)) x$method <- method
-    n <- length(x$x)
-    d <- mat.or.vec(n,n)
-    rownames(d) <- names(x$x)
-    colnames(d) <- names(x$x)
-    if (x$method=="SH") c2 <- getc2(x)
-    for (i in 1:n){
-        for (j in 1:n){
-            if (x$method=="SH"){
-                d[i,j] <- SH.diss(x,i,j,c.con=c2)
-            } else if (x$method=="KS"){
-                d[i,j] <- KS.diss(x$x[[i]],x$x[[j]])
-            } else if (x$method=="Kuiper"){
-                d[i,j] <- Kuiper.diss(x$x[[i]],x$x[[j]])
-            }
-        }
-    }
-    out <- stats::as.dist(d)
-    class(out) <- append("diss",class(out))
-    return(out)
-}
-#' @rdname diss
-#' @export
-diss.compositional <- function(x,method=NULL){
-    if (!is.null(method)) x$method <- method
-    if (x$method=="aitchison"){
-        out <- stats::dist(CLR(x))
-    } else {
-        snames <- names(x)
-        ns <- length(snames)
-        d <- mat.or.vec(ns,ns)
-        rownames(d) <- snames
-        colnames(d) <- snames
-        for (i in 1:ns){
-            for (j in 1:ns){
-                d[i,j] <- bray.diss(x$x[i,],x$x[j,])
-            }
-        }
-        out <- stats::as.dist(d)
-    }
-    class(out) <- append("diss",class(out))
-    return(out)
-}
-#' @rdname diss
-#' @export
-diss.counts <- function(x,method=NULL){
-    if (!is.null(method)) x$method <- method
-    snames <- names(x)
-    ns <- length(snames)
-    d <- mat.or.vec(ns,ns)
-    NN <- sum(x$x)
-    RR <- rowSums(x$x)
-    CC <- colSums(x$x)
-    for (i in 1:ns){
-        for (j in 1:ns){
-            if (x$method=='bray'){
-                d[i,j] <- bray.diss(x$x[i,],x$x[j,])
-            } else { # chisq
-                d[i,j] <- sqrt(sum( (NN/CC)*(x$x[i,]/RR[i] - x$x[j,]/RR[j])^2 ))
-            }
-        }
-    }
-    rownames(d) <- snames
-    colnames(d) <- snames
-    out <- stats::as.dist(d)
-    class(out) <- append("diss",class(out))
-    return(out)
-}
-
-#' Bray-Curtis dissimilarity
-#'
-#' Calculates the Bray-Curtis dissimilarity between two samples
-#' @param x a vector containing the first compositional sample
-#' @param y a vector of \code{length(x)} containing the second
-#'     compositional sample
-#' @return a scalar value
-#' @examples
-#' data(Namib)
-#' print(bray.diss(Namib$HM$x["N1",],Namib$HM$x["N2",]))
-#' @export
-bray.diss <- function(x,y){
-    return(as.numeric(sum(abs(x-y))/sum(x+y)))
-}
-
-#' Multidimensional Scaling
-#'
-#' Performs classical or nonmetric Multidimensional Scaling analysis
-#' of provenance data
-#'
-#' @param x an object of class \code{distributional},
-#'     \code{compositional}, \code{counts} or \code{diss}
-#' @param classical boolean flag indicating whether classical
-#'     (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used
-#' @param k the desired dimensionality of the solution
-#' @param ... optional arguments to be passed onto \code{cmdscale} (if
-#'     \code{classical=TRUE}) or \code{isoMDS} (if
-#'     \code{classical=FALSE}).
-#' @return an object of class \code{MDS}, i.e. a list containing the
-#'     following items:
-#'
-#' \code{points}: a two column vector of the fitted configuration
-#'
-#' \code{classical}: a boolean flag indicating whether the MDS
-#' configuration was obtained by classical (\code{TRUE}) or nonmetric
-#' (\code{FALSE}) MDS.
-#'
-#' \code{diss}: the dissimilarity matrix used for the MDS analysis
-#' 
-#' \code{stress}: (only if \code{classical=TRUE}) the final stress
-#' achieved (in percent)
-#' @examples
-#' data(Namib)
-#' plot(MDS(Namib$Major,classical=TRUE))
-#' @rdname MDS
-#' @importFrom MASS isoMDS
-#' @export
-MDS <- function(x,...){ UseMethod("MDS",x) }
-#' @rdname MDS
-#' @export
-MDS.default <- function(x,classical=FALSE,k=2,...){
-    if (classical){
-        out <- list()
-        out$points <- stats::cmdscale(x,k=k,...)
-    } else {
-        out <- MASS::isoMDS(d=x,k=k,...)
-    }
-    out$classical <- classical
-    out$diss <- x
-    out$nb <- 0
-    class(out) <- "MDS"
-    return(out)
-
-}
-#' @rdname MDS
-#' @export
-MDS.compositional <- function(x,classical=FALSE,k=2,...){
-    d <- diss.compositional(x,...)
-    MDS.default(d,classical=classical,k=k)
-}
-#' @rdname MDS
-#' @export
-MDS.counts <- function(x,classical=FALSE,k=2,...){
-    d <- diss.counts(x,...)
-    MDS.default(d,classical=classical,k=k)
-}
-#' @param nb number of bootstrap resamples. If \code{nb>0}, then
-#'     \code{plot.MDS(...)} will visualise the sampling uncertainty as
-#'     polygons (inspired by Nordsvan et al. 2020). The bigger
-#'     \code{nb}, the slower the calculations. \code{nb=10} seems a
-#'     good compromise.
-#' 
-#' @references
-#' Nordsvan, A.R., Kirscher, U., Kirkland, C.L., Barham, M. and
-#' Brennan, D.T., 2020. Resampling (detrital) zircon age distributions
-#' for accurate multidimensional scaling solutions. Earth-Science
-#' Reviews, p.103149.
-#' 
-#' Vermeesch, P., 2013, Multi-sample comparison of detrital age
-#' distributions. Chemical Geology v.341, 140-146,
-#' doi:10.1016/j.chemgeo.2013.01.010
-#' 
-#' @rdname MDS
-#' @export
-MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
-    if (nb>0) X <- resample(x,nb=nb)
-    else X <- x
-    d <- diss.distributional(X,...)
-    out <- MDS.default(d,classical=classical,k=k)
-    out$nb <- nb
-    out
-}
-
 #' Centred logratio transformation
 #'
 #' Calculates Aitchison's centered logratio transformation for a
@@ -326,58 +90,6 @@ ALR.compositional <- function(x,...){
     return(ALR(x$x,...))
 }
 
-#' Principal Component Analysis
-#'
-#' Performs PCA of compositional data using a centred logratio
-#' distance
-#' @param x an object of class \code{compositional}
-#' @param ... optional arguments to R's \code{princomp} function
-#' @return an object of classes \code{PCA}, which is synonymous to the
-#'     stats package's \code{prcomp} class.
-#' @examples
-#' data(Namib)
-#' plot(MDS(Namib$Major,classical=TRUE))
-#' dev.new()
-#' plot(PCA(Namib$Major),asp=1)
-#' print("This example demonstrates the equivalence of classical MDS and PCA")
-#' @export
-PCA <- function(x,...){
-    if (methods::is(x,'compositional') |
-        methods::is(x,'counts')){
-        dat <- CLR.compositional(x)
-    } else {
-        dat <- x
-    }
-    pc <- stats::prcomp(dat,...)
-    class(pc) <- append("PCA",class(pc))
-    return(pc)
-}
-
-#' Correspondence Analysis
-#'
-#' Performs Correspondence Analysis of point-counting data
-#' @param x an object of class \code{counts}
-#' @param nf number of correspondence factors (dimensions)
-#' @param ... optional arguments to the \code{corresp} function of the
-#'     \code{MASS} package
-#' @return an object of classes \code{CA}, which is synonymous to the
-#'     MASS package's \code{correspondence} class.
-#' @examples
-#' data(Namib)
-#' plot(CA(Namib$PT))
-#' @export
-CA <- function(x,nf=2,...){
-    if (methods::is(x,'counts') |
-        methods::is(x,'compositional')){
-        X <- x$x
-    } else {
-        X <- x
-    }
-    out <- MASS::corresp(X,nf=nf,...)
-    class(out) <- append("CA",class(out))
-    return(out)
-}
-
 #' Get a subset of provenance data
 #'
 #' Return a subset of provenance data according to some specified
@@ -439,152 +151,14 @@ subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
 #' @rdname subset
 #' @export
 subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
-    out <- subset.compositional(x,subset=subset,select=select,components=components,...)
+    out <- subset.compositional(x,subset=subset,select=select,
+                                components=components,...)
     if (methods::is(x,"ternary")){
         i <- match(rownames(out$x),rownames(x$raw))
         j <- match(colnames(out$x),colnames(x$raw))
         out$raw <- x$raw[i,j,drop=FALSE]
     }
     out
-}
-
-# returns list of normalised dissimilarities between common items
-getdisslist <- function(slist){
-    dnames <- names(slist)
-    lablist <- lapply(slist,function(x) names(x))
-    commonlabels <- Reduce(intersect,lablist)
-    for (name in dnames){
-        slist[[name]] <- subset(slist[[name]],select=commonlabels)
-    }
-    ns <- length(commonlabels)
-    disslist <- slist
-    for (name in dnames){
-        dl <- diss(slist[[name]])
-        # normalise according to pers. comm. by Jan de Leeuw
-        disslist[[name]] <- dl*sqrt(ns*(ns-1)*0.5/sum(dl^2))
-    }
-    return(disslist)
-}
-
-#' Generalised Procrustes Analysis of provenance data
-#'
-#' Given a number of input datasets, this function performs an MDS
-#' analysis on each of these and the feeds the resulting
-#' configurations into the \code{GPA()} function.
-#'
-#' @param ... a sequence of datasets of classes \code{distributional},
-#'     \code{counts} and \code{compositional}
-#' @return an object of class \code{GPA}, i.e. a list containing the
-#'     following items:
-#' 
-#' \code{points}: a two column vector with the coordinates of the
-#' group configuration
-#'
-#' \code{labels}: a list with the sample names
-#' @author Pieter Vermeesch
-#' @references Gower, J.C. (1975). Generalized Procrustes analysis,
-#' Psychometrika, 40, 33-50.
-#' @examples
-#' data(Namib)
-#' gpa <- procrustes(Namib$DZ,Namib$HM)
-#' plot(gpa)
-#' @importFrom MASS isoMDS
-#' @seealso GPA
-#' @export
-procrustes <- function(...) {
-    dnames <- sapply(match.call(expand.dots=TRUE)[-1], deparse)
-    slist <- list(...)
-    names(slist) <- dnames
-    disslist <- getdisslist(slist)
-    n <- length(labels(disslist[[1]]))
-    m <- length(disslist)
-    X <- array(dim=c(n,2,m))
-    for (i in 1:m){
-        md <- MDS(disslist[[i]],FALSE)
-        if (md$stress < 0.05) md <- MDS(disslist[[i]],TRUE)
-        X[,,i] <- md$points
-    }
-    result <- GPA(X)
-    out <- list()
-    out$points <- result
-    out$labels <- labels(disslist[[1]])
-    class(out) <- "GPA"
-    return(out)
-}
-
-#  based on a Wikipedia algorithm
-#' Generalised Procrustes Analysis of configurations
-#'
-#' Given a number of (2D) configurations, this function uses a
-#' combination of transformations (reflections, rotations,
-#' translations and scaling) to find a `consensus' configuration which
-#' best matches all the component configurations in a least-squares
-#' sense.
-#' 
-#' @param X a list of dissimilarity matrices
-#' @param scale boolean flag indicating if the transformation should
-#'     include the scaling operation
-#' @return a two column vector with the coordinates of the group
-#'     configuration
-#' @seealso procrustes
-#' @export
-GPA <- function(X,scale=TRUE){
-    if (length(dim(X))<3) {
-        return(X)
-    } else if (dim(X)[3]<3){
-        return(procfit(X[,,1],X[,,2])$Yhat)
-    } else {
-        Y <- X # initialise fitted configurations
-        refconf <- X[,,1]
-        misfit <- Inf
-        for (j in 1:100){
-            for (i in 1:dim(X)[3]){
-                Y[,,i] <- procfit(X=refconf,Y=X[,,i])$Yhat
-            }
-            meanconf <- apply(Y,c(1,2),'mean')
-            newmisfit <- sum((refconf-meanconf)^2)
-            if (abs(newmisfit-misfit) < 1e-10){
-                break
-            } else {
-                misfit <- newmisfit
-                refconf <- procfit(X=refconf,Y=meanconf)$Yhat                
-            }
-        }
-        return(refconf)
-    }
-}
-
-# Procrustes analysis of two configurations
-# based on the 'Procrustes' function of the 'smacof' package
-procfit <- function(X, Y) {
-    n <- dim(X)[1]
-    E <- diag(1, nrow = n)
-    eins <- rep(1, n)
-    k <- 1/n
-    Z <- E - k * eins %*% t(eins)
-    C <- t(X) %*% Z %*% Y
-    s <- svd(C)
-    f <- diag(s$d)
-    P <- s$u
-    Q <- s$v
-    T <- Q %*% t(P)
-    streck <- sum(diag((t(X) %*% Z %*% Y %*% T)))/sum(diag((t(Y) %*% 
-        Z %*% Y)))
-    trans <- as.vector(k * t(X - streck * Y %*% T) %*% eins)
-    Yhut <- streck * Y %*% T + eins %*% t(trans)
-    colnames(Yhut) <- rownames(T) <- colnames(T) <- names(trans) <- colnames(Y)
-    dX <- stats::dist(X)
-    dY <- stats::dist(Y)
-    dYhat <- stats::dist(Yhut)
-    cong <- sum(dX * dY)/(sqrt(sum(dX^2)) * sqrt(sum(dY^2)))
-    alien <- sqrt(1 - cong^2)
-    pairdist <- sort(sqrt(rowSums((X - Yhut)^2)))
-    res <- list(X = X, Y = Y, Yhat = Yhut, translation = trans, 
-        dilation = streck, rotation = T, confdistX = dX, confdistY = dY, 
-        confdistYhat = dYhat, congcoef = cong, aliencoef = alien, 
-        pairdist = pairdist, call = match.call())
-    class(res) <- "procrustes"
-    return(res)
 }
 
 # calculate the trace of a matrix
@@ -654,91 +228,6 @@ names.ternary <- function(x){
     out <- rownames(x$x)
     if (is.null(out)) out <- 1:nrow(x$x)
     return(out)
-}
-
-#' Calculate the number of grains required to achieve a desired level of sampling resolution
-#'
-#' Returns the number of grains that need to be analysed to decrease
-#' the likelihood of missing any fraction greater than a given size
-#' below a given level.
-#' @param f the size of the smallest resolvable fraction (0<f<1)
-#' @param p the probability that all n grains in the sample have missed
-#' at least one fraction of size \code{f}
-#' @param n, the number of grains in the sample
-#' @return the number of grains needed to reduce the chance of missing
-#' at least one fraction f of the total population to less than \code{p}
-#' @references Vermeesch, Pieter. "How many grains are needed for a
-#' provenance study?." Earth and Planetary Science Letters 224.3
-#' (2004): 441-451.
-#' @examples
-#' # number of grains required to be 99% that no fraction greater than 5% was missed:
-#' print(get.n(0.01))
-#' # number of grains required to be 90% that no fraction greater than 10% was missed:
-#' print(get.n(p=0.1,f=0.1))
-#' @export
-get.n <- function(p=0.05,f=0.05){
-    n <- 1
-    while(TRUE){
-        pp <- get.p(n,f)
-        if (pp<p){ break }
-        else {n <- n+1}
-    }
-    return(n)
-}
-
-#' Calculate the probability of missing a given population fraction
-#'
-#' For a given sample size, returns the likelihood of missing any
-#' fraction greater than a given size
-#' @param n the number of grains in the detrital sample
-#' @param f the size of the smallest resolvable fraction
-#'     (0<\code{f}<1)
-#' @return the probability that all \code{n} grains in the sample have
-#'     missed at least one fraction of size \code{f}
-#' @references Vermeesch,
-#'     Pieter. "How many grains are needed for a provenance study?."
-#'     Earth and Planetary Science Letters 224.3 (2004): 441-451.
-#' @examples
-#' print(get.p(60))
-#' print(get.p(117))
-#' @export
-get.p <- function(n,f=0.05){
-    if (f<0.03){ # bins are approximately independent
-        p <- 1-(1-(1-f)^n)^(1/f)
-    } else { # bins are not independent
-        p <- 0
-        M <- 1/f
-        if (M*f == 1) A <- 0
-        else A <- 1
-        if (M*f < 1) B <- 1
-        else B <- 0
-        for (i in 1:(M-A)){
-            p1 <- choose(M-A,i)*(1-i*f)^n
-            p2 <- B*choose(M-1,i-1)*((M-i)*f)^n
-            p <- p + (-1)^(i-1) * (p1 + p2)
-        }
-    }
-    return(p)
-}
-
-#' Calculate the largest fraction that is likely to be missed
-#'
-#' For a given sample size, returns the largest fraction which has
-#' been sampled with (1-p) x 100 \% likelihood.
-#' @param n the number of grains in the detrital sample
-#' @param p the required level of confidence
-#' @return the largest fraction that is sampled with at least (1-p) x
-#'     100\% certainty
-#' @references
-#' Vermeesch, Pieter. "How many grains are needed for a provenance study?"
-#' Earth and Planetary Science Letters 224.3 (2004): 441-451.
-#' @examples
-#' print(get.f(60))
-#' print(get.f(117))
-#' @export
-get.f <- function(n,p=0.05){
-    misfit <- function(f,n,p){ get.p(n,f) - p }
-    stats::uniroot(misfit,interval=c(0,1),n=n,p=p)$root
 }
 
 get.densities <- function(X,dtable){
@@ -911,4 +400,52 @@ resample <- function(x,nb=10){
         }
     }
     out
+}
+
+# if bycol==TRUE, returns a list of distributional objects
+#                 (one for each element)
+# if bycol==FALSE, returns a single distributional object 
+#                  (containing the PC1 scores for each sample)
+# plot==TRUE shows the PCA biplot that is used when bycol==FALSE
+varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
+    template <- list(x=list(),colmap='rainbow',method='KS')
+    class(template) <- 'distributional'
+    if (bycol){
+        out <- list()
+        for (cn in colnames(x$x)){
+            out[[cn]] <- template
+            out[[cn]]$xlab <- 'concentration'
+            for (sname in x$snames){
+                matches <- grepl(sname,rownames(x$x))
+                if (any(matches)){
+                    out[[cn]]$name <- sname
+                    out[[cn]]$x[[sname]] <- x$x[matches,cn]
+                }
+            }
+            out[[cn]]$breaks <- getbreaks(out[[cn]]$x)
+        }
+    } else {
+        pc <- PCA(x$x,scale.=TRUE)
+        if (plot) plot(pc)
+        out <- template
+        out$name <- x$name
+        out$rotation <- pc$rotation[,'PC1']
+        out$breaks <- getbreaks(pc$x[,'PC1'])
+        out$xlab <- 'PC1'
+        for (sname in x$snames){
+            matches <- grepl(sname,rownames(x$x))
+            if (any(matches)){
+                out$x[[sname]] <- pc$x[matches,'PC1']
+            }
+        }
+    }
+    out
+}
+# dat = vector of numbers
+getbreaks <- function(dat){
+    d <- unlist(dat)
+    ns <- length(dat)
+    ng <- length(d)
+    nb <- log(ng/ns,base=2)+1
+    seq(min(d),max(d),length.out=nb+1)
 }

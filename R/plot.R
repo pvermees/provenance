@@ -701,8 +701,9 @@ saveplot <- function(f, d){
 
 # modified from stats::biplot.default
 biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red',
-                         cex = rep(graphics::par("cex"), 2), xlabs = NULL,
-                         ylabs = NULL, expand = 1, xlim = NULL, ylim = NULL,
+                         cex = rep(graphics::par("cex"), 2), pch=NULL,
+                         xlabs = NULL, ylabs = NULL, expand = 1,
+                         xlim = NULL, ylim = NULL,
                          arrow.len = 0.1, main = NULL, sub = NULL,
                          xlab = NULL, ylab = NULL, ...){
     n <- nrow(x)
@@ -754,6 +755,9 @@ biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red
     on.exit(grDevices::dev.flush(), add = TRUE)
     graphics::plot(x, type = "n", xlim = xlim, ylim = ylim, col = labelcol, 
                    xlab = xlab, ylab = ylab, sub = sub, main = main, ...)
-    graphics::text(x, xlabs, cex = cex[1L], col = labelcol, ...)
+    if (is.null(pch))
+        graphics::text(x, labels=xlabs, cex = cex[1L], col = labelcol, ...)
+    else
+        graphics::points(x, pch=pch, cex = cex[1L], bg = labelcol, ...)
     invisible()
 }

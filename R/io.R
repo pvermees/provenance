@@ -93,6 +93,56 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
     return(out)
 }
 
+#' Read a .csv file with varietal data
+#' 
+#' Reads a data table containing compositional data (e.g. chemical
+#' concentrations) for multiple grains and multiple samples
+#'
+#' @param fname file name (character string)
+#' @param snames either a vector of sample names, an integer marking
+#'     the length of the sample name prefix, or
+#'     \code{NULL}. \code{read.varietal} assumes that the row names of
+#'     the \code{.csv} file consist of character strings marking the
+#'     sample names, followed by a number.
+#' @param colmap an optional string with the name of one of R's
+#'     built-in colour palettes (e.g., heat.colors, terrain.colors,
+#'     topo.colors, cm.colors), which are to be used for plotting the
+#'     data.
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param header a logical value indicating whether the file contains
+#'     the names of the variables as its first line.
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param row.names logical. See the documentation for the
+#'     \code{read.table} function.
+#' @param ... optional arguments to the built-in \code{read.table}
+#'     function
+#' @examples
+#' Apfile <- system.file("apatite.csv",package="provenance")
+#' Ap <- read.varietal(fn=Apfile,snames=3)
+#'@export
+read.varietal <- function(fname,snames,colmap='rainbow',
+                          sep=',',dec='.',header=TRUE,
+                          check.names=FALSE,row.names=1,...){
+    out <- list()
+    out$x <- utils::read.csv(fname,header=header,
+                             check.names=check.names,
+                             row.names=row.names)
+    out$name <- basename(substr(fname,1,nchar(fname)-4))
+    if (is.null(snames)){
+        out$snames <- unique(gsub("[[:digit:]]","",rownames(out$x)))
+    } else if (is.numeric(snames)){
+        out$snames <- unique(sapply(rownames(out$x),substr,1,snames))
+    } else {
+        out$snames <- snames
+    }
+    class(out) <- 'varietal'
+    out
+}
+
 #' Read a .csv file with compositional data
 #'
 #' Reads a data table containing compositional data (e.g. chemical
