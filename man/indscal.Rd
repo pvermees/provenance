@@ -2,9 +2,15 @@
 % Please edit documentation in R/indscal.R
 \name{indscal}
 \alias{indscal}
+\alias{indscal.default}
+\alias{indscal.varietal}
 \title{Individual Differences Scaling of provenance data}
 \usage{
-indscal(..., type = "ordinal")
+indscal(...)
+
+\method{indscal}{default}(..., type = "ordinal")
+
+\method{indscal}{varietal}(x, ...)
 }
 \arguments{
 \item{...}{a sequence of datasets of class \code{distributional} or

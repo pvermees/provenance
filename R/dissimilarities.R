@@ -130,6 +130,11 @@ diss.counts <- function(x,method=NULL){
     class(out) <- append("diss",class(out))
     return(out)
 }
+#' @rdname diss
+#' @export
+diss.varietal <- function(x){
+    diss(varietal2distributional(x))
+}
 
 #' Bray-Curtis dissimilarity
 #'
@@ -163,4 +168,3 @@ getdisslist <- function(slist){
     }
     return(disslist)
 }
-

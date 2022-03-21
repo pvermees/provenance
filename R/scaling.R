@@ -85,6 +85,12 @@ MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
     out$nb <- nb
     out
 }
+#' @rdname MDS
+#' @export
+MDS.varietal <- function(x,classical=FALSE,k=2){
+    d <- diss(x)
+    MDS.default(d,classical=classical,k=k)
+}
 
 #' Principal Component Analysis
 #'

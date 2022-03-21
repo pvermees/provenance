@@ -6,6 +6,7 @@
 \alias{MDS.compositional}
 \alias{MDS.counts}
 \alias{MDS.distributional}
+\alias{MDS.varietal}
 \title{Multidimensional Scaling}
 \usage{
 MDS(x, ...)
@@ -17,6 +18,8 @@ MDS(x, ...)
 \method{MDS}{counts}(x, classical = FALSE, k = 2, ...)
 
 \method{MDS}{distributional}(x, classical = FALSE, k = 2, nb = 0, ...)
+
+\method{MDS}{varietal}(x, classical = FALSE, k = 2)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},

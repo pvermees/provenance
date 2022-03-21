@@ -402,11 +402,25 @@ resample <- function(x,nb=10){
     out
 }
 
-# if bycol==TRUE, returns a list of distributional objects
-#                 (one for each element)
-# if bycol==FALSE, returns a single distributional object 
-#                  (containing the PC1 scores for each sample)
-# plot==TRUE shows the PCA biplot that is used when bycol==FALSE
+#' Convert varietal to distributional data
+#'
+#' Convert an object of class \code{varietal} either to a list of
+#' distributional objects by breaking it up into separate elements, or
+#' to a single distributional object corresponding to the first
+#' principal component.
+#'
+#' @param x an object of class \code{varietal}.
+#' @param bycol logical. If \code{TRUE}, returns a list of
+#'     distributional objects (one for each element). If \code{FALSE},
+#'     returns a single distributional object (containing the PC1
+#'     scores for each sample).
+#' @param plot logical. If \code{TRUE}, shows the PCA biplot that is
+#'     used when \code{bycol} is \code{FALSE}.
+#' @examples
+#' Apfile <- system.file("apatite.csv",package="provenance")
+#' Ap <- read.varietal(fn=Apfile,snames=3)
+#' varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
+#' @export
 varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
     template <- list(x=list(),colmap='rainbow',method='KS')
     class(template) <- 'distributional'
@@ -441,6 +455,7 @@ varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
     }
     out
 }
+
 # dat = vector of numbers
 getbreaks <- function(dat){
     d <- unlist(dat)
@@ -448,4 +463,19 @@ getbreaks <- function(dat){
     ng <- length(d)
     nb <- log(ng/ns,base=2)+1
     seq(min(d),max(d),length.out=nb+1)
+}
+
+names.varietal <- function(x){
+    x$snames
+}
+# x = object of class varietal
+# select = a vector of sample names
+subset.varietal <- function(x,select){
+    out <- x
+    out$x <- NULL
+    for (sname in select){
+        matches <- grepl(sname,rownames(x$x))
+        out$x <- rbind(out$x,x$x[matches,])
+    }
+    out
 }
