@@ -2,25 +2,20 @@
 % Please edit documentation in R/indscal.R
 \name{indscal}
 \alias{indscal}
-\alias{indscal.default}
-\alias{indscal.varietal}
 \title{Individual Differences Scaling of provenance data}
 \usage{
-indscal(...)
-
-\method{indscal}{default}(..., type = "ordinal")
-
-\method{indscal}{varietal}(x, ...)
+indscal(..., type = "ordinal")
 }
 \arguments{
-\item{...}{a sequence of datasets of class \code{distributional} or
-\code{compositional}}
+\item{...}{a sequence of datasets of class \code{distributional},
+\code{compositional}, \code{counts} or \code{varietal}, OR a
+single object of class \code{varietal}.}
 
 \item{type}{is either "ratio" or "ordinal"}
 }
 \value{
 an object of class \code{INDSCAL}, i.e. a list containing
-the following items:
+    the following items:
 
 \code{delta}: Observed dissimilarities
 

@@ -16,7 +16,6 @@ of the following end-members: \code{undissected_magmatic_arc},
 \code{subducted_axial_belt}
 }
 \examples{
-data(endmembers,densities)
 ophiolite <- subset(endmembers,select="ophiolite")
 plot(minsorting(ophiolite,densities,by=0.05))
 }

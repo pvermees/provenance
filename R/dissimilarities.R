@@ -132,8 +132,9 @@ diss.counts <- function(x,method=NULL){
 }
 #' @rdname diss
 #' @export
-diss.varietal <- function(x){
-    diss(varietal2distributional(x))
+diss.varietal <- function(x,method=NULL){
+    xd <- varietal2distributional(x)
+    diss.distributional(xd,method=method)
 }
 
 #' Bray-Curtis dissimilarity

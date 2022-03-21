@@ -17,7 +17,7 @@ diss(x, method)
 
 \method{diss}{counts}(x, method = NULL)
 
-\method{diss}{varietal}(x)
+\method{diss}{varietal}(x, method = NULL)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},

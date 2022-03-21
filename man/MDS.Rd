@@ -19,11 +19,12 @@ MDS(x, ...)
 
 \method{MDS}{distributional}(x, classical = FALSE, k = 2, nb = 0, ...)
 
-\method{MDS}{varietal}(x, classical = FALSE, k = 2)
+\method{MDS}{varietal}(x, classical = FALSE, k = 2, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},
-\code{compositional}, \code{counts} or \code{diss}}
+\code{compositional}, \code{counts}, \code{varietal} or
+\code{diss}}
 
 \item{...}{optional arguments to be passed onto \code{cmdscale} (if
 \code{classical=TRUE}) or \code{isoMDS} (if

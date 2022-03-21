@@ -38,7 +38,6 @@
 #' @name Namib
 #' @docType data
 #' @examples
-#' data(Namib)
 #' samp <- Namib$DZ$x[['N1']]
 #' dens <- KDE(samp,0,3000)
 #' plot(dens)
@@ -72,7 +71,6 @@ NULL
 #' @seealso restore, minsorting
 #' @docType data
 #' @examples
-#' data(Namib,densities)
 #' N8 <- subset(Namib$HM,select="N8")
 #' distribution <- minsorting(N8,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
 #' plot(distribution)
@@ -103,7 +101,6 @@ NULL
 #' @seealso minsorting
 #' @docType data
 #' @examples
-#' data(endmembers,densities)
 #' ophiolite <- subset(endmembers,select="ophiolite")
 #' plot(minsorting(ophiolite,densities,by=0.05))
 #' @author Alberto Resentini and Pieter Vermeesch
@@ -116,4 +113,37 @@ NULL
 #' equivalence of detrital minerals and grain-size dependence of
 #' sediment composition." Earth and Planetary Science Letters 273.1
 #' (2008): 138-151.
+NULL
+
+#' apatite compositions
+#'
+#' Varietal dataset of detrital apatite compositions, provided by
+#'  L. Caracciolo (FAU Erlangen).
+#' 
+#' @name apatite
+#' @docType data
+#' @examples
+#' plot(MDS(apatite))
+NULL
+
+#' zircon compositions
+#'
+#' Varietal dataset of detrital zircon compositions, provided by
+#'  L. Caracciolo (FAU Erlangen).
+#' 
+#' @name zircon
+#' @docType data
+#' @examples
+#' plot(MDS(zircon))
+NULL
+
+#' titanite compositions
+#'
+#' Varietal dataset of detrital titanite compositions, provided by
+#'  L. Caracciolo (FAU Erlangen).
+#' 
+#' @name titanite
+#' @docType data
+#' @examples
+#' plot(MDS(titanite))
 NULL

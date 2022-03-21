@@ -123,6 +123,7 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' @examples
 #' Apfile <- system.file("apatite.csv",package="provenance")
 #' Ap <- read.varietal(fn=Apfile,snames=3)
+#' plot(MDS(Ap))
 #'@export
 read.varietal <- function(fname,snames,colmap='rainbow',
                           sep=',',dec='.',header=TRUE,

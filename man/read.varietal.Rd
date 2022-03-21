@@ -55,4 +55,5 @@ concentrations) for multiple grains and multiple samples
 \examples{
 Apfile <- system.file("apatite.csv",package="provenance")
 Ap <- read.varietal(fn=Apfile,snames=3)
+plot(MDS(Ap))
 }

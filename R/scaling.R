@@ -4,7 +4,8 @@
 #' of provenance data
 #'
 #' @param x an object of class \code{distributional},
-#'     \code{compositional}, \code{counts} or \code{diss}
+#'     \code{compositional}, \code{counts}, \code{varietal} or
+#'     \code{diss}
 #' @param classical boolean flag indicating whether classical
 #'     (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used
 #' @param k the desired dimensionality of the solution
@@ -87,7 +88,7 @@ MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
 }
 #' @rdname MDS
 #' @export
-MDS.varietal <- function(x,classical=FALSE,k=2){
+MDS.varietal <- function(x,classical=FALSE,k=2,...){
     d <- diss(x)
     MDS.default(d,classical=classical,k=k)
 }
@@ -170,9 +171,12 @@ CA <- function(x,nf=2,...){
 #' @seealso GPA
 #' @export
 procrustes <- function(...) {
-    dnames <- sapply(match.call(expand.dots=TRUE)[-1], deparse)
     slist <- list(...)
-    names(slist) <- dnames
+    names(slist) <- get.data.names(slist)
+    if (length(slist)==1 &
+        identical(class(slist[[1]]),'varietal')){
+        slist <- varietal2distributional(slist[[1]],bycol=TRUE)
+    }
     disslist <- getdisslist(slist)
     n <- length(labels(disslist[[1]]))
     m <- length(disslist)
