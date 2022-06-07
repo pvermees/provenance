@@ -157,15 +157,19 @@ getdisslist <- function(slist){
     dnames <- names(slist)
     lablist <- lapply(slist,function(x) names(x))
     commonlabels <- Reduce(intersect,lablist)
-    for (name in dnames){
-        slist[[name]] <- subset(slist[[name]],select=commonlabels)
+    if (length(commonlabels)>0){
+        for (name in dnames){
+            slist[[name]] <- subset(slist[[name]],select=commonlabels)
+        }
+        ns <- length(commonlabels)
+        disslist <- slist
+        for (name in dnames){
+            dl <- diss(slist[[name]])
+            # normalise according to pers. comm. by Jan de Leeuw
+            disslist[[name]] <- dl*sqrt(ns*(ns-1)*0.5/sum(dl^2))
+        }
+        return(disslist)
+    } else {
+        stop('This dataset contains no common sample names.')
     }
-    ns <- length(commonlabels)
-    disslist <- slist
-    for (name in dnames){
-        dl <- diss(slist[[name]])
-        # normalise according to pers. comm. by Jan de Leeuw
-        disslist[[name]] <- dl*sqrt(ns*(ns-1)*0.5/sum(dl^2))
-    }
-    return(disslist)
 }

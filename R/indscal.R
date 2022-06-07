@@ -265,7 +265,7 @@ smacofIndDiff <- function (delta, ndim = 2, type = c("ratio", "ordinal"),
 ## sanity checks for dissimilatiries (>=0)
 checkdiss <- function(diss) {
     if (any(sapply(diss, function(d0) any(d0 < 0, na.rm = TRUE))))
-      stop("Dissimilarities should be non-negative!")
+        stop("Dissimilarities should be non-negative!")
 }
 
 initWeights <- function(diss) {

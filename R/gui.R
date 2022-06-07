@@ -350,7 +350,7 @@ gui.mds <- function(){
             thennlines <- TRUE
         } else if (response1 == "2"){
             thepch <- readline(
-                "Specify a plot character [e.g. *, ., o, O, +, or 1-25]: ")
+                "Specify a plot character [e.g. *, ., o, O, +, NA or 1-25]: ")
             if (grepl("[[:digit:]]",thepch)) thepch <- as.numeric(thepch)
         } else if (response1 == "3"){
             thecex <- as.numeric(readline(
@@ -738,8 +738,10 @@ gui.open.varietal <- function(){
             "3 - Automatically guess the sample names")
     response <- readline()
     if (response == "1"){
-        snames <- gsub(" ","",response) # get rid of spaces
-        subcomp <- paste0("c('",gsub(",","','",snames),"')")  # add apostrophes
+        message("Enter the sample names as a comma-separated list.")
+        response <- readline()
+        nospace <- gsub(" ","",response) # get rid of spaces
+        snames <- paste0("c('",gsub(",","','",nospace),"')")  # add apostrophes
         eval(parse(text=paste0("dat <- read.varietal(fname,snames=",snames,")")))
     } else if (response == '2'){
         message("How many characters long is the sample name prefix?")
@@ -914,17 +916,17 @@ gui.get.datasets <- function(multiple=TRUE,kdes=FALSE,
             if (includevarietal){
                 tekst <- c(tekst,"\n","4 - Add a varietal dataset")
             }
-            tekst <- c(tekst,"\n","c - Continue")
         } else {
             tekst <- c("1 - Load a compositional dataset\n",
                        "2 - Load a point-counting dataset")
             if (includedistributional){
-                tekst <- c(tekst,"\n","3 - Load a distributional dataset\n")
+                tekst <- c(tekst,"\n","3 - Load a distributional dataset")
             }
             if (includevarietal){
                 tekst <- c(tekst,"\n","4 - Load a varietal dataset")
             }
         }
+        tekst <- c(tekst,"\n","c - Continue")
         message(tekst)
         response <- readline()
         if (response == '1'){

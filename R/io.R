@@ -125,7 +125,7 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' Ap <- read.varietal(fn=Apfile,snames=3)
 #' plot(MDS(Ap))
 #'@export
-read.varietal <- function(fname,snames,colmap='rainbow',
+read.varietal <- function(fname,snames=NULL,colmap='rainbow',
                           method='KS',sep=',',dec='.',header=TRUE,
                           check.names=FALSE,row.names=1,...){
     out <- list()

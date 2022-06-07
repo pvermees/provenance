@@ -535,7 +535,7 @@ annotation.compositional <- function(x,height=NULL,...){
     labels <- colnames(x$x)
     comp <- rep(1,length(labels))
     col <- do.call(x$colmap,list(length(labels)))
-    graphics::pie(comp,labels=labels,col=col,...)
+    graphics::pie(comp,labels=labels,col=col,xpd=NA,...)
 }
 annotation.counts <- function(x,height=NULL,...){
     annotation.compositional(x,height=NULL,...)
