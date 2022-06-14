@@ -479,3 +479,7 @@ subset.varietal <- function(x,select){
     }
     out
 }
+
+RStudio <- function(){
+    'RStudioGD' %in% names(grDevices::dev.list())
+}

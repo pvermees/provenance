@@ -288,8 +288,29 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
     ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
-    graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-    for (i in 1:(k-1)){
+    op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+    on.exit(graphics::par(op))
+    if (!x$classical){ # Shepard plot
+        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+        for (i in 1:(k-1)){
+            for (j in 2:k){
+                if (i>=j){
+                    graphics::plot.new() # empty plot
+                } else {
+                    ylab <- "Distance/Disparity"
+                    if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
+                    D <- as.matrix(x$diss)[1:ns,1:ns]
+                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
+                    graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
+                    graphics::lines(shep$x, shep$yf, type="S")
+                    if (i==1 & j==2)
+                        graphics::title(paste0("Stress = ",x$stress))    
+                }
+            }
+        }
+        if (!RStudio()) grDevices::dev.new()
+    }
+    for (i in 1:(k-1)){ # Configuration
         for (j in 2:k){
             if (i>=j){
                 graphics::plot.new() # empty plot
@@ -314,26 +335,6 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                         chi <- grDevices::chull(x$points[m,c(i,j)])
                         graphics::polygon(x$points[m[chi],c(i,j)],border=bcol)
                     }
-                }
-            }
-        }
-    }
-    if (!x$classical){
-        grDevices::dev.new()
-        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-        for (i in 1:(k-1)){
-            for (j in 2:k){
-                if (i>=j){
-                    graphics::plot.new() # empty plot
-                } else {
-                    ylab <- "Distance/Disparity"
-                    if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
-                    D <- as.matrix(x$diss)[1:ns,1:ns]
-                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
-                    graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
-                    graphics::lines(shep$x, shep$yf, type="S")
-                    if (i==1 & j==2)
-                        graphics::title(paste0("Stress = ",x$stress))    
                 }
             }
         }
@@ -478,16 +479,16 @@ plot.INDSCAL <- function(x,asp=1,pch=NA,pos=NULL,col='black',
                          bg='white',cex=1,xlab="X",ylab="Y",
                          xaxt='n',yaxt='n',...){
     if (!any(is.na(pch)) && !any(is.null(pos))) { pos <- 1 }
+    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
+    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
+    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
+    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
+    graphics::title('Source Weights')
+    if (!RStudio()) grDevices::dev.new()    
     graphics::plot(x$gspace,asp=asp,pch=pch,col=col,bg=bg,cex=cex,
                    xlab=xlab,ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
     graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,col=col,bg=bg,cex=cex)
     graphics::title('Group Configuration')
-    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
-    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
-    grDevices::dev.new()
-    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
-    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
-    graphics::title('Source Weights')
 }
 
 # a function to plot the nearest neighbour lines
