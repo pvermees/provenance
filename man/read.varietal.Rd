@@ -7,10 +7,8 @@
 read.varietal(
   fname,
   snames = NULL,
-  colmap = "rainbow",
   sep = ",",
   dec = ".",
-  header = TRUE,
   check.names = FALSE,
   row.names = 1,
   ...
@@ -25,18 +23,10 @@ the length of the sample name prefix, or
 the \code{.csv} file consist of character strings marking the
 sample names, followed by a number.}
 
-\item{colmap}{an optional string with the name of one of R's
-built-in colour palettes (e.g., heat.colors, terrain.colors,
-topo.colors, cm.colors), which are to be used for plotting the
-data.}
-
 \item{sep}{the field separator character.  Values on each line of
 the file are separated by this character.}
 
 \item{dec}{the character used in the file for decimal points.}
-
-\item{header}{a logical value indicating whether the file contains
-the names of the variables as its first line.}
 
 \item{check.names}{logical.  If \code{TRUE} then the names of the
 variables in the frame are checked to ensure that they are
@@ -45,8 +35,18 @@ syntactically variable names.}
 \item{row.names}{logical. See the documentation for the
 \code{read.table} function.}
 
-\item{...}{optional arguments to the built-in \code{read.table}
+\item{...}{optional arguments to the built-in \code{read.csv}
 function}
+}
+\value{
+an object of class \code{varietal}, i.e. a list with the
+    following items:
+
+\code{x}: a compositional data table
+
+\code{snames}: a vector of strings corresponding to the sample names
+
+\code{name}: the name of the dataset, extracted from the file path
 }
 \description{
 Reads a data table containing compositional data (e.g. chemical

@@ -56,7 +56,7 @@ the names of the variables as its first line.}
 variables in the frame are checked to ensure that they are
 syntactically variable names.}
 
-\item{...}{optional arguments to the built-in \code{read.table}
+\item{...}{optional arguments to the built-in \code{read.csv}
 function}
 }
 \value{
@@ -78,6 +78,8 @@ the Kuiper statistic) or "SH" (for Sircombe Hazelton)
 x-axis on all plots
 
 \code{colmap}: the colour map provided by the input argument
+
+\code{name}: the name of the data object, extracted from the file path
 }
 \description{
 Reads a data table containing continuous data (e.g. detrital zircon

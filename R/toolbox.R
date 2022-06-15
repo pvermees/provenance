@@ -294,6 +294,13 @@ amalgamate.compositional <- function(X,...){
 }
 #' @rdname amalgamate
 #' @export
+amalgamate.varietal <- function(X,...){
+    out <- X
+    out$x <- amalgamate(X$x,...)
+    return(out)
+}
+#' @rdname amalgamate
+#' @export
 amalgamate.counts <- function(X,...){
     out <- X
     out$x <- amalgamate(X$x,...)
@@ -422,7 +429,7 @@ resample <- function(x,nb=10){
 #' varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
 #' @export
 varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
-    template <- list(x=list(),colmap='rainbow',method=x$method)
+    template <- list(x=list(),colmap='rainbow',method='KS')
     class(template) <- 'distributional'
     if (bycol){
         out <- list()
