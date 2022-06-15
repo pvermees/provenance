@@ -71,7 +71,11 @@ ALR.default <- function(x,inverse=FALSE,...){
         num <- matrix(1,nr,nc+1)
         num[,1:nc] <- exp(dat)
         den <- as.matrix(rowSums(num)) %*% matrix(1,1,nc+1)
-        out <- as.compositional(x=num/den)
+        out <- list()
+        out$x <- num/den
+        out$method <- 'KS'
+        out$colmap <- 'rainbow'
+        class(out) <- 'compositional'
     } else {
         num <- log(dat[,1:(nc-1),drop=FALSE])
         den <- log(subset(dat,select=nc)) %*% matrix(1,1,nc-1)

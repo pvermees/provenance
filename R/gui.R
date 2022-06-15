@@ -22,8 +22,8 @@ provenance <- function(){
                 "5 - MDS/PCA/CA\n",
                 "6 - Procrustes analysis\n",
                 "7 - 3-way MDS\n",
-                "8 - save plots (.pdf)\n",
-                "9 - help\n",
+                ifelse(RStudio(),"8 - ","8 - save plots (.pdf)\n9 - "),
+                "help\n",
                 "q - quit")
         response <- readline()
         if (response == '1'){
