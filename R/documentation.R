@@ -115,14 +115,18 @@ NULL
 #' (2008): 138-151.
 NULL
 
-#' apatite compositions
+#' varietal data example
 #'
-#' A list of varietal dataset of detrital zircon (\code{zr}), apatite
-#'  (\code{ap}) and titanite (\code{tit}) compositions from the Sierra
-#'  Nevada de Santa Marta, provided by L. Caracciolo (FAU Erlangen).
+#' A list of varietal datasets including detrital zircon (\code{zr}),
+#' apatite (\code{ap}) and titanite (\code{tit}) compositions from the
+#' Sierra Nevada de Santa Marta, provided by L. Caracciolo (FAU
+#' Erlangen).
+#'
+#' @author Luca Caracciolo, Diana Hatzenbuehler and David Chew.
 #' 
 #' @name SNSM
 #' @docType data
 #' @examples
+#' data(SNSM)
 #' plot(indscal(zircon=SNSM$zr,apatite=SNSM$ap,titanite=SNSM$tit))
 NULL

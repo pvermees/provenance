@@ -6,8 +6,9 @@
 \alias{diss.compositional}
 \alias{diss.counts}
 \alias{diss.varietal}
-\title{Calculate the dissimilarity matrix between two \code{distributional} or
-\code{compositional} datasets}
+\title{Calculate the dissimilarity matrix between two datasets of class
+\code{distributional}, \code{compositional}, \code{counts} or
+\code{varietal}}
 \usage{
 diss(x, method)
 
@@ -32,7 +33,7 @@ an object of class \code{diss}
 \description{
 Calculate the dissimilarity matrix between two datasets of class
 \code{distributional} or \code{compositional} using the Kolmogorov-Smirnov,
-Sircombe-Hazelton, Aitchison or Bray Curtis distance
+Sircombe-Hazelton, Aitchison or Bray-Curtis distance
 }
 \examples{
 data(Namib)

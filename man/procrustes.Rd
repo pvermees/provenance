@@ -8,7 +8,8 @@ procrustes(...)
 }
 \arguments{
 \item{...}{a sequence of datasets of classes \code{distributional},
-\code{counts} and \code{compositional}}
+\code{counts}, \code{compositional} and \code{varietal} OR a
+single object of class \code{varietal}.}
 }
 \value{
 an object of class \code{GPA}, i.e. a list containing the
@@ -26,8 +27,12 @@ configurations into the \code{GPA()} function.
 }
 \examples{
 data(Namib)
-gpa <- procrustes(Namib$DZ,Namib$HM)
-plot(gpa)
+gpa1 <- procrustes(Namib$DZ,Namib$HM)
+plot(gpa1)
+
+data(SNSM)
+gpa2 <- procrustes(SNSM$ap)
+plot(gpa2)
 }
 \references{
 Gower, J.C. (1975). Generalized Procrustes analysis,

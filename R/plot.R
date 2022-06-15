@@ -257,8 +257,9 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #' @param nnlines if TRUE, draws nearest neighbour lines
 #' @param pch plot character (see ?plot for details). May be a vector.
 #' @param pos position of the sample labels relative to the plot
-#'     symbols if pch != NA
-#' @param cex relative size of plot symbols (see ?par for details)
+#'     symbols if \code{pch != NA}
+#' @param cex relative size of plot symbols (see \code{?par} for
+#'     details)
 #' @param col plot colour (may be a vector)
 #' @param bg background colour (may be a vector)
 #' @param oma A vector of the form \code{c(bottom, left, top, right)}
@@ -346,19 +347,19 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
 #' Arranges kernel density estimates and pie charts in a grid format
 #' 
 #' @param ... a sequence of datasets of class \code{compositional},
-#'     \code{KDEs}, or \code{distributional}
+#'     \code{distributional}, \code{counts} or \code{KDEs}.
 #' @param ncol the number of columns
 #' @param pch (optional) symbol to be used to mark the sample points
 #'     along the x-axis of the KDEs (if appropriate).
 #' @return a summary plot of all the data comprised of KDEs for the
 #'     datasets of class \code{KDEs}, pie charts for those of class
-#'     \code{compositional} and histograms for those of class
-#'     \code{distributional}.
+#'     \code{compositional} or \code{counts} and histograms for those
+#'     of class \code{distributional}.
 #' @examples
 #' data(Namib)
 #' KDEs <- KDEs(Namib$DZ,0,3000)
 #' summaryplot(KDEs,Namib$HM,Namib$PT,ncol=2)
-#' @seealso KDEs
+#' @seealso \link{KDEs}
 #' @export
 summaryplot <- function(...,ncol=1,pch=NA){
     oldpar <- graphics::par(no.readonly=T)
@@ -421,7 +422,7 @@ summaryplot <- function(...,ncol=1,pch=NA){
 #' @param components string or list of strings with the names of a
 #'     subcomposition that needs plotting
 #' @param ... optional parameters to be passed on to graphics::matplot
-#'     (see ?par for details)
+#'     (see \code{?par} for details)
 #' @examples
 #' data(endmembers,densities)
 #' OPH <- subset(endmembers,select="ophiolite")

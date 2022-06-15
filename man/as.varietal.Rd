@@ -23,15 +23,7 @@ Convert an object of class \code{matrix} or \code{data.frame} to an
 object of class \code{varietal}
 }
 \examples{
-data(Namib)
-PT.acomp <- as.acomp(Namib$PT)
-PT.compositional <- as.compositional(PT.acomp)
-print(Namib$PT$x - PT.compositional$x)
-## uncomment the following lines for an illustration of using this 
-## function to integrate 'provenance' with 'compositions'
-# library(compositions)
-# data(Glacial)
-# a.glac <- acomp(Glacial)
-# c.glac <- as.compositional(a.glac)
-# summaryplot(c.glac,ncol=8)
+data(SNSM)
+ap1 <- SNSM$ap
+ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
 }

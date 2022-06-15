@@ -152,7 +152,8 @@ CA <- function(x,nf=2,...){
 #' configurations into the \code{GPA()} function.
 #'
 #' @param ... a sequence of datasets of classes \code{distributional},
-#'     \code{counts} and \code{compositional}
+#'     \code{counts}, \code{compositional} and \code{varietal} OR a
+#'     single object of class \code{varietal}.
 #' @return an object of class \code{GPA}, i.e. a list containing the
 #'     following items:
 #' 
@@ -165,8 +166,12 @@ CA <- function(x,nf=2,...){
 #' Psychometrika, 40, 33-50.
 #' @examples
 #' data(Namib)
-#' gpa <- procrustes(Namib$DZ,Namib$HM)
-#' plot(gpa)
+#' gpa1 <- procrustes(Namib$DZ,Namib$HM)
+#' plot(gpa1)
+#' 
+#' data(SNSM)
+#' gpa2 <- procrustes(SNSM$ap)
+#' plot(gpa2)
 #' @importFrom MASS isoMDS
 #' @seealso GPA
 #' @export

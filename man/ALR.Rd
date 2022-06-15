@@ -13,8 +13,7 @@ ALR(x, ...)
 \method{ALR}{compositional}(x, ...)
 }
 \arguments{
-\item{x}{an object of class \code{compositional} OR a matrix of
-numerical values}
+\item{x}{an object of class \code{compositional} OR a matrix of numerical values}
 
 \item{...}{optional arguments}
 

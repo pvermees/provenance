@@ -2,7 +2,7 @@
 % Please edit documentation in R/io.R
 \name{read.distributional}
 \alias{read.distributional}
-\title{Read a .csv file with continuous (detrital zircon) data}
+\title{Read a .csv file with distributional data}
 \usage{
 read.distributional(
   fname,
@@ -82,8 +82,8 @@ x-axis on all plots
 \code{name}: the name of the data object, extracted from the file path
 }
 \description{
-Reads a data table containing continuous data (e.g. detrital zircon
-ages)
+Reads a data table containing distributional data, i.e. lists of
+continuous data such as detrital zircon U-Pb ages.
 }
 \examples{
     agefile <- system.file("DZ.csv",package="provenance")

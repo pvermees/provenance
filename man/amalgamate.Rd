@@ -4,25 +4,25 @@
 \alias{amalgamate}
 \alias{amalgamate.default}
 \alias{amalgamate.compositional}
-\alias{amalgamate.varietal}
 \alias{amalgamate.counts}
 \alias{amalgamate.SRDcorrected}
+\alias{amalgamate.varietal}
 \title{Group components of a composition}
 \usage{
-amalgamate(X, ...)
+amalgamate(x, ...)
 
-\method{amalgamate}{default}(X, ...)
+\method{amalgamate}{default}(x, ...)
 
-\method{amalgamate}{compositional}(X, ...)
+\method{amalgamate}{compositional}(x, ...)
 
-\method{amalgamate}{varietal}(X, ...)
+\method{amalgamate}{counts}(x, ...)
 
-\method{amalgamate}{counts}(X, ...)
+\method{amalgamate}{SRDcorrected}(x, ...)
 
-\method{amalgamate}{SRDcorrected}(X, ...)
+\method{amalgamate}{varietal}(x, ...)
 }
 \arguments{
-\item{X}{a compositional dataset}
+\item{x}{a compositional dataset}
 
 \item{...}{a series of new labels assigned to strings or vectors of
 strings denoting the components that need amalgamating}

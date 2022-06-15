@@ -26,9 +26,7 @@ CLR <- function(x,...){ UseMethod("CLR",x) }
 CLR.default <- function(x,inverse=FALSE,...){
     if (inverse){
         closure <-  rowSums(exp(x)) %*% matrix(1,nrow=1,ncol=length(x))
-        out <- list()
-        class(out) <- "compositional"
-        out$x <- exp(x) / closure
+        out <- as.compositional(exp(x) / closure)
     } else {
         g <- apply(log(x),1,mean)
         nc <- ncol(x)
@@ -48,8 +46,7 @@ CLR.compositional <- function(x,...){
 #' Calculates Aitchison's additive logratio transformation for a
 #' dataset of class \code{compositional} or a compositional data
 #' matrix.
-#' @param x an object of class \code{compositional} OR a matrix of
-#'     numerical values
+#' @param x an object of class \code{compositional} OR a matrix of numerical values
 #' @param inverse perform the inverse inverse logratio transformation?
 #' @param ... optional arguments
 #' @return a matrix of ALR coordinates OR an object of class
@@ -74,9 +71,7 @@ ALR.default <- function(x,inverse=FALSE,...){
         num <- matrix(1,nr,nc+1)
         num[,1:nc] <- exp(dat)
         den <- as.matrix(rowSums(num)) %*% matrix(1,1,nc+1)
-        out <- list()
-        class(out) <- "compositional"
-        out$x <- num / den
+        out <- as.compositional(x=num/den)
     } else {
         num <- log(dat[,1:(nc-1),drop=FALSE])
         den <- log(subset(dat,select=nc)) %*% matrix(1,1,nc-1)
@@ -94,13 +89,14 @@ ALR.compositional <- function(x,...){
 #'
 #' Return a subset of provenance data according to some specified
 #' indices
-#' @param x an object of class \code{distributional}
+#' @param x an object of class \code{distributional},
+#'     \code{compositional}, \code{counts} or \code{varietal}.
 #' @param subset logical expression indicating elements or rows to
 #'     keep: missing values are taken as false.
 #' @param select a vector of sample names
 #' @param ... optional arguments for the generic subset function
-#' @return an object of class \code{distributional}
-#' @seealso read.distributional
+#' @return an object of the same class as \code{x}
+#' @seealso \link{amalgamate}, \link{combine}
 #' @examples
 #' data(Namib)
 #' coast <- c("N1","N2","T8","T13","N12","N13")
@@ -122,7 +118,7 @@ subset.distributional <- function(x,subset=NULL,select=NULL,...){
     out$x <- x$x[i]
     return(out)
 }
-#' @param components categories to keep
+#' @param components vector of categories (column names) to keep
 #' @rdname subset
 #' @export
 subset.compositional <- function(x,subset=NULL,components=NULL,select=NULL,...){
@@ -157,6 +153,35 @@ subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
         i <- match(rownames(out$x),rownames(x$raw))
         j <- match(colnames(out$x),colnames(x$raw))
         out$raw <- x$raw[i,j,drop=FALSE]
+    }
+    out
+}
+#' @rdname subset
+#' @export
+subset.varietal <- function(x,subset=NULL,components=NULL,select=NULL,...){
+    if (is.null(subset)){
+        X <- x$x
+    } else {
+        X <- x$x[subset,]
+    }
+    if (!is.null(components)){
+        X <- X[,components]
+    }
+    out <- x
+    if (is.null(select)){
+        out$x <- X
+        out$snames <- NULL
+        for (sname in x$snames){
+            matches <- grepl(sname,rownames(X))
+            if (any(matches)) out$snames <- c(out$snames,sname)
+        }
+    } else {
+        out$x <- NULL
+        out$snames <- select
+        for (sname in select){
+            matches <- grepl(sname,rownames(X))
+            out$x <- rbind(out$x,X[matches,])
+        }
     }
     out
 }
@@ -218,6 +243,11 @@ names.counts <- function(x){
     return(out)
 }
 #' @export
+names.varietal <- function(x){
+    return(x$snames)
+}
+
+#' @export
 names.KDEs <- function(x){
     out <- names(x$kdes)
     if (is.null(out)) out <- 1:length(x$kdes)
@@ -256,7 +286,7 @@ sumcols <- function(X,x){
 #'
 #' Adds several components of a composition together into a single
 #' component
-#' @param X a compositional dataset
+#' @param x a compositional dataset
 #' @param ... a series of new labels assigned to strings or vectors of
 #'     strings denoting the components that need amalgamating
 #' @return an object of the same class as \code{X} with fewer
@@ -270,16 +300,16 @@ sumcols <- function(X,x){
 #' plot(ternary(am))
 #' @rdname amalgamate
 #' @export
-amalgamate <- function(X,...){ UseMethod("amalgamate",X) }
+amalgamate <- function(x,...){ UseMethod("amalgamate",x) }
 #' @rdname amalgamate
 #' @export
-amalgamate.default <- function(X,...){
+amalgamate.default <- function(x,...){
     groups <- list(...)
     ng <- length(groups)
     labels <- names(groups)
     out <- NULL
     for (i in 1:ng){
-        colsum <- sumcols(X,groups[[i]])
+        colsum <- sumcols(x,groups[[i]])
         out <- cbind(out,colsum)
     }
     colnames(out) <- labels
@@ -287,34 +317,34 @@ amalgamate.default <- function(X,...){
 }
 #' @rdname amalgamate
 #' @export
-amalgamate.compositional <- function(X,...){
-    out <- X
-    out$x <- amalgamate(X$x,...)
+amalgamate.compositional <- function(x,...){
+    out <- x
+    out$x <- amalgamate(x$x,...)
     return(out)
 }
 #' @rdname amalgamate
 #' @export
-amalgamate.varietal <- function(X,...){
-    out <- X
-    out$x <- amalgamate(X$x,...)
+amalgamate.counts <- function(x,...){
+    out <- x
+    out$x <- amalgamate(x$x,...)
     return(out)
 }
 #' @rdname amalgamate
 #' @export
-amalgamate.counts <- function(X,...){
-    out <- X
-    out$x <- amalgamate(X$x,...)
-    return(out)
-}
-#' @rdname amalgamate
-#' @export
-amalgamate.SRDcorrected <- function(X,...){
-    out <- X
-    out$x <- amalgamate.default(X$x,...)
-    for (sname in names(X$restoration)){
+amalgamate.SRDcorrected <- function(x,...){
+    out <- x
+    out$x <- amalgamate.default(x$x,...)
+    for (sname in names(x$restoration)){
         out$restoration[[sname]] <-
-            amalgamate.default(X$restoration[[sname]],...)
+            amalgamate.default(x$restoration[[sname]],...)
     }
+    return(out)
+}
+#' @rdname amalgamate
+#' @export
+amalgamate.varietal <- function(x,...){
+    out <- x
+    out$x <- amalgamate(x$x,...)
     return(out)
 }
 
@@ -322,11 +352,11 @@ amalgamate.SRDcorrected <- function(X,...){
 #'
 #' Lumps all single grain analyses of several samples together under a
 #' new name
-#' @param X a distributional dataset
+#' @param x a distributional dataset
 #' @param ... a series of new labels assigned to strings or vectors of
 #'     strings denoting the samples that need amalgamating
 #' @return a distributional data object with fewer samples than
-#'     \code{X}
+#'     \code{x}
 #' @examples
 #' data(Namib)
 #' combined <- combine(Namib$DZ,
@@ -334,20 +364,20 @@ amalgamate.SRDcorrected <- function(X,...){
 #'                     west=c('N1','N2','N11','N12','T8','T13'))
 #' summaryplot(KDEs(combined))
 #' @export
-combine <- function(X,...){
-    out <- X
+combine <- function(x,...){
+    out <- x
     groups <- list(...)
     ng <- length(groups)
     labels <- names(groups)
     out$x <- list()
     out$err <- list()
-    loadErr <- (length(X$err)>0)
+    loadErr <- (length(x$err)>0)
     for (i in 1:ng){
         out$x[[labels[i]]] <- NULL
         for (g in groups[[i]]){
-            out$x[[labels[i]]] <- c(out$x[[labels[i]]],X$x[[g]])
+            out$x[[labels[i]]] <- c(out$x[[labels[i]]],x$x[[g]])
             if (loadErr) {
-                out$err[[labels[i]]] <- c(out$err[[labels[i]]],X$err[[g]])
+                out$err[[labels[i]]] <- c(out$err[[labels[i]]],x$err[[g]])
             }
         }
     }
@@ -429,7 +459,7 @@ resample <- function(x,nb=10){
 #' varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
 #' @export
 varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
-    template <- list(x=list(),colmap='rainbow',method='KS')
+    template <- list(x=list(),colmap='rainbow',method=x$method)
     class(template) <- 'distributional'
     if (bycol){
         out <- list()
@@ -470,21 +500,6 @@ getbreaks <- function(dat){
     ng <- length(d)
     nb <- log(ng/ns,base=2)+1
     seq(min(d),max(d),length.out=nb+1)
-}
-
-names.varietal <- function(x){
-    x$snames
-}
-# x = object of class varietal
-# select = a vector of sample names
-subset.varietal <- function(x,select){
-    out <- x
-    out$x <- NULL
-    for (sname in select){
-        matches <- grepl(sname,rownames(x$x))
-        out$x <- rbind(out$x,x$x[matches,])
-    }
-    out
 }
 
 RStudio <- function(){

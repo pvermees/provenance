@@ -13,7 +13,7 @@ botev(x)
 a scalar value with the optimal bandwidth
 }
 \description{
-Uses the diffusion algorithm of Zdravko Botev (2011)
+Uses the diffusion algorithm of Botev (2011)
 to calculate the bandwidth for kernel density estimation
 }
 \examples{
@@ -27,5 +27,5 @@ D. P. Kroese. "Kernel density estimation via diffusion." The Annals
 of Statistics 38.5 (2010): 2916-2957.
 }
 \author{
-Dzdravko Botev
+Zdravko Botev
 }

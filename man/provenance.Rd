@@ -38,8 +38,6 @@ Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An
     Geology, 336, 14-25.
 }
 \seealso{
-\url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
-
 Useful links:
 \itemize{
   \item \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}

@@ -9,7 +9,6 @@
 #' @references Vermeesch, P., Resentini, A. and Garzanti, E., an R
 #'     package for statistical provenance analysis, Sedimentary
 #'     Geology, doi:10.1016/j.sedgeo.2016.01.009.
-#' @seealso \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
 #' @export
 provenance <- function(){
     version <- as.character(utils::packageVersion('provenance'))

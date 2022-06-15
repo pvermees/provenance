@@ -41,12 +41,13 @@ Kuiper.diss <- function(x,y){
     M-m
 }
 
-#' Calculate the dissimilarity matrix between two \code{distributional} or
-#' \code{compositional} datasets
+#' Calculate the dissimilarity matrix between two datasets of class
+#' \code{distributional}, \code{compositional}, \code{counts} or
+#' \code{varietal}
 #'
 #' Calculate the dissimilarity matrix between two datasets of class
 #' \code{distributional} or \code{compositional} using the Kolmogorov-Smirnov,
-#' Sircombe-Hazelton, Aitchison or Bray Curtis distance
+#' Sircombe-Hazelton, Aitchison or Bray-Curtis distance
 #' 
 #' @param x an object of class \code{distributional},
 #'     \code{compositional} or \code{counts}

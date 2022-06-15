@@ -8,7 +8,7 @@ summaryplot(..., ncol = 1, pch = NA)
 }
 \arguments{
 \item{...}{a sequence of datasets of class \code{compositional},
-\code{KDEs}, or \code{distributional}}
+\code{distributional}, \code{counts} or \code{KDEs}.}
 
 \item{ncol}{the number of columns}
 
@@ -18,8 +18,8 @@ along the x-axis of the KDEs (if appropriate).}
 \value{
 a summary plot of all the data comprised of KDEs for the
     datasets of class \code{KDEs}, pie charts for those of class
-    \code{compositional} and histograms for those of class
-    \code{distributional}.
+    \code{compositional} or \code{counts} and histograms for those
+    of class \code{distributional}.
 }
 \description{
 Arranges kernel density estimates and pie charts in a grid format
@@ -30,5 +30,5 @@ KDEs <- KDEs(Namib$DZ,0,3000)
 summaryplot(KDEs,Namib$HM,Namib$PT,ncol=2)
 }
 \seealso{
-KDEs
+\link{KDEs}
 }

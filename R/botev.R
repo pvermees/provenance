@@ -28,12 +28,12 @@ fixedpoint <-  function(tt,N,II,a2){
 
 #' Compute the optimal kernel bandwidth
 #'
-#' Uses the diffusion algorithm of Zdravko Botev (2011)
+#' Uses the diffusion algorithm of Botev (2011)
 #' to calculate the bandwidth for kernel density estimation
 #'
 #' @param x a vector of ordinal data
 #' @return a scalar value with the optimal bandwidth
-#' @author Dzdravko Botev
+#' @author Zdravko Botev
 #' @references Botev, Z. I., J. F. Grotowski, and
 #' D. P. Kroese. "Kernel density estimation via diffusion." The Annals
 #' of Statistics 38.5 (2010): 2916-2957.

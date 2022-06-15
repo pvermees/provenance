@@ -1,7 +1,7 @@
-#' Read a .csv file with continuous (detrital zircon) data
+#' Read a .csv file with distributional data
 #'
-#' Reads a data table containing continuous data (e.g. detrital zircon
-#' ages)
+#' Reads a data table containing distributional data, i.e. lists of
+#' continuous data such as detrital zircon U-Pb ages.
 #' @param fname the path of a .csv file with the input data, arranged
 #'     in columns.
 #' @param errorfile the (optional) path of a .csv file with the
@@ -11,11 +11,12 @@
 #' @param method an optional string specifying the dissimilarity
 #'     measure which should be used for comparing this with other
 #'     datasets. Should be one of either \code{"KS"} (for
-#'     Kolmogorov-Smirnov) or \code{"SH"} (for Sircombe and
-#'     Hazelton). If \code{method = "SH"}, then \code{errorfile}
-#'     should be specified. If \code{method = "SH"} and
-#'     \code{errorfile} is unspecified, then the program will default
-#'     back to the Kolmogorov-Smirnov dissimilarity.
+#'     Kolmogorov-Smirnov), \code{"Kuiper"} (for Kuiper) or
+#'     \code{"SH"} (for Sircombe and Hazelton). If \code{method =
+#'     "SH"}, then \code{errorfile} should be specified. If
+#'     \code{method = "SH"} and \code{errorfile} is unspecified, then
+#'     the program will default back to the Kolmogorov-Smirnov
+#'     dissimilarity.
 #' @param xlab an optional string specifying the nature and units of
 #'     the data.  This string is used to label kernel density
 #'     estimates.
@@ -109,6 +110,10 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     \code{NULL}. \code{read.varietal} assumes that the row names of
 #'     the \code{.csv} file consist of character strings marking the
 #'     sample names, followed by a number.
+#' @param method an optional string specifying the dissimilarity
+#'     measure which should be used for comparing this with other
+#'     datasets. Should be one of either \code{"KS"} (for
+#'     Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)
 #' @param check.names logical.  If \code{TRUE} then the names of the
 #'     variables in the frame are checked to ensure that they are
 #'     syntactically variable names.
@@ -131,11 +136,12 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' plot(MDS(Ap))
 #'@export
 read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
-                          check.names=FALSE,row.names=1,...){
+                          method='KS',check.names=FALSE,row.names=1,...){
     x <- utils::read.csv(fname,sep=sep,dec=dec,
                          check.names=check.names,
                          row.names=row.names,...)
     out <- as.varietal(x=x,snames=snames)
+    out$method <- method
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     out
 }
@@ -421,17 +427,9 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #'     sample names, followed by a number.
 #' @return an object of class \code{varietal}
 #' @examples
-#' data(Namib)
-#' PT.acomp <- as.acomp(Namib$PT)
-#' PT.compositional <- as.compositional(PT.acomp)
-#' print(Namib$PT$x - PT.compositional$x)
-#' ## uncomment the following lines for an illustration of using this 
-#' ## function to integrate 'provenance' with 'compositions'
-#' # library(compositions)
-#' # data(Glacial)
-#' # a.glac <- acomp(Glacial)
-#' # c.glac <- as.compositional(a.glac)
-#' # summaryplot(c.glac,ncol=8)
+#' data(SNSM)
+#' ap1 <- SNSM$ap
+#' ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
 #' @export
 as.varietal <- function(x,snames=NULL){
     out <- list()
