@@ -9,6 +9,7 @@ read.varietal(
   snames = NULL,
   sep = ",",
   dec = ".",
+  method = "KS",
   check.names = FALSE,
   row.names = 1,
   ...
@@ -27,6 +28,11 @@ sample names, followed by a number.}
 the file are separated by this character.}
 
 \item{dec}{the character used in the file for decimal points.}
+
+\item{method}{an optional string specifying the dissimilarity
+measure which should be used for comparing this with other
+datasets. Should be one of either \code{"KS"} (for
+Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)}
 
 \item{check.names}{logical.  If \code{TRUE} then the names of the
 variables in the frame are checked to ensure that they are

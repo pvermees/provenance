@@ -29,11 +29,12 @@ to be compared with the Sircombe-Hazelton dissimilarity.}
 \item{method}{an optional string specifying the dissimilarity
 measure which should be used for comparing this with other
 datasets. Should be one of either \code{"KS"} (for
-Kolmogorov-Smirnov) or \code{"SH"} (for Sircombe and
-Hazelton). If \code{method = "SH"}, then \code{errorfile}
-should be specified. If \code{method = "SH"} and
-\code{errorfile} is unspecified, then the program will default
-back to the Kolmogorov-Smirnov dissimilarity.}
+Kolmogorov-Smirnov), \code{"Kuiper"} (for Kuiper) or
+\code{"SH"} (for Sircombe and Hazelton). If \code{method =
+"SH"}, then \code{errorfile} should be specified. If
+\code{method = "SH"} and \code{errorfile} is unspecified, then
+the program will default back to the Kolmogorov-Smirnov
+dissimilarity.}
 
 \item{xlab}{an optional string specifying the nature and units of
 the data.  This string is used to label kernel density

@@ -307,7 +307,8 @@ gui.mds <- function(){
         else if (response == "2") method <- "Kuiper"
         else method <- "SH"
     }
-    if (methods::is(dat,"distributional") & length(dat$err)==0){
+    if ( (methods::is(dat,"distributional") & length(dat$err)==0) |
+         methods::is(dat,"varietal") ){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance [default]\n",
                 "2 - Kuiper distance")
@@ -748,6 +749,22 @@ gui.open.varietal <- function(){
         dat <- read.varietal(fname,snames=as.numeric(response))
     } else {
         dat <- read.varietal(fname)
+    }
+    while (TRUE){
+        message("1 - Subset components\n",
+                "2 - Amalgamate components\n",
+                "3 - Subset samples\n",
+                "c - Continue [default]")
+        response <- readline()
+        if (response == "1"){
+            dat <- gui.subset.components(dat)
+        } else if (response == "2"){
+            dat <- gui.amalgamate.components(dat)
+        } else if (response == "3"){
+            dat <- gui.subset.samples(dat)
+        } else {
+            break
+        }
     }
     return(dat)
 }
