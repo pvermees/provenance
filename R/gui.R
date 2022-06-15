@@ -13,6 +13,7 @@
 provenance <- function(){
     version <- as.character(utils::packageVersion('provenance'))
     message("This is provenance version ", version)
+    RS <- RStudio()
     while (TRUE){
         message("Pick an option:\n",
                 "1 - sample size calculation\n",
@@ -22,7 +23,7 @@ provenance <- function(){
                 "5 - MDS/PCA/CA\n",
                 "6 - Procrustes analysis\n",
                 "7 - 3-way MDS\n",
-                ifelse(RStudio(),"8 - ","8 - save plots (.pdf)\n9 - "),
+                ifelse(RS,"8 - ","8 - save plots (.pdf)\n9 - "),
                 "help\n",
                 "q - quit")
         response <- readline()
@@ -40,9 +41,9 @@ provenance <- function(){
             gui.3way(TRUE)
         } else if (response == '7'){
             gui.3way(FALSE)
-        } else if (response == '8'){
+        } else if (!RS & response == '8'){
             gui.save.plots()
-        } else if (response == '9'){
+        } else if (response == ifelse(RS,'8','9')){
             gui.help()
         } else if (response == 'q'){
             break
@@ -391,18 +392,19 @@ gui.save.plots <- function(){
 gui.help <- function(){
     while (TRUE){
     message("Choose a help topic:\n",
-            "1 - compositional data\n",
-            "2 - point-counting data\n",
-            "3 - distributional data\n",
-            "4 - mineral densities\n",
-            "5 - sample size calculation\n",
-            "6 - cumulative age distributions\n",
-            "7 - kernel density estimation\n",
-            "8 - radial plots\n",
-            "9 - Minsorting and SRD correction\n",
-            "10 - multidimensional scaling\n",
-            "11 - Procrustes analysis and 3-way MDS\n",
-            "c - continue")
+            " 1 - compositional data\n",
+            " 2 - point-counting data\n",
+            " 3 - distributional data\n",
+            " 4 - varietal data\n",
+            " 5 - mineral densities\n",
+            " 6 - sample size calculation\n",
+            " 7 - cumulative age distributions\n",
+            " 8 - kernel density estimation\n",
+            " 9 - radial plots\n",
+            "10 - Minsorting and SRD correction\n",
+            "11 - multidimensional scaling\n",
+            "12 - Procrustes analysis and 3-way MDS\n",
+            " c - continue")
         response <- readline()
         if (response == "1"){
             message("Formatting requirements of compositional data files:\n",
@@ -478,6 +480,37 @@ gui.help <- function(){
                     "uncertainties of these measurements. They are stored in a separate\n",
                     ".csv file with exactly the same format as the measurement as shown above.\n")
         } else if (response == "4"){
+            message("Formatting requirements for varietal data files:\n",
+                    "------------------------------------------------\n",
+                    "A varietal data file looks like a compositional data table, \n",
+                    "with the main difference being that the rownames do not correspond \n",
+                    "to samples but to individual grains. The prefixes of these grain \n",
+                    "names must contain the sample names. For example:\n",
+                    "grain,Pb,Th,U,La,Ce,Pr,Nd,Sr,Y,Lu\n",
+                    "ACA_1,16.262,90.9,76.3,615,1972,281.6,1359,319.6,1188,16.87\n",
+                    "ACA_2,8.195,58.7,25.52,647,1489,165.2,703,253.9,339.6,3.39\n",
+                    "ACA_3,6.114,0.058,2.762,12.84,56.2,11.73,89.6,65.3,2019,16.69\n",
+                    "ACA_4,10.085,1.93,3.14,36.6,137.4,24.8,138,617,125.2,2.06\n",
+                    "ACA_5,14.351,99.4,39.5,582,1871,267,1250,280.6,1095,15.18\n",
+                    "ACA_6,16.902,146.3,70.6,680,1886,249.9,1176,429.2,834,11.49\n",
+                    "ACA_7,5.473,1.23,3.104,170.4,785,149.5,930,370.6,1127,12.91\n",
+                    "ACA_8,8.306,4.17,29.34,19.02,145.9,46.4,450,508,2639,22.85\n",
+                    "ACA_9,9.409,17.62,14.92,390,1225,166.2,820,242.8,481,5.26\n",
+                    "ACA_10,11.383,29.8,51.9,214,956,180.7,1090,260.4,1413,18.22\n",
+                    "ACA_11,17.56,73.7,32.2,695,2110,302,1467,367,1004,11.51\n",
+                    "ACA_12,11.044,25.57,54.3,71.8,288.4,66.8,548,298.3,3237,39.01\n",
+                    "BUR_1,10.79,0.167,3.54,88.3,308,56.1,338,467.1,306,3.3\n",
+                    "BUR_2,22.44,115.6,82,882,1743,189.6,824,378,610,9.33\n",
+                    "BUR_3,5.645,12.62,3.56,0.39,1.28,0.266,3.35,447,44.4,3.4\n",
+                    "BUR_4,29.2,208.8,92.8,1193,2998,359.5,1623,374.4,1469,26.07\n",
+                    "BUR_5,6.689,0.0043,1.473,22.28,131.1,31.8,220.3,419.7,154.1,1.152\n",
+                    "BUR_6,10.622,85.2,29.6,729,1700,189,780,301.8,326,3.85\n",
+                    "BUR_7,10.245,0.0038,0.601,2.17,9.62,2.04,17.3,394,44.3,0.894\n",
+                    "BUR_8,15.12,0.015,0.0429,3.39,8.46,2.09,13.92,577,76.5,1.864\n",
+                    "BUR_9,7.732,12.92,5.67,281.5,718,94.2,438,306.4,385,6.29\n",
+                    "BUR_10,10.84,48.6,34.5,503.9,791,71,262.3,270.3,160.6,3.32\n",
+                    "and so forth. ")
+        } else if (response == "5"){
             message("Formatting requirements for mineral density files:\n",
                     "-------------------------------------------------\n",
                     "The Minsorting function and SRD correction require a table of\n",
@@ -490,7 +523,7 @@ gui.help <- function(){
                     "mon,oth,ep,gt,ctd,st,and,ky,sil,amp,px,ol\n",
                     "2.65,2.61,2.6,2.65,2.75,2.4,5,4.65,3.15,4.25,3.5,3.2,\n",
                     "5.15,3.5,3.45,4,3.6,3.75,3.15,3.6,3,3.2,3.3,3.35\n")
-        } else if (response == "5"){
+        } else if (response == "6"){
             message("Sample size calculations:\n",
                     "------------------------\n",
                     "On the most basic level, provenance analysis requires the geologist to\n",
@@ -513,7 +546,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "6"){
+        } else if (response == "7"){
             message("Cumulative Age Distributions (CADs):\n",
                     "-----------------------------------\n",
                     "The probability distribution of detrital zircon U-Pb ages or any other\n",
@@ -530,7 +563,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "7"){
+        } else if (response == "8"){
             message("Kernel Density Estimation (KDE):\n",
                     "-------------------------------\n",
                     "A large body of statistical literature has been written on the subject\n",
@@ -550,7 +583,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "8"){
+        } else if (response == "9"){
             message("Radial Plots:\n",
                     "-------------------------------\n",
                     "Galbraith (1988)'s radial plot is a graphical means of visualising\n",
@@ -578,7 +611,7 @@ gui.help <- function(){
                     "errors. Technometrics, 30(3): 271-281.\n",
                     "Vermeesch, P., 2018, Statistical models for point-counting data.\n",
                     "Earth and Planetary Science Letters, 501: 1-7\n")
-        } else if (response == "9"){
+        } else if (response == "10"){
             message("Minsorting and SRD correction:\n",
                     "-----------------------------\n",
                     "To facilitate the comparison of detrital modes for provenance analysis\n",
@@ -612,7 +645,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "10"){
+        } else if (response == "11"){
             message("Multidimensional Scaling:\n",
                     "------------------------\n",
                     "An increasing number of provenance studies are based on not just a few\n",
@@ -642,7 +675,7 @@ gui.help <- function(){
                     "Vermeesch, P., Resentini, A. and Garzanti, E., 2016. An R package for\n",
                     "statistical provenance analysis. Sedimentary Geology,\n",
                     "doi:10.1016/j.sedgeo.2016.01.009.\n")
-        } else if (response == "11"){
+        } else if (response == "12"){
             message("Procrustes analysis and 3-way MDS:\n",
                     "---------------------------------\n",
                     "Procrustes analysis and 3-way MDS are simple yet powerful tools\n",
