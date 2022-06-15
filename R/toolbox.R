@@ -481,5 +481,5 @@ subset.varietal <- function(x,select){
 }
 
 RStudio <- function(){
-    'RStudioGD' %in% names(grDevices::dev.list())
+    Sys.getenv("RSTUDIO") == '1'
 }

@@ -6,7 +6,7 @@
 \usage{
 read.varietal(
   fname,
-  snames,
+  snames = NULL,
   colmap = "rainbow",
   sep = ",",
   dec = ".",
