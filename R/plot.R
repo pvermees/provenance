@@ -257,8 +257,9 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #' @param nnlines if TRUE, draws nearest neighbour lines
 #' @param pch plot character (see ?plot for details). May be a vector.
 #' @param pos position of the sample labels relative to the plot
-#'     symbols if pch != NA
-#' @param cex relative size of plot symbols (see ?par for details)
+#'     symbols if \code{pch != NA}
+#' @param cex relative size of plot symbols (see \code{?par} for
+#'     details)
 #' @param col plot colour (may be a vector)
 #' @param bg background colour (may be a vector)
 #' @param oma A vector of the form \code{c(bottom, left, top, right)}
@@ -288,8 +289,29 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
     ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
-    graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-    for (i in 1:(k-1)){
+    op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+    on.exit(graphics::par(op))
+    if (!x$classical){ # Shepard plot
+        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+        for (i in 1:(k-1)){
+            for (j in 2:k){
+                if (i>=j){
+                    graphics::plot.new() # empty plot
+                } else {
+                    ylab <- "Distance/Disparity"
+                    if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
+                    D <- as.matrix(x$diss)[1:ns,1:ns]
+                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
+                    graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
+                    graphics::lines(shep$x, shep$yf, type="S")
+                    if (i==1 & j==2)
+                        graphics::title(paste0("Stress = ",x$stress))    
+                }
+            }
+        }
+        if (!RStudio()) grDevices::dev.new()
+    }
+    for (i in 1:(k-1)){ # Configuration
         for (j in 2:k){
             if (i>=j){
                 graphics::plot.new() # empty plot
@@ -318,26 +340,6 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
             }
         }
     }
-    if (!x$classical){
-        grDevices::dev.new()
-        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-        for (i in 1:(k-1)){
-            for (j in 2:k){
-                if (i>=j){
-                    graphics::plot.new() # empty plot
-                } else {
-                    ylab <- "Distance/Disparity"
-                    if (k>2) ylab <- paste0(ylab,' (Dims ',i,' & ',j,')')
-                    D <- as.matrix(x$diss)[1:ns,1:ns]
-                    shep <- MASS::Shepard(stats::as.dist(D), x$points[1:ns,c(i,j)])
-                    graphics::plot(shep,pch=20,xlab="Dissimilarity",ylab=ylab)
-                    graphics::lines(shep$x, shep$yf, type="S")
-                    if (i==1 & j==2)
-                        graphics::title(paste0("Stress = ",x$stress))    
-                }
-            }
-        }
-    }
 }
 
 #' Joint plot of several provenance datasets
@@ -345,19 +347,19 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
 #' Arranges kernel density estimates and pie charts in a grid format
 #' 
 #' @param ... a sequence of datasets of class \code{compositional},
-#'     \code{KDEs}, or \code{distributional}
+#'     \code{distributional}, \code{counts} or \code{KDEs}.
 #' @param ncol the number of columns
 #' @param pch (optional) symbol to be used to mark the sample points
 #'     along the x-axis of the KDEs (if appropriate).
 #' @return a summary plot of all the data comprised of KDEs for the
 #'     datasets of class \code{KDEs}, pie charts for those of class
-#'     \code{compositional} and histograms for those of class
-#'     \code{distributional}.
+#'     \code{compositional} or \code{counts} and histograms for those
+#'     of class \code{distributional}.
 #' @examples
 #' data(Namib)
 #' KDEs <- KDEs(Namib$DZ,0,3000)
 #' summaryplot(KDEs,Namib$HM,Namib$PT,ncol=2)
-#' @seealso KDEs
+#' @seealso \link{KDEs}
 #' @export
 summaryplot <- function(...,ncol=1,pch=NA){
     oldpar <- graphics::par(no.readonly=T)
@@ -420,7 +422,7 @@ summaryplot <- function(...,ncol=1,pch=NA){
 #' @param components string or list of strings with the names of a
 #'     subcomposition that needs plotting
 #' @param ... optional parameters to be passed on to graphics::matplot
-#'     (see ?par for details)
+#'     (see \code{?par} for details)
 #' @examples
 #' data(endmembers,densities)
 #' OPH <- subset(endmembers,select="ophiolite")
@@ -478,16 +480,16 @@ plot.INDSCAL <- function(x,asp=1,pch=NA,pos=NULL,col='black',
                          bg='white',cex=1,xlab="X",ylab="Y",
                          xaxt='n',yaxt='n',...){
     if (!any(is.na(pch)) && !any(is.null(pos))) { pos <- 1 }
+    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
+    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
+    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
+    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
+    graphics::title('Source Weights')
+    if (!RStudio()) grDevices::dev.new()    
     graphics::plot(x$gspace,asp=asp,pch=pch,col=col,bg=bg,cex=cex,
                    xlab=xlab,ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
     graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,col=col,bg=bg,cex=cex)
     graphics::title('Group Configuration')
-    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
-    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
-    grDevices::dev.new()
-    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
-    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
-    graphics::title('Source Weights')
 }
 
 # a function to plot the nearest neighbour lines
@@ -535,7 +537,7 @@ annotation.compositional <- function(x,height=NULL,...){
     labels <- colnames(x$x)
     comp <- rep(1,length(labels))
     col <- do.call(x$colmap,list(length(labels)))
-    graphics::pie(comp,labels=labels,col=col,...)
+    graphics::pie(comp,labels=labels,col=col,xpd=NA,...)
 }
 annotation.counts <- function(x,height=NULL,...){
     annotation.compositional(x,height=NULL,...)
@@ -701,8 +703,9 @@ saveplot <- function(f, d){
 
 # modified from stats::biplot.default
 biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red',
-                         cex = rep(graphics::par("cex"), 2), xlabs = NULL,
-                         ylabs = NULL, expand = 1, xlim = NULL, ylim = NULL,
+                         cex = rep(graphics::par("cex"), 2), pch=NULL,
+                         xlabs = NULL, ylabs = NULL, expand = 1,
+                         xlim = NULL, ylim = NULL,
                          arrow.len = 0.1, main = NULL, sub = NULL,
                          xlab = NULL, ylab = NULL, ...){
     n <- nrow(x)
@@ -754,6 +757,9 @@ biplotHelper <- function(x, y, var.axes = TRUE, labelcol='black', vectorcol='red
     on.exit(grDevices::dev.flush(), add = TRUE)
     graphics::plot(x, type = "n", xlim = xlim, ylim = ylim, col = labelcol, 
                    xlab = xlab, ylab = ylab, sub = sub, main = main, ...)
-    graphics::text(x, xlabs, cex = cex[1L], col = labelcol, ...)
+    if (is.null(pch))
+        graphics::text(x, labels=xlabs, cex = cex[1L], col = labelcol, ...)
+    else
+        graphics::points(x, pch=pch, cex = cex[1L], bg = labelcol, ...)
     invisible()
 }

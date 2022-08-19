@@ -4,17 +4,17 @@
 \alias{combine}
 \title{Combine samples of distributional data}
 \usage{
-combine(X, ...)
+combine(x, ...)
 }
 \arguments{
-\item{X}{a distributional dataset}
+\item{x}{a distributional dataset}
 
 \item{...}{a series of new labels assigned to strings or vectors of
 strings denoting the samples that need amalgamating}
 }
 \value{
 a distributional data object with fewer samples than
-    \code{X}
+    \code{x}
 }
 \description{
 Lumps all single grain analyses of several samples together under a

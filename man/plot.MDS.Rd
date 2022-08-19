@@ -27,9 +27,10 @@
 \item{pch}{plot character (see ?plot for details). May be a vector.}
 
 \item{pos}{position of the sample labels relative to the plot
-symbols if pch != NA}
+symbols if \code{pch != NA}}
 
-\item{cex}{relative size of plot symbols (see ?par for details)}
+\item{cex}{relative size of plot symbols (see \code{?par} for
+details)}
 
 \item{col}{plot colour (may be a vector)}
 

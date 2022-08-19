@@ -3,11 +3,12 @@
 #' Performs 3-way Multidimensional Scaling analysis using Carroll and
 #' Chang (1970)'s INdividual Differences SCALing method as implemented
 #' using De Leeuw and Mair (2011)'s stress majorization algorithm.
-#' @param ... a sequence of datasets of class \code{distributional} or
-#' \code{compositional}
+#' @param ... a sequence of datasets of class \code{distributional},
+#'     \code{compositional}, \code{counts} or \code{varietal}, OR a
+#'     single object of class \code{varietal}.
 #' @param type is either "ratio" or "ordinal"
 #' @return an object of class \code{INDSCAL}, i.e. a list containing
-#' the following items:
+#'     the following items:
 #' 
 #' \code{delta}: Observed dissimilarities
 #'
@@ -46,8 +47,10 @@
 #' @export
 indscal <- function(...,type='ordinal'){
     slist <- list(...)
-    dnames <- get.data.names(slist)
-    names(slist) <- dnames
+    names(slist) <- get.data.names(slist)
+    if (length(slist)==1 & methods::is(slist[[1]],'varietal')){
+        slist <- varietal2distributional(slist[[1]],bycol=TRUE)
+    }
     disslist <- getdisslist(slist)
     out <- smacofIndDiff(disslist, constraint = "indscal",type=type)
     class(out) <- "INDSCAL"
@@ -262,7 +265,7 @@ smacofIndDiff <- function (delta, ndim = 2, type = c("ratio", "ordinal"),
 ## sanity checks for dissimilatiries (>=0)
 checkdiss <- function(diss) {
     if (any(sapply(diss, function(d0) any(d0 < 0, na.rm = TRUE))))
-      stop("Dissimilarities should be non-negative!")
+        stop("Dissimilarities should be non-negative!")
 }
 
 initWeights <- function(diss) {

@@ -1,7 +1,7 @@
-#' Read a .csv file with continuous (detrital zircon) data
+#' Read a .csv file with distributional data
 #'
-#' Reads a data table containing continuous data (e.g. detrital zircon
-#' ages)
+#' Reads a data table containing distributional data, i.e. lists of
+#' continuous data such as detrital zircon U-Pb ages.
 #' @param fname the path of a .csv file with the input data, arranged
 #'     in columns.
 #' @param errorfile the (optional) path of a .csv file with the
@@ -11,11 +11,12 @@
 #' @param method an optional string specifying the dissimilarity
 #'     measure which should be used for comparing this with other
 #'     datasets. Should be one of either \code{"KS"} (for
-#'     Kolmogorov-Smirnov) or \code{"SH"} (for Sircombe and
-#'     Hazelton). If \code{method = "SH"}, then \code{errorfile}
-#'     should be specified. If \code{method = "SH"} and
-#'     \code{errorfile} is unspecified, then the program will default
-#'     back to the Kolmogorov-Smirnov dissimilarity.
+#'     Kolmogorov-Smirnov), \code{"Kuiper"} (for Kuiper) or
+#'     \code{"SH"} (for Sircombe and Hazelton). If \code{method =
+#'     "SH"}, then \code{errorfile} should be specified. If
+#'     \code{method = "SH"} and \code{errorfile} is unspecified, then
+#'     the program will default back to the Kolmogorov-Smirnov
+#'     dissimilarity.
 #' @param xlab an optional string specifying the nature and units of
 #'     the data.  This string is used to label kernel density
 #'     estimates.
@@ -31,7 +32,7 @@
 #' @param check.names logical.  If \code{TRUE} then the names of the
 #'     variables in the frame are checked to ensure that they are
 #'     syntactically variable names.
-#' @param ... optional arguments to the built-in \code{read.table}
+#' @param ... optional arguments to the built-in \code{read.csv}
 #'     function
 #' @return an object of class \code{distributional}, i.e. a list with
 #'     the following items:
@@ -51,6 +52,8 @@
 #' x-axis on all plots
 #'
 #' \code{colmap}: the colour map provided by the input argument
+#'
+#' \code{name}: the name of the data object, extracted from the file path
 #'
 #' @examples
 #'     agefile <- system.file("DZ.csv",package="provenance")
@@ -93,6 +96,56 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
     return(out)
 }
 
+#' Read a .csv file with varietal data
+#' 
+#' Reads a data table containing compositional data (e.g. chemical
+#' concentrations) for multiple grains and multiple samples
+#'
+#' @param fname file name (character string)
+#' @param sep the field separator character.  Values on each line of
+#'     the file are separated by this character.
+#' @param dec the character used in the file for decimal points.
+#' @param snames either a vector of sample names, an integer marking
+#'     the length of the sample name prefix, or
+#'     \code{NULL}. \code{read.varietal} assumes that the row names of
+#'     the \code{.csv} file consist of character strings marking the
+#'     sample names, followed by a number.
+#' @param method an optional string specifying the dissimilarity
+#'     measure which should be used for comparing this with other
+#'     datasets. Should be one of either \code{"KS"} (for
+#'     Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)
+#' @param check.names logical.  If \code{TRUE} then the names of the
+#'     variables in the frame are checked to ensure that they are
+#'     syntactically variable names.
+#' @param row.names logical. See the documentation for the
+#'     \code{read.table} function.
+#' @param ... optional arguments to the built-in \code{read.csv}
+#'     function
+#' @return an object of class \code{varietal}, i.e. a list with the
+#'     following items:
+#' 
+#' \code{x}: a compositional data table
+#' 
+#' \code{snames}: a vector of strings corresponding to the sample names
+#'
+#' \code{name}: the name of the dataset, extracted from the file path
+#' 
+#' @examples
+#' Apfile <- system.file("apatite.csv",package="provenance")
+#' Ap <- read.varietal(fn=Apfile,snames=3)
+#' plot(MDS(Ap))
+#'@export
+read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
+                          method='KS',check.names=FALSE,row.names=1,...){
+    x <- utils::read.csv(fname,sep=sep,dec=dec,
+                         check.names=check.names,
+                         row.names=row.names,...)
+    out <- as.varietal(x=x,snames=snames)
+    out$method <- method
+    out$name <- basename(substr(fname,1,nchar(fname)-4))
+    out
+}
+
 #' Read a .csv file with compositional data
 #'
 #' Reads a data table containing compositional data (e.g. chemical
@@ -130,6 +183,9 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' distance) or "bray" (for the Bray-Curtis distance)
 #'
 #' \code{colmap}: the colour map provided by the input argument
+#'
+#' \code{name}: the name of the data object, extracted from the file path
+#' 
 #' @examples
 #'     fname <- system.file("Major.csv",package="provenance")
 #'     Major <- read.compositional(fname)
@@ -192,6 +248,8 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',
 #' as columns
 #'
 #' \code{colmap}: the colour map provided by the input argument
+#'
+#' \code{name}: the name of the data object, extracted from the file path
 #'
 #' @examples
 #'     fname <- system.file("HM.csv",package="provenance")
@@ -287,7 +345,7 @@ as.data.frame.counts <- function(x,...){
 #' plot(qfl,type="QFL.dickinson")
 #' qfl.acomp <- as.acomp(qfl)
 #' ## uncomment the next two lines to plot an error
-#' ## ellipse using the compositions package: 
+#' ## ellipse using the 'compositions' package: 
 #' # library(compositions)
 #' # ellipses(mean(qfl.acomp),var(qfl.acomp),r=2)
 #' @export
@@ -330,7 +388,7 @@ as.compositional.matrix <- function(x,method=NULL,colmap='rainbow'){
 #' PT.compositional <- as.compositional(PT.acomp)
 #' print(Namib$PT$x - PT.compositional$x)
 #' ## uncomment the following lines for an illustration of using this 
-#' ## function to integrate the \code{provenance} package with \code{compositions}
+#' ## function to integrate 'provenance' with 'compositions'
 #' # library(compositions)
 #' # data(Glacial)
 #' # a.glac <- acomp(Glacial)
@@ -343,15 +401,49 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
         attributes(x) <- NULL
         x[!is.numeric(x)] <- NA
         y <- matrix(x,nrow=attr$dim[[1]],ncol=attr$dim[[2]],dimnames=attr$dimnames)
-        return(as.compositional.matrix(y))
+        out <- as.compositional.matrix(y)
     } else if (methods::is(x,"data.frame") | methods::is(x,"matrix")){
         y <- data.matrix(x)
         dimnames(y) <- dimnames(x)
-        return(as.compositional.matrix(y,method,colmap))
+        out <- as.compositional.matrix(y,method,colmap)
     } else {
         stop(paste("cannot convert an object of class",class(x),
                    "into an object of class compositional"))
     }
+    out$name <- deparse(substitute(x))
+    return(out)
+}
+
+#' create a \code{varietal} object
+#'
+#' Convert an object of class \code{matrix} or \code{data.frame} to an
+#' object of class \code{varietal}
+#'
+#' @param x an object of class \code{matrix} or \code{data.frame}
+#' @param snames either a vector of sample names, an integer marking
+#'     the length of the sample name prefix, or
+#'     \code{NULL}. \code{read.varietal} assumes that the row names of
+#'     the \code{.csv} file consist of character strings marking the
+#'     sample names, followed by a number.
+#' @return an object of class \code{varietal}
+#' @examples
+#' data(SNSM)
+#' ap1 <- SNSM$ap
+#' ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
+#' @export
+as.varietal <- function(x,snames=NULL){
+    out <- list()
+    out$x <- x
+    if (is.null(snames)){
+        out$snames <- unique(gsub("[[:digit:]]","",rownames(out$x)))
+    } else if (is.numeric(snames)){
+        out$snames <- unique(sapply(rownames(out$x),substr,1,snames))
+    } else {
+        out$snames <- snames
+    }
+    out$name <- deparse(substitute(x))
+    class(out) <- 'varietal'
+    out    
 }
 
 #' create a \code{counts} object
@@ -381,5 +473,6 @@ as.counts <- function(x,method='chisq',colmap='rainbow'){
     if (nc==3) out$x <- y[,c(3,1,2)]
     if (nc>3) out$x <- y[,c(3,1,2,4:nc)]
     if (nc<3) out$x <- y
+    out$name <- deparse(substitute(x))
     return(out)
 }

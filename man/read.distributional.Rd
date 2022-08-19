@@ -2,7 +2,7 @@
 % Please edit documentation in R/io.R
 \name{read.distributional}
 \alias{read.distributional}
-\title{Read a .csv file with continuous (detrital zircon) data}
+\title{Read a .csv file with distributional data}
 \usage{
 read.distributional(
   fname,
@@ -29,11 +29,12 @@ to be compared with the Sircombe-Hazelton dissimilarity.}
 \item{method}{an optional string specifying the dissimilarity
 measure which should be used for comparing this with other
 datasets. Should be one of either \code{"KS"} (for
-Kolmogorov-Smirnov) or \code{"SH"} (for Sircombe and
-Hazelton). If \code{method = "SH"}, then \code{errorfile}
-should be specified. If \code{method = "SH"} and
-\code{errorfile} is unspecified, then the program will default
-back to the Kolmogorov-Smirnov dissimilarity.}
+Kolmogorov-Smirnov), \code{"Kuiper"} (for Kuiper) or
+\code{"SH"} (for Sircombe and Hazelton). If \code{method =
+"SH"}, then \code{errorfile} should be specified. If
+\code{method = "SH"} and \code{errorfile} is unspecified, then
+the program will default back to the Kolmogorov-Smirnov
+dissimilarity.}
 
 \item{xlab}{an optional string specifying the nature and units of
 the data.  This string is used to label kernel density
@@ -56,7 +57,7 @@ the names of the variables as its first line.}
 variables in the frame are checked to ensure that they are
 syntactically variable names.}
 
-\item{...}{optional arguments to the built-in \code{read.table}
+\item{...}{optional arguments to the built-in \code{read.csv}
 function}
 }
 \value{
@@ -78,10 +79,12 @@ the Kuiper statistic) or "SH" (for Sircombe Hazelton)
 x-axis on all plots
 
 \code{colmap}: the colour map provided by the input argument
+
+\code{name}: the name of the data object, extracted from the file path
 }
 \description{
-Reads a data table containing continuous data (e.g. detrital zircon
-ages)
+Reads a data table containing distributional data, i.e. lists of
+continuous data such as detrital zircon U-Pb ages.
 }
 \examples{
     agefile <- system.file("DZ.csv",package="provenance")

@@ -5,6 +5,7 @@
 \alias{subset.distributional}
 \alias{subset.compositional}
 \alias{subset.counts}
+\alias{subset.varietal}
 \title{Get a subset of provenance data}
 \usage{
 \method{subset}{distributional}(x, subset = NULL, select = NULL, ...)
@@ -12,9 +13,12 @@
 \method{subset}{compositional}(x, subset = NULL, components = NULL, select = NULL, ...)
 
 \method{subset}{counts}(x, subset = NULL, components = NULL, select = NULL, ...)
+
+\method{subset}{varietal}(x, subset = NULL, components = NULL, select = NULL, ...)
 }
 \arguments{
-\item{x}{an object of class \code{distributional}}
+\item{x}{an object of class \code{distributional},
+\code{compositional}, \code{counts} or \code{varietal}.}
 
 \item{subset}{logical expression indicating elements or rows to
 keep: missing values are taken as false.}
@@ -23,10 +27,10 @@ keep: missing values are taken as false.}
 
 \item{...}{optional arguments for the generic subset function}
 
-\item{components}{categories to keep}
+\item{components}{vector of categories (column names) to keep}
 }
 \value{
-an object of class \code{distributional}
+an object of the same class as \code{x}
 }
 \description{
 Return a subset of provenance data according to some specified
@@ -40,5 +44,5 @@ DZcoast <- subset(Namib$DZ,select=coast)
 summaryplot(ZTRcoast,KDEs(DZcoast),ncol=2)
 }
 \seealso{
-read.distributional
+\link{amalgamate}, \link{combine}
 }

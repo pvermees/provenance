@@ -59,6 +59,8 @@ an object of class \code{compositional}, i.e. a list with
 distance) or "bray" (for the Bray-Curtis distance)
 
 \code{colmap}: the colour map provided by the input argument
+
+\code{name}: the name of the data object, extracted from the file path
 }
 \description{
 Reads a data table containing compositional data (e.g. chemical

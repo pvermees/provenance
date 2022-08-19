@@ -55,6 +55,8 @@ an object of class \code{counts}, i.e. a list with the
 as columns
 
 \code{colmap}: the colour map provided by the input argument
+
+\code{name}: the name of the data object, extracted from the file path
 }
 \description{
 Reads a data table containing point-counting data

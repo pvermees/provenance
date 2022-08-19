@@ -38,7 +38,6 @@
 #' @name Namib
 #' @docType data
 #' @examples
-#' data(Namib)
 #' samp <- Namib$DZ$x[['N1']]
 #' dens <- KDE(samp,0,3000)
 #' plot(dens)
@@ -72,7 +71,6 @@ NULL
 #' @seealso restore, minsorting
 #' @docType data
 #' @examples
-#' data(Namib,densities)
 #' N8 <- subset(Namib$HM,select="N8")
 #' distribution <- minsorting(N8,densities,phi=2,sigmaphi=1,medium="air",by=0.05)
 #' plot(distribution)
@@ -103,7 +101,6 @@ NULL
 #' @seealso minsorting
 #' @docType data
 #' @examples
-#' data(endmembers,densities)
 #' ophiolite <- subset(endmembers,select="ophiolite")
 #' plot(minsorting(ophiolite,densities,by=0.05))
 #' @author Alberto Resentini and Pieter Vermeesch
@@ -116,4 +113,20 @@ NULL
 #' equivalence of detrital minerals and grain-size dependence of
 #' sediment composition." Earth and Planetary Science Letters 273.1
 #' (2008): 138-151.
+NULL
+
+#' varietal data example
+#'
+#' A list of varietal datasets including detrital zircon (\code{zr}),
+#' apatite (\code{ap}) and titanite (\code{tit}) compositions from the
+#' Sierra Nevada de Santa Marta, provided by L. Caracciolo (FAU
+#' Erlangen).
+#'
+#' @author Luca Caracciolo, Diana Hatzenbuehler and David Chew.
+#' 
+#' @name SNSM
+#' @docType data
+#' @examples
+#' data(SNSM)
+#' plot(indscal(zircon=SNSM$zr,apatite=SNSM$ap,titanite=SNSM$tit))
 NULL

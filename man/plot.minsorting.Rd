@@ -17,7 +17,7 @@ probability curve.}
 subcomposition that needs plotting}
 
 \item{...}{optional parameters to be passed on to graphics::matplot
-(see ?par for details)}
+(see \code{?par} for details)}
 }
 \description{
 Plot the grain size distributions of the different minerals under
