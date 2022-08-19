@@ -10,22 +10,28 @@
 \code{distributional}, \code{compositional}, \code{counts} or
 \code{varietal}}
 \usage{
-diss(x, method)
+diss(x, method, ...)
 
-\method{diss}{distributional}(x, method = NULL)
+\method{diss}{distributional}(x, method = NULL, log = FALSE, ...)
 
-\method{diss}{compositional}(x, method = NULL)
+\method{diss}{compositional}(x, method = NULL, ...)
 
-\method{diss}{counts}(x, method = NULL)
+\method{diss}{counts}(x, method = NULL, ...)
 
-\method{diss}{varietal}(x, method = NULL)
+\method{diss}{varietal}(x, method = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},
 \code{compositional} or \code{counts}}
 
-\item{method}{(optional) either "KS", "Kuiper", "SH", "aitchison",
-"bray" or "chisq"}
+\item{method}{(optional) either "KS", "Wasserstein", "Kuiper",
+"SH", "aitchison", "bray" or "chisq"}
+
+\item{...}{optional arguments}
+
+\item{log}{logical. If \code{TRUE}, subjects the distributional
+data to a logarithmic transformation before calculating the
+Wasserstein distance.}
 }
 \value{
 an object of class \code{diss}

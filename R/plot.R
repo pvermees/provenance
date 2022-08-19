@@ -272,6 +272,15 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #'     details.
 #' @param xpd A logical value or \code{NA}.  See \code{?par} for
 #'     further details.
+#' @param Shepard either:
+#'
+#' \code{0}: only plot the MDS configuration, do not show the Shepard plot
+#'
+#' \code{1}: only show the Shepard plot, do not plot the MDS configuration
+#'
+#' \code{2}: show both the MDS configuration and Shepard plot in separate
+#' windows
+#' 
 #' @param ... optional arguments to the generic \code{plot} function
 #' @seealso MDS
 #' @method plot MDS
@@ -286,12 +295,12 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #' @export
 plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',oma=rep(1,4),
-                     mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
+                     mar=rep(2,4),mgp=c(2,1,0),xpd=NA,Shepard=2,...){
     ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
     op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
     on.exit(graphics::par(op))
-    if (!x$classical){ # Shepard plot
+    if (!x$classical & Shepard>0){ # Shepard plot
         graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
         for (i in 1:(k-1)){
             for (j in 2:k){
@@ -309,6 +318,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                 }
             }
         }
+        if (Shepard==1) return(invisible())
         if (!RStudio()) grDevices::dev.new()
     }
     for (i in 1:(k-1)){ # Configuration

@@ -16,6 +16,7 @@
   mar = rep(2, 4),
   mgp = c(2, 1, 0),
   xpd = NA,
+  Shepard = 2,
   ...
 )
 }
@@ -49,6 +50,15 @@ details.}
 
 \item{xpd}{A logical value or \code{NA}.  See \code{?par} for
 further details.}
+
+\item{Shepard}{either:
+
+\code{0}: only plot the MDS configuration, do not show the Shepard plot
+
+\code{1}: only show the Shepard plot, do not plot the MDS configuration
+
+\code{2}: show both the MDS configuration and Shepard plot in separate
+windows}
 
 \item{...}{optional arguments to the generic \code{plot} function}
 }

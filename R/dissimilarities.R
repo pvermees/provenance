@@ -41,6 +41,57 @@ Kuiper.diss <- function(x,y){
     M-m
 }
 
+# lifted from the transport package (wasserstein1d function)
+Wasserstein.diss <- function(a, b, p=1, wa=NULL, wb=NULL) {
+    m <- length(a)
+    n <- length(b)
+    stopifnot(m > 0 && n > 0)
+    if (m == n && is.null(wa) && is.null(wb)) {
+        return(mean(abs(sort(b)-sort(a))^p)^(1/p))
+    }
+    stopifnot(is.null(wa) || length(wa) == m)
+    stopifnot(is.null(wb) || length(wb) == n)
+    if (is.null(wa)) {
+        wa <- rep(1,m)
+    } else { # remove points with zero weight
+        wha <- wa > 0
+        wa <- wa[wha]
+        a <- a[wha]
+        m <- length(a)
+    }
+    if (is.null(wb)) {
+        wb <- rep(1,n)
+    } else { # remove points with zero weight
+        whb <- wb > 0
+        wb <- wb[whb]
+        b <- b[whb]
+        n <- length(b)
+    }
+
+    orda <- order(a)
+    ordb <- order(b)
+    a <- a[orda]
+    b <- b[ordb]
+    wa <- wa[orda]
+    wb <- wb[ordb]
+    ua <- (wa/sum(wa))[-m]
+    ub <- (wb/sum(wb))[-n]
+    cua <- c(cumsum(ua))  
+    cub <- c(cumsum(ub))  
+    arep <- graphics::hist(cub, breaks = c(-Inf, cua, Inf), plot = FALSE)$counts + 1
+    brep <- graphics::hist(cua, breaks = c(-Inf, cub, Inf), plot = FALSE)$counts + 1
+
+    aa <- rep(a, times=arep)
+    bb <- rep(b, times=brep)
+
+    uu <- sort(c(cua,cub))
+    uu0 <- c(0,uu)
+    uu1 <- c(uu,1)
+    areap <- sum((uu1-uu0)*abs(bb-aa)^p)^(1/p)
+
+    return(areap)
+}
+
 #' Calculate the dissimilarity matrix between two datasets of class
 #' \code{distributional}, \code{compositional}, \code{counts} or
 #' \code{varietal}
@@ -51,18 +102,22 @@ Kuiper.diss <- function(x,y){
 #' 
 #' @param x an object of class \code{distributional},
 #'     \code{compositional} or \code{counts}
-#' @param method (optional) either "KS", "Kuiper", "SH", "aitchison",
-#'     "bray" or "chisq"
+#' @param method (optional) either "KS", "Wasserstein", "Kuiper",
+#'     "SH", "aitchison", "bray" or "chisq"
+#' @param log logical. If \code{TRUE}, subjects the distributional
+#'     data to a logarithmic transformation before calculating the
+#'     Wasserstein distance.
+#' @param ... optional arguments
 #' @examples
 #' data(Namib)
 #' print(round(100*diss(Namib$DZ)))
 #' @return an object of class \code{diss}
 #' @rdname diss
 #' @export
-diss <- function(x,method){ UseMethod("diss",x) }
+diss <- function(x,method,...){ UseMethod("diss",x) }
 #' @rdname diss
 #' @export
-diss.distributional <- function(x,method=NULL) {
+diss.distributional <- function(x,method=NULL,log=FALSE,...) {
     if (!is.null(method)) x$method <- method
     n <- length(x$x)
     d <- mat.or.vec(n,n)
@@ -73,6 +128,15 @@ diss.distributional <- function(x,method=NULL) {
         for (j in 1:n){
             if (x$method=="SH"){
                 d[i,j] <- SH.diss(x,i,j,c.con=c2)
+            } else if (x$method=="Wasserstein"){
+                if (log){
+                    a <- log(x$x[[i]])
+                    b <- log(x$x[[j]])
+                } else {
+                    a <- x$x[[i]]
+                    b <- x$x[[j]]
+                }
+                d[i,j] <- Wasserstein.diss(a,b)
             } else if (x$method=="KS"){
                 d[i,j] <- KS.diss(x$x[[i]],x$x[[j]])
             } else if (x$method=="Kuiper"){
@@ -86,7 +150,7 @@ diss.distributional <- function(x,method=NULL) {
 }
 #' @rdname diss
 #' @export
-diss.compositional <- function(x,method=NULL){
+diss.compositional <- function(x,method=NULL,...){
     if (!is.null(method)) x$method <- method
     if (x$method=="aitchison"){
         out <- stats::dist(CLR(x))
@@ -108,7 +172,7 @@ diss.compositional <- function(x,method=NULL){
 }
 #' @rdname diss
 #' @export
-diss.counts <- function(x,method=NULL){
+diss.counts <- function(x,method=NULL,...){
     if (!is.null(method)) x$method <- method
     snames <- names(x)
     ns <- length(snames)
@@ -133,7 +197,7 @@ diss.counts <- function(x,method=NULL){
 }
 #' @rdname diss
 #' @export
-diss.varietal <- function(x,method=NULL){
+diss.varietal <- function(x,method=NULL,...){
     xd <- varietal2distributional(x)
     diss.distributional(xd,method=method)
 }
