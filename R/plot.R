@@ -299,10 +299,11 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      mar=rep(2,4),mgp=c(2,1,0),xpd=NA,Shepard=2,...){
     ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
-    op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-    on.exit(graphics::par(op))
+    if (k>2){
+        op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+        on.exit(graphics::par(op))
+    }
     if (!x$classical & Shepard>0){ # Shepard plot
-        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
         for (i in 1:(k-1)){
             for (j in 2:k){
                 if (i>=j){
