@@ -23,7 +23,8 @@ plot.KDE <- function(x,pch='|',xlab="age [Ma]",ylab="",...){
         graphics::plot(x$x,x$y,type='l',xlab=xlab,ylab=ylab,...)
     }
     graphics::points(x$ages,rep(graphics::par("usr")[3]/2,length(x$ages)),pch=pch)
-    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),paste0("n=",length(x$ages)),pos=2)
+    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),
+                   paste0("n=",length(x$ages)),pos=2)
 }
 
 #' Plot one or more kernel density estimates
@@ -475,6 +476,16 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @param ylab a string with the label of the y axis
 #' @param xaxt if = 'y', adds ticks to the x axis
 #' @param yaxt if = 'y', adds ticks to the y axis
+#' @param option either:
+#'
+#' \code{0}: only plot the group configuration, do not show the source
+#' weights
+#'
+#' \code{1}: only show the source weights, do not plot the group
+#' configuration
+#'
+#' \code{2}: show both the group configuration and source weights in
+#' separate windows
 #' @param ... optional arguments to the generic plot function
 #' @examples
 #' data(Namib)
@@ -488,17 +499,21 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @export
 plot.INDSCAL <- function(x,asp=1,pch=NA,pos=NULL,col='black',
                          bg='white',cex=1,xlab="X",ylab="Y",
-                         xaxt='n',yaxt='n',...){
+                         xaxt='n',yaxt='n',option=2,...){
     if (!any(is.na(pch)) && !any(is.null(pos))) { pos <- 1 }
-    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
-    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
-    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
-    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
-    graphics::title('Source Weights')
-    if (!RStudio()) grDevices::dev.new()    
+    if (option>0){
+        X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
+        Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
+        graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
+        graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
+        graphics::title('Source Weights')
+        if (option==1) return(invisible())
+        if (!RStudio()) grDevices::dev.new()
+    }
     graphics::plot(x$gspace,asp=asp,pch=pch,col=col,bg=bg,cex=cex,
                    xlab=xlab,ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
-    graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,col=col,bg=bg,cex=cex)
+    graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,
+                   col=col,bg=bg,cex=cex)
     graphics::title('Group Configuration')
 }
 
