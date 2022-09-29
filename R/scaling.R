@@ -9,9 +9,24 @@
 #' @param classical boolean flag indicating whether classical
 #'     (\code{TRUE}) or nonmetric (\code{FALSE}) MDS should be used
 #' @param k the desired dimensionality of the solution
-#' @param ... optional arguments to be passed onto \code{cmdscale} (if
+#' @param ... optional arguments
+#'
+#' If \code{x} has class \code{distributional}, \code{...} is passed
+#' on to \code{diss.distributional}.
+#' 
+#' If \code{x} has class \code{compositional}, \code{...} is passed on
+#' to \code{diss.compositional}.
+#'
+#' If \code{x} has class \code{counts}, \code{...} is passed on to
+#' \code{diss.counts}.
+#'
+#' If \code{x} has class \code{varietal}, \code{...} is passed on to
+#' \code{diss.varietal}.
+#'
+#' Otherwise, \code{...} is passed on to \code{cmdscale} (if
 #'     \code{classical=TRUE}) or \code{isoMDS} (if
 #'     \code{classical=FALSE}).
+#' 
 #' @return an object of class \code{MDS}, i.e. a list containing the
 #'     following items:
 #'

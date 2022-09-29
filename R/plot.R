@@ -23,7 +23,8 @@ plot.KDE <- function(x,pch='|',xlab="age [Ma]",ylab="",...){
         graphics::plot(x$x,x$y,type='l',xlab=xlab,ylab=ylab,...)
     }
     graphics::points(x$ages,rep(graphics::par("usr")[3]/2,length(x$ages)),pch=pch)
-    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),paste0("n=",length(x$ages)),pos=2)
+    graphics::text(utils::tail(x$x,n=1),.9*max(x$y),
+                   paste0("n=",length(x$ages)),pos=2)
 }
 
 #' Plot one or more kernel density estimates
@@ -175,7 +176,8 @@ plot.counts <- function(x,sname,annotate=TRUE,colmap=NULL,...){
 #' @method plot GPA
 #' @export
 plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
-    graphics::plot(x$points[,1],x$points[,2],asp=1,pch=pch,col=col,bg=bg,cex=cex,...)
+    graphics::plot(x$points[,1],x$points[,2],asp=1,
+                   pch=pch,col=col,bg=bg,cex=cex,...)
     if (!is.na(pch) & is.null(pos)) { pos <- 1 }
     graphics::text(x$points[,1],x$points[,2],x$labels,pos=pos,col=col,bg=bg,cex=cex)
 }
@@ -272,6 +274,15 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #'     details.
 #' @param xpd A logical value or \code{NA}.  See \code{?par} for
 #'     further details.
+#' @param Shepard either:
+#'
+#' \code{0}: only plot the MDS configuration, do not show the Shepard plot
+#'
+#' \code{1}: only show the Shepard plot, do not plot the MDS configuration
+#'
+#' \code{2}: show both the MDS configuration and Shepard plot in separate
+#' windows
+#' 
 #' @param ... optional arguments to the generic \code{plot} function
 #' @seealso MDS
 #' @method plot MDS
@@ -286,13 +297,14 @@ plot.CA <- function(x,labelcol='black',vectorcol='red',...){
 #' @export
 plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                      col='black',bg='white',oma=rep(1,4),
-                     mar=rep(2,4),mgp=c(2,1,0),xpd=NA,...){
+                     mar=rep(2,4),mgp=c(2,1,0),xpd=NA,Shepard=2,...){
     ns <- nrow(x$points)/(x$nb+1)
     k <- ncol(x$points)
-    op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
-    on.exit(graphics::par(op))
-    if (!x$classical){ # Shepard plot
-        graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+    if (k>2){
+        op <- graphics::par(mfrow=c(k-1,k-1), oma=oma, mar=mar, mgp=mgp, xpd=xpd)
+        on.exit(graphics::par(op))
+    }
+    if (!x$classical & Shepard>0){ # Shepard plot
         for (i in 1:(k-1)){
             for (j in 2:k){
                 if (i>=j){
@@ -309,6 +321,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                 }
             }
         }
+        if (Shepard==1) return(invisible())
         if (!RStudio()) grDevices::dev.new()
     }
     for (i in 1:(k-1)){ # Configuration
@@ -463,8 +476,18 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @param cex relative size of plot symbols
 #' @param xlab a string with the label of the x axis
 #' @param ylab a string with the label of the y axis
-#' @param xaxt if = 'y', adds ticks to the x axis
-#' @param yaxt if = 'y', adds ticks to the y axis
+#' @param xaxt if = 's', adds ticks to the x axis
+#' @param yaxt if = 's', adds ticks to the y axis
+#' @param option either:
+#'
+#' \code{0}: only plot the group configuration, do not show the source
+#' weights
+#'
+#' \code{1}: only show the source weights, do not plot the group
+#' configuration
+#'
+#' \code{2}: show both the group configuration and source weights in
+#' separate windows
 #' @param ... optional arguments to the generic plot function
 #' @examples
 #' data(Namib)
@@ -478,17 +501,21 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @export
 plot.INDSCAL <- function(x,asp=1,pch=NA,pos=NULL,col='black',
                          bg='white',cex=1,xlab="X",ylab="Y",
-                         xaxt='n',yaxt='n',...){
+                         xaxt='n',yaxt='n',option=2,...){
     if (!any(is.na(pch)) && !any(is.null(pos))) { pos <- 1 }
-    X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
-    Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
-    graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
-    graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
-    graphics::title('Source Weights')
-    if (!RStudio()) grDevices::dev.new()    
+    if (option>0){
+        X <- unlist(lapply(x$cweights,function(foo) foo[1,1]))
+        Y <- unlist(lapply(x$cweights,function(foo) foo[2,2]))
+        graphics::plot(X,Y,asp=1,pch=pch[1],cex=cex,...)
+        graphics::text(X,Y,names(x$cweights),pos=pos,cex=cex)
+        graphics::title('Source Weights')
+        if (option==1) return(invisible())
+        if (!RStudio()) grDevices::dev.new()
+    }
     graphics::plot(x$gspace,asp=asp,pch=pch,col=col,bg=bg,cex=cex,
                    xlab=xlab,ylab=ylab,xaxt=xaxt,yaxt=yaxt,...)
-    graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,col=col,bg=bg,cex=cex)
+    graphics::text(x$gspace,labels=rownames(x$gspace),pos=pos,
+                   col=col,bg=bg,cex=cex)
     graphics::title('Group Configuration')
 }
 
