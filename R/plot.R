@@ -176,7 +176,8 @@ plot.counts <- function(x,sname,annotate=TRUE,colmap=NULL,...){
 #' @method plot GPA
 #' @export
 plot.GPA <- function(x,pch=NA,pos=NULL,col='black',bg='white',cex=1,...){
-    graphics::plot(x$points[,1],x$points[,2],asp=1,pch=pch,col=col,bg=bg,cex=cex,...)
+    graphics::plot(x$points[,1],x$points[,2],asp=1,
+                   pch=pch,col=col,bg=bg,cex=cex,...)
     if (!is.na(pch) & is.null(pos)) { pos <- 1 }
     graphics::text(x$points[,1],x$points[,2],x$labels,pos=pos,col=col,bg=bg,cex=cex)
 }
@@ -475,8 +476,8 @@ plot.minsorting <- function(x,cumulative=FALSE,components=NULL,...){
 #' @param cex relative size of plot symbols
 #' @param xlab a string with the label of the x axis
 #' @param ylab a string with the label of the y axis
-#' @param xaxt if = 'y', adds ticks to the x axis
-#' @param yaxt if = 'y', adds ticks to the y axis
+#' @param xaxt if = 's', adds ticks to the x axis
+#' @param yaxt if = 's', adds ticks to the y axis
 #' @param option either:
 #'
 #' \code{0}: only plot the group configuration, do not show the source
