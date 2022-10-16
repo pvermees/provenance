@@ -480,7 +480,7 @@ varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
             out[[cn]]$breaks <- getbreaks(out[[cn]]$x)
         }
     } else {
-        pc <- PCA(x$x,scale.=TRUE)
+        pc <- PCA(as.compositional(x$x),scale.=FALSE)
         if (plot) plot(pc)
         out <- template
         out$name <- x$name
