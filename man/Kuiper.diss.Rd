@@ -2,12 +2,20 @@
 % Please edit documentation in R/dissimilarities.R
 \name{Kuiper.diss}
 \alias{Kuiper.diss}
+\alias{Kuiper.diss.default}
+\alias{Kuiper.diss.distributional}
 \title{Kuiper dissimilarity}
 \usage{
-Kuiper.diss(x, y)
+Kuiper.diss(x, ...)
+
+\method{Kuiper.diss}{default}(x, y, ...)
+
+\method{Kuiper.diss}{distributional}(x, ...)
 }
 \arguments{
 \item{x}{the first sample as a vector}
+
+\item{...}{optional arguments}
 
 \item{y}{the second sample as a vector}
 }

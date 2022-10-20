@@ -75,5 +75,5 @@ SH.diss <- function(x,i,j,c.con=0){
     Itmp <- mean(stats::dnorm(XYdiff,sd=h1))
     dXY <- rfX+rfY-2*Itmp
     dXY <- sqrt(dXY)
-    return(dXY)
+    return(dXY)    
 }

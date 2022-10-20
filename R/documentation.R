@@ -127,5 +127,6 @@ NULL
 #' @name SNSM
 #' @docType data
 #' @examples
+#' data(SNSM)
 #' plot(indscal(zircon=SNSM$zr,apatite=SNSM$ap,titanite=SNSM$tit))
 NULL

@@ -2,12 +2,20 @@
 % Please edit documentation in R/dissimilarities.R
 \name{bray.diss}
 \alias{bray.diss}
+\alias{bray.diss.default}
+\alias{bray.diss.compositional}
 \title{Bray-Curtis dissimilarity}
 \usage{
-bray.diss(x, y)
+bray.diss(x, ...)
+
+\method{bray.diss}{default}(x, y, ...)
+
+\method{bray.diss}{compositional}(x, ...)
 }
 \arguments{
 \item{x}{a vector containing the first compositional sample}
+
+\item{...}{optional arguments}
 
 \item{y}{a vector of \code{length(x)} containing the second
 compositional sample}

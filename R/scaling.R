@@ -104,7 +104,7 @@ MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
 #' @rdname MDS
 #' @export
 MDS.varietal <- function(x,classical=FALSE,k=2,...){
-    d <- diss(x)
+    d <- diss(x,...)
     MDS.default(d,classical=classical,k=k)
 }
 

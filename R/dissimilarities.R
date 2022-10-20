@@ -4,14 +4,24 @@
 #'
 #' @param x the first sample as a vector
 #' @param y the second sample as a vector
+#' @param ... optional arguments
 #' @return a scalar value representing the maximum vertical distance
 #' between the two cumulative distributions
 #' @examples
 #' data(Namib)
 #' print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' @rdname KS.diss
 #' @export
-KS.diss <- function(x,y) {
+KS.diss <- function(x,...){ UseMethod("KS.diss",x) }
+#' @rdname KS.diss
+#' @export
+KS.diss.default <- function(x,y,...){
     IsoplotR::diss(x,y,method="KS")
+}
+#' @rdname KS.diss
+#' @export
+KS.diss.distributional <- function(x,...){
+    diss.distributional(x,method="KS",...)
 }
 
 #' Kuiper dissimilarity
@@ -20,13 +30,18 @@ KS.diss <- function(x,y) {
 #'
 #' @param x the first sample as a vector
 #' @param y the second sample as a vector
+#' @param ... optional arguments
 #' @return a scalar value representing the sum of the maximum vertical
 #' distances above and below the cumulative distributions of x and y
 #' @examples
 #' data(Namib)
 #' print(Kuiper.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' @rdname Kuiper.diss
 #' @export
-Kuiper.diss <- function(x,y){
+Kuiper.diss <- function(x,...){ UseMethod("Kuiper.diss",x) }
+#' @rdname Kuiper.diss
+#' @export
+Kuiper.diss.default <- function(x,y,...){
     xy <- c(x,y)
     cad1 <- stats::ecdf(x)
     cad2 <- stats::ecdf(y)
@@ -35,11 +50,52 @@ Kuiper.diss <- function(x,y){
     m <- min(d)
     if (M<0) M <- 0
     if (m>0) m <- 0
-    M-m
+    return(M-m)
+}
+#' @rdname Kuiper.diss
+#' @export
+Kuiper.diss.distributional <- function(x,...){
+    diss.distributional(x,method="Kuiper",...)
 }
 
-Wasserstein.diss <- function(x,y){
+#' Wasserstein distance
+#'
+#' Returns the Wasserstein distance between two samples
+#'
+#' @param x the first sample as a vector
+#' @param y the second sample as a vector
+#' @param log logical. Take the lograthm of the data before
+#'     calculating the distances?
+#' @param ... optional arguments
+#' @return a scalar value
+#' @examples
+#' data(Namib)
+#' print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' 
+#' \dontrun{
+#' # the following code requires the 'approxOT' package:
+#' fn <- system.file('varietalWasserstein.R',package='provenance')
+#' source(fn)
+#' d <- Wasserstein.diss(SNSM$tit,package='approxOT')
+#' conf <- MDS(d)
+#' plot(conf)
+#' 
+#' # alternatively, using the 'transport' package:
+#' d <- Wasserstein.diss(SNSM$tit,package='transport')
+#' plot(MDS(d))
+#' }
+#' @rdname Wasserstein.diss
+#' @export
+Wasserstein.diss <- function(x,...){ UseMethod("Wasserstein.diss",x) }
+#' @rdname Wasserstein.diss
+#' @export
+Wasserstein.diss.default <- function(x,y,...){
     IsoplotR::diss(x,y,method="W2")
+}
+#' @rdname Wasserstein.diss
+#' @export
+Wasserstein.diss.distributional <- function(x,log=FALSE,...){
+    diss.distributional(x,method="W2",log=log,...)
 }
 
 #' Calculate the dissimilarity matrix between two datasets of class
@@ -158,13 +214,23 @@ diss.varietal <- function(x,method=NULL,...){
 #' @param x a vector containing the first compositional sample
 #' @param y a vector of \code{length(x)} containing the second
 #'     compositional sample
+#' @param ... optional arguments
 #' @return a scalar value
 #' @examples
 #' data(Namib)
 #' print(bray.diss(Namib$HM$x["N1",],Namib$HM$x["N2",]))
+#' @rdname bray.diss
 #' @export
-bray.diss <- function(x,y){
+bray.diss <- function(x,...){ UseMethod("bray.diss",x) }
+#' @rdname bray.diss
+#' @export
+bray.diss.default <- function(x,y,...){
     return(as.numeric(sum(abs(x-y))/sum(x+y)))
+}
+#' @rdname bray.diss
+#' @export
+bray.diss.compositional <- function(x,...){
+    diss.compositional(x,method="bray",...)
 }
 
 # returns list of normalised dissimilarities between common items
