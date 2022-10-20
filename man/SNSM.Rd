@@ -11,7 +11,6 @@ Sierra Nevada de Santa Marta, provided by L. Caracciolo (FAU
 Erlangen).
 }
 \examples{
-data(SNSM)
 plot(indscal(zircon=SNSM$zr,apatite=SNSM$ap,titanite=SNSM$tit))
 }
 \author{

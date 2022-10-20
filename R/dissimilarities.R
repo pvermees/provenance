@@ -11,10 +11,7 @@
 #' print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 #' @export
 KS.diss <- function(x,y) {
-    xy <- c(x,y)
-    cad1 <- stats::ecdf(x)
-    cad2 <- stats::ecdf(y)
-    max(abs(cad2(xy)-cad1(xy)))
+    IsoplotR::diss(x,y,method="KS")
 }
 
 #' Kuiper dissimilarity
@@ -41,55 +38,8 @@ Kuiper.diss <- function(x,y){
     M-m
 }
 
-# lifted from the transport package (wasserstein1d function)
-Wasserstein.diss <- function(a, b, p=1, wa=NULL, wb=NULL) {
-    m <- length(a)
-    n <- length(b)
-    stopifnot(m > 0 && n > 0)
-    if (m == n && is.null(wa) && is.null(wb)) {
-        return(mean(abs(sort(b)-sort(a))^p)^(1/p))
-    }
-    stopifnot(is.null(wa) || length(wa) == m)
-    stopifnot(is.null(wb) || length(wb) == n)
-    if (is.null(wa)) {
-        wa <- rep(1,m)
-    } else { # remove points with zero weight
-        wha <- wa > 0
-        wa <- wa[wha]
-        a <- a[wha]
-        m <- length(a)
-    }
-    if (is.null(wb)) {
-        wb <- rep(1,n)
-    } else { # remove points with zero weight
-        whb <- wb > 0
-        wb <- wb[whb]
-        b <- b[whb]
-        n <- length(b)
-    }
-
-    orda <- order(a)
-    ordb <- order(b)
-    a <- a[orda]
-    b <- b[ordb]
-    wa <- wa[orda]
-    wb <- wb[ordb]
-    ua <- (wa/sum(wa))[-m]
-    ub <- (wb/sum(wb))[-n]
-    cua <- c(cumsum(ua))  
-    cub <- c(cumsum(ub))  
-    arep <- graphics::hist(cub, breaks = c(-Inf, cua, Inf), plot = FALSE)$counts + 1
-    brep <- graphics::hist(cua, breaks = c(-Inf, cub, Inf), plot = FALSE)$counts + 1
-
-    aa <- rep(a, times=arep)
-    bb <- rep(b, times=brep)
-
-    uu <- sort(c(cua,cub))
-    uu0 <- c(0,uu)
-    uu1 <- c(uu,1)
-    areap <- sum((uu1-uu0)*abs(bb-aa)^p)^(1/p)
-
-    return(areap)
+Wasserstein.diss <- function(x,y){
+    IsoplotR::diss(x,y,method="W2")
 }
 
 #' Calculate the dissimilarity matrix between two datasets of class
