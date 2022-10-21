@@ -58,46 +58,6 @@ Kuiper.diss.distributional <- function(x,...){
     diss.distributional(x,method="Kuiper",...)
 }
 
-#' Wasserstein distance
-#'
-#' Returns the Wasserstein distance between two samples
-#'
-#' @param x the first sample as a vector
-#' @param y the second sample as a vector
-#' @param log logical. Take the lograthm of the data before
-#'     calculating the distances?
-#' @param ... optional arguments
-#' @return a scalar value
-#' @examples
-#' data(Namib)
-#' print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
-#' 
-#' \dontrun{
-#' # the following code requires the 'approxOT' package:
-#' fn <- system.file('varietalWasserstein.R',package='provenance')
-#' source(fn)
-#' d <- Wasserstein.diss(SNSM$tit,package='approxOT')
-#' conf <- MDS(d)
-#' plot(conf)
-#' 
-#' # alternatively, using the 'transport' package:
-#' d <- Wasserstein.diss(SNSM$tit,package='transport')
-#' plot(MDS(d))
-#' }
-#' @rdname Wasserstein.diss
-#' @export
-Wasserstein.diss <- function(x,...){ UseMethod("Wasserstein.diss",x) }
-#' @rdname Wasserstein.diss
-#' @export
-Wasserstein.diss.default <- function(x,y,...){
-    IsoplotR::diss(x,y,method="W2")
-}
-#' @rdname Wasserstein.diss
-#' @export
-Wasserstein.diss.distributional <- function(x,log=FALSE,...){
-    diss.distributional(x,method="W2",log=log,...)
-}
-
 #' Calculate the dissimilarity matrix between two datasets of class
 #' \code{distributional}, \code{compositional}, \code{counts} or
 #' \code{varietal}
@@ -108,22 +68,40 @@ Wasserstein.diss.distributional <- function(x,log=FALSE,...){
 #' 
 #' @param x an object of class \code{distributional},
 #'     \code{compositional} or \code{counts}
-#' @param method (optional) either "KS", "Wasserstein", "Kuiper",
-#'     "SH", "aitchison", "bray" or "chisq"
+#' @param method if \code{x} has class \code{distributional}: either
+#'     \code{"KS"}, \code{"Wasserstein"}, \code{"Kuiper"} or
+#'     \code{"SH"};
+#'
+#' if \code{x} has class \code{compositional}: either
+#' \code{"aitchison"} or \code{"bray"};
+#'
+#' if \code{x} has class \code{counts}: either \code{"chisq"} or
+#' \code{"bray"};
+#'
+#' if \code{x} has class \code{varietal}: either \code{"KS"},
+#' \code{"Wasserstein"} or \code{"W2"}.
 #' @param log logical. If \code{TRUE}, subjects the distributional
 #'     data to a logarithmic transformation before calculating the
 #'     Wasserstein distance.
 #' @param ... optional arguments
+#' @details \code{"KS"} stands for the Kolmogorov-Smirnov statistic,
+#'     \code{"Wasserstein"} for the 1-dimensional Wasserstein-2
+#'     distance, \code{"Kuiper"} for the Kuiper statistic, \code{"SH"}
+#'     for the Sircombe-Hazelton distance, \code{"aitchison"} for the
+#'     Aitchison logratio distance, \code{"bray"} for the Bray-Curtis
+#'     distance, \code{"chisq"} for the Chi-square distance, and "W2"
+#'     for the 2-dimensional Wasserstein-2 distance.
 #' @examples
 #' data(Namib)
 #' print(round(100*diss(Namib$DZ)))
 #' @return an object of class \code{diss}
+#' @seealso KS.diss bray.diss SH.diss Wasserstein.diss Kuiper.diss
 #' @rdname diss
 #' @export
 diss <- function(x,method,...){ UseMethod("diss",x) }
 #' @rdname diss
 #' @export
-diss.distributional <- function(x,method=NULL,log=FALSE,...) {
+diss.distributional <- function(x,method='KS',log=FALSE,...) {
     if (!is.null(method)) x$method <- method
     n <- length(x$x)
     d <- mat.or.vec(n,n)
@@ -156,7 +134,7 @@ diss.distributional <- function(x,method=NULL,log=FALSE,...) {
 }
 #' @rdname diss
 #' @export
-diss.compositional <- function(x,method=NULL,...){
+diss.compositional <- function(x,method='aitchison',...){
     if (!is.null(method)) x$method <- method
     if (x$method=="aitchison"){
         out <- stats::dist(CLR(x))
@@ -178,7 +156,7 @@ diss.compositional <- function(x,method=NULL,...){
 }
 #' @rdname diss
 #' @export
-diss.counts <- function(x,method=NULL,...){
+diss.counts <- function(x,method='chisq',...){
     if (!is.null(method)) x$method <- method
     snames <- names(x)
     ns <- length(snames)
@@ -203,9 +181,14 @@ diss.counts <- function(x,method=NULL,...){
 }
 #' @rdname diss
 #' @export
-diss.varietal <- function(x,method=NULL,...){
-    xd <- varietal2distributional(x)
-    diss.distributional(xd,method=method)
+diss.varietal <- function(x,method='KS',...){
+    if (method=='W2'){
+        out <- Wasserstein.diss(x,...)
+    } else {
+        xd <- varietal2distributional(x)
+        out <- diss.distributional(xd,method=method)
+    }
+    return(out)
 }
 
 #' Bray-Curtis dissimilarity
