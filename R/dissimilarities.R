@@ -101,7 +101,7 @@ Kuiper.diss.distributional <- function(x,...){
 diss <- function(x,method,...){ UseMethod("diss",x) }
 #' @rdname diss
 #' @export
-diss.distributional <- function(x,method='KS',log=FALSE,...) {
+diss.distributional <- function(x,method=NULL,log=FALSE,...) {
     if (!is.null(method)) x$method <- method
     n <- length(x$x)
     d <- mat.or.vec(n,n)
@@ -134,7 +134,7 @@ diss.distributional <- function(x,method='KS',log=FALSE,...) {
 }
 #' @rdname diss
 #' @export
-diss.compositional <- function(x,method='aitchison',...){
+diss.compositional <- function(x,method=NULL,...){
     if (!is.null(method)) x$method <- method
     if (x$method=="aitchison"){
         out <- stats::dist(CLR(x))
@@ -156,7 +156,7 @@ diss.compositional <- function(x,method='aitchison',...){
 }
 #' @rdname diss
 #' @export
-diss.counts <- function(x,method='chisq',...){
+diss.counts <- function(x,method=NULL,...){
     if (!is.null(method)) x$method <- method
     snames <- names(x)
     ns <- length(snames)
@@ -181,12 +181,13 @@ diss.counts <- function(x,method='chisq',...){
 }
 #' @rdname diss
 #' @export
-diss.varietal <- function(x,method='KS',...){
-    if (method=='W2'){
+diss.varietal <- function(x,method=NULL,...){
+    if (!is.null(method)) x$method <- method
+    if (x$method=='W2'){
         out <- Wasserstein.diss(x,...)
     } else {
         xd <- varietal2distributional(x)
-        out <- diss.distributional(xd,method=method)
+        out <- diss.distributional(xd,method=x$method)
     }
     return(out)
 }

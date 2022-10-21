@@ -12,13 +12,13 @@
 \usage{
 diss(x, method, ...)
 
-\method{diss}{distributional}(x, method = "KS", log = FALSE, ...)
+\method{diss}{distributional}(x, method = NULL, log = FALSE, ...)
 
-\method{diss}{compositional}(x, method = "aitchison", ...)
+\method{diss}{compositional}(x, method = NULL, ...)
 
-\method{diss}{counts}(x, method = "chisq", ...)
+\method{diss}{counts}(x, method = NULL, ...)
 
-\method{diss}{varietal}(x, method = "KS", ...)
+\method{diss}{varietal}(x, method = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{distributional},
