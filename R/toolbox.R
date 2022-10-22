@@ -429,15 +429,33 @@ removeNAcols <- function(x){
     subset(x,select=!bad)
 }
 
-resample <- function(x,nb=10){
+resample <- function(x,...){ UseMethod("resample",x) }
+resample.default <- function(x,...){ stop('No default method') }
+resample.distributional <- function(x,nb=10){
     snames <- names(x$x)
-    ns <- length(snames) # number of samples
+    ns <- length(snames)
     out <- x
-    for (i in 1:nb){
-        for (j in 1:ns){
-            sname <- paste0(snames[j],'[',i,']')
-            ng <- length(x$x[[j]]) # number of grains
-            out$x[[sname]] <- sample(x$x[[j]],size=ng,replace=TRUE)
+    for (i in 1:ns){
+        samp <- x$x[[i]]
+        ng <- length(samp)
+        for (j in 1:nb){
+            sname <- paste0(snames[i],'[',j,']')
+            out$x[[sname]] <- sample(samp,size=ng,replace=TRUE)
+        }
+    }
+    out
+}
+resample.varietal <- function(x,nb=10){
+    ns <- length(x$snames)
+    out <- x
+    rnames <- rownames(x$x)
+    for (i in 1:ns){
+        matches <- which(grepl(x$snames[i],rownames(x$x)))
+        ng <- length(matches)
+        for (j in 1:nb){
+            sname <- paste0(x$snames[i],'[',j,']')
+            x$snames <- append(x$snames,sname)
+            k <- sample(matches,size=ng,replace=TRUE)
         }
     }
     out

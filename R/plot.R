@@ -345,7 +345,7 @@ plot.MDS <- function(x,nnlines=FALSE,pch=NA,pos=NULL,cex=1,
                     for (l in 1:ns){
                         if (length(col)==ns) bcol <- col[l]
                         else bcol <- col
-                        m <- ns + l + seq(from=1,to=ns*x$nb,by=ns) - 1
+                        m <- c(l,ns + (l-1)*x$nb + 1:x$nb)
                         chi <- grDevices::chull(x$points[m,c(i,j)])
                         graphics::polygon(x$points[m[chi],c(i,j)],border=bcol)
                     }
