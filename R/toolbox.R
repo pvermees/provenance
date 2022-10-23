@@ -248,7 +248,7 @@ names.counts <- function(x){
 }
 #' @export
 names.varietal <- function(x){
-    return(x$snames)
+    return(names(x$x))
 }
 
 #' @export
@@ -485,34 +485,39 @@ varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
     class(template) <- 'distributional'
     if (bycol){
         out <- list()
-        for (cn in colnames(x$x)){
+        snames <- names(x)
+        for (cn in colnames(x$x[[1]])){
             out[[cn]] <- template
+            out[[cn]]$name <- cn
             out[[cn]]$xlab <- 'concentration'
-            for (sname in x$snames){
-                matches <- grepl(sname,rownames(x$x))
-                if (any(matches)){
-                    out[[cn]]$name <- sname
-                    out[[cn]]$x[[sname]] <- x$x[matches,cn]
-                }
+            for (sname in snames){
+                out[[cn]]$x[[sname]] <- x$x[[sname]][,cn]   
             }
             out[[cn]]$breaks <- getbreaks(out[[cn]]$x)
         }
     } else {
-        pc <- PCA(as.compositional(x$x),scale.=FALSE)
+        vc <- varietal2compositional(x)
+        pc <- PCA(vc,scale.=FALSE)
         if (plot) plot(pc)
         out <- template
         out$name <- x$name
         out$rotation <- pc$rotation[,'PC1']
         out$breaks <- getbreaks(pc$x[,'PC1'])
         out$xlab <- 'PC1'
-        for (sname in x$snames){
-            matches <- grepl(sname,rownames(x$x))
-            if (any(matches)){
-                out$x[[sname]] <- pc$x[matches,'PC1']
-            }
+        for (sname in names(x)){
+            out$x[[sname]] <- predict(pc,newdata=CLR(x$x[[sname]]))[,1]
         }
     }
-    out
+    return(out)
+}
+varietal2compositional <- function(x){
+    tab <- NULL
+    snames <- names(x)
+    for (sname in snames){
+        tab <- rbind(tab,x$x[[sname]])
+    }
+    out <- as.compositional(tab)
+    return(out)
 }
 
 # dat = vector of numbers

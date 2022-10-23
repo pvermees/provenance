@@ -140,10 +140,9 @@ read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
     x <- utils::read.csv(fname,sep=sep,dec=dec,
                          check.names=check.names,
                          row.names=row.names,...)
-    out <- as.varietal(x=x,snames=snames)
-    out$method <- method
+    out <- as.varietal(x=x,snames=snames,method=method)
     out$name <- basename(substr(fname,1,nchar(fname)-4))
-    out
+    return(out)
 }
 
 #' Read a .csv file with compositional data
@@ -421,9 +420,9 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #'
 #' @param x an object of class \code{matrix} or \code{data.frame}
 #' @param snames either a vector of sample names, an integer marking
-#'     the length of the sample name prefix, or
-#'     \code{NULL}. \code{read.varietal} assumes that the row names of
-#'     the \code{.csv} file consist of character strings marking the
+#'     the length of the sample name prefix, or \code{NULL}.
+#'     \code{read.varietal} assumes that the row names of the
+#'     \code{.csv} file consist of character strings marking the
 #'     sample names, followed by a number.
 #' @return an object of class \code{varietal}
 #' @examples
@@ -431,19 +430,22 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #' ap1 <- SNSM$ap
 #' ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
 #' @export
-as.varietal <- function(x,snames=NULL){
-    out <- list()
-    out$x <- x
+as.varietal <- function(x,snames=NULL,method='KS'){
     if (is.null(snames)){
-        out$snames <- unique(gsub("[[:digit:]]","",rownames(out$x)))
+        snames <- unique(gsub("[[:digit:]]","",rownames(x)))
     } else if (is.numeric(snames)){
-        out$snames <- unique(sapply(rownames(out$x),substr,1,snames))
-    } else {
-        out$snames <- snames
+        snames <- unique(sapply(rownames(x),substr,1,snames))
     }
+    out <- list()
     out$name <- deparse(substitute(x))
-    class(out) <- 'varietal'
-    out    
+    out$method <- method
+    out$x <- list()
+    for (sname in snames){
+        matches <- which(grepl(sname,rownames(x)))
+        out$x[[sname]] <- data.matrix(x[matches,,drop=FALSE])
+    }
+    class(out) <- append(class(out),'varietal')
+    out
 }
 
 #' create a \code{counts} object
