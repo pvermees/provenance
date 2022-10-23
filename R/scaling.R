@@ -99,13 +99,17 @@ MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
     d <- diss.distributional(X,...)
     out <- MDS.default(d,classical=classical,k=k)
     out$nb <- nb
-    out
+    return(out)
 }
 #' @rdname MDS
 #' @export
-MDS.varietal <- function(x,classical=FALSE,k=2,...){
-    d <- diss(x,...)
-    MDS.default(d,classical=classical,k=k)
+MDS.varietal <- function(x,classical=FALSE,k=2,nb=0,...){
+    if (nb>0) X <- resample(x,nb=nb)
+    else X <- x
+    d <- diss.varietal(X,...)
+    out <- MDS.default(d,classical=classical,k=k)
+    out$nb <- nb
+    return(out)
 }
 
 #' Principal Component Analysis

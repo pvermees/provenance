@@ -42,17 +42,15 @@ Wasserstein.diss.distributional <- function(x,log=FALSE,...){
 #' @rdname Wasserstein.diss
 #' @export
 Wasserstein.diss.varietal <- function(x,package="approxOT",...){
-    snames <- names(x)
+    snames <- names(x$x)
     ns <- length(snames)
     out <- matrix(0,ns,ns)
     rownames(out) <- colnames(out) <- snames
     for (snamei in snames){
-        matches <- grepl(snamei,rownames(x$x))
-        xi <- CLR(as.matrix(x$x[matches,]))
+        xi <- CLR(x$x[[snamei]])
         ni <- nrow(xi)
         for (snamej in snames){
-            matches <- grepl(snamej,rownames(x$x))
-            xj <- CLR(as.matrix(x$x[matches,]))
+            xj <- CLR(x$x[[snamej]])
             if (!identical(snamei,snamej)){
                 nj <- nrow(xj)
                 wi <- rep(1,ni)/ni

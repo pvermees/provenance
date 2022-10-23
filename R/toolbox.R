@@ -443,22 +443,19 @@ resample.distributional <- function(x,nb=10){
             out$x[[sname]] <- sample(samp,size=ng,replace=TRUE)
         }
     }
-    out
+    return(out)
 }
 resample.varietal <- function(x,nb=10){
-    ns <- length(x$snames)
     out <- x
-    rnames <- rownames(x$x)
-    for (i in 1:ns){
-        matches <- which(grepl(x$snames[i],rownames(x$x)))
-        ng <- length(matches)
+    snames <- names(x$x)
+    for (sname in snames){
+        ng <- nrow(x$x[[sname]])
         for (j in 1:nb){
-            sname <- paste0(x$snames[i],'[',j,']')
-            x$snames <- append(x$snames,sname)
-            k <- sample(matches,size=ng,replace=TRUE)
+            k <- sample(1:ng,size=ng,replace=TRUE)
+            out$x[[paste0(sname,'[',j,']')]] <- x$x[[sname]][k,,drop=FALSE]
         }
     }
-    out
+    return(out)
 }
 
 #' Convert varietal to distributional data
