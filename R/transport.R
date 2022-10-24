@@ -19,6 +19,12 @@ distmat <- function(x,y){
 #' @param package the name of the package that provides the 2D
 #'     Wasserstein distance. Currently, this can be either
 #'     \code{'transport'} or \code{approxOT}.
+#' @param OTmethod only relevant if \code{package='approxOT'}. Passed
+#'     on to the argument \code{method} of
+#'     \code{approxOT::wasserstein}. See
+#'     \code{?approxOT:transport_options} for details.
+#' @param verbose logical. If \code{TRUE}, gives progress updates
+#'     during the construction of the dissimilarity matrix.
 #' @param ... optional arguments to the
 #'     \code{transport::wasserstein()} or
 #'     \code{approxOT::wasserstein()} functions.
@@ -37,11 +43,12 @@ Wasserstein.diss.default <- function(x,y,...){
 #' @rdname Wasserstein.diss
 #' @export
 Wasserstein.diss.distributional <- function(x,log=FALSE,...){
-    diss.distributional(x,method="W2",log=log,...)
+    diss.distributional(x,method="W2_1D",log=log,...)
 }
 #' @rdname Wasserstein.diss
 #' @export
-Wasserstein.diss.varietal <- function(x,package="approxOT",...){
+Wasserstein.diss.varietal <- function(x,package="approxOT",
+                                      OTmethod="sinkhorn",verbose=FALSE,...){
     snames <- names(x$x)
     ns <- length(snames)
     out <- matrix(0,ns,ns)
@@ -50,6 +57,10 @@ Wasserstein.diss.varietal <- function(x,package="approxOT",...){
         xi <- CLR(x$x[[snamei]])
         ni <- nrow(xi)
         for (snamej in snames){
+            if (verbose){
+                msg <- paste0('Comparing ',snamei,' with ',snamej)
+                print(msg)
+            }
             xj <- CLR(x$x[[snamej]])
             if (!identical(snamei,snamej)){
                 nj <- nrow(xj)
@@ -58,7 +69,7 @@ Wasserstein.diss.varietal <- function(x,package="approxOT",...){
                 if (identical(package,"approxOT")){
                     d <- distmat(x=xi,y=xj)
                     out[snamei,snamej] <-
-                        approxOT::wasserstein(a=wi,b=wj,cost=d,...)
+                        approxOT::wasserstein(a=wi,b=wj,cost=d,method=OTmethod,...)
                 } else if (identical(package,"transport")){
                     a <- transport::wpp(xi,mass=wi)
                     b <- transport::wpp(xj,mass=wj)

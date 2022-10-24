@@ -106,7 +106,9 @@ MDS.distributional <- function(x,classical=FALSE,k=2,nb=0,...){
 MDS.varietal <- function(x,classical=FALSE,k=2,nb=0,...){
     if (nb>0) X <- resample(x,nb=nb)
     else X <- x
+    print('Constructing the dissimilarity matrix...')
     d <- diss.varietal(X,...)
+    print('Computing the MDS configuration...')
     out <- MDS.default(d,classical=classical,k=k)
     out$nb <- nb
     return(out)

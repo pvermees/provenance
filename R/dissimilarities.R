@@ -79,15 +79,17 @@ Kuiper.diss.distributional <- function(x,...){
 #' \code{"bray"};
 #'
 #' if \code{x} has class \code{varietal}: either \code{"KS"},
-#' \code{"Wasserstein"} or \code{"W2"}.
+#' \code{"W2_1D"} or \code{"W2"}.
 #' @param log logical. If \code{TRUE}, subjects the distributional
 #'     data to a logarithmic transformation before calculating the
 #'     Wasserstein distance.
+#' @param verbose logical. If \code{TRUE}, gives progress updates
+#'     during the construction of the dissimilarity matrix.
 #' @param ... optional arguments
 #' @details \code{"KS"} stands for the Kolmogorov-Smirnov statistic,
-#'     \code{"Wasserstein"} for the 1-dimensional Wasserstein-2
-#'     distance, \code{"Kuiper"} for the Kuiper statistic, \code{"SH"}
-#'     for the Sircombe-Hazelton distance, \code{"aitchison"} for the
+#'     \code{"W2_1D"} for the 1-dimensional Wasserstein-2 distance,
+#'     \code{"Kuiper"} for the Kuiper statistic, \code{"SH"} for the
+#'     Sircombe-Hazelton distance, \code{"aitchison"} for the
 #'     Aitchison logratio distance, \code{"bray"} for the Bray-Curtis
 #'     distance, \code{"chisq"} for the Chi-square distance, and "W2"
 #'     for the 2-dimensional Wasserstein-2 distance.
@@ -101,18 +103,23 @@ Kuiper.diss.distributional <- function(x,...){
 diss <- function(x,method,...){ UseMethod("diss",x) }
 #' @rdname diss
 #' @export
-diss.distributional <- function(x,method=NULL,log=FALSE,...) {
+diss.distributional <- function(x,method=NULL,log=FALSE,verbose=FALSE,...) {
     if (!is.null(method)) x$method <- method
     n <- length(x$x)
     d <- mat.or.vec(n,n)
-    rownames(d) <- names(x$x)
-    colnames(d) <- names(x$x)
+    snames <- names(x$x)
+    rownames(d) <- snames
+    colnames(d) <- snames
     if (x$method=="SH") c2 <- getc2(x)
     for (i in 1:n){
         for (j in 1:n){
+            if (verbose){
+                msg <- paste0('Comparing ',snames[i],' with ',snames[j])
+                print(msg)
+            }
             if (x$method=="SH"){
                 d[i,j] <- SH.diss(x,i,j,c.con=c2)
-            } else if (x$method=="Wasserstein"){
+            } else if (x$method%in%c("W2","W2_1D")){
                 if (log){
                     a <- log(x$x[[i]])
                     b <- log(x$x[[j]])
