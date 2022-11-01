@@ -163,29 +163,22 @@ subset.counts <- function(x,subset=NULL,components=NULL,select=NULL,...){
 #' @rdname subset
 #' @export
 subset.varietal <- function(x,subset=NULL,components=NULL,select=NULL,...){
-    if (is.null(subset)){
-        X <- x$x
+    if (is.null(select)){
+        if (is.null(subset)){
+            snames <- names(x)
+        } else {
+            snames <- names(x)[subset]
+        }
     } else {
-        X <- x$x[subset,]
+        snames <- select
     }
-    if (!is.null(components)){
-        X <- X[,components]
+    if (is.null(components)){
+        components <- colnames(x$x[[1]])
     }
     out <- x
-    if (is.null(select)){
-        out$x <- X
-        out$snames <- NULL
-        for (sname in x$snames){
-            matches <- grepl(sname,rownames(X))
-            if (any(matches)) out$snames <- c(out$snames,sname)
-        }
-    } else {
-        out$x <- NULL
-        out$snames <- select
-        for (sname in select){
-            matches <- grepl(sname,rownames(X))
-            out$x <- rbind(out$x,X[matches,])
-        }
+    out$x <- list()
+    for (sname in snames){
+        out$x[[sname]] <- x$x[[sname]][,components]
     }
     out
 }
@@ -475,9 +468,9 @@ resample.varietal <- function(x,nb=10,seed=1){
 #' @param plot logical. If \code{TRUE}, shows the PCA biplot that is
 #'     used when \code{bycol} is \code{FALSE}.
 #' @examples
-#' Apfile <- system.file("apatite.csv",package="provenance")
-#' Ap <- read.varietal(fn=Apfile,snames=3)
-#' varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
+#' Ttn_file <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+#' Ttn <- read.varietal(fn=Ttn_file,snames=3)
+#' varietal2distributional(Ttn,bycol=FALSE,plot=TRUE)
 #' @export
 varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
     template <- list(x=list(),colmap='rainbow',method=x$method)
@@ -504,7 +497,7 @@ varietal2distributional <- function(x,bycol=FALSE,plot=FALSE){
         out$breaks <- getbreaks(pc$x[,'PC1'])
         out$xlab <- 'PC1'
         for (sname in names(x)){
-            out$x[[sname]] <- predict(pc,newdata=CLR(x$x[[sname]]))[,1]
+            out$x[[sname]] <- stats::predict(pc,newdata=CLR(x$x[[sname]]))[,1]
         }
     }
     return(out)

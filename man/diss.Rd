@@ -12,7 +12,7 @@
 \usage{
 diss(x, method, ...)
 
-\method{diss}{distributional}(x, method = NULL, log = FALSE, ...)
+\method{diss}{distributional}(x, method = NULL, log = FALSE, verbose = FALSE, ...)
 
 \method{diss}{compositional}(x, method = NULL, ...)
 
@@ -35,13 +35,16 @@ if \code{x} has class \code{counts}: either \code{"chisq"} or
 \code{"bray"};
 
 if \code{x} has class \code{varietal}: either \code{"KS"},
-\code{"Wasserstein"} or \code{"W2"}.}
+\code{"W2_1D"} or \code{"W2"}.}
 
 \item{...}{optional arguments}
 
 \item{log}{logical. If \code{TRUE}, subjects the distributional
 data to a logarithmic transformation before calculating the
 Wasserstein distance.}
+
+\item{verbose}{logical. If \code{TRUE}, gives progress updates
+during the construction of the dissimilarity matrix.}
 }
 \value{
 an object of class \code{diss}
@@ -53,9 +56,9 @@ Sircombe-Hazelton, Aitchison or Bray-Curtis distance
 }
 \details{
 \code{"KS"} stands for the Kolmogorov-Smirnov statistic,
-    \code{"Wasserstein"} for the 1-dimensional Wasserstein-2
-    distance, \code{"Kuiper"} for the Kuiper statistic, \code{"SH"}
-    for the Sircombe-Hazelton distance, \code{"aitchison"} for the
+    \code{"W2_1D"} for the 1-dimensional Wasserstein-2 distance,
+    \code{"Kuiper"} for the Kuiper statistic, \code{"SH"} for the
+    Sircombe-Hazelton distance, \code{"aitchison"} for the
     Aitchison logratio distance, \code{"bray"} for the Bray-Curtis
     distance, \code{"chisq"} for the Chi-square distance, and "W2"
     for the 2-dimensional Wasserstein-2 distance.

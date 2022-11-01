@@ -67,7 +67,7 @@ Reads a data table containing compositional data (e.g. chemical
 concentrations)
 }
 \examples{
-    fname <- system.file("Major.csv",package="provenance")
+    fname <- system.file("Namib/Major.csv",package="provenance")
     Major <- read.compositional(fname)
     plot(PCA(Major))
 }

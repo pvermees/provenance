@@ -56,8 +56,8 @@
 #' \code{name}: the name of the data object, extracted from the file path
 #'
 #' @examples
-#'     agefile <- system.file("DZ.csv",package="provenance")
-#'     errfile <- system.file("DZerr.csv",package="provenance")
+#'     agefile <- system.file("Namib/DZ.csv",package="provenance")
+#'     errfile <- system.file("Namib/DZerr.csv",package="provenance")
 #'     DZ <- read.distributional(agefile,errfile)
 #'     plot(KDE(DZ$x$N1))
 #' @export
@@ -131,9 +131,9 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' \code{name}: the name of the dataset, extracted from the file path
 #' 
 #' @examples
-#' Apfile <- system.file("apatite.csv",package="provenance")
-#' Ap <- read.varietal(fn=Apfile,snames=3)
-#' plot(MDS(Ap))
+#' fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+#' Ttn <- read.varietal(fname=fn,snames=3)
+#' plot(MDS(Ttn))
 #'@export
 read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
                           method='KS',check.names=FALSE,row.names=1,...){
@@ -186,7 +186,7 @@ read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
 #' \code{name}: the name of the data object, extracted from the file path
 #' 
 #' @examples
-#'     fname <- system.file("Major.csv",package="provenance")
+#'     fname <- system.file("Namib/Major.csv",package="provenance")
 #'     Major <- read.compositional(fname)
 #'     plot(PCA(Major))
 #' @export
@@ -251,7 +251,7 @@ read.compositional <- function(fname,method=NULL,colmap='rainbow',
 #' \code{name}: the name of the data object, extracted from the file path
 #'
 #' @examples
-#'     fname <- system.file("HM.csv",package="provenance")
+#'     fname <- system.file("Namib/HM.csv",package="provenance")
 #'     Major <- read.counts(fname)
 #'     #plot(PCA(HM))
 #' @export
@@ -424,11 +424,13 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #'     \code{read.varietal} assumes that the row names of the
 #'     \code{.csv} file consist of character strings marking the
 #'     sample names, followed by a number.
+#' @param method either \code{'KS'} (for the Kolmogorov-Smirnov
+#'     statistic) or \code{'W2'} (for the Wasserstein-2 distance).
 #' @return an object of class \code{varietal}
 #' @examples
-#' data(SNSM)
-#' ap1 <- SNSM$ap
-#' ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
+#' fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+#' ap1 <- read.csv(fn)
+#' ap2 <- as.varietal(x=ap1,snames=3)
 #' @export
 as.varietal <- function(x,snames=NULL,method='KS'){
     if (is.null(snames)){

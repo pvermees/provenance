@@ -25,8 +25,8 @@ Functional Estimates (KFEs, not to be confused with Kernel Density
 Estimates!) of two samples with specified analytical uncertainties
 }
 \examples{
-datfile <- system.file("DZ.csv",package="provenance")
-errfile <- system.file("DZerr.csv",package="provenance")
+datfile <- system.file("Namib/DZ.csv",package="provenance")
+errfile <- system.file("Namib/DZerr.csv",package="provenance")
 DZ <- read.distributional(datfile,errfile)
 d <- SH.diss(DZ,1,2)
 print(d)
