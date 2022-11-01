@@ -40,9 +40,9 @@ symbols if pch != NA}
 
 \item{ylab}{a string with the label of the y axis}
 
-\item{xaxt}{if = 'y', adds ticks to the x axis}
+\item{xaxt}{if = 's', adds ticks to the x axis}
 
-\item{yaxt}{if = 'y', adds ticks to the y axis}
+\item{yaxt}{if = 's', adds ticks to the y axis}
 
 \item{option}{either:
 

@@ -59,8 +59,7 @@ statistical provenance analysis, Sedimentary Geology, 336,
 14-25](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschSedGeol2016/)
 
 [Vermeesch, P., 2018, Statistical models for point-counting
-data. Earth and Planetary Science Letters (in
-press)](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschEPSL2018/)
+data. Earth and Planetary Science Letters 501, 1-7](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschEPSL2018/)
 
 ## Author
 

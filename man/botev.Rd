@@ -17,7 +17,7 @@ Uses the diffusion algorithm of Botev (2011)
 to calculate the bandwidth for kernel density estimation
 }
 \examples{
-fname <- system.file("DZ.csv",package="provenance")
+fname <- system.file("Namib/DZ.csv",package="provenance")
 bw <- botev(read.distributional(fname)$x$N1)
 print(bw)
 }

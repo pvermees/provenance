@@ -4,17 +4,24 @@
 #'
 #' @param x the first sample as a vector
 #' @param y the second sample as a vector
+#' @param ... optional arguments
 #' @return a scalar value representing the maximum vertical distance
 #' between the two cumulative distributions
 #' @examples
 #' data(Namib)
 #' print(KS.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' @rdname KS.diss
 #' @export
-KS.diss <- function(x,y) {
-    xy <- c(x,y)
-    cad1 <- stats::ecdf(x)
-    cad2 <- stats::ecdf(y)
-    max(abs(cad2(xy)-cad1(xy)))
+KS.diss <- function(x,...){ UseMethod("KS.diss",x) }
+#' @rdname KS.diss
+#' @export
+KS.diss.default <- function(x,y,...){
+    IsoplotR::diss(x,y,method="KS")
+}
+#' @rdname KS.diss
+#' @export
+KS.diss.distributional <- function(x,...){
+    diss.distributional(x,method="KS",...)
 }
 
 #' Kuiper dissimilarity
@@ -23,13 +30,18 @@ KS.diss <- function(x,y) {
 #'
 #' @param x the first sample as a vector
 #' @param y the second sample as a vector
+#' @param ... optional arguments
 #' @return a scalar value representing the sum of the maximum vertical
 #' distances above and below the cumulative distributions of x and y
 #' @examples
 #' data(Namib)
 #' print(Kuiper.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' @rdname Kuiper.diss
 #' @export
-Kuiper.diss <- function(x,y){
+Kuiper.diss <- function(x,...){ UseMethod("Kuiper.diss",x) }
+#' @rdname Kuiper.diss
+#' @export
+Kuiper.diss.default <- function(x,y,...){
     xy <- c(x,y)
     cad1 <- stats::ecdf(x)
     cad2 <- stats::ecdf(y)
@@ -38,58 +50,12 @@ Kuiper.diss <- function(x,y){
     m <- min(d)
     if (M<0) M <- 0
     if (m>0) m <- 0
-    M-m
+    return(M-m)
 }
-
-# lifted from the transport package (wasserstein1d function)
-Wasserstein.diss <- function(a, b, p=1, wa=NULL, wb=NULL) {
-    m <- length(a)
-    n <- length(b)
-    stopifnot(m > 0 && n > 0)
-    if (m == n && is.null(wa) && is.null(wb)) {
-        return(mean(abs(sort(b)-sort(a))^p)^(1/p))
-    }
-    stopifnot(is.null(wa) || length(wa) == m)
-    stopifnot(is.null(wb) || length(wb) == n)
-    if (is.null(wa)) {
-        wa <- rep(1,m)
-    } else { # remove points with zero weight
-        wha <- wa > 0
-        wa <- wa[wha]
-        a <- a[wha]
-        m <- length(a)
-    }
-    if (is.null(wb)) {
-        wb <- rep(1,n)
-    } else { # remove points with zero weight
-        whb <- wb > 0
-        wb <- wb[whb]
-        b <- b[whb]
-        n <- length(b)
-    }
-
-    orda <- order(a)
-    ordb <- order(b)
-    a <- a[orda]
-    b <- b[ordb]
-    wa <- wa[orda]
-    wb <- wb[ordb]
-    ua <- (wa/sum(wa))[-m]
-    ub <- (wb/sum(wb))[-n]
-    cua <- c(cumsum(ua))  
-    cub <- c(cumsum(ub))  
-    arep <- graphics::hist(cub, breaks = c(-Inf, cua, Inf), plot = FALSE)$counts + 1
-    brep <- graphics::hist(cua, breaks = c(-Inf, cub, Inf), plot = FALSE)$counts + 1
-
-    aa <- rep(a, times=arep)
-    bb <- rep(b, times=brep)
-
-    uu <- sort(c(cua,cub))
-    uu0 <- c(0,uu)
-    uu1 <- c(uu,1)
-    areap <- sum((uu1-uu0)*abs(bb-aa)^p)^(1/p)
-
-    return(areap)
+#' @rdname Kuiper.diss
+#' @export
+Kuiper.diss.distributional <- function(x,...){
+    diss.distributional(x,method="Kuiper",...)
 }
 
 #' Calculate the dissimilarity matrix between two datasets of class
@@ -102,33 +68,58 @@ Wasserstein.diss <- function(a, b, p=1, wa=NULL, wb=NULL) {
 #' 
 #' @param x an object of class \code{distributional},
 #'     \code{compositional} or \code{counts}
-#' @param method (optional) either "KS", "Wasserstein", "Kuiper",
-#'     "SH", "aitchison", "bray" or "chisq"
+#' @param method if \code{x} has class \code{distributional}: either
+#'     \code{"KS"}, \code{"Wasserstein"}, \code{"Kuiper"} or
+#'     \code{"SH"};
+#'
+#' if \code{x} has class \code{compositional}: either
+#' \code{"aitchison"} or \code{"bray"};
+#'
+#' if \code{x} has class \code{counts}: either \code{"chisq"} or
+#' \code{"bray"};
+#'
+#' if \code{x} has class \code{varietal}: either \code{"KS"},
+#' \code{"W2_1D"} or \code{"W2"}.
 #' @param log logical. If \code{TRUE}, subjects the distributional
 #'     data to a logarithmic transformation before calculating the
 #'     Wasserstein distance.
+#' @param verbose logical. If \code{TRUE}, gives progress updates
+#'     during the construction of the dissimilarity matrix.
 #' @param ... optional arguments
+#' @details \code{"KS"} stands for the Kolmogorov-Smirnov statistic,
+#'     \code{"W2_1D"} for the 1-dimensional Wasserstein-2 distance,
+#'     \code{"Kuiper"} for the Kuiper statistic, \code{"SH"} for the
+#'     Sircombe-Hazelton distance, \code{"aitchison"} for the
+#'     Aitchison logratio distance, \code{"bray"} for the Bray-Curtis
+#'     distance, \code{"chisq"} for the Chi-square distance, and "W2"
+#'     for the 2-dimensional Wasserstein-2 distance.
 #' @examples
 #' data(Namib)
 #' print(round(100*diss(Namib$DZ)))
 #' @return an object of class \code{diss}
+#' @seealso KS.diss bray.diss SH.diss Wasserstein.diss Kuiper.diss
 #' @rdname diss
 #' @export
 diss <- function(x,method,...){ UseMethod("diss",x) }
 #' @rdname diss
 #' @export
-diss.distributional <- function(x,method=NULL,log=FALSE,...) {
+diss.distributional <- function(x,method=NULL,log=FALSE,verbose=FALSE,...) {
     if (!is.null(method)) x$method <- method
     n <- length(x$x)
     d <- mat.or.vec(n,n)
-    rownames(d) <- names(x$x)
-    colnames(d) <- names(x$x)
+    snames <- names(x$x)
+    rownames(d) <- snames
+    colnames(d) <- snames
     if (x$method=="SH") c2 <- getc2(x)
     for (i in 1:n){
         for (j in 1:n){
+            if (verbose){
+                msg <- paste0('Comparing ',snames[i],' with ',snames[j])
+                print(msg)
+            }
             if (x$method=="SH"){
                 d[i,j] <- SH.diss(x,i,j,c.con=c2)
-            } else if (x$method=="Wasserstein"){
+            } else if (x$method%in%c("W2","W2_1D")){
                 if (log){
                     a <- log(x$x[[i]])
                     b <- log(x$x[[j]])
@@ -198,8 +189,14 @@ diss.counts <- function(x,method=NULL,...){
 #' @rdname diss
 #' @export
 diss.varietal <- function(x,method=NULL,...){
-    xd <- varietal2distributional(x)
-    diss.distributional(xd,method=method)
+    if (!is.null(method)) x$method <- method
+    if (x$method=='W2'){
+        out <- Wasserstein.diss(x,...)
+    } else {
+        xd <- varietal2distributional(x)
+        out <- diss.distributional(xd,method=x$method)
+    }
+    return(out)
 }
 
 #' Bray-Curtis dissimilarity
@@ -208,13 +205,23 @@ diss.varietal <- function(x,method=NULL,...){
 #' @param x a vector containing the first compositional sample
 #' @param y a vector of \code{length(x)} containing the second
 #'     compositional sample
+#' @param ... optional arguments
 #' @return a scalar value
 #' @examples
 #' data(Namib)
 #' print(bray.diss(Namib$HM$x["N1",],Namib$HM$x["N2",]))
+#' @rdname bray.diss
 #' @export
-bray.diss <- function(x,y){
+bray.diss <- function(x,...){ UseMethod("bray.diss",x) }
+#' @rdname bray.diss
+#' @export
+bray.diss.default <- function(x,y,...){
     return(as.numeric(sum(abs(x-y))/sum(x+y)))
+}
+#' @rdname bray.diss
+#' @export
+bray.diss.compositional <- function(x,...){
+    diss.compositional(x,method="bray",...)
 }
 
 # returns list of normalised dissimilarities between common items

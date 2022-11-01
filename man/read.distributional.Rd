@@ -87,8 +87,8 @@ Reads a data table containing distributional data, i.e. lists of
 continuous data such as detrital zircon U-Pb ages.
 }
 \examples{
-    agefile <- system.file("DZ.csv",package="provenance")
-    errfile <- system.file("DZerr.csv",package="provenance")
+    agefile <- system.file("Namib/DZ.csv",package="provenance")
+    errfile <- system.file("Namib/DZerr.csv",package="provenance")
     DZ <- read.distributional(agefile,errfile)
     plot(KDE(DZ$x$N1))
 }

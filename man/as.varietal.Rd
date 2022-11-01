@@ -4,16 +4,19 @@
 \alias{as.varietal}
 \title{create a \code{varietal} object}
 \usage{
-as.varietal(x, snames = NULL)
+as.varietal(x, snames = NULL, method = "KS")
 }
 \arguments{
 \item{x}{an object of class \code{matrix} or \code{data.frame}}
 
 \item{snames}{either a vector of sample names, an integer marking
-the length of the sample name prefix, or
-\code{NULL}. \code{read.varietal} assumes that the row names of
-the \code{.csv} file consist of character strings marking the
+the length of the sample name prefix, or \code{NULL}.
+\code{read.varietal} assumes that the row names of the
+\code{.csv} file consist of character strings marking the
 sample names, followed by a number.}
+
+\item{method}{either \code{'KS'} (for the Kolmogorov-Smirnov
+statistic) or \code{'W2'} (for the Wasserstein-2 distance).}
 }
 \value{
 an object of class \code{varietal}
@@ -23,7 +26,7 @@ Convert an object of class \code{matrix} or \code{data.frame} to an
 object of class \code{varietal}
 }
 \examples{
-data(SNSM)
-ap1 <- SNSM$ap
-ap2 <- as.varietal(x=ap1$x,snames=ap1$snames)
+fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+ap1 <- read.csv(fn)
+ap2 <- as.varietal(x=ap1,snames=3)
 }

@@ -64,7 +64,7 @@ Reads a data table containing point-counting data
 palynological data)
 }
 \examples{
-    fname <- system.file("HM.csv",package="provenance")
+    fname <- system.file("Namib/HM.csv",package="provenance")
     Major <- read.counts(fname)
     #plot(PCA(HM))
 }

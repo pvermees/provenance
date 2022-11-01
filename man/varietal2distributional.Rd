@@ -24,7 +24,7 @@ to a single distributional object corresponding to the first
 principal component.
 }
 \examples{
-Apfile <- system.file("apatite.csv",package="provenance")
-Ap <- read.varietal(fn=Apfile,snames=3)
-varietal2distributional(Ap,bycol=FALSE,plot=TRUE)
+Ttn_file <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+Ttn <- read.varietal(fn=Ttn_file,snames=3)
+varietal2distributional(Ttn,bycol=FALSE,plot=TRUE)
 }

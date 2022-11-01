@@ -2,12 +2,20 @@
 % Please edit documentation in R/dissimilarities.R
 \name{KS.diss}
 \alias{KS.diss}
+\alias{KS.diss.default}
+\alias{KS.diss.distributional}
 \title{Kolmogorov-Smirnov dissimilarity}
 \usage{
-KS.diss(x, y)
+KS.diss(x, ...)
+
+\method{KS.diss}{default}(x, y, ...)
+
+\method{KS.diss}{distributional}(x, ...)
 }
 \arguments{
 \item{x}{the first sample as a vector}
+
+\item{...}{optional arguments}
 
 \item{y}{the second sample as a vector}
 }

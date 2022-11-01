@@ -59,7 +59,7 @@ Reads a data table containing compositional data (e.g. chemical
 concentrations) for multiple grains and multiple samples
 }
 \examples{
-Apfile <- system.file("apatite.csv",package="provenance")
-Ap <- read.varietal(fn=Apfile,snames=3)
-plot(MDS(Ap))
+fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
+Ttn <- read.varietal(fname=fn,snames=3)
+plot(MDS(Ttn))
 }

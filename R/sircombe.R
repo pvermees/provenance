@@ -53,8 +53,8 @@ getc2 <- function(x){
 #' detrital zircon age distributions by kernel functional estimation."
 #' Sedimentary Geology 171.1 (2004): 91-111.
 #' @examples
-#' datfile <- system.file("DZ.csv",package="provenance")
-#' errfile <- system.file("DZerr.csv",package="provenance")
+#' datfile <- system.file("Namib/DZ.csv",package="provenance")
+#' errfile <- system.file("Namib/DZerr.csv",package="provenance")
 #' DZ <- read.distributional(datfile,errfile)
 #' d <- SH.diss(DZ,1,2)
 #' print(d)
@@ -75,5 +75,5 @@ SH.diss <- function(x,i,j,c.con=0){
     Itmp <- mean(stats::dnorm(XYdiff,sd=h1))
     dXY <- rfX+rfY-2*Itmp
     dXY <- sqrt(dXY)
-    return(dXY)
+    return(dXY)    
 }

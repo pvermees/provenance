@@ -38,7 +38,7 @@ fixedpoint <-  function(tt,N,II,a2){
 #' D. P. Kroese. "Kernel density estimation via diffusion." The Annals
 #' of Statistics 38.5 (2010): 2916-2957.
 #' @examples
-#' fname <- system.file("DZ.csv",package="provenance")
+#' fname <- system.file("Namib/DZ.csv",package="provenance")
 #' bw <- botev(read.distributional(fname)$x$N1)
 #' print(bw)
 #' @export
