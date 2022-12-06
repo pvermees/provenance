@@ -239,13 +239,14 @@ plot.PCA <- function(x, labelcol='black', vectorcol='red',
 #' @seealso CA
 #' @method plot CA
 #' @export
-plot.CA <- function(x,labelcol='black',vectorcol='red',...){
-    X <- x$rscore[, 1L:2]
-    X <- X %*% diag(x$cor[1L:2])
-    Y <- x$cscore[, 1L:2]
-    Y <- Y %*% diag(x$cor[1L:2])
+plot.CA <- function(x,labelcol='black',vectorcol='red',components=c(1,2),...){
+    X <- x$rscore[,components]
+    X <- X %*% diag(x$cor[components])
+    Y <- x$cscore[, components]
+    Y <- Y %*% diag(x$cor[components])
     biplotHelper(X, Y, labelcol=labelcol, vectorcol=vectorcol,
-                 xlab='Component 1', ylab='Component 2',...)
+                 xlab=paste0('Component ',components[1]),
+                 ylab=paste0('Component ',components[2]),...)
     invisible()
 }
 
