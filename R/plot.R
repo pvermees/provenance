@@ -232,6 +232,7 @@ plot.PCA <- function(x, labelcol='black', vectorcol='red',
 #' @param x an object of class \code{CA}
 #' @param labelcol colour of the sample labels (may be a vector).
 #' @param vectorcol colour of the vector loadings for the variables
+#' @param components two-element vector of components to be plotted
 #' @param ... optional arguments of the generic \code{biplot} function
 #' @examples
 #' data(Namib)
