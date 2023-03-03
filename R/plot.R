@@ -221,8 +221,8 @@ plot.PCA <- function(x, labelcol='black', vectorcol='red',
     if (pc.biplot) 
         lam <- lam/sqrt(n)
     biplotHelper(t(t(scores[,choices])/lam),
-                 t(t(x$rotation[, choices])*lam),
-                 labelcol=labelcol, vectorcol=vectorcol,...)
+                 t(t(x$rotation[,choices])*lam),
+                 labelcol=labelcol,vectorcol=vectorcol,...)
     invisible()
 }
 

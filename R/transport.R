@@ -28,6 +28,10 @@ distmat <- function(x,y){
 #' @param ... optional arguments to the
 #'     \code{transport::wasserstein()} or
 #'     \code{approxOT::wasserstein()} functions.
+#' @author The default S3 method was written by Pieter Vermeesch,
+#'     using modified code from Dominic Schuhmacher's \code{transport}
+#'     package (\code{transport1d} function), as implemented in
+#'     \code{IsoplotR}.
 #' @return a scalar value
 #' @examples
 #' data(Namib)

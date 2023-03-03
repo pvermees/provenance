@@ -4,7 +4,7 @@
 \alias{indscal}
 \title{Individual Differences Scaling of provenance data}
 \usage{
-indscal(..., type = "ordinal")
+indscal(..., type = "ordinal", itmax = 1000)
 }
 \arguments{
 \item{...}{a sequence of datasets of class \code{distributional},
@@ -12,6 +12,8 @@ indscal(..., type = "ordinal")
 single object of class \code{varietal}.}
 
 \item{type}{is either "ratio" or "ordinal"}
+
+\item{itmax}{Maximum number of iterations}
 }
 \value{
 an object of class \code{INDSCAL}, i.e. a list containing
@@ -49,13 +51,15 @@ Chang (1970)'s INdividual Differences SCALing method as implemented
 using De Leeuw and Mair (2011)'s stress majorization algorithm.
 }
 \examples{
-data(Namib)
-plot(indscal(Namib$DZ,Namib$HM))
+\dontrun{
+attach(Namib)
+plot(indscal(DZ,HM,PT,Major,Trace))
+}
 }
 \references{
 de Leeuw, J., & Mair, P. (2009). Multidimensional scaling using
 majorization: The R package smacof. Journal of Statistical
-Software, 31(3), 1-30, < https://www.jstatsoft.org/v31/i03/>
+Software, 31(3), 1-30, <https://www.jstatsoft.org/v31/i03/>
 }
 \author{
 Jan de Leeuw and Patrick Mair
