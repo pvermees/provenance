@@ -55,3 +55,9 @@ Returns the Wasserstein distance between two samples
 data(Namib)
 print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 }
+\author{
+The default S3 method was written by Pieter Vermeesch,
+    using modified code from Dominic Schuhmacher's \code{transport}
+    package (\code{transport1d} function), as implemented in
+    \code{IsoplotR}.
+}

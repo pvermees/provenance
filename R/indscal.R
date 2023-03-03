@@ -7,6 +7,7 @@
 #'     \code{compositional}, \code{counts} or \code{varietal}, OR a
 #'     single object of class \code{varietal}.
 #' @param type is either "ratio" or "ordinal"
+#' @param itmax Maximum number of iterations
 #' @return an object of class \code{INDSCAL}, i.e. a list containing
 #'     the following items:
 #' 
@@ -40,19 +41,22 @@
 #' @references
 #' de Leeuw, J., & Mair, P. (2009). Multidimensional scaling using
 #' majorization: The R package smacof. Journal of Statistical
-#' Software, 31(3), 1-30, < https://www.jstatsoft.org/v31/i03/>
+#' Software, 31(3), 1-30, <https://www.jstatsoft.org/v31/i03/>
 #' @examples
-#' data(Namib)
-#' plot(indscal(Namib$DZ,Namib$HM))
+#' \dontrun{
+#' attach(Namib)
+#' plot(indscal(DZ,HM,PT,Major,Trace))
+#' }
 #' @export
-indscal <- function(...,type='ordinal'){
+indscal <- function(...,type='ordinal',itmax=1000){
     slist <- list(...)
     names(slist) <- get.data.names(slist)
     if (length(slist)==1 & 'varietal' %in% class(slist[[1]])){
         slist <- varietal2distributional(slist[[1]],bycol=TRUE)
     }
     disslist <- getdisslist(slist)
-    out <- smacofIndDiff(disslist, constraint = "indscal",type=type)
+    out <- smacofIndDiff(disslist,constraint="indscal",
+                         type=type,itmax=itmax)
     class(out) <- "INDSCAL"
     return(out)
 }

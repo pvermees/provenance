@@ -4,7 +4,7 @@
 \alias{plot.CA}
 \title{Point-counting biplot}
 \usage{
-\method{plot}{CA}(x, labelcol = "black", vectorcol = "red", ...)
+\method{plot}{CA}(x, labelcol = "black", vectorcol = "red", components = c(1, 2), ...)
 }
 \arguments{
 \item{x}{an object of class \code{CA}}
@@ -12,6 +12,8 @@
 \item{labelcol}{colour of the sample labels (may be a vector).}
 
 \item{vectorcol}{colour of the vector loadings for the variables}
+
+\item{components}{two-element vector of components to be plotted}
 
 \item{...}{optional arguments of the generic \code{biplot} function}
 }
