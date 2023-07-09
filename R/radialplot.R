@@ -77,7 +77,7 @@ radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     if (all(is.numeric(den))) den <- colnames(x$x)[den]
     label <- paste0('central ',num,'/',den,'-ratio')
     dat <- subset(x,components=c(num,den))
-    X <- x2zs(dat$x)
+    X <- x2zs(dat$x,from=from,to=to)
     X$transformation <- 'arctan'
     pcol <- IsoplotR:::set.ellipse.colours(ns=nrow(x$x),levels=levels,col=bg)
     IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
@@ -100,7 +100,7 @@ radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     graphics::mtext(line3,line=0)
 }
 
-x2zs <- function(x){
+x2zs <- function(x,from=NA,to=NA){
     out <- list()
     n <- x[,1]
     m <- x[,2]
@@ -108,8 +108,8 @@ x2zs <- function(x){
     out$s <- sqrt(1/(n+m+1/2))/2
     out$z0 <- atan(sqrt(sum(n,na.rm=TRUE)/
                         sum(m,na.rm=TRUE)))
-    out$from <- min(tan(out$z)^2)
-    out$to <- max(tan(out$z)^2)
+    out$from <- ifelse(is.na(from),min(tan(out$z)^2),from)
+    out$to <- ifelse(is.na(to),max(tan(out$z)^2),to)
     out$xlab <- paste(colnames(x),collapse='+')
     out
 }
