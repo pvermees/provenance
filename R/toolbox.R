@@ -424,7 +424,7 @@ removeNAcols <- function(x){
 
 resample <- function(x,...){ UseMethod("resample",x) }
 resample.default <- function(x,...){ stop('No default method') }
-resample.distributional <- function(x,nb=10,seed=1){
+resample.distributional <- function(x,nb=10,seed=1,...){
     set.seed(seed)
     snames <- names(x$x)
     ns <- length(snames)
