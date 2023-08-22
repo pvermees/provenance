@@ -15,7 +15,7 @@ Wasserstein.diss(x, ...)
 
 \method{Wasserstein.diss}{varietal}(
   x,
-  package = "approxOT",
+  package = "transport",
   OTmethod = "sinkhorn",
   verbose = FALSE,
   ...

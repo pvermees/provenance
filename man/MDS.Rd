@@ -41,7 +41,7 @@ If \code{x} has class \code{varietal}, \code{...} is passed on to
 \code{diss.varietal}.
 
 Otherwise, \code{...} is passed on to \code{cmdscale} (if
-    \code{classical=TRUE}) or \code{isoMDS} (if
+    \code{classical=TRUE}), to \code{isoMDS} (if
     \code{classical=FALSE}).}
 
 \item{classical}{boolean flag indicating whether classical

@@ -24,7 +24,7 @@
 #' \code{diss.varietal}.
 #'
 #' Otherwise, \code{...} is passed on to \code{cmdscale} (if
-#'     \code{classical=TRUE}) or \code{isoMDS} (if
+#'     \code{classical=TRUE}), to \code{isoMDS} (if
 #'     \code{classical=FALSE}).
 #' 
 #' @return an object of class \code{MDS}, i.e. a list containing the

@@ -51,7 +51,7 @@ Wasserstein.diss.distributional <- function(x,log=FALSE,...){
 }
 #' @rdname Wasserstein.diss
 #' @export
-Wasserstein.diss.varietal <- function(x,package="approxOT",
+Wasserstein.diss.varietal <- function(x,package="transport",
                                       OTmethod="sinkhorn",verbose=FALSE,...){
     snames <- names(x$x)
     ns <- length(snames)
