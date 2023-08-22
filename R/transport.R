@@ -18,16 +18,13 @@ distmat <- function(x,y){
 #'     calculating the distances?
 #' @param package the name of the package that provides the 2D
 #'     Wasserstein distance. Currently, this can be either
-#'     \code{'transport'} or \code{approxOT}.
-#' @param OTmethod only relevant if \code{package='approxOT'}. Passed
-#'     on to the argument \code{method} of
-#'     \code{approxOT::wasserstein}. See
-#'     \code{?approxOT:transport_options} for details.
+#'     \code{'transport'} or \code{T4transport}.
 #' @param verbose logical. If \code{TRUE}, gives progress updates
 #'     during the construction of the dissimilarity matrix.
 #' @param ... optional arguments to the
 #'     \code{transport::wasserstein()} or
-#'     \code{approxOT::wasserstein()} functions.
+#'     \code{T4transport::wasserstein()} functions. Warning: the
+#'     latter function is very slow.
 #' @author The default S3 method was written by Pieter Vermeesch,
 #'     using modified code from Dominic Schuhmacher's \code{transport}
 #'     package (\code{transport1d} function), as implemented in
@@ -51,8 +48,7 @@ Wasserstein.diss.distributional <- function(x,log=FALSE,...){
 }
 #' @rdname Wasserstein.diss
 #' @export
-Wasserstein.diss.varietal <- function(x,package="transport",
-                                      OTmethod="sinkhorn",verbose=FALSE,...){
+Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
     snames <- names(x$x)
     ns <- length(snames)
     out <- matrix(0,ns,ns)
@@ -63,18 +59,16 @@ Wasserstein.diss.varietal <- function(x,package="transport",
         for (snamej in snames){
             if (verbose){
                 msg <- paste0('Comparing ',snamei,' with ',snamej)
-                print(msg)
             }
             xj <- CLR(x$x[[snamej]])
             if (!identical(snamei,snamej)){
-                nj <- nrow(xj)
-                wi <- rep(1,ni)/ni
-                wj <- rep(1,nj)/nj
-                if (identical(package,"approxOT")){
-                    d <- distmat(x=xi,y=xj)
-                    out[snamei,snamej] <-
-                        approxOT::wasserstein(a=wi,b=wj,cost=d,method=OTmethod,...)
+                if (identical(package,"T4transport")){
+                    W <- T4transport::wasserstein(X=xi,Y=xj,...)
+                    out[snamei,snamej] <- W$distance
                 } else if (identical(package,"transport")){
+                    nj <- nrow(xj)
+                    wi <- rep(1,ni)/ni
+                    wj <- rep(1,nj)/nj
                     a <- transport::wpp(xi,mass=wi)
                     b <- transport::wpp(xj,mass=wj)
                     out[snamei,snamej] <- transport::wasserstein(a=a,b=b,...)

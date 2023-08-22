@@ -13,20 +13,15 @@ Wasserstein.diss(x, ...)
 
 \method{Wasserstein.diss}{distributional}(x, log = FALSE, ...)
 
-\method{Wasserstein.diss}{varietal}(
-  x,
-  package = "transport",
-  OTmethod = "sinkhorn",
-  verbose = FALSE,
-  ...
-)
+\method{Wasserstein.diss}{varietal}(x, package = "transport", verbose = FALSE, ...)
 }
 \arguments{
 \item{x}{the first sample as a vector}
 
 \item{...}{optional arguments to the
 \code{transport::wasserstein()} or
-\code{approxOT::wasserstein()} functions.}
+\code{T4transport::wasserstein()} functions. Warning: the
+latter function is very slow.}
 
 \item{y}{the second sample as a vector}
 
@@ -35,12 +30,7 @@ calculating the distances?}
 
 \item{package}{the name of the package that provides the 2D
 Wasserstein distance. Currently, this can be either
-\code{'transport'} or \code{approxOT}.}
-
-\item{OTmethod}{only relevant if \code{package='approxOT'}. Passed
-on to the argument \code{method} of
-\code{approxOT::wasserstein}. See
-\code{?approxOT:transport_options} for details.}
+\code{'transport'} or \code{T4transport}.}
 
 \item{verbose}{logical. If \code{TRUE}, gives progress updates
 during the construction of the dissimilarity matrix.}

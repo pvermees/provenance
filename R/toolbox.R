@@ -439,7 +439,7 @@ resample.distributional <- function(x,nb=10,seed=1){
     }
     return(out)
 }
-resample.varietal <- function(x,nb=10,seed=1){
+resample.varietal <- function(x,nb=10,seed=1,...){
     set.seed(1)
     out <- x
     snames <- names(x$x)
