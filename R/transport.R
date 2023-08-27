@@ -63,15 +63,23 @@ Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
             xj <- CLR(x$x[[snamej]])
             if (!identical(snamei,snamej)){
                 if (identical(package,"T4transport")){
-                    W <- T4transport::wasserstein(X=xi,Y=xj,...)
-                    out[snamei,snamej] <- W$distance
+                    if (requireNamespace("T4transport")){
+                        W <- T4transport::wasserstein(X=xi,Y=xj,...)
+                        out[snamei,snamej] <- W$distance
+                    } else {
+                        warning("Please install package T4transport.")
+                    }
                 } else if (identical(package,"transport")){
-                    nj <- nrow(xj)
-                    wi <- rep(1,ni)/ni
-                    wj <- rep(1,nj)/nj
-                    a <- transport::wpp(xi,mass=wi)
-                    b <- transport::wpp(xj,mass=wj)
-                    out[snamei,snamej] <- transport::wasserstein(a=a,b=b,...)
+                    if (requireNamespace("transport")){
+                        nj <- nrow(xj)
+                        wi <- rep(1,ni)/ni
+                        wj <- rep(1,nj)/nj
+                        a <- transport::wpp(xi,mass=wi)
+                        b <- transport::wpp(xj,mass=wj)
+                        out[snamei,snamej] <- transport::wasserstein(a=a,b=b,...)
+                    } else {
+                        warning("Please install package transport.")
+                    }
                 } else {
                     stop("Unknown package")
                 }
