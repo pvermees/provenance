@@ -67,7 +67,10 @@ Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
                         W <- T4transport::wasserstein(X=xi,Y=xj,...)
                         out[snamei,snamej] <- W$distance
                     } else {
-                        warning("Please install package T4transport.")
+                        warning("Unable to calculate the Wasserstein distance. ",
+                                "Please install package 'T4transport'. ",
+                                "Using the K-S distance as a fallback solution.")
+                        return(KS.diss(x))
                     }
                 } else if (identical(package,"transport")){
                     if (requireNamespace("transport")){
@@ -78,7 +81,10 @@ Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
                         b <- transport::wpp(xj,mass=wj)
                         out[snamei,snamej] <- transport::wasserstein(a=a,b=b,...)
                     } else {
-                        warning("Please install package transport.")
+                        warning("Unable to calculate the Wasserstein distance. ",
+                                "Please install package 'transport'. ",
+                                "Using the K-S distance as a fallback solution.")
+                        return(KS.diss(x))
                     }
                 } else {
                     stop("Unknown package")
