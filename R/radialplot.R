@@ -67,11 +67,12 @@
 #' @examples
 #' data(Namib)
 #' radialplot(Namib$PT,components=c('Q','P'))
+#' @importFrom IsoplotR radialplot
 #' @export
-radialplot <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
-                       sigdig=2,show.numbers=FALSE,pch=21,
-                       levels=NA,clabel="",
-                       bg=c("white","red"),title=TRUE,...){
+radialplot.counts <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
+                              sigdig=2,show.numbers=FALSE,pch=21,
+                              levels=NA,clabel="",
+                              bg=c("white","red"),title=TRUE,...){
     ncol <- ncol(x$x)
     if (all(is.numeric(num))) num <- colnames(x$x)[num]
     if (all(is.numeric(den))) den <- colnames(x$x)[den]
@@ -120,7 +121,7 @@ x2zs <- function(x,from=NA,to=NA,t0=NA){
 
 #' Calculate central compositions
 #'
-#' Computes the geometric mean composition of a continuous mixture of
+#' Computes the logratio mean composition of a continuous mixture of
 #' point-counting data.
 #'
 #' @details The central composition assumes that the observed
@@ -147,8 +148,9 @@ x2zs <- function(x,from=NA,to=NA,t0=NA){
 #'              reduced chi-square statistic.}
 #' \item{p.value}{ the p-value for age homogeneity }
 #' }
+#' @importFrom IsoplotR central
 #' @export
-central <- function(x,...){
+central.counts <- function(x,...){
     if ("ternary" %in% class(x)) dat <- x$raw
     else dat <- x$x
     ns <- nrow(dat)
@@ -164,7 +166,7 @@ central <- function(x,...){
     out
 }
 # calculates proportions relative to the last component
-central.multivariate <- function(x,...){
+central_multivariate <- function(x,...){
     if ("ternary" %in% class(x)) dat <- x$raw
     else dat <- x$x
     ns <- nrow(dat)

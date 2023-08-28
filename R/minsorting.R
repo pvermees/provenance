@@ -51,7 +51,7 @@ getSS <- function(dens,medium,SRD,phi){
 #'
 #' mfract: the grain size distribution of each mineral (sum of the columns = 1)
 #' 
-#' mcomp: the composition of each mineral (sum of the rows = 1)
+#' mcomp: the composition of each grain size fraction (sum of the rows = 1)
 #' @author Alberto Resentini and Pieter Vermeesch
 #' @references Resentini, A, Malusa, M G and Garzanti, E. "MinSORTING:
 #' An Excel worksheet for modelling mineral grain-size distribution in
@@ -103,8 +103,7 @@ minsorting <- function(X,dens,sname=NULL,phi=2,sigmaphi=1,
     wt2vol2 <- wt2vol1 %*% diag(1/mydens) # second step
     volsum <- rowSums(wt2vol2) # closure constant for each row
     mcomp <- wt2vol2/volsum*100 # model composition of each fraction
-    dimnames(mcomp) <- list(g,names(Y$x))
-
+    dimnames(mcomp) <- list(g,colnames(Y$x))
     out <- list(mfract=mfract,mcomp=mcomp)
     class(out) <- "minsorting"
     return(out)
