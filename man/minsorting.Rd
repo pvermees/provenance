@@ -45,7 +45,7 @@ an object of class \code{minsorting}, i.e. a list with two
 
 mfract: the grain size distribution of each mineral (sum of the columns = 1)
 
-mcomp: the composition of each mineral (sum of the rows = 1)
+mcomp: the composition of each grain size fraction (sum of the rows = 1)
 }
 \description{
 Models grain size distribution of minerals and rock fragments of

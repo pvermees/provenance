@@ -241,7 +241,7 @@ ternary.ellipse.compositional <- function(x,alpha=0.05,population=TRUE,...){
 #' @export
 ternary.ellipse.counts <- function(x,alpha=0.05,population=TRUE,...){
     pars <- rep(0,5)
-    fit <- central.multivariate(x)
+    fit <- central_multivariate(x)
     pars[1] <- log(fit['theta',1]) - log(1-fit['theta',1]) # mu[1]
     pars[2] <- log(fit['theta',2]) - log(1-fit['theta',2]) # mu[2]
     pars[3] <- fit['sigma',1]
