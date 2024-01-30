@@ -430,11 +430,14 @@ resample.distributional <- function(x,nb=10,seed=1,...){
     ns <- length(snames)
     out <- x
     for (i in 1:ns){
-        samp <- x$x[[i]]
-        ng <- length(samp)
+        ng <- length(x$x[[i]])
         for (j in 1:nb){
             sname <- paste0(snames[i],'[',j,']')
-            out$x[[sname]] <- sample(samp,size=ng,replace=TRUE)
+            selected <- sample(1:ng,replace=TRUE)
+            out$x[[sname]] <- x$x[[i]][selected]
+            if (x$method=='SH'){
+                out$err[[sname]] <- x$err[[i]][selected]
+            }
         }
     }
     return(out)
