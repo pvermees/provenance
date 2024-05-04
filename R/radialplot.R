@@ -66,7 +66,7 @@
 #' Measurements, 21(4), pp.459-470.
 #' @examples
 #' data(Namib)
-#' radialplot(Namib$PT,components=c('Q','P'))
+#' radialplot(Namib$PT,num='Q',den='P')
 #' @importFrom IsoplotR radialplot
 #' @export
 radialplot.counts <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
@@ -80,8 +80,8 @@ radialplot.counts <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     dat <- subset(x,components=c(num,den))
     X <- x2zs(dat$x,from=from,to=to,t0=t0)
     X$transformation <- 'arctan'
-    pcol <- IsoplotR:::set.ellipse.colours(ns=nrow(x$x),levels=levels,col=bg)
-    IsoplotR:::radial.plot(X,show.numbers=show.numbers,pch=pch,
+    pcol <- IsoplotR:::set_ellipse_colours(ns=nrow(x$x),levels=levels,col=bg)
+    IsoplotR:::radial_plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=pcol,...)
     fit <- central(dat)
     ratio <- fit['theta',1]/fit['theta',2]

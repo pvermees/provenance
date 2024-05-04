@@ -89,7 +89,7 @@ one glance.
 }
 \examples{
 data(Namib)
-radialplot(Namib$PT,components=c('Q','P'))
+radialplot(Namib$PT,num='Q',den='P')
 }
 \references{
 Galbraith, R.F., 1988. Graphical display of estimates

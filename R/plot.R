@@ -536,11 +536,16 @@ plotlines <- function(conf,diss) {
     }
 }
 
-# annotation of various plots used in summaryplot function
+#' annotation of various plots used in summaryplot function
+#' @param x a provenance data object
+#' @noRd
 annotation <- function(x,...){ UseMethod("annotation",x) }
+#' @noRd
 annotation.default <- function(x,...){
     stop('x not of class KDEs, compositional or distributional in annotation(x)')
 }
+#' @param height twice the bottom margin in inches
+#' @noRd
 annotation.KDEs <- function(x,height=NULL,...){
     oldpar <- graphics::par()
     if (is.null(height)){ graphics::par(mar=c(2,0,0,0)) }
@@ -562,15 +567,18 @@ annotation.KDEs <- function(x,height=NULL,...){
     graphics::par(mai=oldpar$mai)
     graphics::par(mar=oldpar$mar)
 }
+#' @noRd
 annotation.compositional <- function(x,height=NULL,...){
     labels <- colnames(x$x)
     comp <- rep(1,length(labels))
     col <- do.call(x$colmap,list(length(labels)))
     graphics::pie(comp,labels=labels,col=col,xpd=NA,...)
 }
+#' @noRd
 annotation.counts <- function(x,height=NULL,...){
     annotation.compositional(x,height=NULL,...)
 }
+#' @noRd
 annotation.distributional <- function(x,height=NULL,...){
     oldpar <- graphics::par()
     if (is.null(height)){ graphics::par(mar=c(2,0,0,0)) }

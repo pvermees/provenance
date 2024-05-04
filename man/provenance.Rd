@@ -3,7 +3,6 @@
 \docType{package}
 \name{provenance}
 \alias{provenance}
-\alias{_PACKAGE}
 \alias{provenance-package}
 \title{Menu-based interface for \code{provenance}}
 \usage{
