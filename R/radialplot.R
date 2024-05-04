@@ -66,7 +66,7 @@
 #' Measurements, 21(4), pp.459-470.
 #' @examples
 #' data(Namib)
-#' radialplot(Namib$PT,components=c('Q','P'))
+#' radialplot(Namib$PT,num='Q',den='P')
 #' @importFrom IsoplotR radialplot
 #' @export
 radialplot.counts <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,

@@ -422,8 +422,16 @@ removeNAcols <- function(x){
     subset(x,select=!bad)
 }
 
+
+#' bootstrapped confidence intervals for MDS
+#' @param x a provenance data object
+#' @noRd
 resample <- function(x,...){ UseMethod("resample",x) }
+#' @noRd
 resample.default <- function(x,...){ stop('No default method') }
+#' @param nb number of bootstrap samples
+#' @param seed random number seed
+#' @noRd
 resample.distributional <- function(x,nb=10,seed=1,...){
     set.seed(seed)
     snames <- names(x$x)
@@ -442,6 +450,7 @@ resample.distributional <- function(x,nb=10,seed=1,...){
     }
     return(out)
 }
+#' @noRd
 resample.varietal <- function(x,nb=10,seed=1,...){
     set.seed(1)
     out <- x
