@@ -67,4 +67,4 @@ data. Earth and Planetary Science Letters 501, 1-7](https://www.ucl.ac.uk/~ucfbp
 
 ## License
 
-This project is licensed under the GPL-3 License
+This project is licensed under the GPL-2 License
