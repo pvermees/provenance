@@ -302,20 +302,23 @@ gui.mds <- function(){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance\n",
                 "2 - Kuiper distance\n",
-                "3 - Sircombe-Hazelton distance [default]")
+                "3 - Wasserstein distance\n",
+                "4 - Sircombe-Hazelton distance [default]")
         response <- readline()
         if (response == "1") method <- "KS"
         else if (response == "2") method <- "Kuiper"
+        else if (response == "3") method <- "W2"
         else method <- "SH"
     }
     if ( (methods::is(dat,"distributional") & length(dat$err)==0) |
          methods::is(dat,"varietal") ){
         message("Choose:\n",
                 "1 - Kolmogorov-Smirnov distance [default]\n",
-                "2 - Kuiper distance")
+                "2 - Kuiper distance\n",
+                "3 - Wasserstein distance")
         response <- readline()
         if (response == "2") method <- "Kuiper"
-        else if (response == "3") method <- "SH"
+        else if (response == "3") method <- "W2"
         else method <- "KS"            
 
     }
