@@ -84,21 +84,24 @@ radialplot.counts <- function(x,num=1,den=2,from=NA,to=NA,t0=NA,
     IsoplotR:::radial_plot(X,show.numbers=show.numbers,pch=pch,
                            levels=levels,clabel=clabel,bg=pcol,...)
     fit <- central(dat)
-    ratio <- fit['theta',1]/fit['theta',2]
-    err <- fit['err',1]*ratio
-    rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
-    line1 <- substitute(a~'='~b%+-%c~(1*sigma),
-                        list(a=label,
-                             b=rounded.ratio[1],
-                             c=rounded.ratio[2]))
-    line2 <- substitute('MSWD ='~a~', p('*chi^2*')='~b,
-                        list(a=signif(fit['mswd',1],sigdig),
-                             b=signif(fit['p.value',1],sigdig)))
-    line3 <- substitute('dispersion ='~a*'%',
-                        list(a=signif(100*fit['sigma',1],sigdig)))
-    graphics::mtext(line1,line=2)
-    graphics::mtext(line2,line=1)
-    graphics::mtext(line3,line=0)
+    if (title){
+        ratio <- fit['theta',1]/fit['theta',2]
+        err <- fit['err',1]*ratio
+        rounded.ratio <- IsoplotR:::roundit(ratio,err,sigdig=sigdig)
+        line1 <- substitute(a~'='~b%+-%c~(1*sigma),
+                            list(a=label,
+                                 b=rounded.ratio[1],
+                                 c=rounded.ratio[2]))
+        line2 <- substitute('MSWD ='~a~', p('*chi^2*')='~b,
+                            list(a=signif(fit['mswd',1],sigdig),
+                                 b=signif(fit['p.value',1],sigdig)))
+        line3 <- substitute('dispersion ='~a*'%',
+                            list(a=signif(100*fit['sigma',1],sigdig)))
+        graphics::mtext(line1,line=2)
+        graphics::mtext(line2,line=1)
+        graphics::mtext(line3,line=0)
+    }
+    invisible(fit)
 }
 
 x2zs <- function(x,from=NA,to=NA,t0=NA){
