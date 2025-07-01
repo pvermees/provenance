@@ -52,7 +52,7 @@ install_github('pvermees/provenance')
 ## Further information
 
 See
-[https://www.ucl.ac.uk/~ucfbpve/provenance/](https://www.ucl.ac.uk/~ucfbpve/provenance/)
+[https://pieter-vermeesch.es.ucl.ac.uk/provenance/](https://pieter-vermeesch.es.ucl.ac.uk/provenance/)
 
 [Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An R package for
 statistical provenance analysis, Sedimentary Geology, 336,
@@ -63,7 +63,7 @@ data. Earth and Planetary Science Letters 501, 1-7](https://www.ucl.ac.uk/~ucfbp
 
 ## Author
 
-[Pieter Vermeesch](https://www.ucl.ac.uk/~ucfbpve/)
+[Pieter Vermeesch](https://pieter-vermeesch.es.ucl.ac.uk)
 
 ## License
 

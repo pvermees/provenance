@@ -39,7 +39,7 @@ Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://www.ucl.ac.uk/~ucfbpve/provenance/}
+  \item \url{https://pieter-vermeesch.es.ucl.ac.uk/provenance/}
 }
 
 }
