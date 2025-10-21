@@ -359,13 +359,17 @@ as.acomp <- function(x){
 }
 
 as.compositional.matrix <- function(x,method=NULL,colmap='rainbow'){
-    out <- list(x=NULL,method=method,colmap=colmap)
+    out <- list(x=NULL,colmap=colmap)
     class(out) <- "compositional"
     out$x <- data.matrix(x)
     nc <- ncol(out$x)
     if (nc==3) out$x <- out$x[,c(3,1,2)]
     if (nc>3) out$x <- out$x[,c(3,1,2,4:nc)]
     if (nc<3) out$x <- out$x
+    if (is.null(method)){
+        if (any(out$x==0)) { out$method <- "bray" }
+        else { out$method <- "aitchison" }
+    }
     return(out)
 }
 
