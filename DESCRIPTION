@@ -12,6 +12,6 @@ Suggests: transport, T4transport
 URL: https://pieter-vermeesch.es.ucl.ac.uk/provenance/
 License: GPL-2
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 NeedsCompilation: no
