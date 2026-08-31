@@ -114,6 +114,10 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     measure which should be used for comparing this with other
 #'     datasets. Should be one of either \code{"KS"} (for
 #'     Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)
+#' @param compositional logical. If \code{TRUE}, subjects the varietal
+#'     data to a CLR transformation before calculating the Wasserstein
+#'     distance. If \code{FALSE}, uses the original scale of
+#'     measurements.
 #' @param check.names logical.  If \code{TRUE} then the names of the
 #'     variables in the frame are checked to ensure that they are
 #'     syntactically variable names.
@@ -136,11 +140,13 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #' plot(MDS(Ttn))
 #'@export
 read.varietal <- function(fname,snames=NULL,sep=',',dec='.',
-                          method='KS',check.names=FALSE,row.names=1,...){
+                          method='KS',compositional=TRUE,
+                          check.names=FALSE,row.names=1,...){
     x <- utils::read.csv(fname,sep=sep,dec=dec,
                          check.names=check.names,
                          row.names=row.names,...)
-    out <- as.varietal(x=x,snames=snames,method=method)
+    out <- as.varietal(x=x,snames=snames,method=method,
+                       compositional=compositional)
     out$name <- basename(substr(fname,1,nchar(fname)-4))
     return(out)
 }
@@ -426,13 +432,17 @@ as.compositional <- function(x,method=NULL,colmap='rainbow'){
 #'     sample names, followed by a number.
 #' @param method either \code{'KS'} (for the Kolmogorov-Smirnov
 #'     statistic) or \code{'W2'} (for the Wasserstein-2 distance).
+#' @param compositional logical. If \code{TRUE}, subjects the varietal
+#'     data to a CLR transformation before calculating the Wasserstein
+#'     distance. If \code{FALSE}, uses the original scale of
+#'     measurements.
 #' @return an object of class \code{varietal}
 #' @examples
 #' fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
-#' ap1 <- read.csv(fn)
+#' ap1 <- read.csv(fn,row.names=1)
 #' ap2 <- as.varietal(x=ap1,snames=3)
 #' @export
-as.varietal <- function(x,snames=NULL,method='KS'){
+as.varietal <- function(x,snames=NULL,method='KS',compositional=TRUE){
     if (is.null(snames)){
         snames <- unique(gsub("[[:digit:]]","",rownames(x)))
     } else if (is.numeric(snames)){
@@ -441,6 +451,7 @@ as.varietal <- function(x,snames=NULL,method='KS'){
     out <- list()
     out$name <- deparse(substitute(x))
     out$method <- method
+    out$compositional <- compositional
     out$x <- list()
     for (sname in snames){
         matches <- which(grepl(sname,rownames(x)))

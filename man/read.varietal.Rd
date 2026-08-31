@@ -10,6 +10,7 @@ read.varietal(
   sep = ",",
   dec = ".",
   method = "KS",
+  compositional = TRUE,
   check.names = FALSE,
   row.names = 1,
   ...
@@ -33,6 +34,11 @@ the file are separated by this character.}
 measure which should be used for comparing this with other
 datasets. Should be one of either \code{"KS"} (for
 Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)}
+
+\item{compositional}{logical. If \code{TRUE}, subjects the varietal
+data to a CLR transformation before calculating the Wasserstein
+distance. If \code{FALSE}, uses the original scale of
+measurements.}
 
 \item{check.names}{logical.  If \code{TRUE} then the names of the
 variables in the frame are checked to ensure that they are

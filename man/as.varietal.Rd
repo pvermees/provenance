@@ -4,7 +4,7 @@
 \alias{as.varietal}
 \title{create a \code{varietal} object}
 \usage{
-as.varietal(x, snames = NULL, method = "KS")
+as.varietal(x, snames = NULL, method = "KS", compositional = TRUE)
 }
 \arguments{
 \item{x}{an object of class \code{matrix} or \code{data.frame}}
@@ -17,6 +17,11 @@ sample names, followed by a number.}
 
 \item{method}{either \code{'KS'} (for the Kolmogorov-Smirnov
 statistic) or \code{'W2'} (for the Wasserstein-2 distance).}
+
+\item{compositional}{logical. If \code{TRUE}, subjects the varietal
+data to a CLR transformation before calculating the Wasserstein
+distance. If \code{FALSE}, uses the original scale of
+measurements.}
 }
 \value{
 an object of class \code{varietal}
@@ -27,6 +32,6 @@ object of class \code{varietal}
 }
 \examples{
 fn <- system.file("SNSM/Ttn_chem.csv",package="provenance")
-ap1 <- read.csv(fn)
+ap1 <- read.csv(fn,row.names=1)
 ap2 <- as.varietal(x=ap1,snames=3)
 }
