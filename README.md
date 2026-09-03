@@ -51,15 +51,12 @@ install_github('pvermees/provenance')
 
 ## Further information
 
-See
-[https://pieter-vermeesch.es.ucl.ac.uk/provenance/](https://pieter-vermeesch.es.ucl.ac.uk/provenance/)
-
 [Vermeesch, P., Resentini, A. and Garzanti, E., 2016, An R package for
 statistical provenance analysis, Sedimentary Geology, 336,
-14-25](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschSedGeol2016/)
+14-25](https://doi.org/10.1016/j.sedgeo.2016.01.009)
 
 [Vermeesch, P., 2018, Statistical models for point-counting
-data. Earth and Planetary Science Letters 501, 1-7](https://www.ucl.ac.uk/~ucfbpve/papers/VermeeschEPSL2018/)
+data. Earth and Planetary Science Letters 501, 1-7](https://doi.org/10.1016/j.epsl.2018.08.019)
 
 ## Author
 

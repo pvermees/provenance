@@ -30,17 +30,14 @@ distmat <- function(x,y){
 #'     package (\code{transport1d} function), as implemented in
 #'     \code{IsoplotR}.
 #' @return a scalar value
-#' @examples
-#' data(Namib)
-#' print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+#' @examples data(Namib)
+#'     print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 #' @rdname Wasserstein.diss
 #' @export
 Wasserstein.diss <- function(x,...){ UseMethod("Wasserstein.diss",x) }
 #' @rdname Wasserstein.diss
 #' @export
-Wasserstein.diss.default <- function(x,y,...){
-    IsoplotR::diss(x,y,method="W2")
-}
+Wasserstein.diss.default <- function(x,y,...){ IsoplotR::diss(x,y,method="W2") }
 #' @rdname Wasserstein.diss
 #' @export
 Wasserstein.diss.distributional <- function(x,log=FALSE,...){
@@ -53,14 +50,15 @@ Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
     ns <- length(snames)
     out <- matrix(0,ns,ns)
     rownames(out) <- colnames(out) <- snames
+    transformation <- ifelse(x$compositional,CLR,identity)
     for (snamei in snames){
-        xi <- CLR(x$x[[snamei]])
+        xi <- transformation(x$x[[snamei]])
         ni <- nrow(xi)
         for (snamej in snames){
             if (verbose){
                 msg <- paste0('Comparing ',snamei,' with ',snamej)
             }
-            xj <- CLR(x$x[[snamej]])
+            xj <- transformation(x$x[[snamej]])
             if (!identical(snamei,snamej)){
                 if (identical(package,"T4transport")){
                     if (requireNamespace("T4transport")){

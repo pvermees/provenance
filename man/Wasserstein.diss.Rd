@@ -43,7 +43,7 @@ Returns the Wasserstein distance between two samples
 }
 \examples{
 data(Namib)
-print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
+    print(Wasserstein.diss(Namib$DZ$x[['N1']],Namib$DZ$x[['T8']]))
 }
 \author{
 The default S3 method was written by Pieter Vermeesch,

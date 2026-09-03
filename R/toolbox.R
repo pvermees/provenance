@@ -208,15 +208,12 @@ setmM <- function(x,from=NA,to=NA,log=FALSE){
     if (is.na(to)) { to <- max(x); setM <- TRUE }
     else { setM <- FALSE }
     if (setm) {
-        if (log) { from <- from/2 }
-        else {
-            if (2*from-to<0) {from <- 0}
-            else {from <- from-(to-from)/10}
-        }
+        if (log) from <- from/2
+        else from <- from-(to-from)/10
     }
     if (setM) {
-        if (log) { to <- 2*to }
-        else { to <- to+(to-from)/10 }
+        if (log) to <- 2*to
+        else to <- to+(to-from)/10
     }
     return(list(m=from,M=to))
 }
