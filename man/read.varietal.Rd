@@ -37,8 +37,8 @@ Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)}
 
 \item{compositional}{logical. If \code{TRUE}, subjects the varietal
 data to a CLR transformation before calculating the Wasserstein
-distance. If \code{FALSE}, uses the original scale of
-measurements.}
+distance (i.e., when \code{method="W2"}). If \code{FALSE}, uses
+the original scale of measurements.}
 
 \item{check.names}{logical.  If \code{TRUE} then the names of the
 variables in the frame are checked to ensure that they are

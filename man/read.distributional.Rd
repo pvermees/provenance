@@ -70,8 +70,9 @@ each sample
 \code{err}: an (optional) named list of vectors containing the
 standard errors of \code{x}
 
-\code{method}: either "KS" (for Kolmogorov-Smirnov), "Kuiper" (for
-the Kuiper statistic) or "SH" (for Sircombe Hazelton)
+\code{method}: either \code{"KS"} (for Kolmogorov-Smirnov),
+\code{"Kuiper"} (for the Kuiper statistic), \code{"SH"} (for
+Sircombe Hazelton) or \code{"W2"} for (Wasserstein-2).
 
 \code{breaks}: a vector with the locations of the histogram bin edges
 

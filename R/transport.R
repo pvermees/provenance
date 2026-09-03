@@ -50,7 +50,11 @@ Wasserstein.diss.varietal <- function(x,package="transport",verbose=FALSE,...){
     ns <- length(snames)
     out <- matrix(0,ns,ns)
     rownames(out) <- colnames(out) <- snames
-    transformation <- ifelse(x$compositional,CLR,identity)
+    if (x$compositional){
+        transformation <- CLR
+    } else {
+        transformation <- identity
+    }
     for (snamei in snames){
         xi <- transformation(x$x[[snamei]])
         ni <- nrow(xi)
