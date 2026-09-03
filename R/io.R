@@ -43,8 +43,9 @@
 #' \code{err}: an (optional) named list of vectors containing the
 #' standard errors of \code{x}
 #'
-#' \code{method}: either "KS" (for Kolmogorov-Smirnov), "Kuiper" (for
-#' the Kuiper statistic) or "SH" (for Sircombe Hazelton)
+#' \code{method}: either \code{"KS"} (for Kolmogorov-Smirnov),
+#' \code{"Kuiper"} (for the Kuiper statistic), \code{"SH"} (for
+#' Sircombe Hazelton) or \code{"W2"} for (Wasserstein-2).
 #' 
 #' \code{breaks}: a vector with the locations of the histogram bin edges
 #' 
@@ -116,8 +117,8 @@ read.distributional <- function(fname,errorfile=NA,method="KS",
 #'     Kolmogorov-Smirnov) or \code{"Kuiper"} (for Kuiper)
 #' @param compositional logical. If \code{TRUE}, subjects the varietal
 #'     data to a CLR transformation before calculating the Wasserstein
-#'     distance. If \code{FALSE}, uses the original scale of
-#'     measurements.
+#'     distance (i.e., when \code{method="W2"}). If \code{FALSE}, uses
+#'     the original scale of measurements.
 #' @param check.names logical.  If \code{TRUE} then the names of the
 #'     variables in the frame are checked to ensure that they are
 #'     syntactically variable names.
